@@ -4,6 +4,7 @@ apSsid="cait"
 apPassword="caitcait"
 apIp="10.0.0.1"
 apCountryCode="CA"
+serial=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2)
 
 cd setup_scripts
 sudo addgroup cait
@@ -64,5 +65,11 @@ for i in ${!options[@]}; do
     fi
 
 done
+
+originalHost=$(hostname)
+hostName = "cait_$serial"
+echo "Changing hostname to: $hostName"
+sudo echo "$hostName" >> /etc/hostname
+sudo sed -i "s/$originalHost/$hostName/" /etc/hosts
 
 sudo ./setup-network.sh --install --ap-ssid="$apSsid" --ap-password="$apPassword" --ap-country-code="$apCountryCode" --ap-ip-address="$apIp" --wifi-interface="$wlanInterfaceNameDefault"
