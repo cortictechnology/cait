@@ -6,6 +6,8 @@ apIp="10.0.0.1"
 apCountryCode="CA"
 serial=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2)
 
+sudo apt update
+sudo apt -y full-upgrade
 cd setup_scripts
 sudo addgroup cait
 sudo usermod -a -G cait pi
@@ -20,7 +22,7 @@ sudo docker pull cortictech/speech:0.51
 sudo docker pull cortictech/nlp:0.51
 sudo docker pull cortictech/vision:0.51
 sudo docker pull cortictech/control:0.51
-sudo docker pull cortictech/broker:0.51
+sudo docker pull cortictech/broker:0.5
 sudo apt-get install v4l-utils -y
 sudo apt-get install portaudio19-dev mplayer -y
 sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio
