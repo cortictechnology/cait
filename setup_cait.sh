@@ -44,6 +44,7 @@ sudo cp cait_webapp.service cait_jupyter.service cait_components.service /etc/sy
 sudo systemctl daemon-reload
 cd /etc/systemd/system
 sudo systemctl enable cait_*
+cd setup_scripts
 rm get-docker.sh
 
 for i in ${!options[@]}; do
