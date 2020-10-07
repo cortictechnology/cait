@@ -31,10 +31,7 @@ import wave
 from wifi import Cell
 from shutil import copyfile
 
-import cait.telemetry
-
 logging.getLogger().setLevel(logging.INFO)
-telemetry_logger = cait.telemetry.Logger("Visual")
 
 auth = HTTPBasicAuth()
 
@@ -331,32 +328,28 @@ def signup():
 
 @application.route('/programming')
 @auth.login_required
-@telemetry_logger.usage_logger
 def programming():
     if not g.username or g.username == "logout":
         o = urlparse(request.base_url)
         return redirect("http://" + o.hostname, code=302)
-    return {"return" : render_template('programming.html'), "user" : g.username}
+    return render_template('programming.html')
 
 @application.route("/get_cloud_accounts", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def get_cloud_accounts():
     account_list = essentials.get_cloud_accounts()
-    return {"return": jsonify(account_list), "user": g.username}
+    return jsonify(account_list)
 
 @application.route("/get_virtual_processors", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def get_virtual_processors():
     processor_type = request.form.get('processor_type')
     virtual_processors = essentials.get_virtual_processors(processor_type)
     #print(virtual_processors)
-    return {"return": jsonify(virtual_processors), "user": g.username}
+    return jsonify(virtual_processors)
 
 @application.route("/initialize_component", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def initialize_component():
     component_name = request.form.get('component_name')
     mode = request.form.get('mode')
@@ -371,21 +364,19 @@ def initialize_component():
         result = {"success": success, "error": msg}
     else:
         result = {"success": success}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/change_module_parameters", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def change_module_parameters():
     parameter_name = request.form.get('parameter_name')
     value = float(request.form.get('value'))
     essentials.change_module_parameters(parameter_name, value)
     result = {"success": True}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/camerafeed", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def camerafeed():
     img = essentials.get_camera_image()
     if img is not None:
@@ -394,69 +385,61 @@ def camerafeed():
         contents = base64.b64encode(encodedImage.getvalue()).decode()
         encodedImage.close()
         contents = contents.split('\n')[0]
-        return {"return" : contents, "user" : g.username}
+        return contents
 
 @application.route("/recognizeface", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def recognizeface():
     person = essentials.recognize_face()
-    return {"return" : jsonify(person), "user" : g.username}
+    return jsonify(person)
 
 @application.route("/addperson", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def addperson():
     person_name = request.form.get('name')
     success = essentials.add_person(person_name)
     result = {"success": success}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/removeperson", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def removeperson():
     person_name = request.form.get('name')
     logging.info("Remove: " + person_name)
     success = essentials.remove_person(person_name)
     result = {"success": success}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/detectobject", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def detectobject():
     objects = essentials.detect_objects()
-    return {"return" : jsonify(objects), "user" : g.username}
+    return jsonify(objects)
 
 @application.route("/listen", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def listen():
     text = essentials.listen()
     result = {"text" : text}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/say", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def say():
     text = request.form.get('text')
     success = essentials.say(text)
     result = {"success": success}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/analyze", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def analyze():
     text = request.form.get('text')
     result = essentials.analyse_text(text)
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/saveworkspace", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def saveworkspace():
     xml_text = request.form.get('xml_text')
     filename = request.form.get('filename')
@@ -482,11 +465,10 @@ def saveworkspace():
         result = {"success": 1}
     else:
         result = {"success": -1}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/savepythoncode", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def savepythoncode():
     code = request.form.get('code')
     filename = request.form.get('filename')
@@ -508,11 +490,10 @@ def savepythoncode():
         result = {"success": True}
     else:
         result = {"success": -1}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/savenotebook", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def savenotebook():
     nb = nbf.v4.new_notebook()
     code = request.form.get('code')
@@ -543,11 +524,10 @@ def savenotebook():
         result = {"success": True}
     else:
         result = {"success": -1}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/loadworkspace", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def loadworkspace():
     filename = request.form.get('filename')
     if filename != "":
@@ -568,75 +548,68 @@ def loadworkspace():
         result = {"xml_text": xml_text}
     else:
         result = {"xml_text": ""}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/control_motor", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def move():
     motor_name = request.form.get('motor_name')
     speed = request.form.get('speed')
     duration = request.form.get('duration')
     success = essentials.control_motor(motor_name, speed, duration)
     result = {"success": success}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/control_motor_speed_group", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def control_motor_speed_group():
     operation_list = request.form.get('data')
     success = essentials.control_motor_speed_group(operation_list)
     result = {"success": success}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/rotate_motor", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def rotate_motor():
     motor_name = request.form.get('motor_name')
     angle = request.form.get('angle')
     success = essentials.rotate_motor(motor_name, int(angle))
     result = {"success": success}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/control_motor_degree_group", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def control_motor_degree_group():
     operation_list = request.form.get('data')
     success = essentials.control_motor_degree_group(operation_list)
     result = {"success": success}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/get_states", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def get_states():
     device_type = request.form.get('device_type')
     devices = essentials.get_devices(device_type)
-    return {"return" : jsonify(devices), "user" : g.username}
+    return jsonify(devices)
 
 @application.route("/control_light", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def control_light():
     device_name = "light." + request.form.get('device_name')
     operation = request.form.get('operation')
     parameter = request.form.get('parameter')
     result = essentials.control_light(device_name, operation, parameter)
     result = {'result': result}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 @application.route("/control_media_player", methods=['POST'])
 @auth.login_required
-@telemetry_logger.usage_logger
 def control_media_player():
     device_name = "media_player." + request.form.get('device_name')
     operation = request.form.get('operation')
     result = essentials.control_media_player(device_name, operation)
     result = {'result': result}
-    return {"return" : jsonify(result), "user" : g.username}
+    return jsonify(result)
 
 if __name__ == "__main__":
     application.run()

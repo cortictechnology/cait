@@ -44,7 +44,7 @@ sudo cp cait_webapp.service cait_jupyter.service cait_components.service /etc/sy
 sudo systemctl daemon-reload
 sudo systemctl enable /etc/systemd/system/cait_*
 
-rm get-docker.sh
+sudo rm get-docker.sh
 
 for i in ${!options[@]}; do
 
@@ -69,7 +69,7 @@ for i in ${!options[@]}; do
 done
 
 originalHost=$(hostname)
-hostName="cait_$serial"
+hostName="cait-$serial"
 echo "Changing hostname to: $hostName"
 sudo sed -i "s/$originalHost/$hostName/" /etc/hostname
 sudo sed -i "s/$originalHost/$hostName/" /etc/hosts
