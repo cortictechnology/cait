@@ -42,9 +42,8 @@ sudo pip3 install jupyterhub
 sudo cp chkpass.sh start_cait_components.sh start_jupyterhub.sh add_wifi.py scan_wifi.py enableAP.sh /opt/
 sudo cp cait_webapp.service cait_jupyter.service cait_components.service /etc/systemd/system
 sudo systemctl daemon-reload
-cd /etc/systemd/system
-sudo systemctl enable cait_*
-cd setup_scripts
+sudo systemctl enable /etc/systemd/system/cait_*
+
 rm get-docker.sh
 
 for i in ${!options[@]}; do
