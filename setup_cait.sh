@@ -69,7 +69,7 @@ for i in ${!options[@]}; do
 done
 
 originalHost=$(hostname)
-hostName = "cait_$serial"
+hostName="cait_$serial"
 echo "Changing hostname to: $hostName"
 sudo echo "$hostName" >> /etc/hostname
 sudo sed -i "s/$originalHost/$hostName/" /etc/hosts
