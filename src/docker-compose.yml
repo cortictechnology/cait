@@ -2,7 +2,8 @@ version: '3'
 services:
   cait_broker:
     network_mode: host
-    image: "registry.cortic.ca/cait-broker"
+    image: "cortictech/broker:0.51"
+    restart: always 
     command: "bash /start_broker.sh"
 
   cait_homeassistant:
@@ -18,7 +19,8 @@ services:
   
   cait_nlp:
     network_mode: host
-    image: "registry.cortic.ca/cait-nlp"
+    image: "cortictech/nlp:0.51"
+    restart: always 
     volumes:
       - /opt/cortic_modules/nlp_module:/nlp_module
     command: "taskset --cpu-list 2 python3 /nlp_module/nlu.py"
@@ -26,7 +28,8 @@ services:
   cait_stt_tts:
     network_mode: host
     privileged: true
-    image: "registry.cortic.ca/cait-stt_tts"
+    image: "cortictech/speech:0.51"
+    restart: always 
     # environment:
     #   - PULSE_SERVER=unix:/tmp/pulseaudio.socket
     #   - PULSE_COOKIE=/tmp/pulseaudio.cookie
@@ -43,16 +46,20 @@ services:
   cait_vision:
     network_mode: host
     privileged: true
-    image: "registry.cortic.ca/cait-vision"
+    image: "cortictech/vision:0.51"
+    restart: always 
     volumes:
       - /lib/modules:/lib/modules
+      - /dev:/dev
       - /opt/cortic_modules/vision_module:/vision_module
+    user: root
     command: "bash /vision_module/start.sh"
 
   cait_control:
     network_mode: host
     privileged: true
-    image: "registry.cortic.ca/cait-control"
+    image: "cortictech/control:0.51"
+    restart: always 
     volumes:
       - /opt/cortic_modules/control_module:/control_module
     command: "python3 /control_module/control.py"
