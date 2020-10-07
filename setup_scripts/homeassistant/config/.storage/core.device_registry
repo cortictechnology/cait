@@ -1,0 +1,153 @@
+{
+    "data": {
+        "devices": [
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d48102b0d1ec4bf19bfe8f79f1d6cc9b"
+                ],
+                "connections": [],
+                "id": "314d7b2e748b494d889815fafc271a0f",
+                "identifiers": [
+                    [
+                        "cast",
+                        "74a4fb698afe0f04bcb55aad7dee7495"
+                    ]
+                ],
+                "manufacturer": "Unknown manufacturer",
+                "model": "Google Nest Hub",
+                "name": "Living Room Display",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "d48102b0d1ec4bf19bfe8f79f1d6cc9b"
+                ],
+                "connections": [],
+                "id": "9598a36d6d574465a06d584d269a574a",
+                "identifiers": [
+                    [
+                        "cast",
+                        "d037784cb2bd55bee86cfd91b8ea5cd1"
+                    ]
+                ],
+                "manufacturer": "Unknown manufacturer",
+                "model": "Google Home",
+                "name": "Bedroom Speaker",
+                "name_by_user": null,
+                "sw_version": null,
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "0e32e68ec1244eb78f59b8f5899e6fb9"
+                ],
+                "connections": [
+                    [
+                        "mac",
+                        "00:17:88:a2:c0:21"
+                    ]
+                ],
+                "id": "1b1de20db5da49778f5691769cd0e122",
+                "identifiers": [
+                    [
+                        "hue",
+                        "001788FFFEA2C021"
+                    ]
+                ],
+                "manufacturer": "Signify",
+                "model": "BSB002",
+                "name": "Philips hue",
+                "name_by_user": null,
+                "sw_version": "01033990",
+                "via_device_id": null
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "0e32e68ec1244eb78f59b8f5899e6fb9"
+                ],
+                "connections": [],
+                "id": "1b23a2fb0d254343929f174270def207",
+                "identifiers": [
+                    [
+                        "hue",
+                        "00:17:88:01:03:53:d1:eb-0b"
+                    ]
+                ],
+                "manufacturer": "Philips",
+                "model": "LCT016",
+                "name": "Hue color lamp 2",
+                "name_by_user": null,
+                "sw_version": "",
+                "via_device_id": "1b1de20db5da49778f5691769cd0e122"
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "0e32e68ec1244eb78f59b8f5899e6fb9"
+                ],
+                "connections": [],
+                "id": "43975a4f24e949d6984ec8b222934ba4",
+                "identifiers": [
+                    [
+                        "hue",
+                        "00:17:88:01:03:23:bd:0b-0b"
+                    ]
+                ],
+                "manufacturer": "Philips",
+                "model": "LCT016",
+                "name": "Hue color lamp 4",
+                "name_by_user": null,
+                "sw_version": "",
+                "via_device_id": "1b1de20db5da49778f5691769cd0e122"
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "0e32e68ec1244eb78f59b8f5899e6fb9"
+                ],
+                "connections": [],
+                "id": "69480651563344fbb47f55de41c4e36b",
+                "identifiers": [
+                    [
+                        "hue",
+                        "00:17:88:01:03:20:c4:28-0b"
+                    ]
+                ],
+                "manufacturer": "Philips",
+                "model": "LCT016",
+                "name": "Hue color lamp 1",
+                "name_by_user": null,
+                "sw_version": "",
+                "via_device_id": "1b1de20db5da49778f5691769cd0e122"
+            },
+            {
+                "area_id": null,
+                "config_entries": [
+                    "0e32e68ec1244eb78f59b8f5899e6fb9"
+                ],
+                "connections": [],
+                "id": "89efad608e1840c3a258269d42e65343",
+                "identifiers": [
+                    [
+                        "hue",
+                        "00:17:88:01:03:01:13:51-0b"
+                    ]
+                ],
+                "manufacturer": "Philips",
+                "model": "LCT016",
+                "name": "Hue color lamp 3",
+                "name_by_user": null,
+                "sw_version": "1.19.0_r19755",
+                "via_device_id": "1b1de20db5da49778f5691769cd0e122"
+            }
+        ]
+    },
+    "key": "core.device_registry",
+    "version": 1
+}

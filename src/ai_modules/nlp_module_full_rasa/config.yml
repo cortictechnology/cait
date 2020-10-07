@@ -1,0 +1,26 @@
+language: "en"
+pipeline:
+  - name: "WhitespaceTokenizer"
+  - name: "RegexFeaturizer"
+  - name: "CRFEntityExtractor"
+  - name: "EntitySynonymMapper"
+  - name: "CountVectorsFeaturizer"
+  - name: "CountVectorsFeaturizer"
+    analyzer: "char_wb"
+    min_ngram: 1
+    max_ngram: 4
+  - name: "EmbeddingIntentClassifier"
+  - name: "SpacyNLP"
+  - name: "SpacyEntityExtractor"
+
+policies:
+  - name: KerasPolicy
+    epochs: 110
+    max_history: 10
+  - name: MemoizationPolicy
+    max_history: 10
+  - name: MappingPolicy
+  - name: "FallbackPolicy"
+    nlu_threshold: 0.2
+    core_threshold: 0.2
+    fallback_action_name: "action_default_fallback"

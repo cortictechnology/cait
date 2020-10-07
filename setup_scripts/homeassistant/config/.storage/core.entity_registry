@@ -1,0 +1,153 @@
+{
+    "data": {
+        "entities": [
+            {
+                "capabilities": {},
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "binary_sensor.updater",
+                "name": null,
+                "platform": "updater",
+                "supported_features": 0,
+                "unique_id": "updater",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": null,
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "person.ai_learner",
+                "name": null,
+                "platform": "person",
+                "supported_features": 0,
+                "unique_id": "ai_learner",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "589186739dca4eeea0fa7913ee585926",
+                "device_class": null,
+                "device_id": null,
+                "disabled_by": null,
+                "entity_id": "weather.school",
+                "name": null,
+                "platform": "met",
+                "supported_features": 0,
+                "unique_id": "home",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "d48102b0d1ec4bf19bfe8f79f1d6cc9b",
+                "device_class": null,
+                "device_id": "314d7b2e748b494d889815fafc271a0f",
+                "disabled_by": null,
+                "entity_id": "media_player.living_room_display",
+                "name": null,
+                "platform": "cast",
+                "supported_features": 21389,
+                "unique_id": "74a4fb69-8afe-0f04-bcb5-5aad7dee7495",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {},
+                "config_entry_id": "d48102b0d1ec4bf19bfe8f79f1d6cc9b",
+                "device_class": null,
+                "device_id": "9598a36d6d574465a06d584d269a574a",
+                "disabled_by": null,
+                "entity_id": "media_player.bedroom_speaker",
+                "name": null,
+                "platform": "cast",
+                "supported_features": 21389,
+                "unique_id": "d037784c-b2bd-55be-e86c-fd91b8ea5cd1",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {
+                    "effect_list": [
+                        "colorloop",
+                        "random"
+                    ],
+                    "max_mireds": 500,
+                    "min_mireds": 153
+                },
+                "config_entry_id": "0e32e68ec1244eb78f59b8f5899e6fb9",
+                "device_class": null,
+                "device_id": "1b23a2fb0d254343929f174270def207",
+                "disabled_by": null,
+                "entity_id": "light.hue_color_lamp_2",
+                "name": null,
+                "platform": "hue",
+                "supported_features": 63,
+                "unique_id": "00:17:88:01:03:53:d1:eb-0b",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {
+                    "effect_list": [
+                        "colorloop",
+                        "random"
+                    ],
+                    "max_mireds": 500,
+                    "min_mireds": 153
+                },
+                "config_entry_id": "0e32e68ec1244eb78f59b8f5899e6fb9",
+                "device_class": null,
+                "device_id": "43975a4f24e949d6984ec8b222934ba4",
+                "disabled_by": null,
+                "entity_id": "light.hue_color_lamp_4",
+                "name": null,
+                "platform": "hue",
+                "supported_features": 63,
+                "unique_id": "00:17:88:01:03:23:bd:0b-0b",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {
+                    "effect_list": [
+                        "colorloop",
+                        "random"
+                    ],
+                    "max_mireds": 500,
+                    "min_mireds": 153
+                },
+                "config_entry_id": "0e32e68ec1244eb78f59b8f5899e6fb9",
+                "device_class": null,
+                "device_id": "69480651563344fbb47f55de41c4e36b",
+                "disabled_by": null,
+                "entity_id": "light.hue_color_lamp_1",
+                "name": null,
+                "platform": "hue",
+                "supported_features": 63,
+                "unique_id": "00:17:88:01:03:20:c4:28-0b",
+                "unit_of_measurement": null
+            },
+            {
+                "capabilities": {
+                    "effect_list": [
+                        "colorloop",
+                        "random"
+                    ],
+                    "max_mireds": 500,
+                    "min_mireds": 153
+                },
+                "config_entry_id": "0e32e68ec1244eb78f59b8f5899e6fb9",
+                "device_class": null,
+                "device_id": "89efad608e1840c3a258269d42e65343",
+                "disabled_by": null,
+                "entity_id": "light.hue_color_lamp_3",
+                "name": null,
+                "platform": "hue",
+                "supported_features": 63,
+                "unique_id": "00:17:88:01:03:01:13:51-0b",
+                "unit_of_measurement": null
+            }
+        ]
+    },
+    "key": "core.entity_registry",
+    "version": 1
+}

@@ -1,0 +1,182 @@
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/usr/local/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: compiletime version 3.4 of module 'tensorflow.python.framework.fast_tensor_util' does not match runtime version 3.6
+  return f(*args, **kwds)
+/usr/local/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: builtins.type size changed, may indicate binary incompatibility. Expected 432, got 412
+  return f(*args, **kwds)
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+2019-11-29 02:27:54 INFO     rasa_sdk.endpoint  - Starting action endpoint server...
+2019-11-29 02:27:54 WARNING  root  - Connected to broker
+2019-11-29 02:27:54 INFO     rasa_sdk.executor  - Registered function for 'action_add_user_name'.
+2019-11-29 02:27:54 INFO     rasa_sdk.executor  - Registered function for 'action_extract_user_name'.
+2019-11-29 02:27:54 INFO     rasa_sdk.executor  - Registered function for 'action_start_demo'.
+2019-11-29 02:27:54 INFO     rasa_sdk.executor  - Registered function for 'action_stop_demo'.
+2019-11-29 02:27:54 INFO     rasa_sdk.executor  - Registered function for 'action_next_demo_state'.
+2019-11-29 02:27:54 INFO     rasa_sdk.executor  - Registered function for 'action_next_demo'.
+2019-11-29 02:27:54 INFO     rasa_sdk.executor  - Registered function for 'action_repeat_demo'.
+2019-11-29 02:27:54 INFO     rasa_sdk.endpoint  - Action endpoint is up and running on http ('0.0.0.0', 5055)
+127.0.0.1 - - [2019-11-29 02:31:06] "POST /webhook HTTP/1.1" 200 305 0.011268
+127.0.0.1 - - [2019-11-29 02:31:20] "POST /webhook HTTP/1.1" 200 194 0.007989
+127.0.0.1 - - [2019-11-29 02:32:02] "POST /webhook HTTP/1.1" 200 241 0.007695
+127.0.0.1 - - [2019-11-29 02:33:37] "POST /webhook HTTP/1.1" 200 305 0.005109
+127.0.0.1 - - [2019-11-29 02:34:15] "POST /webhook HTTP/1.1" 200 194 0.006252
+127.0.0.1 - - [2019-11-29 02:38:23] "POST /webhook HTTP/1.1" 200 305 0.016391
+127.0.0.1 - - [2019-11-29 02:38:38] "POST /webhook HTTP/1.1" 200 194 0.008017
+127.0.0.1 - - [2019-11-29 02:39:20] "POST /webhook HTTP/1.1" 200 241 0.022182
+127.0.0.1 - - [2019-11-29 02:40:13] "POST /webhook HTTP/1.1" 200 238 0.008420
+127.0.0.1 - - [2019-11-29 02:41:12] "POST /webhook HTTP/1.1" 200 238 0.009900
+127.0.0.1 - - [2019-11-29 18:47:57] "POST /webhook HTTP/1.1" 200 305 0.017735
+127.0.0.1 - - [2019-11-29 18:48:14] "POST /webhook HTTP/1.1" 200 194 0.007793
+127.0.0.1 - - [2019-11-29 19:01:26] "POST /webhook HTTP/1.1" 200 305 0.007570
+127.0.0.1 - - [2019-11-29 19:01:38] "POST /webhook HTTP/1.1" 200 194 0.010080
+127.0.0.1 - - [2019-11-29 19:05:47] "POST /webhook HTTP/1.1" 200 305 0.007633
+127.0.0.1 - - [2019-11-29 19:05:58] "POST /webhook HTTP/1.1" 200 194 0.009513
+127.0.0.1 - - [2019-11-29 19:37:39] "POST /webhook HTTP/1.1" 200 305 0.007931
+127.0.0.1 - - [2019-11-29 19:37:59] "POST /webhook HTTP/1.1" 200 305 0.007951
+127.0.0.1 - - [2019-11-29 19:38:04] "POST /webhook HTTP/1.1" 200 305 0.009802
+127.0.0.1 - - [2019-11-29 19:52:52] "POST /webhook HTTP/1.1" 200 305 0.009404
+127.0.0.1 - - [2019-11-29 19:53:04] "POST /webhook HTTP/1.1" 200 194 0.013658
+127.0.0.1 - - [2019-11-29 19:54:38] "POST /webhook HTTP/1.1" 200 305 0.010626
+127.0.0.1 - - [2019-11-29 19:54:51] "POST /webhook HTTP/1.1" 200 194 0.010399
+127.0.0.1 - - [2019-11-29 19:57:46] "POST /webhook HTTP/1.1" 200 305 0.026453
+127.0.0.1 - - [2019-11-29 19:58:00] "POST /webhook HTTP/1.1" 200 194 0.020555
+127.0.0.1 - - [2019-11-29 19:59:11] "POST /webhook HTTP/1.1" 200 305 0.010267
+127.0.0.1 - - [2019-11-29 19:59:28] "POST /webhook HTTP/1.1" 200 194 0.021337
+127.0.0.1 - - [2019-11-29 20:01:52] "POST /webhook HTTP/1.1" 200 305 0.012782
+127.0.0.1 - - [2019-11-29 20:02:04] "POST /webhook HTTP/1.1" 200 194 0.016220
+127.0.0.1 - - [2019-11-29 20:02:33] "POST /webhook HTTP/1.1" 200 241 0.014685
+127.0.0.1 - - [2019-11-29 20:05:04] "POST /webhook HTTP/1.1" 200 305 0.021657
+127.0.0.1 - - [2019-11-29 20:05:17] "POST /webhook HTTP/1.1" 200 194 0.035049
+127.0.0.1 - - [2019-11-29 20:05:47] "POST /webhook HTTP/1.1" 200 241 0.032362
+127.0.0.1 - - [2019-11-29 20:06:30] "POST /webhook HTTP/1.1" 200 234 0.021660
+127.0.0.1 - - [2019-11-29 20:09:55] "POST /webhook HTTP/1.1" 200 305 0.020473
+127.0.0.1 - - [2019-11-29 20:10:08] "POST /webhook HTTP/1.1" 200 194 0.014652
+127.0.0.1 - - [2019-11-29 20:10:37] "POST /webhook HTTP/1.1" 200 238 0.026341
+127.0.0.1 - - [2019-11-29 20:11:07] "POST /webhook HTTP/1.1" 200 234 0.014220
+127.0.0.1 - - [2019-11-29 20:11:37] "POST /webhook HTTP/1.1" 200 241 0.020892
+127.0.0.1 - - [2019-11-29 20:13:54] "POST /webhook HTTP/1.1" 200 305 0.023647
+127.0.0.1 - - [2019-11-29 20:14:30] "POST /webhook HTTP/1.1" 200 305 0.024900
+127.0.0.1 - - [2019-11-29 20:14:42] "POST /webhook HTTP/1.1" 200 194 0.014347
+127.0.0.1 - - [2019-11-29 20:17:57] "POST /webhook HTTP/1.1" 200 305 0.008655
+127.0.0.1 - - [2019-11-29 20:18:09] "POST /webhook HTTP/1.1" 200 194 0.020884
+127.0.0.1 - - [2019-11-29 20:19:52] "POST /webhook HTTP/1.1" 200 305 0.020940
+127.0.0.1 - - [2019-11-29 20:20:05] "POST /webhook HTTP/1.1" 200 194 0.020272
+127.0.0.1 - - [2019-11-29 21:10:10] "POST /webhook HTTP/1.1" 200 305 0.009679
+127.0.0.1 - - [2019-11-29 21:10:27] "POST /webhook HTTP/1.1" 200 194 0.022750
+127.0.0.1 - - [2019-11-29 21:18:06] "POST /webhook HTTP/1.1" 200 305 0.016456
+127.0.0.1 - - [2019-11-29 21:18:14] "POST /webhook HTTP/1.1" 200 305 0.021898
+127.0.0.1 - - [2019-11-29 21:20:04] "POST /webhook HTTP/1.1" 200 305 0.016403
+127.0.0.1 - - [2019-11-29 21:21:33] "POST /webhook HTTP/1.1" 200 305 0.033799
+127.0.0.1 - - [2019-11-29 21:21:45] "POST /webhook HTTP/1.1" 200 194 0.029924
+127.0.0.1 - - [2019-11-29 21:22:23] "POST /webhook HTTP/1.1" 200 238 0.017365
+127.0.0.1 - - [2019-11-29 21:23:02] "POST /webhook HTTP/1.1" 200 241 0.017032
+127.0.0.1 - - [2019-11-29 21:23:33] "POST /webhook HTTP/1.1" 200 238 0.030672
+127.0.0.1 - - [2019-11-29 21:24:17] "POST /webhook HTTP/1.1" 200 234 0.032592
+127.0.0.1 - - [2019-11-29 21:24:45] "POST /webhook HTTP/1.1" 200 238 0.022696
+127.0.0.1 - - [2019-11-29 21:25:14] "POST /webhook HTTP/1.1" 200 241 0.039097
+127.0.0.1 - - [2019-11-29 21:30:03] "POST /webhook HTTP/1.1" 200 305 0.026534
+127.0.0.1 - - [2019-11-29 21:30:18] "POST /webhook HTTP/1.1" 200 194 0.022867
+127.0.0.1 - - [2019-11-29 21:30:57] "POST /webhook HTTP/1.1" 200 241 0.031818
+127.0.0.1 - - [2019-11-29 21:31:30] "POST /webhook HTTP/1.1" 200 234 0.029718
+127.0.0.1 - - [2019-11-29 21:32:01] "POST /webhook HTTP/1.1" 200 238 0.040253
+127.0.0.1 - - [2019-11-29 21:32:31] "POST /webhook HTTP/1.1" 200 241 0.036194
+127.0.0.1 - - [2019-11-29 21:33:03] "POST /webhook HTTP/1.1" 200 241 0.032471
+127.0.0.1 - - [2019-11-29 21:33:33] "POST /webhook HTTP/1.1" 200 234 0.035954
+127.0.0.1 - - [2019-11-29 21:34:01] "POST /webhook HTTP/1.1" 200 238 0.034348
+127.0.0.1 - - [2019-11-29 21:34:41] "POST /webhook HTTP/1.1" 200 238 0.027208
+127.0.0.1 - - [2019-11-29 21:40:35] "POST /webhook HTTP/1.1" 200 305 0.024707
+127.0.0.1 - - [2019-11-29 21:40:41] "POST /webhook HTTP/1.1" 200 305 0.017019
+127.0.0.1 - - [2019-11-29 21:40:53] "POST /webhook HTTP/1.1" 200 194 0.026742
+127.0.0.1 - - [2019-11-29 21:41:25] "POST /webhook HTTP/1.1" 200 241 0.024369
+127.0.0.1 - - [2019-11-29 21:41:56] "POST /webhook HTTP/1.1" 200 238 0.020189
+127.0.0.1 - - [2019-11-29 21:42:38] "POST /webhook HTTP/1.1" 200 241 0.034805
+127.0.0.1 - - [2019-11-29 21:43:07] "POST /webhook HTTP/1.1" 200 234 0.033332
+127.0.0.1 - - [2019-11-29 21:43:38] "POST /webhook HTTP/1.1" 200 241 0.037650
+127.0.0.1 - - [2019-11-29 21:49:34] "POST /webhook HTTP/1.1" 200 305 0.021883
+127.0.0.1 - - [2019-11-29 21:49:46] "POST /webhook HTTP/1.1" 200 194 0.024852
+127.0.0.1 - - [2019-11-29 21:50:15] "POST /webhook HTTP/1.1" 200 241 0.031235
+127.0.0.1 - - [2019-11-29 21:50:47] "POST /webhook HTTP/1.1" 200 238 0.037720
+127.0.0.1 - - [2019-11-29 21:51:23] "POST /webhook HTTP/1.1" 200 238 0.043327
+127.0.0.1 - - [2019-11-29 21:52:05] "POST /webhook HTTP/1.1" 200 241 0.034115
+127.0.0.1 - - [2019-11-29 21:53:41] "POST /webhook HTTP/1.1" 200 305 0.030132
+127.0.0.1 - - [2019-11-29 21:54:27] "POST /webhook HTTP/1.1" 200 169 0.037706
+127.0.0.1 - - [2019-11-29 21:55:09] "POST /webhook HTTP/1.1" 200 305 0.029144
+127.0.0.1 - - [2019-11-29 21:55:42] "POST /webhook HTTP/1.1" 200 194 0.025735
+127.0.0.1 - - [2019-11-29 21:56:15] "POST /webhook HTTP/1.1" 200 241 0.041221
+127.0.0.1 - - [2019-11-29 21:56:50] "POST /webhook HTTP/1.1" 200 241 0.039576
+127.0.0.1 - - [2019-11-29 21:58:09] "POST /webhook HTTP/1.1" 200 305 0.026567
+127.0.0.1 - - [2019-11-29 21:58:39] "POST /webhook HTTP/1.1" 200 194 0.037892
+127.0.0.1 - - [2019-11-29 21:59:09] "POST /webhook HTTP/1.1" 200 234 0.034838
+127.0.0.1 - - [2019-11-29 22:01:17] "POST /webhook HTTP/1.1" 200 305 0.052766
+127.0.0.1 - - [2019-11-29 22:01:44] "POST /webhook HTTP/1.1" 200 194 0.028543
+127.0.0.1 - - [2019-11-29 22:02:13] "POST /webhook HTTP/1.1" 200 241 0.035485
+127.0.0.1 - - [2019-11-29 22:02:45] "POST /webhook HTTP/1.1" 200 238 0.033277
+127.0.0.1 - - [2019-11-29 22:03:16] "POST /webhook HTTP/1.1" 200 234 0.039323
+127.0.0.1 - - [2019-11-29 22:07:36] "POST /webhook HTTP/1.1" 200 305 0.028867
+127.0.0.1 - - [2019-11-29 22:07:53] "POST /webhook HTTP/1.1" 200 194 0.036438
+127.0.0.1 - - [2019-11-29 22:08:22] "POST /webhook HTTP/1.1" 200 241 0.034374
+127.0.0.1 - - [2019-11-29 22:08:56] "POST /webhook HTTP/1.1" 200 234 0.041807
+127.0.0.1 - - [2019-11-29 22:10:44] "POST /webhook HTTP/1.1" 200 305 0.030708
+127.0.0.1 - - [2019-11-29 22:10:56] "POST /webhook HTTP/1.1" 200 194 0.043195
+127.0.0.1 - - [2019-11-29 22:11:32] "POST /webhook HTTP/1.1" 200 305 0.028933
+127.0.0.1 - - [2019-11-29 22:11:53] "POST /webhook HTTP/1.1" 200 194 0.041693
+127.0.0.1 - - [2019-11-29 22:13:36] "POST /webhook HTTP/1.1" 200 305 0.028052
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/usr/local/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/usr/local/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: compiletime version 3.4 of module 'tensorflow.python.framework.fast_tensor_util' does not match runtime version 3.6
+  return f(*args, **kwds)
+/usr/local/lib/python3.6/importlib/_bootstrap.py:219: RuntimeWarning: builtins.type size changed, may indicate binary incompatibility. Expected 432, got 412
+  return f(*args, **kwds)
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/usr/local/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+2019-11-30 01:35:32 INFO     rasa_sdk.endpoint  - Starting action endpoint server...
+2019-11-30 01:35:32 WARNING  root  - Connected to broker
+2019-11-30 01:35:32 INFO     rasa_sdk.executor  - Registered function for 'action_add_user_name'.
+2019-11-30 01:35:32 INFO     rasa_sdk.executor  - Registered function for 'action_extract_user_name'.
+2019-11-30 01:35:32 INFO     rasa_sdk.executor  - Registered function for 'action_start_demo'.
+2019-11-30 01:35:32 INFO     rasa_sdk.executor  - Registered function for 'action_stop_demo'.
+2019-11-30 01:35:32 INFO     rasa_sdk.executor  - Registered function for 'action_next_demo_state'.
+2019-11-30 01:35:32 INFO     rasa_sdk.executor  - Registered function for 'action_next_demo'.
+2019-11-30 01:35:32 INFO     rasa_sdk.executor  - Registered function for 'action_repeat_demo'.
+2019-11-30 01:35:32 INFO     rasa_sdk.endpoint  - Action endpoint is up and running on http ('0.0.0.0', 5055)

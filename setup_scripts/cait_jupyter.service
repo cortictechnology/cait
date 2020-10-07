@@ -1,0 +1,13 @@
+[Unit]
+Description=CAIT Jupyter Hub service
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/bin/bash /opt/start_jupyterhub.sh
+
+[Install]
+WantedBy=multi-user.target

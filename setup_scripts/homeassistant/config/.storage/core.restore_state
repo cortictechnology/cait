@@ -1,0 +1,26 @@
+{
+    "data": [
+        {
+            "last_seen": "2020-04-01T01:32:04.002613+00:00",
+            "state": {
+                "attributes": {
+                    "editable": true,
+                    "friendly_name": "AI Learner",
+                    "id": "ai_learner",
+                    "user_id": "12d8e02fe6f44d34bd20599f2e54756c"
+                },
+                "context": {
+                    "id": "e1f7617e8391478c93931c6051274683",
+                    "parent_id": null,
+                    "user_id": null
+                },
+                "entity_id": "person.ai_learner",
+                "last_changed": "2020-03-31T22:31:48.057963+00:00",
+                "last_updated": "2020-03-31T22:31:53.974611+00:00",
+                "state": "unknown"
+            }
+        }
+    ],
+    "key": "core.restore_state",
+    "version": 1
+}

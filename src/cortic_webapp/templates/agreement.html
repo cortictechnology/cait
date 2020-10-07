@@ -1,0 +1,105 @@
+<html>
+<head>
+  <title>CAIT Setup</title>
+	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="{{url_for('static', filename='js/string_locale.js') }}"></script> 
+	<script>var locale="en/US";</script>
+<!--===============================================================================================-->	
+  <link rel="icon" type="image/png" href="/static/images/favicon.ico"/>
+  <style>
+    h1 {text-align: center;}
+    p {text-align: center;}
+    body {
+      background-image: url('/static/images/bg01.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    div {
+      margin: auto;
+      overflow:scroll;
+      height:70%; 
+      width:60%;
+    }
+</style>
+  </style>
+  <script>
+    function disableSubmit() {
+      document.getElementById("submit").disabled = true;
+    }
+
+      function activateButton(element) {
+
+          if(element.checked) {
+            document.getElementById("submit").disabled = false;
+          }
+          else  {
+            document.getElementById("submit").disabled = true;
+          }
+
+      }
+  </script>
+</head>
+
+<body onload="disableSubmit()">
+    <h1 id="eula"></h1>
+    <script>document.getElementById('eula').innerHTML = localizedStrings.eula[locale];</script>
+    <p id="lastUpdate"></p>
+    <script>document.getElementById('lastUpdate').innerHTML = localizedStrings.lastUpdate[locale];</script>
+    <br>
+    <br>
+    <div id="agreement_text">
+      Please read this End-User License Agreement ("Agreement") carefully before clicking the "I Agree" button, downloading or using the Cortic A.I. Toolkit ("Application").
+      <br>
+      <br>
+      By clicking the "I Agree" button, downloading or using the Application, you are agreeing to be bound by the terms and conditions of this Agreement.
+      <br>
+      <br>
+      If you do not agree to the terms of this Agreement, do not click on the "I Agree" button and do not download or use the Application.
+      <h2>License</h2>
+      Cortic Technology Corp. grants you a revocable, non-exclusive, non- transferable, limited license to download, install and use the Application solely for your personal, non-commercial purposes strictly in accordance with the terms of this Agreement.
+      <h2>Restrictions</h2>
+      You agree not to, and you will not permit others to:
+      <br>
+      <br>
+      a) license, sell, rent, lease, assign, distribute, transmit, host, outsource, disclose or otherwise commercially exploit the Application or make the Application available to any third party.
+      <h2>Modifications to Application</h2>
+      Cortic Technology Corp. reserves the right to modify, suspend or discontinue, temporarily or permanently, the Application or any service to which it connects, with or without notice and without liability to you.
+      <h2>Term and Termination</h2>
+      This Agreement shall remain in effect until terminated by you or Cortic Technology Corp.
+      <br>
+      <br>
+      Cortic Technology Corp. may, in its sole discretion, at any time and for any or no reason, suspend or terminate this Agreement with or without prior notice.
+      <br>
+      <br>
+      This Agreement will terminate immediately, without prior notice from Cortic Technology Corp., in the event that you fail to comply with any provision of this Agreement. You may also terminate this Agreement by deleting the Application and all copies thereof from your mobile device or from your desktop.
+      <br>
+      <br>
+      Upon termination of this Agreement, you shall cease all use of the Application and delete all copies of the Application from your mobile device or from your desktop.
+      <h2>Severability</h2>
+      If any provision of this Agreement is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.
+      <h2>Amendments to this Agreement</h2>
+      Cortic Technology Corp. reserves the right, at its sole discretion, to modify or replace this Agreement at any time. If a revision is material we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.
+      <h2>Contact Information</h2>
+      If you have any questions about this Agreement, please contact us (contact@cortic.ca).
+    </div>
+    <form action="/wifi" method="get">
+      <p>
+        <input type="checkbox" name="terms" id="terms" onchange="activateButton(this)"><b id="agree"></b><br><br>
+        <script>document.getElementById('agree').innerHTML = localizedStrings.agree[locale];</script>
+        <input type="button" name="previous" id="previous" value="" onclick="prev()">
+        <input type="submit" name="submit" id="submit" value="">
+        <script>document.getElementById('submit').value = localizedStrings.next[locale];</script>
+        <script>document.getElementById('previous').value = localizedStrings.previous[locale];</script>
+        <script>
+          function prev() {
+            url = window.location.protocol + "//" +  window.location.hostname + "/prev_setup";
+            //console.log(url);
+            window.location.href = url;
+          }
+        </script>
+      </p>
+    </form>
+</body>
+</html>

@@ -1,0 +1,281 @@
+2020-03-31 15:31:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:31:51 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 5 seconds.
+2020-03-31 15:32:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:32:00 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 10 seconds.
+2020-03-31 15:32:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:32:14 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 20 seconds.
+2020-03-31 15:32:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:32:38 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 40 seconds.
+2020-03-31 15:33:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:33:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:34:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:34:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:36:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:36:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:37:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:37:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:38:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:38:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:40:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:40:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:41:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:41:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:43:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:43:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:44:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:44:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:45:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:45:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:47:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:47:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:48:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:48:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:50:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:50:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:51:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:51:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:52:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:52:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:54:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:54:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:55:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:55:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:57:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:57:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:58:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:58:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 15:59:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 15:59:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:01:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:01:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:02:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:02:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:04:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:04:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:05:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:05:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:06:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:06:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:08:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:08:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:09:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:09:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:11:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:11:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:12:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:12:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:13:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:13:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:15:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:15:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:16:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:16:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:18:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:18:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:19:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:19:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:20:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:20:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:22:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:22:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:23:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:23:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:25:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:25:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:26:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:26:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:27:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:27:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:29:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:29:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:30:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:30:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:32:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:32:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:33:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:33:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:34:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:34:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:36:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:36:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:37:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:37:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:39:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:39:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:40:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:40:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:41:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:41:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:43:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:43:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:44:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:44:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:46:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:46:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:47:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:47:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:48:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:48:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:50:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:50:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:51:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:51:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:53:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:53:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:54:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:54:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:55:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:55:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:57:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:57:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 16:58:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 16:58:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:00:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:00:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:01:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:01:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:02:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:02:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:04:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:04:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:05:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:05:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:07:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:07:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:08:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:08:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:09:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:09:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:11:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:11:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:12:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:12:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:14:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:14:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:15:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:15:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:16:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:16:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:17:31 WARNING (zeroconf-ServiceBrowser__googlecast._tcp.local.) [zeroconf] Exception occurred:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/zeroconf/__init__.py", line 2589, in send
+    bytes_sent = s.sendto(packet, 0, (real_addr, port))
+OSError: [Errno 101] Network unreachable
+2020-03-31 17:18:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:18:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:19:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:19:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:21:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:21:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:22:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:22:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:23:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:23:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:25:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:25:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:26:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:26:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:28:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:28:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:29:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:29:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:30:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:30:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:32:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:32:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:33:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:33:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:35:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:35:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:36:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:36:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:37:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:37:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:39:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:39:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:40:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:40:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:42:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:42:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:43:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:43:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:44:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:44:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:46:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:46:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:47:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:47:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:49:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:49:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:50:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:50:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:51:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:51:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:53:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:53:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:54:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:54:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:56:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:56:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:57:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:57:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 17:58:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 17:58:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:00:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:00:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:01:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:01:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:03:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:03:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:04:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:04:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:05:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:05:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:07:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:07:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:08:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:08:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:10:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:10:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:11:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:11:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:12:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:12:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:14:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:14:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:15:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:15:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:17:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:17:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:18:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:18:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:19:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:19:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:21:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:21:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:22:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:22:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:24:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:24:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:25:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:25:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:26:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:26:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:28:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:28:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:29:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:29:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:31:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:31:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:32:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:32:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:33:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:33:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:35:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:35:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:36:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:36:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:38:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:38:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2020-03-31 18:39:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2020-03-31 18:39:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
