@@ -5,6 +5,14 @@ apPassword="caitcait"
 apIp="10.0.0.1"
 apCountryCode="CA"
 serial=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2)
+RED='\033[0;31m'
+NC='\033[0m'
+
+# Using an older wifi firmware due to a known issue for rpt8 firmware: https://github.com/raspberrypi/firmware/issues/1463
+wget http://archive.raspberrypi.org/debian/pool/main/f/firmware-nonfree/firmware-brcm80211_20190114-1+rpt4_all.deb
+sudo dpkg --purge firmware-brcm80211
+sudo dpkg --install firmware-brcm80211_20190114-1+rpt4_all.deb
+sudo apt-mark hold firmware-brcm80211
 
 sudo apt update
 sudo apt -y full-upgrade
@@ -79,7 +87,7 @@ done
 
 originalHost=$(hostname)
 hostName="cait-$serial"
-echo "Changing hostname to: $hostName"
+echo -e "Changing hostname to: ${RED}$hostName${NC}"
 sudo sed -i "s/$originalHost/$hostName/" /etc/hostname
 sudo sed -i "s/$originalHost/$hostName/" /etc/hosts
 

@@ -18,13 +18,20 @@ def is_internet_connected(host="8.8.8.8", port=53, timeout=3):
 
 
 while True:
-    stat = os.system('service hostapd status')
-    if is_internet_connected():
-        if stat == 0:
-            os.system("sudo systemctl mask hostapd.service")
-            os.system("reboot")
+  stat = os.system('service hostapd status')
+  if is_internet_connected():
+    if stat == 0:
+      print("WIFI + AP on")
+      #os.system("sudo systemctl mask hostapd.service")
+      #os.system("reboot")
     else:
-        if stat != 0:
-            os.system("sudo systemctl unmask hostapd.service")
-            os.system("reboot")
-    time.sleep(10)
+      print("Only WIFI on")
+  else:
+    if stat != 0:
+      print("WIFI + AP off")
+      #os.system("sudo systemctl unmask hostapd.service")
+      #os.system("reboot")
+    else:
+      print("Only WIFI off")
+
+  time.sleep(10)
