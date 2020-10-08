@@ -18,6 +18,7 @@ sudo touch /etc/docker/daemon.json
 sudo bash -c 'echo "{\"experimental\": true}" > /etc/docker/daemon.json'
 
 sudo systemctl restart docker
+sudo docker pull homeassistant/home-assistant:stable
 sudo docker pull cortictech/speech:0.51
 sudo docker pull cortictech/nlp:0.51
 sudo docker pull cortictech/vision:0.51

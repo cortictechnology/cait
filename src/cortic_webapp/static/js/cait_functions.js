@@ -159,8 +159,8 @@ async function ajax_post(url, data) {
     }
   }
   
-  async function init_vision(processor) {
-    await init("vision", "offline", processor);
+  async function init_vision() {
+    await init("vision", "offline", 'local');
     stopStreaming = false;
   }
   

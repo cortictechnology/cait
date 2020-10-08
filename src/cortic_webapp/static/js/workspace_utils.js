@@ -33,8 +33,6 @@ function resetModules() {
   client.publish(topicMessage)
 }
 
-var test;
-
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
 
@@ -79,7 +77,6 @@ function updateFunction(event) {
           }
           return options;
         }), 'vision_proc');
-        test = block;
       }
     }
   }

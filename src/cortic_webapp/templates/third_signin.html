@@ -125,6 +125,7 @@
     <p>
       <button class="btn-next" type="button"  id="previous" onclick="prev()">Previous</button>
       <button class="btn-next" type="button"  id="upload_btn" onclick="upload_account()">Next</button>
+      <button class="btn-next" type="button"  id="skip" onclick="skipThis()">Skip</button>
     </p>
     <script>
       function google_login() {
@@ -134,6 +135,11 @@
         url = window.location.protocol + "//" +  window.location.hostname + "/testhardware";
         //console.log(url);
         window.location.href = url;
+      }
+      function skipThis() {
+          alert("If you skip this step, you will only be able to use offline mode for voice functions");
+          url = window.location.protocol + "//" +  window.location.hostname + "/congrats";
+          window.location.href = url;
       }
     </script>
     <script type=text/javascript src="{{url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>

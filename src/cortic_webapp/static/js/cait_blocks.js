@@ -72,36 +72,10 @@ Blockly.defineBlocksWithJsonArray([
     {
       "type": "init_vision",
       "message0": "initialize vision",
-      "args0": [
-        {
-          "type": "field_dropdown",
-          "name": "processor",
-          "options": [
-            [
-              "local",
-              "local"
-            ],
-            [
-              "virtual",
-              "virtual"
-            ]
-          ]
-        },
-        {
-          "type": "input_dummy",
-          "name" : "proc_param",
-          "align": "CENTRE"
-        },
-        {
-          "type": "input_dummy",
-          "name": "ending",
-          "text": ""
-        }
-      ],
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#5D0095",
-      "tooltip": "Initialize the voice component",
+      "tooltip": "Initialize the vision component",
       "helpUrl": ""
     },
     {
@@ -733,9 +707,19 @@ function() {
       }), 'media_player');
 });
 
+
 Blockly.Extensions.register('dynamic_cloud_accounts_extension',
 function() {
-  this.getInput('cloud_accounts')
+  if (cloud_accounts.length < 1) {
+    this.getInput("cloud_accounts").setVisible(false);
+    this.getInput("ending").setVisible(false);
+    this.getField('mode').menuGenerator_[0] = this.getField('mode').menuGenerator_[1]
+    //this.getField('mode').menuGenerator_.pop();
+    this.getField('mode').value_ = 'offline';
+    this.getField('mode').text_ = 'offline';
+  }
+  else {
+    this.getInput('cloud_accounts')
     .appendField(new Blockly.FieldDropdown(
       function() {
         var options = [];
@@ -749,6 +733,8 @@ function() {
         }
         return options;
       }), 'accounts');
+  }
+  
 });
 
 if (cloud_accounts.length < 1) {
@@ -818,26 +804,12 @@ Blockly.Python['set_parameter'] = function(block) {
 };
 
 Blockly.JavaScript['init_vision'] = function(block) {
-  var dropdown_processor = block.getFieldValue('processor');
-  if (dropdown_processor == "virtual") {
-    dropdown_processor = block.getFieldValue('vision_proc');
-    if (dropdown_processor == "none" || dropdown_processor == null){
-      dropdown_processor = "local";
-    }
-  }
-  var code = "await init_vision(\"" + dropdown_processor + "\");\n";
+  var code = "await init_vision();\n";
   return code;
 };
 
 Blockly.Python['init_vision'] = function(block) {
-  var dropdown_processor = block.getFieldValue('processor');
-  if (dropdown_processor == "local"){
-    var code = "cait.essentials.initialize_component('vision', processor='local')\n";
-  }
-  else {
-    var code = "cait.essentials.initialize_component('vision', processor='" + dropdown_processor + "')\n";
-  }
-  
+  var code = "cait.essentials.initialize_component('vision', processor='local')\n";
   return code;
 };
 
