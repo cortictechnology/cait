@@ -2,7 +2,7 @@ version: '3'
 services:
   cait_broker:
     network_mode: host
-    image: "cortictech/broker:0.5"
+    image: "cortictech/broker:0.51"
     restart: always 
     command: "bash /start_broker.sh"
 

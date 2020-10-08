@@ -49,9 +49,12 @@ account_names = []
 
 acc_list = [line.rstrip() for line in open('/opt/accounts')]
 for line in acc_list:
-    acc = ast.literal_eval(line)
-    account_names.append(acc[0])
-    cloud_accounts[acc[0]] = acc[1]
+    try:
+        acc = ast.literal_eval(line)
+        account_names.append(acc[0])
+        cloud_accounts[acc[0]] = acc[1]
+    except:
+        pass
 
 
 def load_responses(path):
