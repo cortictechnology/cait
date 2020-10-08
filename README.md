@@ -1,3 +1,5 @@
 # cait
 The Cortic AI Toolkit (CAIT) is a software package to provide a no-code interface to create AI applications 
-<img src="images/cait.png" width="40%">
+<center>
+<img src="images/cait.png" width="60%">
+</center>
