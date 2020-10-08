@@ -24,6 +24,7 @@ sudo docker pull cortictech/vision:0.51
 sudo docker pull cortictech/control:0.51
 sudo docker pull cortictech/broker:0.51
 sudo sh -c "echo 'dtparam=spi=on' >> /boot/config.txt"
+sudo sh -c "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf"
 sudo apt-get install v4l-utils -y
 sudo apt-get install portaudio19-dev mplayer -y
 sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio
@@ -42,6 +43,8 @@ sudo pip3 install notebook
 sudo pip3 install jupyterhub
 sudo cp chkpass.sh start_cait_components.sh start_jupyterhub.sh add_wifi.py scan_wifi.py enableAP.sh /opt/
 sudo cp cait_webapp.service cait_jupyter.service cait_components.service /etc/systemd/system
+sudo cp change_hostname.sh /usr/sbin
+sudo chmod +x /usr/sbin/change_hostname.sh
 sudo systemctl daemon-reload
 sudo systemctl enable /etc/systemd/system/cait_*
 

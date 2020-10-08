@@ -19,6 +19,9 @@ async function upload_account() {
   reader.addEventListener('load', async (event) => {
     const result = await ajax_post("/upload_account", {'account_credentials': event.target.result});
     console.log(result)
+    url = window.location.protocol + "//" +  window.location.hostname + "/congrats";
+    window.location.href = url;
+
   });
   reader.readAsText(account_file.files[0]);
 }
