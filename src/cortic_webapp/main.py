@@ -340,13 +340,6 @@ def get_cloud_accounts():
     account_list = essentials.get_cloud_accounts()
     return jsonify(account_list)
 
-@application.route("/get_virtual_processors", methods=['POST'])
-@auth.login_required
-def get_virtual_processors():
-    processor_type = request.form.get('processor_type')
-    virtual_processors = essentials.get_virtual_processors(processor_type)
-    #print(virtual_processors)
-    return jsonify(virtual_processors)
 
 @application.route("/initialize_component", methods=['POST'])
 @auth.login_required

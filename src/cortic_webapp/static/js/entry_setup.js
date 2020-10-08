@@ -45,6 +45,7 @@ function onMessageArrived(message) {
   }  
 }
 
+var nlp_models = [];
 var light_devices = [];
 var media_players = [];
 var cloud_accounts = [];
@@ -76,6 +77,23 @@ function cloudAccounts(interpreter, scope) {
       interpreter.createAsyncFunction(wrapper));
 }
 
+
+var get_cloud_accounts_code = "get_cloud_accounts();";
+var myInterpreter_cloud = new Interpreter(get_cloud_accounts_code, cloudAccounts);
+
+function get_cloud_accounts() {
+  var options = [];
+  if (myInterpreter_cloud.run()) {
+    setTimeout(get_cloud_accounts, 100);
+  }
+  if (myInterpreter_cloud.value != null) {
+    cloud_accounts = myInterpreter_cloud.value;
+  }
+}
+
+get_cloud_accounts();
+
+
 var get_light_device_code = "get_devices('light');";
 var myInterpreter_light = new Interpreter(get_light_device_code, initDevices);
 
@@ -105,18 +123,3 @@ function get_media_players() {
 }
 
 get_media_players();
-
-var get_cloud_accounts_code = "get_cloud_accounts();";
-var myInterpreter_cloud = new Interpreter(get_cloud_accounts_code, cloudAccounts);
-
-function get_cloud_accounts() {
-  var options = [];
-  if (myInterpreter_cloud.run()) {
-    setTimeout(get_cloud_accounts, 100);
-  }
-  if (myInterpreter_cloud.value != null) {
-    cloud_accounts = myInterpreter_cloud.value;
-  }
-}
-
-get_cloud_accounts();

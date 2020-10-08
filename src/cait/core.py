@@ -83,17 +83,6 @@ def load_responses(path):
                     line = f.readline()
 
 
-def get_virtual_processors(processor_type):
-    offloading_devices = caitCore.get_offloading_devices()
-    if processor_type in offloading_devices:
-        processor_names = []
-        for processor in offloading_devices[processor_type]:
-            processor_names.append(processor['processor_name'])
-        return processor_names
-    else:
-        return []
-
-
 def get_video_devices():
     return caitCore.get_devices("video")
 

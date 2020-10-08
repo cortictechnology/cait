@@ -13,6 +13,7 @@
     <script type=text/javascript src="{{url_for('static', filename='js/en.js') }}"></script>
     <script type=text/javascript src="{{url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{url_for('static', filename='js/string_locale.js') }}"></script> 
+    <script src="{{url_for('static', filename='js/version.js') }}"></script> 
 	  <script>var locale="en/US";</script>
     <style>
         html, body {
@@ -27,7 +28,10 @@
         h1 {
           font-weight: normal;
           font-size: 140%;
+          float: left;
+          margin-right: 10px;
         }
+
         table {
           height: 100%;
           width: 100%;
@@ -213,14 +217,21 @@
           box-shadow:0px 0px 40px -2px skyblue;
         }
 
+        i {
+          font-size: 60%
+        }
+
       </style>
 </head>
 <body>
     <table>
       <tr>
+        <h1><span id="vpTitle"></span><i id="version"></i></h1>
+        <script>document.getElementById('vpTitle').innerHTML = localizedStrings.vpTitle[locale];</script>
+        <script>document.getElementById('version').innerHTML = "    version: " + VERSION;</script>
+      </tr>
+      <tr>
         <td>
-          <h1 id="vpTitle"></h1>
-          <script>document.getElementById('vpTitle').innerHTML = localizedStrings.vpTitle[locale];</script>
           <p>
             <button id="save" onclick="save_workspace()"></button>
             <script>document.getElementById('save').innerHTML = localizedStrings.save[locale];</script>
@@ -236,6 +247,7 @@
             <script>document.getElementById('genPyNB').innerHTML = localizedStrings.genPyNB[locale];</script>
             <button id="logout" onclick="logout()" style="float: right;"></button> 
             <script>document.getElementById('logout').innerHTML = localizedStrings.logout[locale];</script>
+  
           </p>
         </td>
         

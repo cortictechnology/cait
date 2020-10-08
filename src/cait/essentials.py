@@ -22,9 +22,9 @@ def get_cloud_accounts():
     account_list = core.get_cloud_accounts()
     return {"accounts": account_list}
 
-def get_virtual_processors(processor_type):
-    virtual_processors = core.get_virtual_processors(processor_type)
-    return {"virtual_processors": virtual_processors}
+def get_nlp_models():
+    account_list = core.get_cloud_accounts()
+    return {"models": account_list}
 
 def get_video_devices():
     return core.get_video_devices()
