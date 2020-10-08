@@ -7,7 +7,7 @@ Restart=always
 RestartSec=1
 User=root
 WorkingDirectory=/opt/
-ExecStart=/usr/bin/python3 connect_wifi.py
+ExecStart=/usr/bin/python3 monitor_wifi.py
 
 [Install]
 WantedBy=multi-user.target

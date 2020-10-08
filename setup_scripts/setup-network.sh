@@ -31,6 +31,7 @@ apIpDefault="10.0.0.1"
 apDhcpRangeDefault="10.0.0.50,10.0.0.150,12h"
 apSetupIptablesMasqueradeDefault="iptables -t nat -A POSTROUTING -s 10.0.0.0/24 ! -d 10.0.0.0/24 -j MASQUERADE"
 apCountryCodeDefault="IN"
+hwardwareMode="g"
 apChannelDefault="1"
 
 apIp="$apIpDefault"
@@ -115,6 +116,9 @@ function setWlanDetails()
     # Set AP Channel:
     wlanChannel="$( iwlist ${wlanInterfaceName} channel | grep 'Current Frequency:' | awk -F '(' '{gsub("\)", "", $2); print $2}' | awk -F ' ' '{print $2}' )"
     if [ ! -z "${wlanChannel}" ]; then
+        if (( wlanChannel > 11 )); then
+            hwardwareMode="a"
+        fi
 	    apChannel="$wlanChannel"
 	    apChannelDefault="$wlanChannel"
     fi
@@ -674,7 +678,7 @@ $apPasswordConfig
 country_code=$apCountryCode
 interface=${apInterfaceName}
 # Use the 2.4GHz band (I think you can use in ag mode to get the 5GHz band as well, but I have not tested this yet)
-hw_mode=g
+hw_mode=$hwardwareMode
 # Accept all MAC addresses
 macaddr_acl=0
 # Use WPA authentication
