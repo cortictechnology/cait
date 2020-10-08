@@ -23,6 +23,7 @@ sudo docker pull cortictech/nlp:0.51
 sudo docker pull cortictech/vision:0.51
 sudo docker pull cortictech/control:0.51
 sudo docker pull cortictech/broker:0.51
+sudo sh -c "echo 'dtparam=spi=on' >> /boot/config.txt"
 sudo apt-get install v4l-utils -y
 sudo apt-get install portaudio19-dev mplayer -y
 sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio
