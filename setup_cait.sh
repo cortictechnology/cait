@@ -37,7 +37,9 @@ sudo apt install whois
 sudo mkdir /opt/cortic_modules
 sudo cp -R ../src/cait /opt/cortic_modules
 sudo cp -R ../src/ai_modules/* /opt/cortic_modules
+sudo mkdir /opt/cortic_modules/vision_module/database
 sudo cp ../src/docker-compose.yml ~/
+sudo touch /opt/accounts
 sudo apt-get install npm nodejs -y
 sudo npm install -g configurable-http-proxy
 sudo pip3 install notebook
