@@ -9,6 +9,13 @@
 
 CAIT is a software package to provide a no-code interface to create AI applications 
 
+## Hardware requirements
+
+* Raspberry Pi 4 2GB/4Gb/8GB
+* Logitech USB Webcam, tested on C270, c922, c615, c310
+* 3.5mm audio jack speaker
+* BrickPi3 for lego motor control
+
 ## How do I try it
 
 Download the prebuilt raspbian image: 
