@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.1" />
+<title>essentials API documentation</title>
+<meta name="description" content="Copyright (C) Cortic Technology Corp. - All Rights Reserved
+Written by Michael Ng &lt;michaelng@cortic.ca&gt;, December 2019" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>essentials</code></h1>
+</header>
+<section id="section-intro">
+<p>Copyright (C) Cortic Technology Corp. - All Rights Reserved
+Written by Michael Ng <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#109;&#105;&#99;&#104;&#97;&#101;&#108;&#110;&#103;&#64;&#99;&#111;&#114;&#116;&#105;&#99;&#46;&#99;&#97;">&#109;&#105;&#99;&#104;&#97;&#101;&#108;&#110;&#103;&#64;&#99;&#111;&#114;&#116;&#105;&#99;&#46;&#99;&#97;</a>, December 2019</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; 
+
+Copyright (C) Cortic Technology Corp. - All Rights Reserved
+Written by Michael Ng &lt;michaelng@cortic.ca&gt;, December 2019
+
+&#34;&#34;&#34;
+
+import cait.core as core
+
+&#34;&#34;&#34;
+Assumptions:
+    1. Single USB webcam (supported ones)
+    2. 3.5mm audio jack speaker
+    3. Microphone integrated with webcam
+    4. Default one database for people. person name is folder name.
+    5. Faces and objects are tracked implicitly
+    6. Need to teach list and dictionary knowledge
+    7. return None if error occurred, otherwise empty return is normal if nothing detected
+&#34;&#34;&#34;
+
+def get_cloud_accounts():
+    &#34;&#34;&#34;Get a list of google cloud servie account
+
+    Returns:
+        account_list (list): List of google cloud servie account
+    &#34;&#34;&#34; 
+    account_list = core.get_cloud_accounts()
+    return {&#34;accounts&#34;: account_list}
+
+
+def get_video_devices():
+    &#34;&#34;&#34;Get a list of connected camera device
+
+    Returns:
+        video_device_list (list): List of camera device
+    &#34;&#34;&#34; 
+    return core.get_video_devices()
+
+def get_audio_devices():
+    &#34;&#34;&#34;Get a list of connected audio device
+
+    Returns:
+        (list): List of audio device
+    &#34;&#34;&#34;  
+    return core.get_audio_devices()
+
+def test_camera(index):
+    &#34;&#34;&#34;Open the camera device with specific index, test for its connetion
+
+    Parameters:
+        index (int): index of the camera device
+    
+    Returns:
+        (bool): True if success, False otherwise
+    &#34;&#34;&#34;    
+    return core.test_camera(index)
+
+def initialize_component(component_name, useOnline=True, account=&#34;default&#34;, processor=&#34;local&#34;):
+    &#34;&#34;&#34;Initalization function for different components
+    
+    Parameters:
+        component_name (string): name of the component to be initialized
+    
+    Keyword Parameters:
+        useOnline {bool}: use online service or not (default: {True})
+    
+    Returns:
+        (bool): True if initialization is success, False otherwise
+    &#34;&#34;&#34;    
+    if component_name == &#34;vision&#34;:
+        success, msg = core.initialize_vision(processor)
+    elif component_name == &#34;voice&#34;:
+        success, msg  = core.initialize_voice(useOnline, account)
+    elif component_name == &#34;nlp&#34;:
+        success, msg  = core.initialize_nlp()
+    elif component_name == &#34;control&#34;:
+        success, msg  = core.initialize_control()
+    elif component_name == &#34;smart_home&#34;:
+        success = True
+        msg = &#34;OK&#34;
+    return success, msg
+
+def change_module_parameters(parameter_name, value):
+    &#34;&#34;&#34;Generic function for setting ai module parameters
+    Parameters:
+        parameter_name (string): name of prarmeter
+        value {float}: value of parameter
+    
+    &#34;&#34;&#34;    
+    core.change_module_parameters(parameter_name, value)
+
+def get_camera_image():
+    &#34;&#34;&#34;Development test function, retrieve one camera image
+    
+    Returns:
+        (mat): cv2 image
+    &#34;&#34;&#34;
+    img = core.get_camera_image()
+    if img is not None:
+        return img
+    else:
+        return None
+
+def recognize_face():
+    &#34;&#34;&#34;Recognize the name of person from camera feed. No need to pass in camera feed explicitly at this level.
+    
+    Returns:
+        (dict): key: names, values: (coordinates, confidences)
+    &#34;&#34;&#34;    
+
+    name = core.recognize_face()
+    #print(&#34;NAME*************&#34;, name)
+    coordinate = core.get_person_face_location(name)
+
+    if name is not None and coordinate is not None:
+        people = {&#34;name&#34; : name, &#34;coordinate&#34; : coordinate}
+        return people
+    else:
+        return None
+
+def add_person(name=None):
+    &#34;&#34;&#34;Add a new person into face database, associate the name with the person&#39;s face image captured from camera feed.
+    
+    Parameters:
+        name (string): name of the person.
+    
+    Returns:
+        (bool): return True if adding face is success, False otherwise.
+    &#34;&#34;&#34;    
+    if name == None:
+        return -1
+
+    success = core.add_person(name)
+
+    return success
+
+def remove_person(name):
+    &#34;&#34;&#34;Remove a specific person from database
+
+    Parameters:
+        name (string): name of the person to remove
+    &#34;&#34;&#34;    
+    if name == None:
+        return -1
+
+    success = core.remove_person(name)
+
+    return success
+
+def detect_objects():
+    &#34;&#34;&#34;detect the object appearing in camera feed
+    
+    Returns:
+        (list): names of the objects
+        (list): coordinates of objects
+    &#34;&#34;&#34;    
+    objects = core.detect_objects()
+
+    if objects is not None:
+        names, coordinates = objects
+        objects = {&#34;names&#34; : names, &#34;coordinates&#34; : coordinates}
+        return objects
+    else:
+        return None
+
+def listen():
+    &#34;&#34;&#34;Listen to user speech from audio feed captured by microphone.
+    
+    Returns:
+        (string): the user speech generated from speech-to-text module.
+    &#34;&#34;&#34;
+
+    text = core.listen()
+
+    if text is not None:
+        return text
+    else:
+        return None
+
+def listen_for_wakeword():
+    &#34;&#34;&#34;Continuously detecting the appeareance of wakeword from the audio stream. Higher priority than the listen() function.
+    
+    Returns:
+        (bool): return True if detected wakeword, False otherwise.
+    &#34;&#34;&#34;
+
+    gotWakeWord = core.listen_for_wakeword()
+
+    return gotWakeWord
+
+def say(text, volume=100):
+    &#34;&#34;&#34;Speak the text through speaker at the specific volume.
+    
+    Parameters:
+        text (string): text to be spoken.
+        volume (int): 0-100.
+    
+    Returns:
+        (bool): True if successfully spoken. False otherwise.
+    &#34;&#34;&#34;    
+    if text == None:
+        return -1
+
+    success = core.say(text)
+
+    return success
+
+def analyse_text(text):
+    &#34;&#34;&#34;Analyse the user speech generated from the listen() function.
+    
+    Parameters:
+        text (string): user speech.
+    
+    Returns:
+        (dict): Contains the intention and entities from the analytics of the user speech.
+    &#34;&#34;&#34;
+    if text == None:
+        return -1
+
+    topic, condifence, entities = core.analyze(text)
+
+    intention = {&#34;topic&#34; : topic, &#34;confidence&#34; : condifence, &#34;entities&#34; : entities}
+
+    return intention
+
+def control_motor(motor_name, speed, duration):
+    &#34;&#34;&#34;Move robot forward or backward, with specific speed and for specific duration
+
+    Parameters:
+        motor_name (string): Name of motor to control, currently, only support &#34;motor_A&#34;, &#34;motor_B&#34;, &#34;motor_C&#34;, &#34;motor_D&#34; corresponding to BrickPi ports
+        speed (int): 0-100
+        duration (int): 0 - inf
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34;    
+
+    success = core.control_motor(motor_name, speed, duration)
+
+    return success
+
+def control_motor_speed_group(operation_list):
+    &#34;&#34;&#34;Move a group of motors together
+
+    Parameters:
+        operation_list (list): A list of operation in string, refer to code generated from the visual programming interface
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34; 
+
+    success = core.control_motor_speed_group(operation_list)
+
+    return success
+
+def rotate_motor(motor_name, angle):
+    &#34;&#34;&#34;Rotate robot to a certain angle
+
+    Parameters:
+        motor_name (string): Name of motor to control, currently, only support &#34;motor_A&#34;, &#34;motor_B&#34;, &#34;motor_C&#34;, &#34;motor_D&#34; corresponding to BrickPi ports
+        angle (int): Roatational angle
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34;    
+
+    success = core.rotate_motor(motor_name, angle)
+
+    return success
+
+def control_motor_degree_group(operation_list):
+    &#34;&#34;&#34;Rotate a group of motors together
+
+    Parameters:
+        operation_list (list): A list of operation in string, refer to code generated from the visual programming interface
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34; 
+    success = core.control_motor_degree_group(operation_list)
+
+    return success
+
+
+def get_devices(device_type):
+    &#34;&#34;&#34;Get a list of smart devices in the local network
+
+    Returns:
+        (list): List of smart devices in the local network
+    &#34;&#34;&#34; 
+    devices = core.get_devices(device_type)
+    result = {&#34;devices&#34;: devices}
+
+    return result
+
+def control_light(device_name, operation, parameter=None):
+    &#34;&#34;&#34;Control the operation of a smart light device.
+
+    Parameters:
+        device_name (string): name of smart light device.
+        operation (string): operation, currently supporting &#34;turn_on&#34;,  &#34;turn_off&#34;, &#34;toggle&#34;, &#34;color_name&#34;, &#34;brightness_pct&#34;.
+        parameter {}: any parameter for the operation.
+ 
+    Returns:
+        (bool): True if successfully sent command to homeassistant. False otherwise.
+    &#34;&#34;&#34; 
+    result = core.control_light(device_name, operation, parameter)
+    return result
+
+def control_media_player(device_name, operation):
+    &#34;&#34;&#34;Control the operation of a smart media player.
+
+    Parameters:
+        device_name (string): name of smart media player.
+        operation (string): operation, currently supporting &#34;media_play&#34;,  &#34;media_pause&#34;, &#34;volume_up&#34;, &#34;volume_down&#34;.
+ 
+    Returns:
+        (bool): True if successfully sent command to homeassistant. False otherwise.
+    &#34;&#34;&#34; 
+    result = core.control_media_player(device_name, operation)
+    return result
+
+def turn_to_person(name):
+    &#34;&#34;&#34;Rotate the robot to face a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
+
+    Parameters:
+        name (string): name of the person that the robot should center to.
+
+    Returns:
+        (bool): True if successfully turned. False otherwise.
+    &#34;&#34;&#34;    
+    return success
+
+def follow_person(name):
+    &#34;&#34;&#34;Move the robot so that it constantly follows a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
+
+    Parameters:
+        name (string): name of the person that the robot should be following.
+    
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34; 
+    return success
+
+def greet_person(name, speech):
+    &#34;&#34;&#34;Greet a specific person in a specific way, this is combined usage of recognizeFace() and say() function. Not implemented.
+
+    Parameters:
+        name (sring): name of the person to greet, it can be an actual name, or simply Unknown.
+        speech (string): words to say to the person.
+
+    Returns:
+        (bool): True if successfully greeted. False otherwise.
+    &#34;&#34;&#34;    
+    return success
+
+def ask_for_person_name():
+    &#34;&#34;&#34;Ask for the name of a person appearing in the camera feed, this is a combined usage of say(), listen() and analyseSpeech() function. Not implemented.
+    
+    Returns:
+        (string): name of the person.
+    &#34;&#34;&#34;    
+    return name
+
+def get_response(text):
+    &#34;&#34;&#34;Generate robot response based on user speech input. Not implemented.
+    
+    Parameters:
+        text (string): Result from listen() function
+    
+    Returns:
+        (string): robot response
+    &#34;&#34;&#34;    
+
+    return respone
+
+def control_smart_device(device_name, action):
+    &#34;&#34;&#34;Control the smart devices&#39;s state through action. Not implemented.
+    
+    Parameters:
+        device_name (string): Name of the device recorded in Home assistant
+        action (string): valid action state for the device, as recorded in home assistant.
+    
+    Returns:
+        (bool): True if device is successfully controlled. False otherwise.
+    &#34;&#34;&#34;    
+    return success</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="essentials.add_person"><code class="name flex">
+<span>def <span class="ident">add_person</span></span>(<span>name=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a new person into face database, associate the name with the person's face image captured from camera feed.</p>
+<h2 id="parameters">Parameters</h2>
+<p>name (string): name of the person.</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): return True if adding face is success, False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_person(name=None):
+    &#34;&#34;&#34;Add a new person into face database, associate the name with the person&#39;s face image captured from camera feed.
+    
+    Parameters:
+        name (string): name of the person.
+    
+    Returns:
+        (bool): return True if adding face is success, False otherwise.
+    &#34;&#34;&#34;    
+    if name == None:
+        return -1
+
+    success = core.add_person(name)
+
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.analyse_text"><code class="name flex">
+<span>def <span class="ident">analyse_text</span></span>(<span>text)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Analyse the user speech generated from the listen() function.</p>
+<h2 id="parameters">Parameters</h2>
+<p>text (string): user speech.</p>
+<h2 id="returns">Returns</h2>
+<p>(dict): Contains the intention and entities from the analytics of the user speech.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def analyse_text(text):
+    &#34;&#34;&#34;Analyse the user speech generated from the listen() function.
+    
+    Parameters:
+        text (string): user speech.
+    
+    Returns:
+        (dict): Contains the intention and entities from the analytics of the user speech.
+    &#34;&#34;&#34;
+    if text == None:
+        return -1
+
+    topic, condifence, entities = core.analyze(text)
+
+    intention = {&#34;topic&#34; : topic, &#34;confidence&#34; : condifence, &#34;entities&#34; : entities}
+
+    return intention</code></pre>
+</details>
+</dd>
+<dt id="essentials.ask_for_person_name"><code class="name flex">
+<span>def <span class="ident">ask_for_person_name</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Ask for the name of a person appearing in the camera feed, this is a combined usage of say(), listen() and analyseSpeech() function. Not implemented.</p>
+<h2 id="returns">Returns</h2>
+<p>(string): name of the person.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ask_for_person_name():
+    &#34;&#34;&#34;Ask for the name of a person appearing in the camera feed, this is a combined usage of say(), listen() and analyseSpeech() function. Not implemented.
+    
+    Returns:
+        (string): name of the person.
+    &#34;&#34;&#34;    
+    return name</code></pre>
+</details>
+</dd>
+<dt id="essentials.change_module_parameters"><code class="name flex">
+<span>def <span class="ident">change_module_parameters</span></span>(<span>parameter_name, value)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generic function for setting ai module parameters</p>
+<h2 id="parameters">Parameters</h2>
+<p>parameter_name (string): name of prarmeter
+value {float}: value of parameter</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def change_module_parameters(parameter_name, value):
+    &#34;&#34;&#34;Generic function for setting ai module parameters
+    Parameters:
+        parameter_name (string): name of prarmeter
+        value {float}: value of parameter
+    
+    &#34;&#34;&#34;    
+    core.change_module_parameters(parameter_name, value)</code></pre>
+</details>
+</dd>
+<dt id="essentials.control_light"><code class="name flex">
+<span>def <span class="ident">control_light</span></span>(<span>device_name, operation, parameter=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Control the operation of a smart light device.</p>
+<h2 id="parameters">Parameters</h2>
+<p>device_name (string): name of smart light device.
+operation (string): operation, currently supporting "turn_on",
+"turn_off", "toggle", "color_name", "brightness_pct".
+parameter {}: any parameter for the operation.</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully sent command to homeassistant. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def control_light(device_name, operation, parameter=None):
+    &#34;&#34;&#34;Control the operation of a smart light device.
+
+    Parameters:
+        device_name (string): name of smart light device.
+        operation (string): operation, currently supporting &#34;turn_on&#34;,  &#34;turn_off&#34;, &#34;toggle&#34;, &#34;color_name&#34;, &#34;brightness_pct&#34;.
+        parameter {}: any parameter for the operation.
+ 
+    Returns:
+        (bool): True if successfully sent command to homeassistant. False otherwise.
+    &#34;&#34;&#34; 
+    result = core.control_light(device_name, operation, parameter)
+    return result</code></pre>
+</details>
+</dd>
+<dt id="essentials.control_media_player"><code class="name flex">
+<span>def <span class="ident">control_media_player</span></span>(<span>device_name, operation)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Control the operation of a smart media player.</p>
+<h2 id="parameters">Parameters</h2>
+<p>device_name (string): name of smart media player.
+operation (string): operation, currently supporting "media_play",
+"media_pause", "volume_up", "volume_down".</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully sent command to homeassistant. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def control_media_player(device_name, operation):
+    &#34;&#34;&#34;Control the operation of a smart media player.
+
+    Parameters:
+        device_name (string): name of smart media player.
+        operation (string): operation, currently supporting &#34;media_play&#34;,  &#34;media_pause&#34;, &#34;volume_up&#34;, &#34;volume_down&#34;.
+ 
+    Returns:
+        (bool): True if successfully sent command to homeassistant. False otherwise.
+    &#34;&#34;&#34; 
+    result = core.control_media_player(device_name, operation)
+    return result</code></pre>
+</details>
+</dd>
+<dt id="essentials.control_motor"><code class="name flex">
+<span>def <span class="ident">control_motor</span></span>(<span>motor_name, speed, duration)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Move robot forward or backward, with specific speed and for specific duration</p>
+<h2 id="parameters">Parameters</h2>
+<p>motor_name (string): Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
+speed (int): 0-100
+duration (int): 0 - inf</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully moved. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def control_motor(motor_name, speed, duration):
+    &#34;&#34;&#34;Move robot forward or backward, with specific speed and for specific duration
+
+    Parameters:
+        motor_name (string): Name of motor to control, currently, only support &#34;motor_A&#34;, &#34;motor_B&#34;, &#34;motor_C&#34;, &#34;motor_D&#34; corresponding to BrickPi ports
+        speed (int): 0-100
+        duration (int): 0 - inf
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34;    
+
+    success = core.control_motor(motor_name, speed, duration)
+
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.control_motor_degree_group"><code class="name flex">
+<span>def <span class="ident">control_motor_degree_group</span></span>(<span>operation_list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Rotate a group of motors together</p>
+<h2 id="parameters">Parameters</h2>
+<p>operation_list (list): A list of operation in string, refer to code generated from the visual programming interface</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully moved. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def control_motor_degree_group(operation_list):
+    &#34;&#34;&#34;Rotate a group of motors together
+
+    Parameters:
+        operation_list (list): A list of operation in string, refer to code generated from the visual programming interface
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34; 
+    success = core.control_motor_degree_group(operation_list)
+
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.control_motor_speed_group"><code class="name flex">
+<span>def <span class="ident">control_motor_speed_group</span></span>(<span>operation_list)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Move a group of motors together</p>
+<h2 id="parameters">Parameters</h2>
+<p>operation_list (list): A list of operation in string, refer to code generated from the visual programming interface</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully moved. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def control_motor_speed_group(operation_list):
+    &#34;&#34;&#34;Move a group of motors together
+
+    Parameters:
+        operation_list (list): A list of operation in string, refer to code generated from the visual programming interface
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34; 
+
+    success = core.control_motor_speed_group(operation_list)
+
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.control_smart_device"><code class="name flex">
+<span>def <span class="ident">control_smart_device</span></span>(<span>device_name, action)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Control the smart devices's state through action. Not implemented.</p>
+<h2 id="parameters">Parameters</h2>
+<p>device_name (string): Name of the device recorded in Home assistant
+action (string): valid action state for the device, as recorded in home assistant.</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if device is successfully controlled. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def control_smart_device(device_name, action):
+    &#34;&#34;&#34;Control the smart devices&#39;s state through action. Not implemented.
+    
+    Parameters:
+        device_name (string): Name of the device recorded in Home assistant
+        action (string): valid action state for the device, as recorded in home assistant.
+    
+    Returns:
+        (bool): True if device is successfully controlled. False otherwise.
+    &#34;&#34;&#34;    
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.detect_objects"><code class="name flex">
+<span>def <span class="ident">detect_objects</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>detect the object appearing in camera feed</p>
+<h2 id="returns">Returns</h2>
+<p>(list): names of the objects
+(list): coordinates of objects</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def detect_objects():
+    &#34;&#34;&#34;detect the object appearing in camera feed
+    
+    Returns:
+        (list): names of the objects
+        (list): coordinates of objects
+    &#34;&#34;&#34;    
+    objects = core.detect_objects()
+
+    if objects is not None:
+        names, coordinates = objects
+        objects = {&#34;names&#34; : names, &#34;coordinates&#34; : coordinates}
+        return objects
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="essentials.follow_person"><code class="name flex">
+<span>def <span class="ident">follow_person</span></span>(<span>name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Move the robot so that it constantly follows a person, this is a combined usage of recognizeFace() and move() function. Not implemented.</p>
+<h2 id="parameters">Parameters</h2>
+<p>name (string): name of the person that the robot should be following.</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully moved. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def follow_person(name):
+    &#34;&#34;&#34;Move the robot so that it constantly follows a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
+
+    Parameters:
+        name (string): name of the person that the robot should be following.
+    
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34; 
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.get_audio_devices"><code class="name flex">
+<span>def <span class="ident">get_audio_devices</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a list of connected audio device</p>
+<h2 id="returns">Returns</h2>
+<p>(list): List of audio device</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_audio_devices():
+    &#34;&#34;&#34;Get a list of connected audio device
+
+    Returns:
+        (list): List of audio device
+    &#34;&#34;&#34;  
+    return core.get_audio_devices()</code></pre>
+</details>
+</dd>
+<dt id="essentials.get_camera_image"><code class="name flex">
+<span>def <span class="ident">get_camera_image</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Development test function, retrieve one camera image</p>
+<h2 id="returns">Returns</h2>
+<p>(mat): cv2 image</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_camera_image():
+    &#34;&#34;&#34;Development test function, retrieve one camera image
+    
+    Returns:
+        (mat): cv2 image
+    &#34;&#34;&#34;
+    img = core.get_camera_image()
+    if img is not None:
+        return img
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="essentials.get_cloud_accounts"><code class="name flex">
+<span>def <span class="ident">get_cloud_accounts</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a list of google cloud servie account</p>
+<h2 id="returns">Returns</h2>
+<p>account_list (list): List of google cloud servie account</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_cloud_accounts():
+    &#34;&#34;&#34;Get a list of google cloud servie account
+
+    Returns:
+        account_list (list): List of google cloud servie account
+    &#34;&#34;&#34; 
+    account_list = core.get_cloud_accounts()
+    return {&#34;accounts&#34;: account_list}</code></pre>
+</details>
+</dd>
+<dt id="essentials.get_devices"><code class="name flex">
+<span>def <span class="ident">get_devices</span></span>(<span>device_type)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a list of smart devices in the local network</p>
+<h2 id="returns">Returns</h2>
+<p>(list): List of smart devices in the local network</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_devices(device_type):
+    &#34;&#34;&#34;Get a list of smart devices in the local network
+
+    Returns:
+        (list): List of smart devices in the local network
+    &#34;&#34;&#34; 
+    devices = core.get_devices(device_type)
+    result = {&#34;devices&#34;: devices}
+
+    return result</code></pre>
+</details>
+</dd>
+<dt id="essentials.get_response"><code class="name flex">
+<span>def <span class="ident">get_response</span></span>(<span>text)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate robot response based on user speech input. Not implemented.</p>
+<h2 id="parameters">Parameters</h2>
+<p>text (string): Result from listen() function</p>
+<h2 id="returns">Returns</h2>
+<p>(string): robot response</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_response(text):
+    &#34;&#34;&#34;Generate robot response based on user speech input. Not implemented.
+    
+    Parameters:
+        text (string): Result from listen() function
+    
+    Returns:
+        (string): robot response
+    &#34;&#34;&#34;    
+
+    return respone</code></pre>
+</details>
+</dd>
+<dt id="essentials.get_video_devices"><code class="name flex">
+<span>def <span class="ident">get_video_devices</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a list of connected camera device</p>
+<h2 id="returns">Returns</h2>
+<p>video_device_list (list): List of camera device</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_video_devices():
+    &#34;&#34;&#34;Get a list of connected camera device
+
+    Returns:
+        video_device_list (list): List of camera device
+    &#34;&#34;&#34; 
+    return core.get_video_devices()</code></pre>
+</details>
+</dd>
+<dt id="essentials.greet_person"><code class="name flex">
+<span>def <span class="ident">greet_person</span></span>(<span>name, speech)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Greet a specific person in a specific way, this is combined usage of recognizeFace() and say() function. Not implemented.</p>
+<h2 id="parameters">Parameters</h2>
+<p>name (sring): name of the person to greet, it can be an actual name, or simply Unknown.
+speech (string): words to say to the person.</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully greeted. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def greet_person(name, speech):
+    &#34;&#34;&#34;Greet a specific person in a specific way, this is combined usage of recognizeFace() and say() function. Not implemented.
+
+    Parameters:
+        name (sring): name of the person to greet, it can be an actual name, or simply Unknown.
+        speech (string): words to say to the person.
+
+    Returns:
+        (bool): True if successfully greeted. False otherwise.
+    &#34;&#34;&#34;    
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.initialize_component"><code class="name flex">
+<span>def <span class="ident">initialize_component</span></span>(<span>component_name, useOnline=True, account='default', processor='local')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initalization function for different components</p>
+<h2 id="parameters">Parameters</h2>
+<p>component_name (string): name of the component to be initialized</p>
+<p>Keyword Parameters:
+useOnline {bool}: use online service or not (default: {True})</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if initialization is success, False otherwise</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def initialize_component(component_name, useOnline=True, account=&#34;default&#34;, processor=&#34;local&#34;):
+    &#34;&#34;&#34;Initalization function for different components
+    
+    Parameters:
+        component_name (string): name of the component to be initialized
+    
+    Keyword Parameters:
+        useOnline {bool}: use online service or not (default: {True})
+    
+    Returns:
+        (bool): True if initialization is success, False otherwise
+    &#34;&#34;&#34;    
+    if component_name == &#34;vision&#34;:
+        success, msg = core.initialize_vision(processor)
+    elif component_name == &#34;voice&#34;:
+        success, msg  = core.initialize_voice(useOnline, account)
+    elif component_name == &#34;nlp&#34;:
+        success, msg  = core.initialize_nlp()
+    elif component_name == &#34;control&#34;:
+        success, msg  = core.initialize_control()
+    elif component_name == &#34;smart_home&#34;:
+        success = True
+        msg = &#34;OK&#34;
+    return success, msg</code></pre>
+</details>
+</dd>
+<dt id="essentials.listen"><code class="name flex">
+<span>def <span class="ident">listen</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Listen to user speech from audio feed captured by microphone.</p>
+<h2 id="returns">Returns</h2>
+<p>(string): the user speech generated from speech-to-text module.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def listen():
+    &#34;&#34;&#34;Listen to user speech from audio feed captured by microphone.
+    
+    Returns:
+        (string): the user speech generated from speech-to-text module.
+    &#34;&#34;&#34;
+
+    text = core.listen()
+
+    if text is not None:
+        return text
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="essentials.listen_for_wakeword"><code class="name flex">
+<span>def <span class="ident">listen_for_wakeword</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Continuously detecting the appeareance of wakeword from the audio stream. Higher priority than the listen() function.</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): return True if detected wakeword, False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def listen_for_wakeword():
+    &#34;&#34;&#34;Continuously detecting the appeareance of wakeword from the audio stream. Higher priority than the listen() function.
+    
+    Returns:
+        (bool): return True if detected wakeword, False otherwise.
+    &#34;&#34;&#34;
+
+    gotWakeWord = core.listen_for_wakeword()
+
+    return gotWakeWord</code></pre>
+</details>
+</dd>
+<dt id="essentials.recognize_face"><code class="name flex">
+<span>def <span class="ident">recognize_face</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Recognize the name of person from camera feed. No need to pass in camera feed explicitly at this level.</p>
+<h2 id="returns">Returns</h2>
+<p>(dict): key: names, values: (coordinates, confidences)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def recognize_face():
+    &#34;&#34;&#34;Recognize the name of person from camera feed. No need to pass in camera feed explicitly at this level.
+    
+    Returns:
+        (dict): key: names, values: (coordinates, confidences)
+    &#34;&#34;&#34;    
+
+    name = core.recognize_face()
+    #print(&#34;NAME*************&#34;, name)
+    coordinate = core.get_person_face_location(name)
+
+    if name is not None and coordinate is not None:
+        people = {&#34;name&#34; : name, &#34;coordinate&#34; : coordinate}
+        return people
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="essentials.remove_person"><code class="name flex">
+<span>def <span class="ident">remove_person</span></span>(<span>name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove a specific person from database</p>
+<h2 id="parameters">Parameters</h2>
+<p>name (string): name of the person to remove</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_person(name):
+    &#34;&#34;&#34;Remove a specific person from database
+
+    Parameters:
+        name (string): name of the person to remove
+    &#34;&#34;&#34;    
+    if name == None:
+        return -1
+
+    success = core.remove_person(name)
+
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.rotate_motor"><code class="name flex">
+<span>def <span class="ident">rotate_motor</span></span>(<span>motor_name, angle)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Rotate robot to a certain angle</p>
+<h2 id="parameters">Parameters</h2>
+<p>motor_name (string): Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
+angle (int): Roatational angle</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully moved. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rotate_motor(motor_name, angle):
+    &#34;&#34;&#34;Rotate robot to a certain angle
+
+    Parameters:
+        motor_name (string): Name of motor to control, currently, only support &#34;motor_A&#34;, &#34;motor_B&#34;, &#34;motor_C&#34;, &#34;motor_D&#34; corresponding to BrickPi ports
+        angle (int): Roatational angle
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    &#34;&#34;&#34;    
+
+    success = core.rotate_motor(motor_name, angle)
+
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.say"><code class="name flex">
+<span>def <span class="ident">say</span></span>(<span>text, volume=100)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Speak the text through speaker at the specific volume.</p>
+<h2 id="parameters">Parameters</h2>
+<p>text (string): text to be spoken.
+volume (int): 0-100.</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully spoken. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def say(text, volume=100):
+    &#34;&#34;&#34;Speak the text through speaker at the specific volume.
+    
+    Parameters:
+        text (string): text to be spoken.
+        volume (int): 0-100.
+    
+    Returns:
+        (bool): True if successfully spoken. False otherwise.
+    &#34;&#34;&#34;    
+    if text == None:
+        return -1
+
+    success = core.say(text)
+
+    return success</code></pre>
+</details>
+</dd>
+<dt id="essentials.test_camera"><code class="name flex">
+<span>def <span class="ident">test_camera</span></span>(<span>index)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Open the camera device with specific index, test for its connetion</p>
+<h2 id="parameters">Parameters</h2>
+<p>index (int): index of the camera device</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if success, False otherwise</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_camera(index):
+    &#34;&#34;&#34;Open the camera device with specific index, test for its connetion
+
+    Parameters:
+        index (int): index of the camera device
+    
+    Returns:
+        (bool): True if success, False otherwise
+    &#34;&#34;&#34;    
+    return core.test_camera(index)</code></pre>
+</details>
+</dd>
+<dt id="essentials.turn_to_person"><code class="name flex">
+<span>def <span class="ident">turn_to_person</span></span>(<span>name)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Rotate the robot to face a person, this is a combined usage of recognizeFace() and move() function. Not implemented.</p>
+<h2 id="parameters">Parameters</h2>
+<p>name (string): name of the person that the robot should center to.</p>
+<h2 id="returns">Returns</h2>
+<p>(bool): True if successfully turned. False otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def turn_to_person(name):
+    &#34;&#34;&#34;Rotate the robot to face a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
+
+    Parameters:
+        name (string): name of the person that the robot should center to.
+
+    Returns:
+        (bool): True if successfully turned. False otherwise.
+    &#34;&#34;&#34;    
+    return success</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="essentials.add_person" href="#essentials.add_person">add_person</a></code></li>
+<li><code><a title="essentials.analyse_text" href="#essentials.analyse_text">analyse_text</a></code></li>
+<li><code><a title="essentials.ask_for_person_name" href="#essentials.ask_for_person_name">ask_for_person_name</a></code></li>
+<li><code><a title="essentials.change_module_parameters" href="#essentials.change_module_parameters">change_module_parameters</a></code></li>
+<li><code><a title="essentials.control_light" href="#essentials.control_light">control_light</a></code></li>
+<li><code><a title="essentials.control_media_player" href="#essentials.control_media_player">control_media_player</a></code></li>
+<li><code><a title="essentials.control_motor" href="#essentials.control_motor">control_motor</a></code></li>
+<li><code><a title="essentials.control_motor_degree_group" href="#essentials.control_motor_degree_group">control_motor_degree_group</a></code></li>
+<li><code><a title="essentials.control_motor_speed_group" href="#essentials.control_motor_speed_group">control_motor_speed_group</a></code></li>
+<li><code><a title="essentials.control_smart_device" href="#essentials.control_smart_device">control_smart_device</a></code></li>
+<li><code><a title="essentials.detect_objects" href="#essentials.detect_objects">detect_objects</a></code></li>
+<li><code><a title="essentials.follow_person" href="#essentials.follow_person">follow_person</a></code></li>
+<li><code><a title="essentials.get_audio_devices" href="#essentials.get_audio_devices">get_audio_devices</a></code></li>
+<li><code><a title="essentials.get_camera_image" href="#essentials.get_camera_image">get_camera_image</a></code></li>
+<li><code><a title="essentials.get_cloud_accounts" href="#essentials.get_cloud_accounts">get_cloud_accounts</a></code></li>
+<li><code><a title="essentials.get_devices" href="#essentials.get_devices">get_devices</a></code></li>
+<li><code><a title="essentials.get_response" href="#essentials.get_response">get_response</a></code></li>
+<li><code><a title="essentials.get_video_devices" href="#essentials.get_video_devices">get_video_devices</a></code></li>
+<li><code><a title="essentials.greet_person" href="#essentials.greet_person">greet_person</a></code></li>
+<li><code><a title="essentials.initialize_component" href="#essentials.initialize_component">initialize_component</a></code></li>
+<li><code><a title="essentials.listen" href="#essentials.listen">listen</a></code></li>
+<li><code><a title="essentials.listen_for_wakeword" href="#essentials.listen_for_wakeword">listen_for_wakeword</a></code></li>
+<li><code><a title="essentials.recognize_face" href="#essentials.recognize_face">recognize_face</a></code></li>
+<li><code><a title="essentials.remove_person" href="#essentials.remove_person">remove_person</a></code></li>
+<li><code><a title="essentials.rotate_motor" href="#essentials.rotate_motor">rotate_motor</a></code></li>
+<li><code><a title="essentials.say" href="#essentials.say">say</a></code></li>
+<li><code><a title="essentials.test_camera" href="#essentials.test_camera">test_camera</a></code></li>
+<li><code><a title="essentials.turn_to_person" href="#essentials.turn_to_person">turn_to_person</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.1</a>.</p>
+</footer>
+</body>
+</html>
