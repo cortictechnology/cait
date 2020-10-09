@@ -2,9 +2,9 @@
     <img src="images/cait.png" width="60%">
 </div>
 
-**`Documentation`** |
-------------------- |
-[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) |
+|**`Documentation`** | |
+------------------- |-----|
+|[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) | [![UserGuide](https://img.shields.io/badge/doc-user%20manual-blue.svg)](https://michaelnhw.github.io/test_page/) |
 
 
 The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables makers and students to learn and experiment with A.I. algorithms on the popular Raspberry Pi 4 single board computer.  CAIT extends Google's Blockly visual code editor to include various A.I. and automation blocks:
