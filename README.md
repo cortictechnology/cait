@@ -7,14 +7,31 @@
 [![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://www.tensorflow.org/api_docs/) |
 
 
-CAIT is a software package to provide a no-code interface to create AI applications 
+The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables makers and students to learn and experiment with A.I. algorithms on the popular Raspberry Pi 4 single board computer.  CAIT extends Google's Blockly visual code editor to include various A.I. and automation blocks:
+
+* Face detection
+* Face recognition
+* Object detection, 
+* Text to speech 
+* Speech to text
+* Natural language processing
+* LEGO motor control
+* Smart home device control
+
+All of these custom blocks are backed by a simple Python API.  You may choose to program directly using this API for added flexibility and power.  In fact, if you already have a running project that uses the visual programming interface, you can easily convert it into Python code using our automated conversion tool.  
 
 ## Hardware requirements
 
-* Raspberry Pi 4 2GB/4Gb/8GB
-* Logitech USB Webcam, tested on C170, c922, c615, c310
-* 3.5mm audio jack speaker
-* BrickPi3 for lego motor control
+Here is a list of hardware components that we currently support.  You may choose a subset of them to suit your own projects.
+
+* Raspberry Pi 4 2GB/4Gb/8GB 
+* Logitech USB webcam (C270, C922, C615, C310 are tested)
+* Mini speaker with 3.5mm audio jack 
+* BrickPi3 LEGO motor control board 
+* LEGO Mindstorms EV3 
+* Smart home devices such as Philips Hue, smart speakers, etc
+
+We also support the use of Raspberry Pi's CSI camera interface.  However, if your project requires audio/speech input, it's much better to use a USB webcam as it has an integrate microphone.  The integrated mic usually offers much better audio input performance than any of the mini USB mics that we have tested.
 
 ## How do I try it
 
