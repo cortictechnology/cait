@@ -60,7 +60,7 @@ sudo cp change_hostname.sh /usr/sbin
 sudo chmod +x /usr/sbin/change_hostname.sh
 sudo systemctl daemon-reload
 sudo systemctl enable /etc/systemd/system/cait_*
-
+rm firmware-brcm80211_20190114-1+rpt4_all.deb
 sudo rm get-docker.sh
 
 for i in ${!options[@]}; do
@@ -88,7 +88,6 @@ done
 originalHost=$(hostname)
 hostName="cait-$serial"
 echo -e "Changing hostname to: ${RED}$hostName${NC}"
-sudo sed -i "s/$originalHost/$hostName/" /etc/hostname
-sudo sed -i "s/$originalHost/$hostName/" /etc/hosts
+sudo /usr/sbin/change_hostname.sh "$hostName"
 
 sudo ./setup-network.sh --install --ap-ssid="$apSsid" --ap-password="$apPassword" --ap-country-code="$apCountryCode" --ap-ip-address="$apIp" --wifi-interface="$wlanInterfaceNameDefault"

@@ -288,8 +288,6 @@ def finish():
 
 @application.route('/reboot', methods=['POST'])
 def reboot():
-    if is_internet_connected():
-        os.system("sudo systemctl mask hostapd.service")
     os.system("sudo reboot")
 
 @application.route('/')

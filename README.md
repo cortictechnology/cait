@@ -102,5 +102,9 @@ You can program with CAIT's AI functionalities in Python. Any program created in
 
 ## How to contribute
 
+## Known Issues
+
+ 1. https://github.com/raspberrypi/firmware/issues/1463
+
 ## License
 [MIT License](LICENSE)
