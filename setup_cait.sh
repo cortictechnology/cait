@@ -36,6 +36,7 @@ sudo docker pull cortictech/broker:0.51
 sudo sh -c "echo 'dtparam=spi=on' >> /boot/config.txt"
 # Need to add nameserver for later apt-get install, otherwise, there is chance for it to not able reolve domain
 sudo sh -c "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf"
+sudo sh -c "echo 'wireless-power off' >> /etc/network/interfaces"
 sudo apt-get install v4l-utils -y
 sudo apt-get install portaudio19-dev mplayer -y
 sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio
