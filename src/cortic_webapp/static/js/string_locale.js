@@ -161,23 +161,15 @@ var localizedStrings={
         'chs/CN':'登出'
     },
     setupWelcome:{
-        'en/US':'Welcome! This is the first step of customizing your own CAIT.',
-        'chs/CN':'欢迎！这是定制自己的CAIT的第一步。'
-    },
-    eula:{
-        'en/US':'End-User License Agreement ("Agreement")',
-        'chs/CN':'最终用户许可协议（“协议”）'
+        'en/US':'Welcome to the CAIT setup',
+        'chs/CN':'欢迎来到CAIT的设置页面'
     },
     lastUpdate:{
         'en/US':'Last updated: May 22, 2020',
         'chs/CN':'上次更新时间：2020年5月22日'
     },
-    agree:{
-        'en/US':'  I Agree ',
-        'chs/CN':' 我同意 '
-    },
     connectWifi:{
-        'en/US':"Let's connect to a WiFi network",
+        'en/US':"Connecting to WIFI network",
         'chs/CN':'让我们连接到WiFi网络'
     },
     selectedWifi:{
@@ -185,7 +177,7 @@ var localizedStrings={
         'chs/CN':'选择WiFi'
     },
     availWifi:{
-        'en/US':"Available WiFi",
+        'en/US':"Click for WIFI list",
         'chs/CN':'可用的Wifi'
     },
     enterPassword:{
@@ -221,23 +213,23 @@ var localizedStrings={
         'chs/CN':'开始设定'
     },
     customDevice:{
-        'en/US':'Customizing your device',
+        'en/US':'Setup your device',
         'chs/CN':'自定义您的设备'
     },
     nameDevice:{
-        'en/US':'How do you want to name your device?',
+        'en/US':'Hostname',
         'chs/CN':'您想如何命名您的设备？'
     },
     askUsername:{
-        'en/US':'What is your username?',
+        'en/US':'Username?',
         'chs/CN':'您的用户名是什么？'
     },
     askPassword:{
-        'en/US':'Please enter a password for your user',
+        'en/US':'Password',
         'chs/CN':'请输入您的用户密码'
     },
     testHardware:{
-        'en/US':'We will now test the connected camera and audio devices',
+        'en/US':'Peripheral test',
         'chs/CN':'现在，我们将测试连接的摄像头和音频设备'
     },
     availCam:{
@@ -265,8 +257,24 @@ var localizedStrings={
         'chs/CN':'初始化硬件'
     },
     thirdSignin:{
-        'en/US':"Let's sign in or register to third party cloud service provider, after creating an account, please enter the API key and Secret Key to below, then press the next button",
+        'en/US':"Cloud Service Provider",
         'chs/CN':'让我们登录或注册到第三方云服务提供商，创建帐户后，请在下面输入API Key和Secret Key，然后按下一步按钮'
+    },
+    thirdLoginin:{
+        'en/US':"Create Google Service Accont",
+        'chs/CN':'让我们登录或注册到第三方云服务提供商'
+    },
+    thirdsignin_explain:{
+        'en/US':"You may choose to connect to a cloud service provider for better speech recognition/generation performance.  However, if privacy is important to you, you may skip this step and opt to process audio inputs locally.",
+        'chs/CN':''
+    },
+    thirdsignin_upload:{
+        'en/US':"Please refer to the User Manual for a step by step Google setup guide",
+        'chs/CN':''
+    },
+    json_upload:{
+        'en/US':"Please upload the JSON file from Google",
+        'chs/CN':''
     },
     signinSuccess:{
         'en/US':"Sign in Success! Please press next button to continue.",
@@ -313,11 +321,11 @@ var localizedStrings={
         'chs/CN':'所有字段不能为空！'
     },
     congrats:{
-        'en/US':"Congratulation! CAIT is now all setup, click the button below to restart CAIT now",
+        'en/US':"Restart Your Device",
         'chs/CN':'恭喜你！现在已完成CAIT的所有设置，请单击下面的按钮立即重新启动CAIT'
     },
     reboot:{
-        'en/US':"Reboot CAIT",
+        'en/US':"Restart CAIT",
         'chs/CN':'重新启动CAIT'
     }
 }

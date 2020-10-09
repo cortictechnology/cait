@@ -93,9 +93,6 @@ def setup():
 def prev_setup():
     return render_template('setup.html')
 
-@application.route('/agreement')
-def agreement():
-    return render_template('agreement.html')
 
 @application.route('/wifi')
 def wifi():

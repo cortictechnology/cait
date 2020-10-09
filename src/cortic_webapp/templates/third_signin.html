@@ -2,7 +2,9 @@
 <head>
   <title>CAIT Setup</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="{{url_for('static', filename='js/string_locale.js') }}"></script>
+  <script>var locale="en/US";</script>
 <!--===============================================================================================-->	
   <link rel="icon" type="image/png" href="/static/images/favicon.ico"/>
   <style>
@@ -13,8 +15,9 @@
     }
 
     p {
-        text-align: center;
         margin-top: 3vh;
+        width: 40rem;
+        margin-bottom: 3rem;
     }
 
     body {
@@ -30,8 +33,7 @@
     -webkit-box-pack: start;
             justify-content: flex-start;
     font-family: "Ek Mukta";
-    text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 100;
     letter-spacing: 4px;
     background-image: url('/static/images/bg01.jpg');
     background-position: center;
@@ -64,6 +66,8 @@
     font-family: "Open Sans";
     font-weight: 700;
     color: grey;
+    margin-top: -1;
+    width: 21rem;
     }
 
     form {
@@ -110,23 +114,34 @@
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
      }
 
+     .json-upload {
+       width: 22rem;
+     }
+
   </style>
 </head>
 
 <body>
-    <h1><span>Let's sign in to third party cloud service provider</span></h1> 
+    <h1><span id="thirdsignin_header"></span></h1> 
+    <script>document.getElementById('thirdsignin_header').innerHTML = localizedStrings.thirdSignin[locale];</script>
     <br>
     <br>
-    <button class="btn-general" id="thirdlogin" onclick="google_login()">Create Google Service Accont</button>
-    <h4>Please upload your google service account json file</h4>
+    <p id="thirdsignin_explain"></p>
+    <script>document.getElementById('thirdsignin_explain').innerHTML = localizedStrings.thirdsignin_explain[locale];</script>
+    <button class="btn-general" id="thirdlogin" onclick="google_login()"></button>
+    <script>document.getElementById('thirdlogin').innerHTML = localizedStrings.thirdLoginin[locale];</script>
+    <h4><span id="thirdsignin_upload"></span></h4>
+    <script>document.getElementById('thirdsignin_upload').innerHTML = localizedStrings.thirdsignin_upload[locale];</script>
     <br>
     <br>
-    <input type="file" id="account_json" name="account_json"><br><br>
-    <p>
+    <input class="json-upload" type="file" id="account_json" name="account_json">
+    <h4><span id="json_upload"></span></h4><br><br>
+    <script>document.getElementById('json_upload').innerHTML = localizedStrings.json_upload[locale];</script>
+    <div align="center">
       <button class="btn-next" type="button"  id="previous" onclick="prev()">Previous</button>
       <button class="btn-next" type="button"  id="upload_btn" onclick="upload_account()">Next</button>
       <button class="btn-next" type="button"  id="skip" onclick="skipThis()">Skip</button>
-    </p>
+    </div>
     <script>
       function google_login() {
         window.open("https://cloud.google.com/speech-to-text", '_blank');
