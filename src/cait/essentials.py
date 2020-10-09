@@ -19,20 +19,40 @@ Assumptions:
 """
 
 def get_cloud_accounts():
+    """Get a list of google cloud servie account
+
+    Returns:
+        [list] -- List of google cloud servie account
+    """ 
     account_list = core.get_cloud_accounts()
     return {"accounts": account_list}
 
-def get_nlp_models():
-    account_list = core.get_cloud_accounts()
-    return {"models": account_list}
 
 def get_video_devices():
+    """Get a list of connected camera device
+
+    Returns:
+        [list] -- List of camera device
+    """ 
     return core.get_video_devices()
 
 def get_audio_devices():
+    """Get a list of connected audio device
+
+    Returns:
+        [list] -- List of audio device
+    """  
     return core.get_audio_devices()
 
 def test_camera(index):
+    """Open the camera device with specific index, test for its connetion
+
+    Arguments:
+        index {[int]} -- index of the camera device
+    
+    Returns:
+        [bool] -- True if success, False otherwise
+    """    
     return core.test_camera(index)
 
 def initialize_component(component_name, useOnline=True, account="default", processor="local"):
@@ -61,9 +81,20 @@ def initialize_component(component_name, useOnline=True, account="default", proc
     return success, msg
 
 def change_module_parameters(parameter_name, value):
+    """Generic function for setting ai module parameters
+    Arguments:
+        parameter_name {[string]} -- name of prarmeter
+        value {float} -- value of parameter
+    
+    """    
     core.change_module_parameters(parameter_name, value)
 
 def get_camera_image():
+    """Development test function, retrieve one camera image
+    
+    Returns:
+        [mat] -- cv2 image
+    """
     img = core.get_camera_image()
     if img is not None:
         return img
@@ -196,9 +227,9 @@ def control_motor(motor_name, speed, duration):
     """Move robot forward or backward, with specific speed and for specific duration
 
     Arguments:
-        direction {[type]} -- [description]
-        speed {[type]} -- [description]
-        duration {[type]} -- [description]
+        motor_name {[string]} -- Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
+        speed {[int]} -- 0-100
+        duration {[int]} -- 0 - inf
 
     Returns:
         [bool] -- True if successfully moved. False otherwise.
@@ -209,6 +240,15 @@ def control_motor(motor_name, speed, duration):
     return success
 
 def control_motor_speed_group(operation_list):
+    """Move a group of motors together
+
+    Arguments:
+        operation_list {[list]} -- A list of operation in string, refer to code generated from the visual programming interface
+
+    Returns:
+        [bool] -- True if successfully moved. False otherwise.
+    """ 
+
     success = core.control_motor_speed_group(operation_list)
 
     return success
@@ -217,6 +257,7 @@ def rotate_motor(motor_name, angle):
     """Rotate robot to a certain angle
 
     Arguments:
+        motor_name {[string]} -- Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
         angle {[int]} -- Roatational angle
 
     Returns:
@@ -228,35 +269,59 @@ def rotate_motor(motor_name, angle):
     return success
 
 def control_motor_degree_group(operation_list):
+    """Rotate a group of motors together
+
+    Arguments:
+        operation_list {[list]} -- A list of operation in string, refer to code generated from the visual programming interface
+
+    Returns:
+        [bool] -- True if successfully moved. False otherwise.
+    """ 
     success = core.control_motor_degree_group(operation_list)
 
     return success
 
-def stop_movement():
-    """[summary]
-
-    Returns:
-        [bool] -- True if successfully stopped. False otherwise.
-    """   
-    
-    return success 
 
 def get_devices(device_type):
+    """Get a list of smart devices in the local network
+
+    Returns:
+        [list] -- List of smart devices in the local network
+    """ 
     devices = core.get_devices(device_type)
     result = {"devices": devices}
 
     return result
 
 def control_light(device_name, operation, parameter=None):
+    """Control the operation of a smart light device.
+
+    Arguments:
+        device_name {[string]} -- name of smart light device.
+        operation {[string]} -- operation, currently supporting "turn_on",  "turn_off", "toggle", "color_name", "brightness_pct".
+        parameter {} -- any parameter for the operation.
+ 
+    Returns:
+        [bool] -- True if successfully sent command to homeassistant. False otherwise.
+    """ 
     result = core.control_light(device_name, operation, parameter)
     return result
 
 def control_media_player(device_name, operation):
+    """Control the operation of a smart media player.
+
+    Arguments:
+        device_name {[string]} -- name of smart media player.
+        operation {[string]} -- operation, currently supporting "media_play",  "media_pause", "volume_up", "volume_down".
+ 
+    Returns:
+        [bool] -- True if successfully sent command to homeassistant. False otherwise.
+    """ 
     result = core.control_media_player(device_name, operation)
     return result
 
 def turn_to_person(name):
-    """Rotate the robot to face a person, this is a combined usage of recognizeFace() and move() function.
+    """Rotate the robot to face a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
 
     Arguments:
         name {[string]} -- name of the person that the robot should center to.
@@ -267,7 +332,7 @@ def turn_to_person(name):
     return success
 
 def follow_person(name):
-    """Move the robot so that it constantly follows a person, this is a combined usage of recognizeFace() and move() function.
+    """Move the robot so that it constantly follows a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
 
     Arguments:
         name {[string]} -- name of the person that the robot should be following.
@@ -278,7 +343,7 @@ def follow_person(name):
     return success
 
 def greet_person(name, speech):
-    """Greet a specific person in a specific way, this is combined usage of recognizeFace() and say() function.
+    """Greet a specific person in a specific way, this is combined usage of recognizeFace() and say() function. Not implemented.
 
     Arguments:
         name {[sring]} -- name of the person to greet, it can be an actual name, or simply Unknown.
@@ -290,7 +355,7 @@ def greet_person(name, speech):
     return success
 
 def ask_for_person_name():
-    """Ask for the name of a person appearing in the camera feed, this is a combined usage of say(), listen() and analyseSpeech() function.
+    """Ask for the name of a person appearing in the camera feed, this is a combined usage of say(), listen() and analyseSpeech() function. Not implemented.
     
     Returns:
         [string] -- name of the person.
@@ -298,7 +363,7 @@ def ask_for_person_name():
     return name
 
 def get_response(text):
-    """Generate robot response based on user speech input
+    """Generate robot response based on user speech input. Not implemented.
     
     Arguments:
         text {[string]} -- Result from listen() function
@@ -310,7 +375,7 @@ def get_response(text):
     return respone
 
 def control_smart_device(device_name, action):
-    """Control the smart devices's state through action.
+    """Control the smart devices's state through action. Not implemented.
     
     Arguments:
         device_name {[string]} -- Name of the device recorded in Home assistant
