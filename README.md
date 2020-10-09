@@ -7,7 +7,7 @@
 |[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) | [![UserGuide](https://img.shields.io/badge/doc-user%20manual-blue.svg)](https://michaelnhw.github.io/test_page/) |
 
 
-The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables makers and students to learn and experiment with A.I. algorithms on the popular Raspberry Pi 4 single board computer.  CAIT extends Google's Blockly visual code editor to include various A.I. and automation blocks:
+The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables makers and students to learn and experiment with A.I. algorithms on the popular Raspberry Pi 4B single board computer.  There is a lot of interest among various groups of people to setup and experiment with A.I. enabled projects.  However, many of them are turned off by the complicated software setup process and the sharp learning curve required to get an A.I. project up and running.  Additionally, A.I. capable hardware can be an expensive investment.  Our goal is to address these problems and make it extremely simple for people to build projects using a variety of A.I. technology on an inexpensive hardware platform.  We take a container based approach and pre-installed many state-of-the-art open source A.I. software packages/frameworks into a number of cohesive docker containers.  We link these containers into a single system by employing the lightweight MQTT protocol.  Finally, we extend Google's Blockly visual programming alnguage to offer a quick prototyping environment for our users.  CAIT is the result of this effort.  It currently include a nubmer of custom A.I. and automation blocks:
 
 * Face detection
 * Face recognition
@@ -24,7 +24,8 @@ All of these custom blocks are backed by a simple Python API.  You may choose to
 
 Here is a list of hardware components that we currently support.  You may choose a subset of them to suit your own projects.
 
-* Raspberry Pi 4 2GB/4Gb/8GB 
+* Any of Raspberry Pi 4B 2GB/4Gb/8GB models
+* Micro SD card (32GB recommended)
 * Logitech USB webcam (C270, C922, C615, C310 are tested)
 * Mini speaker with 3.5mm audio jack 
 * BrickPi3 LEGO motor control board 
@@ -37,9 +38,15 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 Download the prebuilt raspbian image: 
 
+You'll need to use a micro SD card that is at least 32GB in order for this image to write properly.
+
 Use any image writing tool to clone the image to a sd card, e.g. dd, pi imager.
 
-## Install from source
+## Installing from source
+
+Before you start, make sure there is at least 16GB of free space on your SD card.  
+
+> :warning: **The latest WIFI firmware (ver. 20190114-1+rpt8) has a known issue that crashes when using a virtual AP interface**: The setup script you are about to run will downgrade this firmware to the 20190114-1+rpt4 version.  Proceed only if you are okay with this downgrade.
 
 ```
 $ git clone https://github.com/cortictechnology/cait.git
@@ -47,7 +54,8 @@ $ cd cait
 $ bash setup_cait.sh --ap-ssid=<ssid_name> --ap-password=<ap_password> --ap-country-code=<country_code> --ap-ip-address=<desired_ap_ip> --wifi-interface=<wifi_interface_name>
 ```
 
-The above setup script starts the raspberry pi in both access point mode and station mode.  The user can provide custom values for the access point name, password, desired ip address, and the wifi ssid name. If no parameters are given, the default values are: <br/>
+The above setup script starts the raspberry pi in both access point mode and station mode.  The user can provide custom values for the access point name, password, desired ip address, and the wifi ssid name. If no parameters are given, the default values are: 
+
 ```
 <ssid_name>: "cait" 
 <ap_password> : "caitcait" 
@@ -56,17 +64,16 @@ The above setup script starts the raspberry pi in both access point mode and sta
 <wifi_interface_name>: "wlan0"
 ```
 
-After the above setup is finished, the device's hostname is changed to cait-<device_serial_number>, you can find the exact hostname during the script's process, in the line: "Hostname is changed to:" with the new hostname highlighted in red.
+After the setup process is completed, the device's hostname is changed to cait-<device_serial_number>.  You can find the exact hostname by looking at the last line of the setup script output.  It should say: "Changing hostname to:", with the new hostname highlighted in <span style="color:red">red</span>, shown below.  Of course, you can always use the raspi-config utility to change the hostname to whatever you like.
 
-
-<img src="images/hostname.png" width="70%">
-
+<img src="images/hostname.png" width="80%">
 
 ## Quick start
 
 ### Using the visual programming interface:
 
-In browser, go to: 
+You can connect to the CAIT's visual programming interface using any computer, including the Raspberry Pi 4B that hosts CAIT, on the same local WIFI.  In the web browser, go to:
+
 ```
 http://<hostname>.local
 ```
@@ -127,10 +134,6 @@ You can program with CAIT's AI functionalities in Python. Any program created in
 <img src="images/notebook.png" width="60%">
 
 ## How to contribute
-
-## Known Issues
-
- 1. https://github.com/raspberrypi/firmware/issues/1463
 
 ## License
 [MIT License](LICENSE)
