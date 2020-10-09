@@ -30,7 +30,7 @@ while True:
       first_internet_up = True
       first_internet_up_time = time.time()
     if stat == 0:
-      if (time.time() - first_internet_up_time) > 180:
+      if (time.time() - first_internet_up_time) > 120:
         logging.info("WIFI + AP on")
         os.system("mplayer /opt/cortic_modules/voice_module/apOff.mp3")
         os.system("sudo systemctl mask hostapd.service")
