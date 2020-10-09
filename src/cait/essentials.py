@@ -22,7 +22,7 @@ def get_cloud_accounts():
     """Get a list of google cloud servie account
 
     Returns:
-        [list] -- List of google cloud servie account
+        account_list (list): List of google cloud servie account
     """ 
     account_list = core.get_cloud_accounts()
     return {"accounts": account_list}
@@ -32,7 +32,7 @@ def get_video_devices():
     """Get a list of connected camera device
 
     Returns:
-        [list] -- List of camera device
+        video_device_list (list): List of camera device
     """ 
     return core.get_video_devices()
 
@@ -40,32 +40,32 @@ def get_audio_devices():
     """Get a list of connected audio device
 
     Returns:
-        [list] -- List of audio device
+        (list): List of audio device
     """  
     return core.get_audio_devices()
 
 def test_camera(index):
     """Open the camera device with specific index, test for its connetion
 
-    Arguments:
-        index {[int]} -- index of the camera device
+    Parameters:
+        index (int): index of the camera device
     
     Returns:
-        [bool] -- True if success, False otherwise
+        (bool): True if success, False otherwise
     """    
     return core.test_camera(index)
 
 def initialize_component(component_name, useOnline=True, account="default", processor="local"):
     """Initalization function for different components
     
-    Arguments:
-        component_name {[string]} -- name of the component to be initialized
+    Parameters:
+        component_name (string): name of the component to be initialized
     
-    Keyword Arguments:
-        useOnline {bool} -- use online service or not (default: {True})
+    Keyword Parameters:
+        useOnline {bool}: use online service or not (default: {True})
     
     Returns:
-        [bool] -- True if initialization is success, False otherwise
+        (bool): True if initialization is success, False otherwise
     """    
     if component_name == "vision":
         success, msg = core.initialize_vision(processor)
@@ -82,9 +82,9 @@ def initialize_component(component_name, useOnline=True, account="default", proc
 
 def change_module_parameters(parameter_name, value):
     """Generic function for setting ai module parameters
-    Arguments:
-        parameter_name {[string]} -- name of prarmeter
-        value {float} -- value of parameter
+    Parameters:
+        parameter_name (string): name of prarmeter
+        value {float}: value of parameter
     
     """    
     core.change_module_parameters(parameter_name, value)
@@ -93,7 +93,7 @@ def get_camera_image():
     """Development test function, retrieve one camera image
     
     Returns:
-        [mat] -- cv2 image
+        (mat): cv2 image
     """
     img = core.get_camera_image()
     if img is not None:
@@ -105,7 +105,7 @@ def recognize_face():
     """Recognize the name of person from camera feed. No need to pass in camera feed explicitly at this level.
     
     Returns:
-        [dict] -- key: names, values: [coordinates, confidences]
+        (dict): key: names, values: (coordinates, confidences)
     """    
 
     name = core.recognize_face()
@@ -121,11 +121,11 @@ def recognize_face():
 def add_person(name=None):
     """Add a new person into face database, associate the name with the person's face image captured from camera feed.
     
-    Arguments:
-        name {[string]} -- name of the person.
+    Parameters:
+        name (string): name of the person.
     
     Returns:
-        [bool] -- return True if adding face is success, False otherwise.
+        (bool): return True if adding face is success, False otherwise.
     """    
     if name == None:
         return -1
@@ -137,8 +137,8 @@ def add_person(name=None):
 def remove_person(name):
     """Remove a specific person from database
 
-    Arguments:
-        name {[string]} -- name of the person to remove
+    Parameters:
+        name (string): name of the person to remove
     """    
     if name == None:
         return -1
@@ -151,8 +151,8 @@ def detect_objects():
     """detect the object appearing in camera feed
     
     Returns:
-        [list] -- names of the objects
-        [list] -- coordinates of objects
+        (list): names of the objects
+        (list): coordinates of objects
     """    
     objects = core.detect_objects()
 
@@ -167,7 +167,7 @@ def listen():
     """Listen to user speech from audio feed captured by microphone.
     
     Returns:
-        [string] -- the user speech generated from speech-to-text module.
+        (string): the user speech generated from speech-to-text module.
     """
 
     text = core.listen()
@@ -181,7 +181,7 @@ def listen_for_wakeword():
     """Continuously detecting the appeareance of wakeword from the audio stream. Higher priority than the listen() function.
     
     Returns:
-        [bool] -- return True if detected wakeword, False otherwise.
+        (bool): return True if detected wakeword, False otherwise.
     """
 
     gotWakeWord = core.listen_for_wakeword()
@@ -191,12 +191,12 @@ def listen_for_wakeword():
 def say(text, volume=100):
     """Speak the text through speaker at the specific volume.
     
-    Arguments:
-        text {[string]} -- text to be spoken.
-        volume {[int]} -- 0-100.
+    Parameters:
+        text (string): text to be spoken.
+        volume (int): 0-100.
     
     Returns:
-        [bool] -- True if successfully spoken. False otherwise.
+        (bool): True if successfully spoken. False otherwise.
     """    
     if text == None:
         return -1
@@ -208,11 +208,11 @@ def say(text, volume=100):
 def analyse_text(text):
     """Analyse the user speech generated from the listen() function.
     
-    Arguments:
-        text {[string]} -- user speech.
+    Parameters:
+        text (string): user speech.
     
     Returns:
-        [dict] -- Contains the intention and entities from the analytics of the user speech.
+        (dict): Contains the intention and entities from the analytics of the user speech.
     """
     if text == None:
         return -1
@@ -226,13 +226,13 @@ def analyse_text(text):
 def control_motor(motor_name, speed, duration):
     """Move robot forward or backward, with specific speed and for specific duration
 
-    Arguments:
-        motor_name {[string]} -- Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
-        speed {[int]} -- 0-100
-        duration {[int]} -- 0 - inf
+    Parameters:
+        motor_name (string): Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
+        speed (int): 0-100
+        duration (int): 0 - inf
 
     Returns:
-        [bool] -- True if successfully moved. False otherwise.
+        (bool): True if successfully moved. False otherwise.
     """    
 
     success = core.control_motor(motor_name, speed, duration)
@@ -242,11 +242,11 @@ def control_motor(motor_name, speed, duration):
 def control_motor_speed_group(operation_list):
     """Move a group of motors together
 
-    Arguments:
-        operation_list {[list]} -- A list of operation in string, refer to code generated from the visual programming interface
+    Parameters:
+        operation_list (list): A list of operation in string, refer to code generated from the visual programming interface
 
     Returns:
-        [bool] -- True if successfully moved. False otherwise.
+        (bool): True if successfully moved. False otherwise.
     """ 
 
     success = core.control_motor_speed_group(operation_list)
@@ -256,12 +256,12 @@ def control_motor_speed_group(operation_list):
 def rotate_motor(motor_name, angle):
     """Rotate robot to a certain angle
 
-    Arguments:
-        motor_name {[string]} -- Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
-        angle {[int]} -- Roatational angle
+    Parameters:
+        motor_name (string): Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
+        angle (int): Roatational angle
 
     Returns:
-        [bool] -- True if successfully moved. False otherwise.
+        (bool): True if successfully moved. False otherwise.
     """    
 
     success = core.rotate_motor(motor_name, angle)
@@ -271,11 +271,11 @@ def rotate_motor(motor_name, angle):
 def control_motor_degree_group(operation_list):
     """Rotate a group of motors together
 
-    Arguments:
-        operation_list {[list]} -- A list of operation in string, refer to code generated from the visual programming interface
+    Parameters:
+        operation_list (list): A list of operation in string, refer to code generated from the visual programming interface
 
     Returns:
-        [bool] -- True if successfully moved. False otherwise.
+        (bool): True if successfully moved. False otherwise.
     """ 
     success = core.control_motor_degree_group(operation_list)
 
@@ -286,7 +286,7 @@ def get_devices(device_type):
     """Get a list of smart devices in the local network
 
     Returns:
-        [list] -- List of smart devices in the local network
+        (list): List of smart devices in the local network
     """ 
     devices = core.get_devices(device_type)
     result = {"devices": devices}
@@ -296,13 +296,13 @@ def get_devices(device_type):
 def control_light(device_name, operation, parameter=None):
     """Control the operation of a smart light device.
 
-    Arguments:
-        device_name {[string]} -- name of smart light device.
-        operation {[string]} -- operation, currently supporting "turn_on",  "turn_off", "toggle", "color_name", "brightness_pct".
-        parameter {} -- any parameter for the operation.
+    Parameters:
+        device_name (string): name of smart light device.
+        operation (string): operation, currently supporting "turn_on",  "turn_off", "toggle", "color_name", "brightness_pct".
+        parameter {}: any parameter for the operation.
  
     Returns:
-        [bool] -- True if successfully sent command to homeassistant. False otherwise.
+        (bool): True if successfully sent command to homeassistant. False otherwise.
     """ 
     result = core.control_light(device_name, operation, parameter)
     return result
@@ -310,12 +310,12 @@ def control_light(device_name, operation, parameter=None):
 def control_media_player(device_name, operation):
     """Control the operation of a smart media player.
 
-    Arguments:
-        device_name {[string]} -- name of smart media player.
-        operation {[string]} -- operation, currently supporting "media_play",  "media_pause", "volume_up", "volume_down".
+    Parameters:
+        device_name (string): name of smart media player.
+        operation (string): operation, currently supporting "media_play",  "media_pause", "volume_up", "volume_down".
  
     Returns:
-        [bool] -- True if successfully sent command to homeassistant. False otherwise.
+        (bool): True if successfully sent command to homeassistant. False otherwise.
     """ 
     result = core.control_media_player(device_name, operation)
     return result
@@ -323,34 +323,34 @@ def control_media_player(device_name, operation):
 def turn_to_person(name):
     """Rotate the robot to face a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
 
-    Arguments:
-        name {[string]} -- name of the person that the robot should center to.
+    Parameters:
+        name (string): name of the person that the robot should center to.
 
     Returns:
-        [bool] -- True if successfully turned. False otherwise.
+        (bool): True if successfully turned. False otherwise.
     """    
     return success
 
 def follow_person(name):
     """Move the robot so that it constantly follows a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
 
-    Arguments:
-        name {[string]} -- name of the person that the robot should be following.
+    Parameters:
+        name (string): name of the person that the robot should be following.
     
     Returns:
-        [bool] -- True if successfully moved. False otherwise.
+        (bool): True if successfully moved. False otherwise.
     """ 
     return success
 
 def greet_person(name, speech):
     """Greet a specific person in a specific way, this is combined usage of recognizeFace() and say() function. Not implemented.
 
-    Arguments:
-        name {[sring]} -- name of the person to greet, it can be an actual name, or simply Unknown.
-        speech {[string]} -- words to say to the person.
+    Parameters:
+        name (sring): name of the person to greet, it can be an actual name, or simply Unknown.
+        speech (string): words to say to the person.
 
     Returns:
-        [bool] -- True if successfully greeted. False otherwise.
+        (bool): True if successfully greeted. False otherwise.
     """    
     return success
 
@@ -358,18 +358,18 @@ def ask_for_person_name():
     """Ask for the name of a person appearing in the camera feed, this is a combined usage of say(), listen() and analyseSpeech() function. Not implemented.
     
     Returns:
-        [string] -- name of the person.
+        (string): name of the person.
     """    
     return name
 
 def get_response(text):
     """Generate robot response based on user speech input. Not implemented.
     
-    Arguments:
-        text {[string]} -- Result from listen() function
+    Parameters:
+        text (string): Result from listen() function
     
     Returns:
-        [string] -- robot response
+        (string): robot response
     """    
 
     return respone
@@ -377,11 +377,11 @@ def get_response(text):
 def control_smart_device(device_name, action):
     """Control the smart devices's state through action. Not implemented.
     
-    Arguments:
-        device_name {[string]} -- Name of the device recorded in Home assistant
-        action {[string]} -- valid action state for the device, as recorded in home assistant.
+    Parameters:
+        device_name (string): Name of the device recorded in Home assistant
+        action (string): valid action state for the device, as recorded in home assistant.
     
     Returns:
-        [bool] -- True if device is successfully controlled. False otherwise.
+        (bool): True if device is successfully controlled. False otherwise.
     """    
     return success
