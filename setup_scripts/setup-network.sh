@@ -26,7 +26,8 @@ options=("$@")
 OS_VERSION=`cat /etc/os-release 2>/dev/null | grep -i "VERSION_ID" | awk -F '=' '{gsub("\"", "", $2); print $2}'`
 echo ""
 echo "[INFO]: Processing network setup for OS Version: $OS_VERSION"
-
+RED='\033[0;31m'
+NC='\033[0m'
 apIpDefault="10.0.0.1"
 apDhcpRangeDefault="10.0.0.50,10.0.0.150,12h"
 apSetupIptablesMasqueradeDefault="iptables -t nat -A POSTROUTING -s 10.0.0.0/24 ! -d 10.0.0.0/24 -j MASQUERADE"
@@ -943,6 +944,7 @@ sudo ./setup-network.sh --install-upgrade --ap-ssid="abc-1" --ap-password="passw
     fi
     
     doInstall
+    echo -e "Hostname is changed to: ${RED}$hostName${NC}"
     # Sleep for 10s before restarting:
     echo "[Reboot]: In 10 seconds ..."
     sleep 10

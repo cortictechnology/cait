@@ -5,8 +5,6 @@ apPassword="caitcait"
 apIp="10.0.0.1"
 apCountryCode="CA"
 serial=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2)
-RED='\033[0;31m'
-NC='\033[0m'
 
 # Using an older wifi firmware due to a known issue for rpt8 firmware: https://github.com/raspberrypi/firmware/issues/1463
 wget http://archive.raspberrypi.org/debian/pool/main/f/firmware-nonfree/firmware-brcm80211_20190114-1+rpt4_all.deb
@@ -88,7 +86,7 @@ done
 
 originalHost=$(hostname)
 hostName="cait-$serial"
-echo -e "Changing hostname to: ${RED}$hostName${NC}"
+
 sudo /usr/sbin/change_hostname.sh "$hostName"
 
 sudo ./setup-network.sh --install --ap-ssid="$apSsid" --ap-password="$apPassword" --ap-country-code="$apCountryCode" --ap-ip-address="$apIp" --wifi-interface="$wlanInterfaceNameDefault"
