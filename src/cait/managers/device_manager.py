@@ -60,6 +60,11 @@ class DeviceManager:
                     resolution = SUPPORTED_CAMERAS[cam]
                     vinfo = {"device": l[0], "index": cam_index, "resolution": resolution, "time": time.time()}
                     video_devices.append(vinfo)
+                else:
+                    cam_index = l[1][l[1].find('/video')+6:]
+                    resolution = [640, 480]
+                    vinfo = {"device": 'USB Webcam', "index": cam_index, "resolution": resolution, "time": time.time()}
+                    video_devices.append(vinfo)
         picamera_present = os.popen("vcgencmd get_camera").readline()
         picamera_present = picamera_present.replace("supported=", "")
         picamera_present = picamera_present.replace("detected=", "")
