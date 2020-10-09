@@ -11,7 +11,7 @@ wget http://archive.raspberrypi.org/debian/pool/main/f/firmware-nonfree/firmware
 sudo dpkg --purge firmware-brcm80211
 sudo dpkg --install firmware-brcm80211_20190114-1+rpt4_all.deb
 sudo apt-mark hold firmware-brcm80211
-
+rm firmware-brcm80211_20190114-1+rpt4_all.deb
 sudo apt update
 sudo apt -y full-upgrade
 cd setup_scripts
@@ -59,7 +59,6 @@ sudo cp change_hostname.sh /usr/sbin
 sudo chmod +x /usr/sbin/change_hostname.sh
 sudo systemctl daemon-reload
 sudo systemctl enable /etc/systemd/system/cait_*
-rm firmware-brcm80211_20190114-1+rpt4_all.deb
 sudo rm get-docker.sh
 
 for i in ${!options[@]}; do
