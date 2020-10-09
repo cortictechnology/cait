@@ -4,7 +4,7 @@
 
 **`Documentation`** |
 ------------------- |
-[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](doc/html/essentials.html) |
+[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) |
 
 
 CAIT is a software package to provide a no-code interface to create AI applications 
