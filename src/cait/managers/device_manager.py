@@ -16,9 +16,10 @@ import pyaudio
 import spidev
 from ctypes import *
 
-SUPPORTED_CAMERAS = {'Webcam C170': [320,240], 'HD Webcam C615':[640,480], 'UVC': [320, 240], 'PiCamera':[640,480]}
+EXCLUDED_DEVICES = ['bcm2835-codec-decode (platform:bcm2835-codec):', 'bcm2835-isp (platform:bcm2835-isp):']
+TESTED_CAMERAS = {'Webcam C170': [320,240], 'HD Webcam C615':[640,480], 'UVC': [320, 240], 'PiCamera':[640,480], 'C922': [640, 480], 'C310': [640, 480]}
 SUPPORTED_SPEAKERS = ['bcm2835']
-SUPPORTED_MIC = ['Webcam C170', 'HD Webcam C615', 'USB Device']
+SUPPORTED_MIC = ['Webcam C170', 'HD Webcam C615', 'USB Device', 'C922', 'C310']
 SUPPORTED_CONTROL_HAT = ['BrickPi', 'Adafruit Servo HAT', "Makebot"]
 
 ERROR_HANDLER_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int, c_char_p)
@@ -53,18 +54,15 @@ class DeviceManager:
         out, err = str(out.strip(), 'utf-8'), err.strip()
         video_devices = []
         for l in [i.split("\n\t") for i in out.split("\n\n")]:
-            #logging.info(l[0])
-            for cam in SUPPORTED_CAMERAS.keys():
-                if cam in l[0]:
-                    cam_index = l[1][l[1].find('/video')+6:]
-                    resolution = SUPPORTED_CAMERAS[cam]
-                    vinfo = {"device": l[0], "index": cam_index, "resolution": resolution, "time": time.time()}
-                    video_devices.append(vinfo)
-                else:
-                    cam_index = l[1][l[1].find('/video')+6:]
-                    resolution = [640, 480]
-                    vinfo = {"device": 'USB Webcam', "index": cam_index, "resolution": resolution, "time": time.time()}
-                    video_devices.append(vinfo)
+            if l[0] not in EXCLUDED_DEVICES:
+                resolution = [640, 480]
+                for cam in TESTED_CAMERAS.keys():
+                    if cam in l[0]:
+                        resolution = TESTED_CAMERAS[cam]
+                cam_index = l[1][l[1].find('/video')+6:]
+                vinfo = {"device": l[0], "index": cam_index, "resolution": resolution, "time": time.time()}
+                video_devices.append(vinfo)
+                #logging.info(vinfo)
         picamera_present = os.popen("vcgencmd get_camera").readline()
         picamera_present = picamera_present.replace("supported=", "")
         picamera_present = picamera_present.replace("detected=", "")
