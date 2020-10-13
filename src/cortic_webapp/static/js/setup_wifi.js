@@ -5,6 +5,20 @@ Written by Michael Ng <michaelng@cortic.ca>, March 2020
   
  */
 
+async function ajax_post(url, data) {
+    return $.ajax({
+      url: url,
+      type: 'POST',
+      data: data,
+      timeout: 30000
+    }).fail(function(jqXHR, textStatus){
+        if(textStatus === 'timeout')
+        {     
+            alert("The device's AP internet has gone down during wifi connection, pleaase make sure you reconnect to the device's AP network again, then refresh this page."); 
+        }
+    });
+}
+
 var cait_system_up = false
 
 const inputField = document.querySelector('.chosen-value');
@@ -125,16 +139,35 @@ async function connect_wifi() {
     var wifi_password = document.getElementById("wifi_pw").value;
     loader.style.display = "flex";
     loader.style.zIndex = 1;
-    $.post( "/connectwifi", {'ssid' : wifi_name, 'password': wifi_password}, function( data ) {
+    try {
+        const result = await ajax_post("/connectwifi", {'ssid' : wifi_name, 
+                                                        'password': wifi_password});
         console.log(data);
-        if (data['result'] == false){
+        if (result['result'] == false) {
             alert("Failed to connect wifi, please select another wifi or retry.");
             loader.style.display = 'none';
         }
-        else if (data['result'] == true) {
+        else {
             loader.style.display = 'none';
             url = window.location.protocol + "//" +  window.location.hostname + "/set_device_info";
             window.location.href = url;
         }
-    });
+      } 
+    catch(err) {
+          console.log(err);
+          return err;
+    }
+
+    // $.post( "/connectwifi", {'ssid' : wifi_name, 'password': wifi_password}, function( data ) {
+    //     console.log(data);
+    //     if (data['result'] == false){
+    //         alert("Failed to connect wifi, please select another wifi or retry.");
+    //         loader.style.display = 'none';
+    //     }
+    //     else if (data['result'] == true) {
+    //         loader.style.display = 'none';
+    //         url = window.location.protocol + "//" +  window.location.hostname + "/set_device_info";
+    //         window.location.href = url;
+    //     }
+    // });
 }
