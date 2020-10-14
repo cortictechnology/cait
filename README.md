@@ -1,13 +1,14 @@
 <div align="center">
     <img src="images/cait.png" width="60%">
 </div>
+<br>
 
 |**`Documentation`** | |
 ------------------- |-----|
 |[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) | [![UserGuide](https://img.shields.io/badge/doc-user%20manual-blue.svg)](https://michaelnhw.github.io/test_page/) |
+<br>
 
-
-The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables makers and students to learn and experiment with A.I. algorithms on the popular Raspberry Pi 4B single board computer.  There is a lot of interest among various groups of people to setup and experiment with A.I. enabled projects.  However, many of them are turned off by the complicated software setup process and the sharp learning curve required to get an A.I. project up and running.  Additionally, A.I. capable hardware can be an expensive investment.  Our goal is to address these problems and make it extremely simple for people to build projects using a variety of A.I. technology on an inexpensive hardware platform.  We take a container based approach and pre-installed many state-of-the-art open source A.I. software packages/frameworks into a number of cohesive docker containers.  We link these containers into a single system by employing the lightweight MQTT protocol.  Finally, we extend Google's Blockly visual programming alnguage to offer a quick prototyping environment for our users.  CAIT is the result of this effort.  It currently include a nubmer of custom A.I. and automation blocks:
+The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables makers and students to learn and experiment with A.I. algorithms on the popular Raspberry Pi 4B single board computer.  Our goal is to eliminate complicated software setup and allow people to easily integrate A.I. into their own projects.  We take a container based approach and pre-installed many state-of-the-art open source A.I. software packages/frameworks into cohesive docker containers.  We link these containers into a single system by employing the lightweight MQTT protocol. We also extended Google's Blockly visual programming language to offer a quick prototyping environment for our users.  CAIT currently has a nubmer of custom A.I. and automation blocks:
 
 * Face detection
 * Face recognition
@@ -20,7 +21,7 @@ The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables m
 
 All of these custom blocks are backed by a simple Python API.  You may choose to program directly using this API for added flexibility and power.  In fact, if you already have a running project that uses the visual programming interface, you can easily convert it into Python code using our automated conversion tool.  
 
-## Hardware requirements
+## Hardware
 
 Here is a list of hardware components that we currently support.  You may choose a subset of them to suit your own projects.
 
@@ -36,11 +37,7 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 ## How do I try it
 
-Download the prebuilt raspbian image: 
-
-You'll need to use a micro SD card that is at least 32GB in order for this image to write properly.
-
-Use any image writing tool to clone the image to a sd card, e.g. dd, pi imager.
+You can try CAIT by downloading the pre-loaded Raspberry Pi OS (32bit) image at https://drive.google.com/file/d/11UH-ez4J30dTUELi-G-8i6ThG6lhFtKz/view?usp=sharing.  You will need to use a 32GB micro SD card for this.  After you boot up from this image, the RPi will advertise itself as a WIFI access point with the ssid "cait".  If you using a different computer to access CAIT, make sure you connect to this WIFI access point first and then visit http://cait.local to start the setup process.  If you are using the RPi as a standalone computer, you can go to http://cait.local directly.
 
 ## Installing from source
 
@@ -70,70 +67,12 @@ After the setup process is completed, the device's hostname is changed to cait-<
 
 ## Quick start
 
-### Using the visual programming interface:
-
-You can connect to the CAIT's visual programming interface using any computer, including the Raspberry Pi 4B that hosts CAIT, on the same local WIFI.  In the web browser, go to:
-
-```
-http://<hostname>.local
-```
-
-The first time you enter this address, you will be directed to a setup page, in which you will be asked to enter a new device name (hostname), and to create an user account for future login. 
-
-<img src="images/device_setup.png" width="60%">
-
-Next, you can test the functionality of any attached camera and audio device, to make sure you have connected the compatible ones.
-
-<img src="images/testhw.png" width="60%">
-
-After that, you will be asked to signup for a google cloud service account for voice-related service, and upload the account file to the device.
-
-<img src="images/google.png" width="60%">
-
-Finally, you need to reboot CAIT for everything to be applied.
-
-<img src="images/finish.png" width="60%">
-
-After the device is rebooted, enter the above address in browser, you can now login with your just created account. Alternatlivey, you can login with a default account to access sample programs:
-
-```
-username: pi
-password: raspberry
-```
-
-<img src="images/login.png" width="60%">
-
-Once logged in, you can then create any program by drag-and-drop the basic programming blocks and Cortic AI blocks.
-
-<img src="images/sample.png" width="60%">
-
-### Configuring smart home devices:
-
-We integrated homeassistant into the toolkit, so that you can connect the device with your existing smart device by entering:
- 
-```
-http://<hostname>.local:8213
-username: ai
-password: ai
-```
-
-Once you configured your smart devices, you will be able to control them in CAIT's visual programming interface.
-
-<img src="images/ha.png" width="60%">
-
-### Programming in Python with Jupyter Hub:
-
-We also integrated Jupyter hub and notebook support in CAIT, you can use it by entering:
-
-```
-http://<hostname>.local:8000
-```
-
-You can program with CAIT's AI functionalities in Python. Any program created in CAIT's visual programming interface can be converted to equivalen Python program and execture in here.
-
-<img src="images/notebook.png" width="60%">
+Please follow our "Quick Start" guide to get started.  
 
 ## How to contribute
 
+We welcome contributions from all our users.  You can contribute by requesting features or reporting bugs under "Issues".  You can also submit proposed code updates through pull requests to our "dev" branch.
+
 ## License
+
 [MIT License](LICENSE)
