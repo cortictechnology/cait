@@ -5,7 +5,7 @@
 
 |**`Documentation`** | |
 ------------------- |-----|
-|[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) | [![UserGuide](https://img.shields.io/badge/doc-user%20manual-blue.svg)](https://michaelnhw.github.io/test_page/) |
+|[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) | [![QuickStart](https://img.shields.io/badge/doc-quick%20start-blue.svg)](https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md) |
 
 ## CAIT
 
