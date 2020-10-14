@@ -68,7 +68,7 @@ After the setup process is completed, the device's hostname is changed to cait-<
 
 ## Quick start
 
-Please follow our "Quick Start" guide to get started.  
+Please follow our <a href="http://https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md">"Quick Start"</a> guide to get started.  
 
 ## How to contribute
 
