@@ -6,7 +6,6 @@
 |**`Documentation`** | |
 ------------------- |-----|
 |[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) | [![UserGuide](https://img.shields.io/badge/doc-user%20manual-blue.svg)](https://michaelnhw.github.io/test_page/) |
-<br>
 
 ## CAIT
 
