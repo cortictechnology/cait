@@ -62,7 +62,7 @@ The above setup script starts the raspberry pi in both access point mode and sta
 <wifi_interface_name>: "wlan0"
 ```
 
-After the setup process is completed, the device's hostname is changed to cait-<device_serial_number>.  You can find the exact hostname by looking at the last line of the setup script output.  It should say: "Changing hostname to:", with the new hostname highlighted in <span style="color:red">red</span>, shown below.  Of course, you can always use the raspi-config utility to change the hostname to whatever you like.
+After the setup process is completed, the device's hostname is changed to cait-<device_serial_number>.  You can find the exact hostname by looking at the last line of the setup script output.  It should say: "Hostname is changed to:", with the new hostname highlighted in <span style="color:red">red</span>, shown below.  Of course, you can always use the raspi-config utility to change the hostname to whatever you like.
 
 <img src="images/hostname.png" width="80%">
 
