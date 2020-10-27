@@ -1,6 +1,8 @@
-## Quick Start
+# Quick Start
 
-### Using the visual programming interface:	
+If your raspberry pi's WIFI connection was not already configured, it will advertise itself as a WIFI access point with the ssid "cait" after booting up to allow easy headless setup.  Make sure to connect your computer's WIFI to the SSID advertised by the raspberry pi and then go to `http://cait.local/setup` on your browser.  If you are using a windows machine to connect to the raspberry pi, you may experience problems resolving its hostname.  In this case, you can install [Bonjour](https://support.apple.com/kb/dl999?locale=en_CA) on and restart the computer.  The raspberry pi's hostname should resolve after that.
+  
+## Setup
 
 You can connect to the CAIT's visual programming interface using any computer, including the Raspberry Pi 4B that hosts CAIT, on the same local WIFI.  In the web browser, go to:	
 
@@ -23,6 +25,8 @@ After that, you will be asked to signup for a google cloud service account for v
 Finally, you need to reboot CAIT for everything to be applied.	
 
 <img src="../images/finish.png" width="60%">	
+
+## Using the visual programming interface
 
 After the device is rebooted, enter the above address in browser, you can now login with your just created account. Alternatlivey, you can login with a default account to access sample programs:	
 
