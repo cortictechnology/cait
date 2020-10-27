@@ -3,9 +3,7 @@
 </div>
 <br>
 
-|**`Documentation`** | |
-------------------- |-----|
-|[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/) | [![QuickStart](https://img.shields.io/badge/doc-quick%20start-blue.svg)](https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md) |
+[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/)  [![QuickStart](https://img.shields.io/badge/doc-quick%20start-blue.svg)](https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md)
 
 ## CAIT
 
@@ -30,15 +28,15 @@ Here is a list of hardware components that we currently support.  You may choose
 * Micro SD card (32GB recommended)
 * Logitech USB webcam (C270, C922, C615, C310 are tested)
 * Mini speaker with 3.5mm audio jack 
-* BrickPi3 LEGO motor control board 
 * LEGO Mindstorms EV3 
+  * BrickPi3 Core
 * Smart home devices such as Philips Hue, smart speakers, etc
 
 We also support the use of Raspberry Pi's CSI camera interface.  However, if your project requires audio/speech input, it's much better to use a USB webcam as it has an integrate microphone.  The integrated mic usually offers much better audio input performance than any of the mini USB mics that we have tested.
 
 ## How do I try it
 
-You can try CAIT by downloading the pre-loaded Raspberry Pi OS (32bit) image at https://drive.google.com/file/d/11UH-ez4J30dTUELi-G-8i6ThG6lhFtKz/view?usp=sharing.  You will need to use a 32GB micro SD card for this.  After you boot up from this image, the RPi will advertise itself as a WIFI access point with the ssid "cait".  If you using a different computer to access CAIT, make sure you connect to this WIFI access point first and then visit http://cait.local to start the setup process.  If you are using the RPi as a standalone computer, you can go to http://cait.local directly.
+You can try CAIT by downloading the pre-loaded Raspberry Pi OS (32bit) image at https://drive.google.com/file/d/11UH-ez4J30dTUELi-G-8i6ThG6lhFtKz/view?usp=sharing.  You will need to use a 32GB micro SD card for this.  Please follow the <a href="https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md">"Quick Start"</a> guide to configure your WIFI and any additional hardware components.  
 
 ## Installing from source
 
@@ -52,7 +50,7 @@ $ cd cait
 $ ./setup_cait.sh --ap-ssid=<ssid_name> --ap-password=<ap_password> --ap-country-code=<country_code> --ap-ip-address=<desired_ap_ip> --wifi-interface=<wifi_interface_name>
 ```
 
-The above setup script starts the raspberry pi in both access point mode and station mode.  The user can provide custom values for the access point name, password, desired ip address, and the wifi ssid name. If no parameters are given, the default values are: 
+You can provide custom values for the access point name, password, desired ip address, and the wifi ssid name. If no parameters are given, the default values are: 
 
 ```
 <ssid_name>: "cait" 
@@ -62,9 +60,11 @@ The above setup script starts the raspberry pi in both access point mode and sta
 <wifi_interface_name>: "wlan0"
 ```
 
-After the setup process is completed, the device's hostname is changed to cait-<device_serial_number>.  You can find the exact hostname by looking at the last line of the setup script output.  It should say: "Hostname is changed to: <hostname>", with the new hostname highlighted in <span style="color:red">red</span> as shown below.  Of course, you can always use the raspi-config utility to change the hostname to whatever you like.
+After the setup process is completed, the device's hostname is changed to cait-<device_serial_number>.  You can find the exact hostname by looking at the last line of the setup script output.  It should say: "Hostname is changed to: <hostname>", with the new hostname highlighted in <span style="color:red">red</span> as shown below.  Of course, you can always use the `raspi-config` utility to change the hostname to whatever you like.
 
 <img src="images/hostname.png" width="80%">
+
+The above setup script configures the raspberry pi to operate in access point mode if it cannot connect to any WIFI hotspot.  This can be very useful if the raspberry pi is brought to a new location where the WIFI has not been configured.  In this case, you can easily configure it to use the new WIFI headlessly by connecting your computer to the raspberry pi's access point, and then visit `http://<hostname>.local/setup`.  If there is a problem resolving the hostname, you can also go to `http://<ap-ip-address>.local/setup` instead.
 
 ## Quick start
 
