@@ -55,7 +55,7 @@ def test_camera(index):
     """    
     return core.test_camera(index)
 
-def initialize_component(component_name, useOnline=True, account="default", processor="local"):
+def initialize_component(component_name, useOnline=True, account="default", processor="local", language="english"):
     """Initalization function for different components
     
     Parameters:
@@ -70,7 +70,7 @@ def initialize_component(component_name, useOnline=True, account="default", proc
     if component_name == "vision":
         success, msg = core.initialize_vision(processor)
     elif component_name == "voice":
-        success, msg  = core.initialize_voice(useOnline, account)
+        success, msg  = core.initialize_voice(useOnline, account, language)
     elif component_name == "nlp":
         success, msg  = core.initialize_nlp()
     elif component_name == "control":

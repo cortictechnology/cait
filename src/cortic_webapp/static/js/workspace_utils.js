@@ -33,6 +33,8 @@ function resetModules() {
   client.publish(topicMessage)
 }
 
+var test;
+
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
 
@@ -49,11 +51,14 @@ function updateFunction(event) {
       if (event.oldValue == "offline") {
         block.getInput("cloud_accounts").setVisible(true);
         block.getInput("ending").setVisible(true);
+        block.getField("language").setVisible(true);
         block.render();
       }
       if (event.newValue == "offline") {
         block.getInput("cloud_accounts").setVisible(false);
         block.getInput("ending").setVisible(false);
+        block.getField("language").setVisible(false);
+        test = block;
         block.render();
       }
       if (event.oldValue == "virtual") {

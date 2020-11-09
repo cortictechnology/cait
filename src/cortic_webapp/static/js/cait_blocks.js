@@ -81,7 +81,7 @@ Blockly.defineBlocksWithJsonArray([
     {
       "type": "init_voice",
       "lastDummyAlign0": "CENTRE",
-      "message0": "initialize voice with %1 mode %2 using %3 account %4",
+      "message0": "initialize voice with %1 mode %2 using %3 account in %4 %5",
       "args0": [
         {
           "type": "field_dropdown",
@@ -111,7 +111,22 @@ Blockly.defineBlocksWithJsonArray([
           "type": "input_dummy",
           "name": "ending",
           "text": ""
+        },
+        {
+          "type": "field_dropdown",
+          "name": "language",
+          "options": [
+            [
+              "English",
+              "english"
+            ],
+            [
+              "French",
+              "french"
+            ]
+          ]
         }
+        
       ],
       "extensions": ["dynamic_cloud_accounts_extension"],
       "previousStatement": null,
@@ -816,15 +831,17 @@ Blockly.Python['init_vision'] = function(block) {
 Blockly.JavaScript['init_voice'] = function(block) {
   var dropdown_mode = block.getFieldValue('mode');
   var dropdown_account = block.getFieldValue('accounts');
-  var code = "await init_voice('" + dropdown_mode + "', '" + dropdown_account + "');\n";
+  var dropdown_langauage = block.getFieldValue('language');
+  var code = "await init_voice('" + dropdown_mode + "', '" + dropdown_account + "', '" + dropdown_langauage + "');\n";
   return code;
 };
 
 Blockly.Python['init_voice'] = function(block) {
   var dropdown_mode = block.getFieldValue('mode');
   var dropdown_account = block.getFieldValue('accounts');
+  var dropdown_langauage = block.getFieldValue('language');
   if (dropdown_mode == "online"){
-    var code = "cait.essentials.initialize_component('voice', useOnline=True, account='" + dropdown_account + "')\n";
+    var code = "cait.essentials.initialize_component('voice', useOnline=True, account='" + dropdown_account + "', language='" + dropdown_langauage + "')\n";
   }
   else {
     var code = "cait.essentials.initialize_component('voice', useOnline=False)\n";

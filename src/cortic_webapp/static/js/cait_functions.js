@@ -131,11 +131,11 @@ async function ajax_post(url, data) {
     }
   }
   
-  async function init(component_name, mode="online", processor="local", account="default") {
+  async function init(component_name, mode="online", processor="local", account="default", language="english") {
     try{
       loader.style.display="flex";
       document.getElementById("loading_text").innerHTML = "Initializing " + component_name + " component...";
-      const res = await ajax_post("/initialize_component", {'component_name': component_name, 'mode' : mode, 'processor' : processor, 'account' : account});
+      const res = await ajax_post("/initialize_component", {'component_name': component_name, 'mode' : mode, 'processor' : processor, 'account' : account, 'language': language});
       loader.style.display="none";
       if(res['success'] == false) {
         alert(res["error"] + ". Please fix the problem and click Run again in 10 seconds");
@@ -164,8 +164,8 @@ async function ajax_post(url, data) {
     stopStreaming = false;
   }
   
-  async function init_voice(mode, account) {
-    await init("voice", mode, "local", account);
+  async function init_voice(mode, account, language) {
+    await init("voice", mode, "local", account, language);
   }
   
   async function init_nlp() {

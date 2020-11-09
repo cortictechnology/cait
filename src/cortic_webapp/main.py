@@ -343,11 +343,12 @@ def initialize_component():
     mode = request.form.get('mode')
     account = request.form.get('account')
     processor = request.form.get('processor')
+    language = request.form.get('language')
     if mode == "online":
         mode = True
     else:
         mode = False
-    success, msg = essentials.initialize_component(component_name, mode, account, processor)
+    success, msg = essentials.initialize_component(component_name, mode, account, processor, language)
     if success == False:
         result = {"success": success, "error": msg}
     else:

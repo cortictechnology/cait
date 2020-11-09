@@ -34,6 +34,8 @@ import deepspeech
 WAKE_WORD_KALDI = ['Kate', 'eight kate', 'a cave', 'it came', 'ec aid', 'kate', 'in case',"cain't", 'it cave', 'eight', 'pete', 'and kate', 'a kate', 'nay tate', 'a paint', 'a cake', 'a tape', 'they take', 'kid', 'hey kid', 'it kid', 'kit', 'a tate']
 WAKE_WORD_GOOGLE = ['Kate', 'kate', 'Hecate', '8/8', 'placate', 'cake', 'k', 'bait', 'hey', 'AK', 'KK', 'Escape', 'locate', 'dictate', "I can't", 'okay', 'pick 8', 'Tay k']
 
+language_code = 'en-US'  # a BCP-47 language tag
+
 audio_in_index = -1
 mode = "N/A"
 online_account = "cortic"
@@ -77,6 +79,7 @@ def on_connect_stt_mode(client, userdata, flags, rc):
 def on_message_stt_mode(client, userdata, msg):
     global audio_in_index
     global mode
+    global language_code
     global online_account
     global VoiceInit
     global startListen
@@ -93,6 +96,8 @@ def on_message_stt_mode(client, userdata, msg):
                 mode = "Offline"
             else:
                 online_account = audio_device["account"]
+                if audio_device["language"] == "french":
+                    language_code = "fr-FR"
                 mode = "Online"
         else:
             if VoiceInit:
@@ -371,6 +376,7 @@ def main():
     global doneSpeaking
     global online_account
     global mode
+    global language_code
 
     BEAM_WIDTH = 500
     DEFAULT_SAMPLE_RATE = 16000
@@ -380,7 +386,6 @@ def main():
     LM_FILE = "/deepspeech-0.6.1-models/lm.binary"
     TRIE_FILE = "/deepspeech-0.6.1-models/trie"
 
-    language_code = 'en-US'  # a BCP-47 language tag
     json_file = "/voice_module/" + online_account
     # Audio recording parameters
     RATE = 16000
@@ -473,7 +478,10 @@ def main():
             if robotSpeak:
                 client_stt_control.publish("cait/module_states", "Start Speaking", qos=1)
                 if mode == "Online":
-                    os.system('/voice_module/speech.sh "' + robotSpeakMsg + '"')
+                    if language_code == "fr-FR":
+                        os.system('/voice_module/speech_fr.sh "' + robotSpeakMsg + '"')
+                    else:
+                        os.system('/voice_module/speech_en.sh "' + robotSpeakMsg + '"')
                 else:
                     os.system('mimic -t "' + robotSpeakMsg + '" -voice slt')
                 robotSpeak = False

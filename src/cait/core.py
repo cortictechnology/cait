@@ -158,7 +158,7 @@ def get_cloud_accounts():
     return account_names
 
 
-def initialize_voice(useOnline=False, account="default"):
+def initialize_voice(useOnline=False, account="default", language="english"):
     global startedListen
     startedListen = False
     init_wait = 0
@@ -197,6 +197,7 @@ def initialize_voice(useOnline=False, account="default"):
                 #print("******************", cloud_accounts)
                 account_json = cloud_accounts[account]
                 current_ain_device["account"] = account_json
+                current_ain_device["language"] = language
                 msg = json.dumps(current_ain_device)
                 result = caitCore.send_component_commond("voice", "Online " + msg)
                 if result == False:
