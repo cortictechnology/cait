@@ -18,7 +18,7 @@ import threading
 
 from .cait_core import CAITCore
 
-logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().setLevel(logging.WARNING)
 
 caitCore = CAITCore()
 
@@ -158,6 +158,14 @@ def get_cloud_accounts():
     return account_names
 
 
+def get_nlp_models():
+    model_list = []
+    for model in os.listdir('/opt/cortic_modules/nlp_module/models'):
+        if os.path.isdir('/opt/cortic_modules/nlp_module/models/' + model):
+            model_list.append(model)
+    return model_list
+
+
 def initialize_voice(useOnline=False, account="default", language="english"):
     global startedListen
     startedListen = False
@@ -219,11 +227,11 @@ def initialize_voice(useOnline=False, account="default", language="english"):
     return True, "OK"
 
 
-def initialize_nlp():
+def initialize_nlp(mode="english_default"):
     nlp_wait = 0
     while not caitCore.get_component_state("nlp", "Up"):
         if nlp_wait <= 1000:
-            result = caitCore.send_component_commond("nlp", "NLP Up")
+            result = caitCore.send_component_commond("nlp", "NLP Up," + mode)
             if result == False:
                 logging.info("Init NLP: Error occurred")
                 return result
@@ -475,7 +483,7 @@ def listen():
         startedListen = True
     start_time = time.time()
     while not caitCore.component_manager.receivedNewSTTMsg:
-        print("Listen sleeping")
+        #print("Listen sleeping")
         time.sleep(0.03)
         if time.time() - start_time > 50:
             caitCore.component_manager.receivedNewSTTMsg = False

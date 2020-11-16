@@ -48,13 +48,13 @@ function updateFunction(event) {
           new Blockly.FieldTextInput(), "parameter"
         )
       }
-      if (event.oldValue == "offline") {
+      if (event.oldValue == "on_device") {
         block.getInput("cloud_accounts").setVisible(true);
         block.getInput("ending").setVisible(true);
         block.getField("language").setVisible(true);
         block.render();
       }
-      if (event.newValue == "offline") {
+      if (event.newValue == "on_device") {
         block.getInput("cloud_accounts").setVisible(false);
         block.getInput("ending").setVisible(false);
         block.getField("language").setVisible(false);

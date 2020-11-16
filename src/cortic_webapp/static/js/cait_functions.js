@@ -123,6 +123,7 @@ async function ajax_post(url, data) {
   async function control_motor_degree_group(operation_list) {
     try {
       dataToSend = JSON.stringify({ 'operation_list': operation_list });
+      console.log(dataToSend)
       const res = await ajax_post("/control_motor_degree_group", {'data' : dataToSend});
       console.log(res);
     } catch(err) {
@@ -168,8 +169,8 @@ async function ajax_post(url, data) {
     await init("voice", mode, "local", account, language);
   }
   
-  async function init_nlp() {
-    await init("nlp");
+  async function init_nlp(mode) {
+    await init("nlp", mode);
   }
   
   async function init_control() {

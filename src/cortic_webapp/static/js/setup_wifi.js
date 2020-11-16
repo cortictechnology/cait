@@ -157,4 +157,17 @@ async function connect_wifi() {
           console.log(err);
           return err;
     }
+
+    // $.post( "/connectwifi", {'ssid' : wifi_name, 'password': wifi_password}, function( data ) {
+    //     console.log(data);
+    //     if (data['result'] == false){
+    //         alert("Failed to connect wifi, please select another wifi or retry.");
+    //         loader.style.display = 'none';
+    //     }
+    //     else if (data['result'] == true) {
+    //         loader.style.display = 'none';
+    //         url = window.location.protocol + "//" +  window.location.hostname + "/set_device_info";
+    //         window.location.href = url;
+    //     }
+    // });
 }

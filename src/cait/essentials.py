@@ -27,6 +27,10 @@ def get_cloud_accounts():
     account_list = core.get_cloud_accounts()
     return {"accounts": account_list}
 
+def get_nlp_models():
+    model_list = core.get_nlp_models()
+    return {"models": model_list}
+
 
 def get_video_devices():
     """Get a list of connected camera device
@@ -55,7 +59,7 @@ def test_camera(index):
     """    
     return core.test_camera(index)
 
-def initialize_component(component_name, useOnline=True, account="default", processor="local", language="english"):
+def initialize_component(component_name, mode="online", account="default", processor="local", language="english"):
     """Initalization function for different components
     
     Parameters:
@@ -70,9 +74,13 @@ def initialize_component(component_name, useOnline=True, account="default", proc
     if component_name == "vision":
         success, msg = core.initialize_vision(processor)
     elif component_name == "voice":
-        success, msg  = core.initialize_voice(useOnline, account, language)
+        if mode == "online":
+            mode = True
+        else:
+            mode = False
+        success, msg  = core.initialize_voice(mode, account, language)
     elif component_name == "nlp":
-        success, msg  = core.initialize_nlp()
+        success, msg  = core.initialize_nlp(mode)
     elif component_name == "control":
         success, msg  = core.initialize_control()
     elif component_name == "smart_home":

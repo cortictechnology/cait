@@ -45,10 +45,10 @@ function onMessageArrived(message) {
   }  
 }
 
-var nlp_models = [];
 var light_devices = [];
 var media_players = [];
 var cloud_accounts = [];
+var nlp_models = [];
 var virtual_processors = {"Vision": [], "STT": [], "TTS": [], "NLP": []}
 
 function initDevices(interpreter, scope) {
@@ -92,6 +92,35 @@ function get_cloud_accounts() {
 }
 
 get_cloud_accounts();
+
+
+function NLPModels(interpreter, scope) {
+  var wrapper = function(callback) {
+    $.post("/get_nlp_models",
+    {},
+    function(data, status){
+      callback(data['models']);
+    });
+  };
+  interpreter.setProperty(scope, 'get_nlp_models',
+      interpreter.createAsyncFunction(wrapper));
+}
+
+
+var get_nlp_models_code = "get_nlp_models();";
+var myInterpreter_nlp = new Interpreter(get_nlp_models_code, NLPModels);
+
+function get_nlp_models() {
+  var options = [];
+  if (myInterpreter_nlp.run()) {
+    setTimeout(get_nlp_models, 100);
+  }
+  if (myInterpreter_nlp.value != null) {
+    nlp_models = myInterpreter_nlp.value;
+  }
+}
+
+get_nlp_models()
 
 
 var get_light_device_code = "get_devices('light');";

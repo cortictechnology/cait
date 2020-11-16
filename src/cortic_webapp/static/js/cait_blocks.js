@@ -92,8 +92,8 @@ Blockly.defineBlocksWithJsonArray([
               "online"
             ],
             [
-              "offline",
-              "offline"
+              "on device",
+              "on_device"
             ]
           ]
         },
@@ -138,7 +138,15 @@ Blockly.defineBlocksWithJsonArray([
     {
       "type": "init_nlp",
       "lastDummyAlign0": "CENTRE",
-      "message0": "initialize nlp",
+      "message0": "initialize nlp with %1 model",
+      "args0": [
+        {
+          "type": "input_dummy",
+          "name" : "model_list",
+          "align": "CENTRE"
+        },
+      ],
+      "extensions": ["dynamic_model_list_extension"],
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#3ACFF7",
@@ -730,8 +738,8 @@ function() {
     this.getInput("ending").setVisible(false);
     this.getField('mode').menuGenerator_[0] = this.getField('mode').menuGenerator_[1]
     //this.getField('mode').menuGenerator_.pop();
-    this.getField('mode').value_ = 'offline';
-    this.getField('mode').text_ = 'offline';
+    this.getField('mode').value_ = 'on_device';
+    this.getField('mode').text_ = 'on device';
   }
   else {
     this.getInput('cloud_accounts')
@@ -752,9 +760,23 @@ function() {
   
 });
 
-if (cloud_accounts.length < 1) {
-
-}
+Blockly.Extensions.register('dynamic_model_list_extension',
+function() {
+  this.getInput('model_list')
+    .appendField(new Blockly.FieldDropdown(
+      function() {
+        var options = [];
+        if (nlp_models.length > 0) {
+          for (i in nlp_models) {
+            options.push([nlp_models[i], nlp_models[i]])
+          }
+        }
+        else {
+          options.push(['none', 'none']);
+        }
+        return options;
+      }), 'models');
+});
 
 Blockly.JavaScript['setup_block'] = function(block) {
   var statements_main = Blockly.JavaScript.statementToCode(block, 'init_blocks');
@@ -841,21 +863,23 @@ Blockly.Python['init_voice'] = function(block) {
   var dropdown_account = block.getFieldValue('accounts');
   var dropdown_langauage = block.getFieldValue('language');
   if (dropdown_mode == "online"){
-    var code = "cait.essentials.initialize_component('voice', useOnline=True, account='" + dropdown_account + "', language='" + dropdown_langauage + "')\n";
+    var code = "cait.essentials.initialize_component('voice', mode='online', account='" + dropdown_account + "', language='" + dropdown_langauage + "')\n";
   }
   else {
-    var code = "cait.essentials.initialize_component('voice', useOnline=False)\n";
+    var code = "cait.essentials.initialize_component('voice', mode='on_devie')\n";
   }
   return code;
 };
 
 Blockly.JavaScript['init_nlp'] = function(block) {
-  var code = 'await init_nlp();\n';
+  var dropdown_models = block.getFieldValue('models');
+  var code = "await init_nlp('" + dropdown_models + "');\n";
   return code;
 };
 
 Blockly.Python['init_nlp'] = function(block) {
-  var code = "cait.essentials.initialize_component('nlp')\n";
+  var dropdown_models = block.getFieldValue('models');
+  var code = "cait.essentials.initialize_component('nlp', '" + dropdown_models + "')\n";
   return code;
 };
 
@@ -1131,7 +1155,6 @@ Blockly.Python['motor_speed_block'] = function(block) {
   var code = "cait.essentials.control_motor_speed_group(" + "'{" + '"operation_list" :[';
   motor_control_idx = statements_statements.indexOf("control_motor", 0);
   var being_idx = motor_control_idx + 13;
-  //console.log(statements_statements);
   while (motor_control_idx != -1){
     motor_name_begin_idx = statements_statements.indexOf("('", motor_control_idx) + 2
     motor_name_end_idx = statements_statements.indexOf("'", motor_name_begin_idx)
@@ -1142,6 +1165,8 @@ Blockly.Python['motor_speed_block'] = function(block) {
 
     motor_name = statements_statements.substring(motor_name_begin_idx, motor_name_end_idx);
     speed = statements_statements.substring(speed_begin_idx, speed_end_idx);
+    speed = speed.replace('(', '')
+    speed = speed.replace(')', '')
     duration = statements_statements.substring(duration_begin_idx, duration_end_idx);
 
     code_line = '{"motor_name": "' + motor_name + '", "speed": ' + speed + ', "duration": ' + duration + "}"
@@ -1186,7 +1211,7 @@ Blockly.JavaScript['motor_degree_block'] = function(block) {
 
 Blockly.Python['motor_degree_block'] = function(block) {
   var statements_statements = Blockly.Python.statementToCode(block, 'statements');
-  var code = "cait.essentials.control_motor_degree_group([\n";
+  var code = "cait.essentials.control_motor_degree_group(" + "'{" + '"operation_list" :[';
   motor_rotate_idx = statements_statements.indexOf("rotate_motor", 0);
   var being_idx = motor_rotate_idx + 12;
   //console.log(statements_statements);
@@ -1194,20 +1219,21 @@ Blockly.Python['motor_degree_block'] = function(block) {
     motor_name_begin_idx = statements_statements.indexOf("('", motor_rotate_idx) + 2
     motor_name_end_idx = statements_statements.indexOf("'", motor_name_begin_idx)
     angle_begin_idx = motor_name_end_idx + 3;
-    angle_end_idx = statements_statements.indexOf(");", angle_begin_idx);
+    angle_end_idx = statements_statements.indexOf(")", angle_begin_idx);
     motor_name = statements_statements.substring(motor_name_begin_idx, motor_name_end_idx);
     angle = statements_statements.substring(angle_begin_idx, angle_end_idx);
-
-    code_line = "{'motor_name': '" + motor_name + "', 'angle': " + angle + "}"
+    angle = angle.replace('(', '')
+    angle = angle.replace(')', '')
+    code_line = '{"motor_name": "' + motor_name + '", "angle": ' + angle + "}"
     code = code + code_line;
 
     motor_rotate_idx = statements_statements.indexOf("rotate_motor", being_idx);
     if (motor_rotate_idx != -1) {
-      code = code + ",\n";
+      code = code + ",";
     }
     being_idx = motor_rotate_idx + 13;
   }
-  code = code + "\n])\n"
+  code = code + "]}')\n"
   return code;
 }
 

@@ -117,8 +117,6 @@ class ComponentManager:
             #logging.info("Ready to load font")
             font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSerif.ttf', int(0.0625*width))
             #logging.info("done loading font")
-            draw.text((width-151, 29), "FPS: " + str(self.fps), font=font, fill=(0,0,0))
-            draw.text((width-150, 30), "FPS: " + str(self.fps), font=font, fill=(255,255,255))
             #logging.info("done drawing")
             if not self.resultOverlayed:
                 if len(self.coordinates) > 0:

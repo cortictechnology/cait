@@ -336,6 +336,13 @@ def get_cloud_accounts():
     return jsonify(account_list)
 
 
+@application.route("/get_nlp_models", methods=['POST'])
+@auth.login_required
+def get_nlp_models():
+    model_list = essentials.get_nlp_models()
+    return jsonify(model_list)
+
+
 @application.route("/initialize_component", methods=['POST'])
 @auth.login_required
 def initialize_component():
@@ -344,16 +351,13 @@ def initialize_component():
     account = request.form.get('account')
     processor = request.form.get('processor')
     language = request.form.get('language')
-    if mode == "online":
-        mode = True
-    else:
-        mode = False
     success, msg = essentials.initialize_component(component_name, mode, account, processor, language)
     if success == False:
         result = {"success": success, "error": msg}
     else:
         result = {"success": success}
     return jsonify(result)
+
 
 @application.route("/change_module_parameters", methods=['POST'])
 @auth.login_required

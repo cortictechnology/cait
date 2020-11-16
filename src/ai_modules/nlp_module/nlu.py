@@ -15,6 +15,9 @@ import threading
 logging.getLogger().setLevel(logging.INFO)
 
 interpreter = None
+loading_model = False
+heartbeat_thread = None
+current_model = ""
 
 def pprint(o):
     print(json.dumps(o, indent=2))
@@ -47,11 +50,28 @@ def on_message_user_msg(client, userdata, msg):
     global nlpUp
     global interpreter
     global client_response
+    global loading_model
+    global heartbeat_thread
+    global current_model
+    
     data = msg.payload.decode()
     logging.info("User Message: " + data)
-    if data == "NLP Up":
-        nlpUp = True
+    if data.find("NLP Up") != -1 and not loading_model:
+        model = data[data.find(",")+1:]
+        if current_model != model:
+            current_model = model
+            nlpUp = False
+            loading_model = True
+            logging.info("Loading " + model + " modle now...")
+            interpreter = Interpreter.load('/nlp_module/models/' + model)
+            logging.info("Done Loading nlu model!")
+            nlpUp = True
+            loading_model = False
+            if heartbeat_thread is None:
+                heartbeat_thread = threading.Thread(target=heartbeat_func, daemon=True)
+                heartbeat_thread.start()
     else:
+        logging.info("User Message: " + data)
         logging.info("Data: " + data)
         intent = interpreter.parse(data)
         intent_data = {"topic" : intent['intent']['name'], "confidence" : intent['intent']['confidence'], "entities" : intent['entities']}
@@ -85,14 +105,6 @@ def heartbeat_func():
         time.sleep(1)
 
 def main():
-    global interpreter
-    logging.info("Loading nlu model now...")
-    interpreter = Interpreter.load('/nlp_module/nlu')
-    logging.info("Done Loading nlu model!")
-
-    heartbeat_thread = threading.Thread(target=heartbeat_func, daemon=True)
-    heartbeat_thread.start()
-
     client_user_msg.loop_forever()
 
 if __name__ == "__main__":
