@@ -53,25 +53,24 @@ def on_message_user_msg(client, userdata, msg):
     global loading_model
     global heartbeat_thread
     global current_model
-    
     data = msg.payload.decode()
-    logging.info("User Message: " + data)
-    if data.find("NLP Up") != -1 and not loading_model:
-        model = data[data.find(",")+1:]
-        if current_model != model:
-            current_model = model
-            nlpUp = False
-            loading_model = True
-            logging.info("Loading " + model + " modle now...")
-            interpreter = Interpreter.load('/nlp_module/models/' + model)
-            logging.info("Done Loading nlu model!")
-            nlpUp = True
-            loading_model = False
-            if heartbeat_thread is None:
-                heartbeat_thread = threading.Thread(target=heartbeat_func, daemon=True)
-                heartbeat_thread.start()
+    if data.find("NLP Up") != -1:
+        if not loading_model:
+            logging.info("User Message: " + data)
+            model = data[data.find(",")+1:]
+            if current_model != model:
+                current_model = model
+                nlpUp = False
+                loading_model = True
+                logging.info("Loading " + model + " model now...")
+                interpreter = Interpreter.load('/nlp_module/models/' + model)
+                logging.info("Done Loading nlu model!")
+                nlpUp = True
+                loading_model = False
+                if heartbeat_thread is None:
+                    heartbeat_thread = threading.Thread(target=heartbeat_func, daemon=True)
+                    heartbeat_thread.start()
     else:
-        logging.info("User Message: " + data)
         logging.info("Data: " + data)
         intent = interpreter.parse(data)
         intent_data = {"topic" : intent['intent']['name'], "confidence" : intent['intent']['confidence'], "entities" : intent['entities']}

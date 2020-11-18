@@ -125,7 +125,9 @@ echo "Congratulations! Rasa is now installed on your Raspberry Pi."; \
 echo "To test rasa out, run python3.6 -m rasa init and start "; \
 echo "creating your bot!"; \
 python3 -m spacy download en_core_web_md; \
-python3 -m spacy link en_core_web_md en
+python3 -m spacy link en_core_web_md en; \
+python3 -m spacy download fr_core_news_md; \
+python3 -m spacy link fr_core_news_md fr; \
 
 #install mqtt
 RUN pip install paho-mqtt

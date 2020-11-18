@@ -5,7 +5,7 @@ Written by Michael Ng <michaelng@cortic.ca>, November 2019
 
 """
 
-import brickpi3
+import rpyc
 import logging
 import paho.mqtt.client as mqtt
 import time
@@ -14,16 +14,19 @@ import threading
 
 logging.getLogger().setLevel(logging.INFO)
 
-connected_control_board = ""
+ev3_conn = None
+ev3_motor = None
 
-try:
-    BP = brickpi3.BrickPi3()
-    connected_control_board = "brickpi3"
-except:
-    print("No brickpi connected")
-
-if connected_control_board == "brickpi3":
-    BP.reset_all()
+def connect_to_ev3(hub_address):
+    global ev3_conn
+    global ev3_motor
+    try:
+        ev3_conn = rpyc.classic.connect(hub_address)
+        ev3_motor = ev3_conn.modules['ev3dev2.motor']
+        return True
+    except:
+        print("No ev3 hub connected")
+        return False
 
 currentRotation = 0
 controlUp = False
@@ -46,12 +49,17 @@ def on_message_control(client, userdata, msg):
     global controlUp
     data = msg.payload.decode()
     logging.info("Control data: " + data)
-    if data == "Control Up" and not controlUp:
-        controlUp = True
-    elif data == "Init":
-        init()
-    elif data == "reset":
-        BP.reset_all()
+    if data.find("Control Up") != -1:
+        if not controlUp:
+            hub_address = data[data.find(",")+1:]
+            logging.info("Hub address: " + hub_address)
+            ret = connect_to_ev3(hub_address)
+            while not ret:
+                ret = connect_to_ev3(hub_address)
+                logging.info("EV3 Hub not ready, retrying to connect...")
+                time.sleep(5)
+            logging.info("Successfully connected to EV3 Hub")
+            controlUp = True
     elif data.find("move") != -1:
         motor_begin_idx = data.find("move") + 5
         motor_end_idx = data.find(" ", motor_begin_idx)
@@ -91,44 +99,36 @@ while ret != 0:
     ret = connectMQTT(client_heartbeat)
 client_heartbeat.loop_start()
 
-def init():
-    if connected_control_board == "brickpi3":
-        BP.reset_all()
-        BP.offset_motor_encoder(BP.PORT_A, BP.get_motor_encoder(BP.PORT_A))
-        BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_B))
-        BP.offset_motor_encoder(BP.PORT_C, BP.get_motor_encoder(BP.PORT_C))
-        BP.offset_motor_encoder(BP.PORT_B, BP.get_motor_encoder(BP.PORT_D))
-        time.sleep(0.1)
-    print("Done Initiialization")
 
 def translate_motor_name(motor_name):
+    global ev3_motor
     motor = None
-    if connected_control_board == "brickpi3":
-        if motor_name == "motor_A":
-            motor = BP.PORT_A
-        elif motor_name == "motor_B":
-            motor = BP.PORT_B
-        elif motor_name == "motor_C":
-            motor = BP.PORT_C
-        elif motor_name == "motor_D":
-            motor = BP.PORT_D
-
+    if motor_name == "motor_A":
+        motor = ev3_motor.OUTPUT_A
+    elif motor_name == "motor_B":
+        motor = ev3_motor.OUTPUT_B
+    elif motor_name == "motor_C":
+        motor = ev3_motor.OUTPUT_C
+    elif motor_name == "motor_D":
+        motor = ev3_motor.OUTPUT_D
     return motor
 
 def setPosition(motor_name, position):
     logging.info("Rotating motor now")
     motor = translate_motor_name(motor_name)
-    if connected_control_board == "brickpi3":
-        BP.set_motor_position(motor, position)
-        BP.offset_motor_encoder(motor, BP.get_motor_encoder(motor))
-        if abs(position) <= 400:
-            time.sleep(0.5)
-        elif abs(position) <= 800:
-            time.sleep(0.9)
-        elif abs(position) <= 1200:
-            time.sleep(1.5)
-        else:
-            time.sleep(2)
+    this_motor = ev3_motor.Motor(motor)
+    this_motor.on_for_degrees(100, position)
+    # if connected_control_board == "brickpi3":
+    #     BP.set_motor_position(motor, position)
+    #     BP.offset_motor_encoder(motor, BP.get_motor_encoder(motor))
+    #     if abs(position) <= 400:
+    #         time.sleep(0.5)
+    #     elif abs(position) <= 800:
+    #         time.sleep(0.9)
+    #     elif abs(position) <= 1200:
+    #         time.sleep(1.5)
+    #     else:
+    #         time.sleep(2)
     client_control.publish("cait/module_states", "Control Done", qos=1)
     logging.info("Done rotating")
 
@@ -140,9 +140,11 @@ def rotate_group(operation_list):
         angle = int(operation['angle'])
         if abs(angle) > largest_angle:
             largest_angle = abs(angle)
-        if connected_control_board == "brickpi3":
-            BP.set_motor_position(motor, angle)
-            BP.offset_motor_encoder(motor, BP.get_motor_encoder(motor))
+        this_motor = ev3_motor.Motor(motor)
+        this_motor.on_for_degrees(100, angle. block=False)
+    #     if connected_control_board == "brickpi3":
+    #         BP.set_motor_position(motor, angle)
+    #         BP.offset_motor_encoder(motor, BP.get_motor_encoder(motor))
     if largest_angle <= 400:
         time.sleep(0.5)
     elif largest_angle <= 800:
@@ -155,17 +157,17 @@ def rotate_group(operation_list):
     logging.info("Done rotating group")
 
 def move(motor_name, speed=1, duration=0):
+    global ev3_motor
     motor = translate_motor_name(motor_name)
     if motor is not None:
         logging.info("Moving motor: " + motor_name)
-        if connected_control_board == "brickpi3":
-            BP.set_motor_power(motor, speed)
+        this_motor = ev3_motor.Motor(motor)
+        this_motor.on(speed)
         start_time = time.time()
         while time.time() - start_time <= duration:
             time.sleep(0.03)
-        if connected_control_board == "brickpi3":
-            BP.set_motor_power(motor, 0)
-            BP.offset_motor_encoder(motor, BP.get_motor_encoder(motor))
+        this_motor.stop()
+        this_motor.reset()
         time.sleep(0.03)
     client_control.publish("cait/module_states", "Control Done", qos=1)
     logging.info("Done moving")
@@ -183,8 +185,10 @@ def move_group(operation_list):
         if duration > largest_duration:
             largest_duration = duration
         duration_list.append(duration)
-        if connected_control_board == "brickpi3":
-            BP.set_motor_power(motor, speed)
+        this_motor = ev3_motor.Motor(motor)
+        this_motor.on(speed, block=False)
+        # if connected_control_board == "brickpi3":
+        #     BP.set_motor_power(motor, speed)
     start_time = time.time()
     while time.time() - start_time < largest_duration:
         for i in range(0,len(duration_list)):
@@ -192,7 +196,9 @@ def move_group(operation_list):
                 if connected_control_board == "brickpi3":
                     BP.set_motor_power(motor_list[i], 0)
     for m in range(0, len(motor_list)):
-        BP.set_motor_power(motor_list[m], 0)
+        this_motor = ev3_motor.Motor(motor_list[m])
+        this_motor.stop()
+        #BP.set_motor_power(motor_list[m], 0)
     time.sleep(0.03)
     client_control.publish("cait/module_states", "Control Done", qos=1)
     logging.info("Done moving group")

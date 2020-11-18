@@ -62,5 +62,5 @@ services:
     restart: always 
     volumes:
       - /opt/cortic_modules/control_module:/control_module
-    command: "python3 /control_module/control.py"
+    command: "python3.5 /control_module/control.py"
     
