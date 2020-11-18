@@ -21,7 +21,6 @@ fps = 0
 
 logging.getLogger().setLevel(logging.INFO)
 
-
 class ObjectDetection:
     def connectMQTT(self, client):
         try:

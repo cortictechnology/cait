@@ -142,9 +142,6 @@ def rotate_group(operation_list):
             largest_angle = abs(angle)
         this_motor = ev3_motor.Motor(motor)
         this_motor.on_for_degrees(100, angle. block=False)
-    #     if connected_control_board == "brickpi3":
-    #         BP.set_motor_position(motor, angle)
-    #         BP.offset_motor_encoder(motor, BP.get_motor_encoder(motor))
     if largest_angle <= 400:
         time.sleep(0.5)
     elif largest_angle <= 800:
@@ -187,18 +184,15 @@ def move_group(operation_list):
         duration_list.append(duration)
         this_motor = ev3_motor.Motor(motor)
         this_motor.on(speed, block=False)
-        # if connected_control_board == "brickpi3":
-        #     BP.set_motor_power(motor, speed)
     start_time = time.time()
     while time.time() - start_time < largest_duration:
         for i in range(0,len(duration_list)):
             if time.time() - start_time >= duration_list[i]:
-                if connected_control_board == "brickpi3":
-                    BP.set_motor_power(motor_list[i], 0)
+                this_motor = ev3_motor.Motor(motor_list[i])
+                this_motor.stop()
     for m in range(0, len(motor_list)):
         this_motor = ev3_motor.Motor(motor_list[m])
         this_motor.stop()
-        #BP.set_motor_power(motor_list[m], 0)
     time.sleep(0.03)
     client_control.publish("cait/module_states", "Control Done", qos=1)
     logging.info("Done moving group")

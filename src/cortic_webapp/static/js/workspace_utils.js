@@ -33,7 +33,20 @@ function resetModules() {
   client.publish(topicMessage)
 }
 
-var test;
+
+function enableChileBlock(block) {
+  var chileBlks = block.childBlocks_;
+  if (chileBlks.length > 0) {
+    for (i in chileBlks) {
+      chileBlks[i].setEnabled(true);
+      enableChileBlock(chileBlks[i]);
+    }
+  }
+  else {
+    return;
+  }
+}
+
 
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
@@ -58,7 +71,6 @@ function updateFunction(event) {
         block.getInput("cloud_accounts").setVisible(false);
         block.getInput("ending").setVisible(false);
         block.getField("language").setVisible(false);
-        test = block;
         block.render();
       }
       if (event.oldValue == "virtual") {
@@ -85,6 +97,7 @@ function updateFunction(event) {
       }
     }
   }
+  
 
   if (event.type == Blockly.Events.BLOCK_MOVE) {
     var parentBlock = workspace.getBlockById(event.newParentId);
@@ -119,6 +132,7 @@ function updateFunction(event) {
           if (parentBlock.type == "main_block" || parentBlock.type.indexOf('procedures_') != -1) {
             within_main_block = true;
             block.setEnabled(true);
+            enableChileBlock(block);
             break;
           }
           else {
@@ -128,7 +142,7 @@ function updateFunction(event) {
         if (!within_main_block) {
           block.setEnabled(false);
           if (block.type.indexOf("vision_") != -1) {
-            console.log(block.type);
+            //console.log(block.type);
             emptyVisionMode();
           }
         }

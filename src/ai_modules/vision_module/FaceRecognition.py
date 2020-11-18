@@ -49,28 +49,6 @@ class FaceRecognition:
         self.face_lib.load_database("/vision_module/database")
 
     def run(self, image, face_recognition_confidence):
-        # faces = self.face_detector.Detect(image, 0.54)
-        # identities = []
-        # if len(faces) > 0:
-        #     identities = self.face_recognizer.identify(faces, image)
-        # identified_person = ""
-        # highest_confidence = 0
-        # identified_person_index = -1
-        # coordinate = []
-        # name = 'None'
-        # for i in range(0, len(identities)):
-        #     if identities[i]['confidence'] > highest_confidence:
-        #         highest_confidence = identities[i]['confidence']
-        #         identified_person = identities[i]['name']
-        #         identified_person_index = i
-        # if len(identities) == 0:
-        #     return '{ "mode" : "FaceRecognition", "coordinate": "' + str(coordinate) + '", "name": "' + name + '", "confidence": "' + str(highest_confidence) + '" }'
-        # else:
-        #     if highest_confidence < face_recognition_confidence:
-        #         identified_person = "Unknown"
-        #     face = faces[identified_person_index]
-        #     face_coordinate = [face['x0'], face['y0'], face['x1'], face['y1']]
-        #     return '{ "mode" : "FaceRecognition", "coordinate": "' + str(face_coordinate) + '", "name": "' + identified_person + '", "confidence": "' + str(highest_confidence) + '" }'
         detected_faces, largest_face_index = self.face_lib.detect_faces(image)
         largest_face = []
         if largest_face_index > -1:
