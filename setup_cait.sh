@@ -36,8 +36,8 @@ sudo sh -c "echo 'dtparam=spi=on' >> /boot/config.txt"
 sudo sh -c "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf"
 sudo sh -c "echo 'wireless-power off' >> /etc/network/interfaces"
 sudo apt-get install v4l-utils -y
-sudo apt-get install portaudio19-dev mplayer -y
-sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio
+sudo apt-get install portaudio19-dev mplayer graphviz -y
+sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio lolviz
 sudo cp -R ../src/cortic_webapp /opt
 sudo cp -R ./homeassistant/ ~/
 sudo apt-get install python3-pil python3-pil.imagetk -y
