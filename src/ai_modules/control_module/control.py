@@ -141,7 +141,7 @@ def rotate_group(operation_list):
         if abs(angle) > largest_angle:
             largest_angle = abs(angle)
         this_motor = ev3_motor.Motor(motor)
-        this_motor.on_for_degrees(100, angle. block=False)
+        this_motor.on_for_degrees(100, angle, block=False)
     if largest_angle <= 400:
         time.sleep(0.5)
     elif largest_angle <= 800:

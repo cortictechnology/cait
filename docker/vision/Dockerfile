@@ -103,7 +103,7 @@ RUN git clone https://github.com/google-coral/edgetpu.git
 WORKDIR /root/edgetpu
 RUN yes | scripts/runtime/install.sh
 
-RUN pip3 install paho-mqtt; \
+RUN pip3 install paho-mqtt cython; \
     pip3 install ws4py; \
     pip3 install Pillow
 

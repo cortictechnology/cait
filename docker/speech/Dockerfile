@@ -45,7 +45,7 @@ RUN pip install --upgrade cython; \
     pip install --upgrade numpy; \
     pip install --upgrade scipy
     
-RUN pip install paho-mqtt
+RUN pip install paho-mqtt cython
 
 RUN wget https://github.com/mozilla/DeepSpeech/releases/download/v0.6.1/deepspeech-0.6.1-cp37-cp37m-linux_armv7l.whl; \
     pip install deepspeech-0.6.1-cp37-cp37m-linux_armv7l.whl; \

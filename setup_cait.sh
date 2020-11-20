@@ -37,15 +37,22 @@ sudo sh -c "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf"
 sudo sh -c "echo 'wireless-power off' >> /etc/network/interfaces"
 sudo apt-get install v4l-utils -y
 sudo apt-get install portaudio19-dev mplayer graphviz -y
-sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio lolviz
-sudo cp -R ../src/cortic_webapp /opt
+sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio lolviz cython
+npm install --save-dev javascript-obfuscator
+sudo npm link javascript-obfuscator
+cd ../utils
+bash compile_scripts.sh
+cd ../setup_scripts
+sudo cp -R ../src/cortic_webapp_bin /opt
+sudo mv /opt/cortic_webapp_bin /opt/cortic_webapp
 sudo cp -R ./homeassistant/ ~/
 sudo apt-get install python3-pil python3-pil.imagetk -y
 sudo pip3 install filelock wifi
 sudo apt install whois
 sudo mkdir /opt/cortic_modules
-sudo cp -R ../src/cait /opt/cortic_modules
-sudo cp -R ../src/ai_modules/* /opt/cortic_modules
+sudo cp -R ../src/cait_bin /opt/cortic_modules
+sudo mv /opt/cortic_modules/cait_bin /opt/cortic_modules/cait
+sudo cp -R ../src/ai_modules_bin/* /opt/cortic_modules
 sudo mkdir /opt/cortic_modules/vision_module/database
 sudo cp ../src/docker-compose.yml ~/
 sudo touch /opt/accounts
@@ -60,6 +67,16 @@ sudo chmod +x /usr/sbin/change_hostname.sh
 sudo systemctl daemon-reload
 sudo systemctl enable /etc/systemd/system/cait_*
 sudo rm get-docker.sh
+sudo echo "dtoverlay=dwc2" >> /boot/config.txt
+sudo echo "modules-load=dwc2" >> /boot/cmdline.txt
+sudo echo "libcomposite" >> /etc/modules
+sudo echo "denyinterfaces usb0" >> /etc/dhcpcd.conf
+sudo cp usb /etc/dnsmasq.d
+sudo cp usb0 /etc/network/interfaces.d
+sudo cp usb.sh /root/
+sudo chmod +x /root/usb.sh
+output=$(head -n -2 /etc/rc.local ; echo '/root/ush.sh' ; tail -2 /etc/rc.local)
+sudo echo "$output" > /etc/rc.local
 
 for i in ${!options[@]}; do
 

@@ -130,7 +130,7 @@ python3 -m spacy download fr_core_news_md; \
 python3 -m spacy link fr_core_news_md fr; \
 
 #install mqtt
-RUN pip install paho-mqtt
+RUN pip install paho-mqtt cython
 ENV PYTHONIOENCODING='utf8'
 
 # clean up

@@ -23,7 +23,7 @@ services:
     restart: always 
     volumes:
       - /opt/cortic_modules/nlp_module:/nlp_module
-    command: "taskset --cpu-list 2 python3 /nlp_module/nlu.py"
+    command: "taskset --cpu-list 2 python3 /nlp_module/main.py"
   
   cait_stt_tts:
     network_mode: host
@@ -62,5 +62,5 @@ services:
     restart: always 
     volumes:
       - /opt/cortic_modules/control_module:/control_module
-    command: "python3.5 /control_module/control.py"
+    command: "python3.5 /control_module/main.py"
     

@@ -337,6 +337,7 @@ def turn_to_person(name):
     Returns:
         (bool): True if successfully turned. False otherwise.
     """    
+    success = True
     return success
 
 def follow_person(name):
@@ -348,6 +349,7 @@ def follow_person(name):
     Returns:
         (bool): True if successfully moved. False otherwise.
     """ 
+    success = True
     return success
 
 def greet_person(name, speech):
@@ -360,6 +362,7 @@ def greet_person(name, speech):
     Returns:
         (bool): True if successfully greeted. False otherwise.
     """    
+    success = True
     return success
 
 def ask_for_person_name():
@@ -368,6 +371,7 @@ def ask_for_person_name():
     Returns:
         (string): name of the person.
     """    
+    name = ""
     return name
 
 def get_response(text):
@@ -379,7 +383,7 @@ def get_response(text):
     Returns:
         (string): robot response
     """    
-
+    respone = ""
     return respone
 
 def control_smart_device(device_name, action):
@@ -392,4 +396,5 @@ def control_smart_device(device_name, action):
     Returns:
         (bool): True if device is successfully controlled. False otherwise.
     """    
+    success = True
     return success

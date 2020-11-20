@@ -29,7 +29,7 @@ RUN wget https://www.python.org/ftp/python/3.5.8/Python-3.5.8.tar.xz; \
 WORKDIR /home/pi
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py; \
     python3.5 get-pip.py; \
-    python3.5 -m pip install --upgrade pip setuptools wheel rpyc==3.3.1 paho-mqtt
+    python3.5 -m pip install --upgrade pip setuptools wheel rpyc==3.3.1 paho-mqtt cython
 
 USER pi
 RUN sudo python3.5 -m pip install paho-mqtt; \

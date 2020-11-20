@@ -16,6 +16,7 @@ import requests
 import base64
 import threading
 import socket
+import random
 
 from .cait_core import CAITCore
 
@@ -405,13 +406,6 @@ def detect_objects():
         return names, coordinates
 
 
-def get_camera_image():
-    if not caitCore.component_manager.currentImage:
-        image = Image.new('RGB', (480, 640))
-        return image
-    return caitCore.component_manager.currentImage
-
-
 def wait_for_person(target):
     if not caitCore.get_component_state("vision", "Up"):
         logging.info("Please call initialize_vision() function before using the vision module")
@@ -452,7 +446,7 @@ def say(message_topic, entities=[], useTemplate=False):
         return
     if useTemplate:
         messages = responses[message_topic]
-        selected_message_number = randrange(len(messages))
+        selected_message_number = random.randrange(len(messages))
         message = messages[selected_message_number]
         if len(entities) > 0 and message.find('[') != -1:
             begin_idx = 0
@@ -510,6 +504,7 @@ def listen():
 
 
 def listen_for_wakeword():
+    global startedListen
     if not caitCore.get_component_state("voice", "Up"):
         logging.info("Please call initialize_voice() function before using the voice module")
         return
