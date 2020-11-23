@@ -541,7 +541,7 @@ Blockly.defineBlocksWithJsonArray([
     {
       "type": "move",
       "lastDummyAlign0": "RIGHT",
-      "message0": "move with: motors %1 direction %2",
+      "message0": "move motor group: motor group %1 direction %2",
       "args0": [
         {
           "type": "input_value",
@@ -573,7 +573,7 @@ Blockly.defineBlocksWithJsonArray([
     {
       "type": "turn",
       "lastDummyAlign0": "CENTRE",
-      "message0": "turn with: motors %1 degree %2",
+      "message0": "turn motor group: motor group %1 degree(s) %2",
       "args0": [
         {
           "type": "input_value",
