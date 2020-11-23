@@ -18,7 +18,7 @@ RUN apt-get -y update && apt-get -y install \
     libtool \
     libasound2-dev
 
-RUN pip install ws4py; 
+RUN pip install ws4py cython numpy scipy paho-mqtt
 
 RUN apt-get update && apt-get -y install \
     python3-dev \
@@ -41,18 +41,15 @@ RUN apt-get update && apt-get -y install \
     pip3 install webrtcvad~=2.0.10; \
     pip3 install halo~=0.0.18
 
-RUN pip install --upgrade cython; \
-    pip install --upgrade numpy; \
-    pip install --upgrade scipy
-    
-RUN pip install paho-mqtt cython
-
-RUN wget https://github.com/mozilla/DeepSpeech/releases/download/v0.6.1/deepspeech-0.6.1-cp37-cp37m-linux_armv7l.whl; \
-    pip install deepspeech-0.6.1-cp37-cp37m-linux_armv7l.whl; \
-    wget https://github.com/mozilla/DeepSpeech/releases/download/v0.6.1/deepspeech-0.6.1-models.tar.gz; \
-    tar xvf deepspeech-0.6.1-models.tar.gz; \
-    rm deepspeech-0.6.1-cp37-cp37m-linux_armv7l.whl; \
-    rm deepspeech-0.6.1-models.tar.gz
+RUN wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.1/deepspeech-0.9.1-cp37-cp37m-linux_armv7l.whl; \
+    pip install deepspeech-0.9.1-cp37-cp37m-linux_armv7l.whl; \
+    mkdir /opt/deepspeech-models; \
+    wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.1/deepspeech-0.9.1-models.tflite; \
+    wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.1/deepspeech-0.9.1-models-zh-CN.tflite; \
+    wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.1/deepspeech-0.9.1-models.scorer; \
+    wget https://github.com/mozilla/DeepSpeech/releases/download/v0.9.1/deepspeech-0.9.1-models-zh-CN.scorer; \
+    mv deepspeech-0.9.1-models.tflite deepspeech-0.9.1-models-zh-CN.tflite deepspeech-0.9.1-models.scorer deepspeech-0.9.1-models-zh-CN.scorer /opt/deepspeech-models; \
+    rm deepspeech-0.9.1-cp37-cp37m-linux_armv7l.whl
 
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list; \
     apt-get -y install apt-transport-https ca-certificates gnupg; \

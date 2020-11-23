@@ -16,13 +16,16 @@ logging.getLogger().setLevel(logging.INFO)
 
 ev3_conn = None
 ev3_motor = None
+ev3_sound = None
 
 def connect_to_ev3(hub_address):
     global ev3_conn
     global ev3_motor
+    global ev3_sound
     try:
         ev3_conn = rpyc.classic.connect(hub_address)
         ev3_motor = ev3_conn.modules['ev3dev2.motor']
+        ev3_sound = ev3_conn.modules['ev3dev2.sound']
         return True
     except:
         print("No ev3 hub connected")
@@ -196,6 +199,14 @@ def move_group(operation_list):
     time.sleep(0.03)
     client_control.publish("cait/module_states", "Control Done", qos=1)
     logging.info("Done moving group")
+
+def play_sound(sound_obj):
+    speaker = ev3_sound.Sound()
+    speaker.play(sound_obj)
+
+def speak(sentence):
+    speaker = ev3_sound.Sound()
+    speaker.speak(sentence)
 
 def heartbeat_func():
     global controlUp

@@ -1,9 +1,16 @@
-FROM python:slim
+FROM python:3.8-slim
 RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y update && apt-get -y install \
     curl \
     wget \
-    sudo 
+    sudo \
+    gnupg
+RUN echo "deb-src http://archive.raspbian.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
+    echo "deb http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
+    echo "deb-src http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
+    wget -qO - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -; \
+    wget http://archive.raspbian.org/raspbian.public.key -O - | apt-key add -; \
+    apt-get -y update && apt-get -y upgrade
 
 WORKDIR /root
 
@@ -47,10 +54,19 @@ RUN apt-get -y update && apt-get -y install \
     libhdf5-103 \
     libatomic-ops-dev \
     lsb-release \
-    git 
+    git \
+    gcc \
+    libtinfo-dev \
+    zlib1g-dev \
+    libedit-dev \
+    libxml2-dev \
+    llvm \
+    kmod \
+    libraspberrypi0 \
+    libraspberrypi-dev \
+    libraspberrypi-bin
 
-RUN pip3 install picamera; \
-    pip3 install numpy
+RUN pip3 install picamera paho-mqtt cython scipy numpy ws4py Pillow
 
 WORKDIR  /root 
 RUN apt-get -y update && apt-get -y install \
@@ -58,12 +74,9 @@ RUN apt-get -y update && apt-get -y install \
     unzip 
 
 RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.1.2.zip; \
-    wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.1.2.zip; \
     unzip opencv.zip; \
-    unzip opencv_contrib.zip; \
     rm opencv*.zip; \
-    mv opencv-4.1.2 opencv; \
-    mv opencv_contrib-4.1.2 opencv_contrib
+    mv opencv-4.1.2 opencv
 
 WORKDIR /root/opencv
 RUN mkdir build
@@ -71,47 +84,30 @@ WORKDIR /root/opencv/build
 
 RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
-    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
     -D ENABLE_NEON=ON \
     -D ENABLE_VFPV3=ON \
     -D BUILD_TESTS=OFF \
     -D INSTALL_PYTHON_EXAMPLES=OFF \
-    -D OPENCV_ENABLE_NONFREE=ON \
     -D CMAKE_SHARED_LINKER_FLAGS=-latomic \
     -D BUILD_EXAMPLES=OFF ..; \
     make -j4; \
     make install; \
     ldconfig
 
-WORKDIR /root 
-RUN wget https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.bz2; \
-    tar --bzip2 -xf boost_1_71_0.tar.bz2
-    
-WORKDIR /root/boost_1_71_0 
-RUN ./bootstrap.sh --with-python=$(which python3) --with-libraries=filesystem,python; \
-    ./b2 install
+WORKDIR /root
+RUN git clone --recursive https://github.com/apache/incubator-tvm tvm; \
+    cd tvm; \
+    mkdir build; \
+    cp cmake/config.cmake build; \
+    cd build; \
+    cmake ..; \
+    make runtime -j4; \
+    echo 'export PYTHONPATH=$PYTHONPATH:/root/tvm/python' >> /root/.bashrc
+
+RUN pip3 install scikit-image
 
 WORKDIR /root
-RUN echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | tee /etc/apt/sources.list.d/coral-edgetpu.list; \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - 
-
-RUN apt-get -y update && apt-get -y install \
-    python3-edgetpu \
-    libedgetpu1-std 
-
-RUN git clone https://github.com/google-coral/edgetpu.git
-WORKDIR /root/edgetpu
-RUN yes | scripts/runtime/install.sh
-
-RUN pip3 install paho-mqtt cython; \
-    pip3 install ws4py; \
-    pip3 install Pillow
-
-WORKDIR /root
-RUN apt-get -y install kmod
 RUN apt-get clean; \
     apt-get -y autoremove; \
     rm -rf opencv; \
-    rm -rf boost_1_71_0; \
-    rm -rf edgetpu; \
-    rm *.bz2
+    rm -rf opencv_contrib
