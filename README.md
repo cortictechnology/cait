@@ -76,4 +76,4 @@ We welcome contributions from all our users.  You can contribute by requesting f
 
 ## License
 
-[MIT License](LICENSE)
+[GPLv3 License](LICENSE)
