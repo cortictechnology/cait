@@ -11,6 +11,7 @@ The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables m
 
 * Face detection
 * Face recognition
+* Image classification
 * Object detection, 
 * Text to speech 
 * Speech to text
