@@ -14,7 +14,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 **Usage:** This block is usually placed above the "main" block.  
 * * *
 
-
+<img src="../images/main.png" width="20%">	
 
 **Description:** Main event loop. All program logic goes within this block.  
 **Usage:** Must be placed after a setup block.  
