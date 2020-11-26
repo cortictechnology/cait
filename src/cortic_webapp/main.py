@@ -409,6 +409,12 @@ def detectobject():
     objects = essentials.detect_objects()
     return jsonify(objects)
 
+@application.route("/classifyimag", methods=['POST'])
+@auth.login_required
+def classifyimage():
+    names = essentials.classify_image()
+    return jsonify(names)
+
 @application.route("/listen", methods=['POST'])
 @auth.login_required
 def listen():

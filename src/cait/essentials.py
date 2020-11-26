@@ -171,6 +171,20 @@ def detect_objects():
     else:
         return None
 
+def classify_image():
+    """Classify the current camera feed into an image label
+    
+    Returns:
+        (list): top 5 possible image types
+    """    
+    names = core.classify_image()
+
+    if names is not None:
+        names = {"names" : names}
+        return names
+    else:
+        return None
+
 def listen():
     """Listen to user speech from audio feed captured by microphone.
     

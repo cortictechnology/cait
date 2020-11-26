@@ -67,7 +67,7 @@ class ComponentManager:
     def on_message_inference(self, client, userdata, msg):
         message = msg.payload.decode()
         result = json.loads(message)
-        if result['mode'] != "ObjectDetection":
+        if result['mode'] == "FaceRecognition":
             if result['name'] != "None":
                 self.currentNames = [result['name']]
                 self.largest_index = int(result['largestID'])
@@ -81,6 +81,12 @@ class ComponentManager:
             self.coordinates = ast.literal_eval(result['coordinates'])
             self.currentNames = ast.literal_eval(result['names'])
             self.largest_index = -1
+        elif result['mode'] == "ImageClassification":
+            self.currentNames = ast.literal_eval(result['names'])
+            self.largest_index = -1
+            self.no_bounding_box = True
+            self.coordinates = []
+
         self.receivedInferenceResult = True
         self.resultOverlayed = False
 
@@ -135,14 +141,25 @@ class ComponentManager:
                         if self.largest_index != -1:
                             if i == self.largest_index:
                                 draw.rectangle(coordinate, outline='green', width=int(0.0046875*width))
+                                draw.text((coordinate[0]-1, coordinate[1]-40-1), self.currentNames[0], fill=(0,0,0), font=font)
                                 draw.text((coordinate[0], coordinate[1]-40), self.currentNames[0], fill=(255,255,255), font=font)
+                                
                             else:
                                 draw.rectangle(coordinate, outline='red', width=int(0.0046875*width))
                         else:
                             draw.rectangle(coordinate, outline='blue', width=int(0.0046875*width))
+                            draw.text((coordinate[0]-1, coordinate[1]-40-1), self.currentNames[i], fill=(0,0,0), font=font)
                             draw.text((coordinate[0], coordinate[1]-40), self.currentNames[i], fill=(255,255,255), font=font)
+                            
                     #print("Done drawing text")
                     self.resultOverlayed = True
+                else:
+                    if self.no_bounding_box:
+                        draw.text((9, 29), self.currentNames[0], fill=(0,0,0), font=font)
+                        draw.text((10, 30), self.currentNames[0], fill=(255,255,255), font=font)
+                        self.no_bounding_box = False
+                    self.resultOverlayed = True
+
             #logging.info("updating image")
             self.updateSelfImage(image)
     
@@ -210,6 +227,7 @@ class ComponentManager:
         self.init_time = time.time()
         self.fps = 0
         self.largest_index = -1
+        self.no_bounding_box = False
 
         self.receivedNewSTTMsg = False
         self.currentSTTMsg = ''

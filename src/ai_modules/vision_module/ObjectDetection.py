@@ -5,7 +5,7 @@ Written by Michael Ng <michaelng@cortic.ca>, November 2019
 
 """
 
-from libobject_detect import ObjectDetector
+from object_detection import ObjectLib
 import paho.mqtt.client as mqtt
 import logging
 import time
@@ -45,7 +45,8 @@ class ObjectDetection:
         self.remoteInferenceChannel = "cait/remoteInferenceResult/" + self.inferenceProcessor
         self.remoteInferenceResult = None
         if self.inferenceProcessor=="local":
-            self.object_detector = ObjectDetector("/vision_module/mbv3_ssdlite.param.bin", "/vision_module/mbv3_ssdlite.bin")
+            #self.object_detector = ObjectDetector("/vision_module/mbv3_ssdlite.param.bin", "/vision_module/mbv3_ssdlite.bin")
+            self.object_detector = ObjectLib()
             logging.info("Loaded object detector model")
         else:
             self.client = mqtt.Client()
@@ -64,7 +65,7 @@ class ObjectDetection:
         names = ['None']
         result = '{ "mode" : "ObjectDetection", "coordinates": "' + str(coordinates) + '", "names": "' + str(names) + '" }'
         if self.inferenceProcessor=="local":
-            objects = self.object_detector.Detect(image)    
+            objects = self.object_detector.detect_objects(image)    
             if len(objects) == 0:
                 return result
             else:

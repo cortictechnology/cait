@@ -36,9 +36,9 @@ class FaceLib:
         self.blazeface_module = graph_runtime.create(loaded_json, loaded_lib, self.ctx)
         self.blazeface_module.load_params(loaded_params)
 
-        loaded_json = open("/vision_module/tuned3_mobilefacenet_graph.json").read()
-        loaded_lib = tvm.runtime.load_module("/vision_module/tuned3_mobilefacenet_lib.tar")
-        loaded_params = bytearray(open("/vision_module/tuned3_mobilefacenet_param.params", "rb").read())
+        loaded_json = open("/vision_module/tuned32_2_mobilefacenet_graph.json").read()
+        loaded_lib = tvm.runtime.load_module("/vision_module/tuned32_2_mobilefacenet_lib.tar")
+        loaded_params = bytearray(open("/vision_module/tuned32_2_mobilefacenet_param.params", "rb").read())
         self.mobilefacenet_module = graph_runtime.create(loaded_json, loaded_lib, self.ctx)
         self.mobilefacenet_module.load_params(loaded_params)
 

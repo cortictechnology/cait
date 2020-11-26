@@ -5,8 +5,6 @@ Written by Michael Ng <michaelng@cortic.ca>, November 2019
 
 """
 
-#from libface_detect import FaceDetector
-#from libface_recognize import FaceRecognizer
 from facelib import FaceLib
 import cv2
 import numpy as np

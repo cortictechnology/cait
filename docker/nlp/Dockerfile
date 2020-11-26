@@ -1,144 +1,125 @@
-FROM ubuntu
+FROM python:3.7-slim
 
-# install base tools
-RUN apt-get update && apt-get -y upgrade && apt-get -y install \
-	curl \
-	tar \
-	wget \
-	sudo \
-	xz-utils \
-	gcc \
-	make \
-	libatomic-ops-dev \
-	libbz2-dev libssl-dev \
-	build-essential \
-	cmake \
-	unzip \
-	pkg-config \
-	zlib1g \
-	zlib1g-dev
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get -y update && apt-get -y upgrade
+RUN apt-get -y update && apt-get -y install \
+    curl \
+    wget \
+    sudo \
+    gcc \
+    git \
+    build-essential \
+    cmake \
+    pkg-config \
+	gnupg
 
-# install python 3.6.8
+RUN echo "deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
+	echo "deb-src http://archive.raspbian.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
+    echo "deb http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
+    echo "deb-src http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
+    wget -qO - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -; \
+    wget http://archive.raspbian.org/raspbian.public.key -O - | apt-key add -; \
+    apt-get -y update && apt-get -y upgrade
+
 WORKDIR /root
-RUN wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tar.xz; \
-tar -xvf Python-3.6.8.tar.xz
-WORKDIR /root/Python-3.6.8
-RUN ./configure; \
-make -j4; \
-make install; \
-python3.6 -m pip install --upgrade pip setuptools wheel
+RUN mkdir -p .config/pip; \
+    echo "[global]" >> .config/pip/pip.conf; \
+    echo "index-url=https://pypi.org/simple" >> .config/pip/pip.conf; \
+    echo "extra-index-url=https://www.piwheels.org/simple" >> .config/pip/pip.conf; \
+	mkdir -p /usr/share/man/man1
 
-# install tensorflow 1.14.0
-RUN apt-get install python3.6-dev libhdf5-dev -y; \
-touch /etc/pip.conf; \
-echo '[global]\nextra-index-url=https://www.piwheels.org/simple' >> /etc/pip.conf; \
-python3.6 -m pip install tensorflow==1.14.0
+RUN apt-get -y update && apt-get -y install \
+    libbz2-dev \
+    libssl-dev \
+    tk-dev \
+    libncurses5-dev \
+    libncursesw5-dev \
+    libreadline6-dev \
+    libdb5.3-dev \
+    libgdbm-dev \
+    libsqlite3-dev \
+    libbz2-dev \
+    libexpat1-dev \
+    liblzma-dev \
+    zlib1g-dev \
+    libffi-dev \
+    openjdk-8-jdk \
+    libhdf5-dev \
+    libc-ares-dev \
+    libeigen3-dev \
+    gfortran \
+    python-dev \
+    libgfortran5 \
+    libatlas3-base \
+    libatlas-base-dev \
+    libopenblas-dev \
+    libopenblas-base \
+    libblas-dev \
+    liblapack-dev \
+    libatlas-base-dev \
+    openmpi-bin \
+    libopenmpi-dev \
+    python3-dev 
 
-# install opencv
-RUN apt-get -y install \
-	libatlas3-base \
-	libatlas-base-dev \
-	gfortran \
-	libjpeg-dev \
-	libtiff5-dev \
-	libpng-dev \
-	libilmbase-dev \
-	libopenexr-dev \
-	libgstreamer1.0-dev \
-	libavcodec-dev \
-	libavformat-dev \
-	libswscale-dev \
-	libv4l-dev \
-	libxvidcore-dev \
-	libx264-dev \
-	libgtk-3-dev \
-	libcanberra-gtk* \
-	libqtgui4 \
-	libqtwebkit4 \
-	libqt4-test \
-	python3-pyqt5 \
-	git
+ENV VIRTUAL_ENV=/root/rasa_env
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py; \
+    python get-pip.py
+
 WORKDIR /root
-RUN wget -O opencv.zip https://github.com/opencv/opencv/archive/4.0.0.zip; \
-wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.0.0.zip; \
-unzip opencv.zip; \
-unzip opencv_contrib.zip; \
-mv opencv-4.0.0 opencv; \
-mv opencv_contrib-4.0.0 opencv_contrib; \
-rm opencv.zip; \
-rm opencv_contrib.zip
-WORKDIR /root/opencv
-RUN mkdir build
-WORKDIR /root/opencv/build
-RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
-    -D CMAKE_INSTALL_PREFIX=/usr/local \
-    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
-    -D ENABLE_NEON=ON \
-    -D ENABLE_VFPV3=ON \
-    -D BUILD_TESTS=OFF \
-    -D OPENCV_ENABLE_NONFREE=ON \
-    -D INSTALL_PYTHON_EXAMPLES=OFF \
-    -D BUILD_EXAMPLES=OFF ..; \
-make -j4; \
-make install; \
-ldconfig
-WORKDIR /usr/local/lib/python3.6/site-packages/
-RUN sudo ln -s /usr/local/python/cv2/python-3.6/cv2.cpython-36m-arm-linux-gnueabihf.so cv2.so; \
-rm -rf ~/opencv*; \
-rm -rf ~/Python*
+RUN wget https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py; \
+    python get-poetry.py --version 1.0.8
 
-# install rasa
+WORKDIR /root
+RUN git clone https://github.com/PINTO0309/Bazel_bin.git; \
+    cd Bazel_bin/2.0.0/Raspbian_Debian_Buster_armhf/openjdk-8-jdk; \
+    chmod a+x install.sh; \
+    ./install.sh
+
+RUN pip install keras_applications==1.0.8 --no-deps; \
+    pip install keras_preprocessing==1.1.0 --no-deps; \
+    pip install cython; \
+    pip install h5py==2.10.0 pybind11 six wheel mock "jsonschema>=3.2,<3.3" pycparser
+
+RUN wget https://github.com/PINTO0309/Tensorflow-bin/raw/master/tensorflow-2.1.0-cp37-cp37m-linux_armv7l_download.sh; \
+    chmod a+x tensorflow-2.1.0-cp37-cp37m-linux_armv7l_download.sh; \
+    bash tensorflow-2.1.0-cp37-cp37m-linux_armv7l_download.sh; \
+    pip install tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl; \
+    rm tensorflow-2.1.0-cp37-cp37m-linux_armv7l_download.sh; \
+	rm tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl; \
+	pip install pip==20.0.2; \
+	apt install rsync libpq-dev -y
+
+COPY tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl /root
+WORKDIR /root
+RUN pip install tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
+	pip install protobuf==3.12.2
+
+WORKDIR /root
+RUN pip install scikit-build wheel==0.34.2 setuptools; \
+	git clone https://github.com/RasaHQ/rasa.git; \
+    cd rasa; \
+    git checkout tags/1.10.2; \
+	sed -i 's/version = "3.12.0"/version = "3.12.2"/g' poetry.lock
+
+WORKDIR /root/rasa
+RUN /bin/bash -c "source /root/.poetry/env && make install"
+
 WORKDIR /root
 RUN git clone https://github.com/explosion/spaCy; \
-git clone https://github.com/tensorflow/tensor2tensor; \
-git clone https://github.com/google/dopamine.git; \
-wget https://github.com/RasaHQ/rasa/archive/1.4.3.zip && unzip 1.4.3.zip
-WORKDIR /root/spaCy
-RUN export BLIS_ARCH=generic; \
-python3.6 -m pip install -r requirements.txt; \
-python3.6 setup.py build_ext --inplace; \
-python3.6 -m pip install .; \
-pip install picamera
-WORKDIR /root/dopamine
-RUN sed -i '/opencv-python/d' setup.py; \
-sed -i 's/gym >= 0.10.5/gym == 0.15.3/g' setup.py; \
-cat setup.py; \
-python3.6 -m pip install .; \
-rm ~/1.4.3.zip
-WORKDIR /root/tensor2tensor
-RUN apt-get -y install libpq-dev libffi-dev locales; \
-sed -i '/opencv-python/d' setup.py; \
-sed -i '/dopamine-rl/d' setup.py; \
-sed -i 's/gym/gym == 0.15.3/g' setup.py; \
-python3.6 -m pip install .; \
-python3.6 -m pip install psycopg2
-WORKDIR /root/rasa-1.4.3
-RUN sed -i '/tensor2tensor/d' setup.py; \
-sed -i '/tensor2tensor/d' requirements.txt
+    export BLIS_ARCH=generic; \
+    cd spaCy; \
+    pip install -r requirements.txt; \
+    python setup.py build_ext --inplace; \
+    pip install .
 
-RUN python3.6 -m pip install -r requirements.txt; \
-python3.6 -m pip install . ; \
-echo ""; \
-echo ""; \
-echo "------------------------------------------------------------"; \
-echo "Congratulations! Rasa is now installed on your Raspberry Pi."; \
-echo "To test rasa out, run python3.6 -m rasa init and start "; \
-echo "creating your bot!"; \
-python3 -m spacy download en_core_web_md; \
-python3 -m spacy link en_core_web_md en; \
-python3 -m spacy download fr_core_news_md; \
-python3 -m spacy link fr_core_news_md fr; \
-
-#install mqtt
-RUN pip install paho-mqtt cython
-ENV PYTHONIOENCODING='utf8'
-
-# clean up
 WORKDIR /root
-RUN rm -rf dopamine; \
-rm -rf spaCy; \
-rm -rf tensor2tensor; \
-rm -rf rasa-1.4.3; \
-rm -rf .cache; \
-apt-get -y clean; \
-apt-get -y autoremove 
+RUN apt-get clean; \
+    apt-get -y autoremove; \
+    rm -rf Bazel_bin; \
+    rm tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
+    rm -rf spaCy; \
+    rm get-pip.py; \
+    rm get-poetry.py

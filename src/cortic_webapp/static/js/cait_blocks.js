@@ -225,6 +225,16 @@ Blockly.defineBlocksWithJsonArray([
       "helpUrl": ""
     },
     {
+      "type": "vision_classify_image",
+      "lastDummyAlign0": "CENTRE",
+      "message0": "classify image",
+      "inputsInline": true,
+      "output": null,
+      "colour": "#5D0095",
+      "tooltip": "Classify a camera image",
+      "helpUrl": ""
+    },
+    {
       "type": "listen",
       "lastDummyAlign0": "CENTRE",
       "message0": "listen for user speech",
@@ -1026,6 +1036,16 @@ Blockly.JavaScript['vision_detect_objects'] = function(block) {
 
 Blockly.Python['vision_detect_objects'] = function(block) {
   var code = 'cait.essentials.detect_objects()';
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.JavaScript['vision_classify_image'] = function(block) {
+  var code = 'await classify_image()';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Python['vision_classify_image'] = function(block) {
+  var code = 'cait.essentials.classify_image()';
   return [code, Blockly.Python.ORDER_NONE];
 };
 

@@ -36,7 +36,7 @@ RUN apt-get update && apt-get -y install \
     portaudio19-dev \
     mplayer \
     python3-setuptools; \
-    pip3 install pygame; \
+    pip3 install pygame==1.9.6; \
     pip3 install PyAudio; \
     pip3 install webrtcvad~=2.0.10; \
     pip3 install halo~=0.0.18

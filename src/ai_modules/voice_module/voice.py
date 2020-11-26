@@ -22,8 +22,6 @@ import sys
 import threading
 from six.moves import queue
 from google.cloud import speech
-from google.cloud.speech import enums
-from google.cloud.speech import types
 import numpy as np
 import json
 import pygame
@@ -378,13 +376,11 @@ def main():
     global mode
     global language_code
 
-    BEAM_WIDTH = 500
     DEFAULT_SAMPLE_RATE = 16000
-    LM_ALPHA = 0.75
-    LM_BETA = 1.85
-    MODEL_FILE = "/deepspeech-0.6.1-models/output_graph.tflite"
-    LM_FILE = "/deepspeech-0.6.1-models/lm.binary"
-    TRIE_FILE = "/deepspeech-0.6.1-models/trie"
+    MODEL_FILE = "/opt/deepspeech-models/deepspeech-0.9.1-models.tflite"
+    SCORE_FILE = "/opt/deepspeech-models/deepspeech-0.9.1-models.scorer"
+    MODEL_FILE_CN = "/opt/deepspeech-models/deepspeech-0.9.1-models-zh-CN.tflite"
+    SCORE_FILE_CN = "/opt/deepspeech-models/deepspeech-0.9.1-models-zh-CN.scorerr"
 
     json_file = "/voice_module/" + online_account
     # Audio recording parameters
@@ -394,16 +390,16 @@ def main():
     if mode == "Online":
         logging.warning("Using cloud account: " + json_file)
         client = speech.SpeechClient.from_service_account_json(json_file)
-        config = types.RecognitionConfig(
-            encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
+        config = speech.RecognitionConfig(
+            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
             sample_rate_hertz=RATE,
             language_code=language_code)
-        streaming_config = types.StreamingRecognitionConfig(
+        streaming_config = speech.StreamingRecognitionConfig(
             config=config,
             interim_results=True)
     else:
-        client = deepspeech.Model(MODEL_FILE, BEAM_WIDTH)
-        client.enableDecoderWithLM(LM_FILE, TRIE_FILE, LM_ALPHA, LM_BETA)
+        client = deepspeech.Model(MODEL_FILE)
+        client.enableExternalScorer(SCORE_FILE)
 
     heartbeat_thread = threading.Thread(target=heartbeat_func, daemon=True)
     heartbeat_thread.start()
@@ -420,7 +416,7 @@ def main():
                         playedNotification = True
                     client_stt_response.publish("cait/module_states", "Init recording done", qos=1)
                     audio_generator = stream.generator()
-                    requests = (types.StreamingRecognizeRequest(audio_content=content)
+                    requests = (speech.StreamingRecognizeRequest(audio_content=content)
                                 for content in audio_generator)
                     responses = client.streaming_recognize(streaming_config, requests)
                     # Now, put the transcription responses to use.
@@ -449,10 +445,10 @@ def main():
                 for frame in frames:
                     if frame is not None:
                         logging.info("Streaming frame")
-                        client.feedAudioContent(stream_context, np.frombuffer(frame, np.int16))
+                        stream_context.feedAudioContent(np.frombuffer(frame, np.int16))
                     else:
                         logging.info("end utterence")
-                        sentence = client.finishStream(stream_context)
+                        sentence = stream_context.finishStream()
                         logging.info("User said: " + sentence)
                         if sentence == "":
                             stream_context = client.createStream()
@@ -469,7 +465,6 @@ def main():
                                 #print("Published:", sentence)
                                 startListen = False
                                 break
-                        #stream_context = client.createStream()
                 if not startListen:
                     logging.info("stop listen")
                     vad_audio.destroy()

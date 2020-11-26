@@ -47,10 +47,9 @@ function enableChileBlock(block) {
   }
 }
 
-
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
-
+  var allBlocks = workspace.getAllBlocks();
   if (event.type == Blockly.Events.BLOCK_CHANGE) {
     if (event.element == "field") {
       if (event.oldValue == "color_name" || event.oldValue == "brightness_pct") {
@@ -97,8 +96,39 @@ function updateFunction(event) {
       }
     }
   }
-  
 
+  if (event.type == Blockly.Events.BLOCK_CREATE) {
+    if (block.type == "setup_block"){
+      for (blk in allBlocks) {
+        if (allBlocks[blk].type == "setup_block" && allBlocks[blk] != block) {
+          block.setEnabled(false);
+          break;
+        }
+        else {
+          block.setEnabled(true);
+        }
+      }
+    }
+    else if (block.type == "main_block") {
+      var setuBlockExist = false;
+        for (blk in allBlocks) {
+          if (allBlocks[blk].type == "main_block" && allBlocks[blk] != block) {
+            block.setEnabled(false);
+            break;
+          }
+          else {
+            block.setEnabled(true);
+          }
+          if (allBlocks[blk].type == "setup_block") {
+            setuBlockExist = true;
+          }
+        }
+        if (!setuBlockExist) {
+          block.setEnabled(false);
+        }
+    }
+  }  
+  
   if (event.type == Blockly.Events.BLOCK_MOVE) {
     var parentBlock = workspace.getBlockById(event.newParentId);
     if (block != null){
@@ -106,8 +136,7 @@ function updateFunction(event) {
           block.type == "init_voice" || 
           block.type == "init_nlp" || 
           block.type == "init_control" ||  
-          block.type == "init_smarthome" ||
-          block.type == "set_parameter") {
+          block.type == "init_smarthome") {
         var within_setup_block = false;
         while (parentBlock != null) {
           if (parentBlock.type == "setup_block") {
@@ -123,8 +152,46 @@ function updateFunction(event) {
           block.setEnabled(false);
         }
       }
-      else if (block.type == "setup_block" || block.type == "main_block") {
-        block.setEnabled(true);
+      else if (block.type == "setup_block") {
+        var needsDisable = false;
+        for (blk in allBlocks) {
+          if (allBlocks[blk].type == "setup_block" && allBlocks[blk] != block) {
+            if (allBlocks[blk].isEnabled()){
+              needsDisable = true;
+            }
+          }
+        }
+        if (needsDisable) {
+          block.setEnabled(false);
+        }
+        for (blk in allBlocks){
+          if (allBlocks[blk].type == "main_block"){
+            allBlocks[blk].setEnabled(true);
+            break; 
+          }
+        }
+      }
+      else if (block.type == "main_block") {
+        var setuBlockExist = false;
+        var needsDisable = false;
+        for (blk in allBlocks) {
+          if (allBlocks[blk].type == "main_block" && allBlocks[blk] != block) {
+            if (allBlocks[blk].isEnabled()){
+              needsDisable = true;
+            }
+          }
+        }
+        if (needsDisable) {
+          block.setEnabled(false);
+        }
+        for (blk in allBlocks) {
+          if (allBlocks[blk].type == "setup_block") {
+            setuBlockExist = true;
+          }
+        }
+        if (!setuBlockExist) {
+          block.setEnabled(false);
+        }
       }
       else {
         var within_main_block = false;
@@ -142,7 +209,6 @@ function updateFunction(event) {
         if (!within_main_block) {
           block.setEnabled(false);
           if (block.type.indexOf("vision_") != -1) {
-            //console.log(block.type);
             emptyVisionMode();
           }
         }
@@ -157,6 +223,44 @@ function updateFunction(event) {
       } 
     }
   }
+
+  if (event.type == Blockly.Events.BLOCK_DELETE) {
+    var setupBlockRemains = false;
+    for (blk in allBlocks) {
+      if (allBlocks[blk].type == "setup_block") {
+        setupBlockRemains = true;
+      }
+    }
+    if (event.oldXml.getAttribute("type") == "setup_block"){
+      for (blk in allBlocks) {
+        if (allBlocks[blk].type == "setup_block") {
+          allBlocks[blk].setEnabled(true);
+          break;
+        }
+      }
+      for (blk in allBlocks) {
+        if (allBlocks[blk].type == "main_block") {
+          if (setupBlockRemains) {
+            allBlocks[blk].setEnabled(true);
+            break;
+          }
+          else {
+            allBlocks[blk].setEnabled(false);
+          }
+        }
+      }
+    }
+    else if (event.oldXml.getAttribute("type") == "main_block") {
+      for (blk in allBlocks) {
+        if (allBlocks[blk].type == "main_block") {
+          if (setupBlockRemains){
+            allBlocks[blk].setEnabled(true);
+            break;
+          }
+        }
+      }
+    }
+  }  
 }
 
 var stopCode = false;

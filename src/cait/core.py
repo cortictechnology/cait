@@ -406,6 +406,19 @@ def detect_objects():
         return names, coordinates
 
 
+def classify_image():
+    if not caitCore.get_component_state("vision", "Up"):
+        logging.info("Please call initialize_vision() function before using the vision module")
+        return None
+    change_vision_mode("ImageClassification")
+    while not caitCore.component_manager.receivedInferenceResult:
+        time.sleep(0.005)
+    if caitCore.component_manager.currentNames[0] != "None":
+        caitCore.component_manager.receivedInferenceResult = False
+        names = caitCore.component_manager.currentNames
+        return names
+
+
 def wait_for_person(target):
     if not caitCore.get_component_state("vision", "Up"):
         logging.info("Please call initialize_vision() function before using the vision module")

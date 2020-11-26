@@ -221,6 +221,75 @@
           font-size: 60%
         }
 
+        button {
+          display: inline-block;
+          height: 40px;
+          padding: 0;
+          margin: 0;
+          vertical-align: top;
+          width: 40px;
+          border: none;
+          background-color: #FFFFFF; 
+          cursor:pointer;
+        }
+
+        #save {
+          background-image: url( '/static/images/icons-save-close-96.png' );
+          background-size: 40px 40px;
+          height: 40px;  
+          width: 40px;
+        }
+
+        #load {
+          background-image: url( '/static/images/icons-open-file-folder-96.png' );
+          background-size: 40px 40px;
+          height: 40px;  
+          width: 40px;
+        }
+
+        #run {
+          background-image: url( '/static/images/icons-play-property-96.png' );
+          background-size: 40px 40px;
+          height: 40px;  
+          width: 40px;
+        }
+
+        #stop {
+          background-image: url( '/static/images/icons-stop-sign-96.png' );
+          background-size: 40px 40px;
+          height: 40px;  
+          width: 40px;
+        }
+
+        #genPython {
+          background-image: url( '/static/images/icons-python-96.png' );
+          background-size: 40px 40px;
+          height: 40px;  
+          width: 40px;
+        }
+
+        #genPyNB {
+          background-image: url( '/static/images/Jupyter.png' );
+          background-size: 40px 40px;
+          height: 40px;  
+          width: 40px;
+        }
+
+        #logout {
+          background-image: url( '/static/images/icons-logout-96.png' );
+          background-size: 40px 40px;
+          height: 40px;  
+          width: 40px;
+        }
+
+        .vl {
+          display: inline-block;
+          border-left: 2px solid gray;
+          height: 40px;
+          white-space:nowrap;
+          overflow:hidden;
+        }
+
       </style>
 </head>
 <body>
@@ -232,25 +301,23 @@
       </tr>
       <tr>
         <td>
-          <p>
-            <button id="save" onclick="save_workspace()"></button>
-            <script>document.getElementById('save').innerHTML = localizedStrings.save[locale];</script>
             <button id="load" onclick="load_workspace()"></button>
-            <script>document.getElementById('load').innerHTML = localizedStrings.load[locale];</script>
+            <script>document.getElementById('load').title = localizedStrings.load[locale];</script>
+            <button id="save" onclick="save_workspace()"></button>
+            <script>document.getElementById('save').title = localizedStrings.save[locale];</script>
+            <div class="vl"></div>
             <button id="run" onclick="run_code()"></button>
-            <script>document.getElementById('run').innerHTML = localizedStrings.run[locale];</script>
+            <script>document.getElementById('run').title = localizedStrings.run[locale];</script>
             <button id="stop" onclick="stop_code()"></button>
-            <script>document.getElementById('stop').innerHTML = localizedStrings.stop[locale];</script>
+            <script>document.getElementById('stop').title = localizedStrings.stop[locale];</script>
+            <div class="vl"></div>
             <button id="genPython" onclick="gen_py_code()"></button> 
-            <script>document.getElementById('genPython').innerHTML = localizedStrings.genPython[locale];</script>
+            <script>document.getElementById('genPython').title = localizedStrings.genPython[locale];</script>
             <button id="genPyNB" onclick="gen_py_notebook()"></button> 
-            <script>document.getElementById('genPyNB').innerHTML = localizedStrings.genPyNB[locale];</script>
+            <script>document.getElementById('genPyNB').title = localizedStrings.genPyNB[locale];</script>
             <button id="logout" onclick="logout()" style="float: right;"></button> 
-            <script>document.getElementById('logout').innerHTML = localizedStrings.logout[locale];</script>
-  
-          </p>
+            <script>document.getElementById('logout').title = localizedStrings.logout[locale];</script>
         </td>
-        
       </tr>
         <tr>
             <td id="blocklyArea">
@@ -653,6 +720,7 @@
           <block type="vision_add_person"></block>
           <block type="vision_remove_person"></block>
           <block type="vision_detect_objects"></block>
+          <block type="vision_classify_image"></block>
         </category>
         <category name="Speech" colour="#019191" iconclass="blocklyTreeIconCustom voice">
           <block type="init_voice"></block>

@@ -239,14 +239,14 @@ def main():
                     #im_pil.save(imgByteArr, format='JPEG')
                     #imgByteArr = imgByteArr.getvalue()
                     #start_time = time.time()
-                    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 70]
+                    encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 50]
                     _, buffer = cv2.imencode('.jpg', img, encode_param)
                     #logging.info("imencode time: " + str(time.time() - start_time))
                     #start_time = time.time()
                     imgByteArr = base64.b64encode(buffer)
                     #imgByteArr = imgByteArr.split('\n')[0]
                     #logging.info("base64 encode time: " + str(time.time() - start_time))
-                    client_inference.publish("cait/rawFrame", imgByteArr, qos=0)
+                    #client_inference.publish("cait/rawFrame", imgByteArr, qos=0)
                     #logging.info("Raw frame jpegTime: " + str(time.time() - start_time))
                     if currentInferenceMode != "":
                         model = inferencers[inferenceMode.index(currentInferenceMode)]
