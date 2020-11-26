@@ -9,323 +9,403 @@ Written by Michael Ng <michaelng@cortic.ca>, May 2020
 
 var localizedStrings={
     login:{
-        'en/US':'User Login',
-        'chs/CN':'用户登录'
+        'en/CA':"User Login",
+        'fr/CA':"Utilisateur en ligne",
+        'chs/CN':"用户登录"
     },
     username:{
-        'en/US':'Username',
-        'chs/CN':'用户名'
+        'en/CA':"Username",
+        'fr/CA':"Nom d'utilisateur",
+        'chs/CN':"用户名"
     },
     usernameReq:{
-        'en/US':'Username is required',
-        'chs/CN':'用户名为必填项'
+        'en/CA':"Username is required",
+        'fr/CA':"Nom d'utilisateur est nécessaire",
+        'chs/CN':"用户名为必填项"
     },
     pass:{
-        'en/US':'Password',
-        'chs/CN':'密码'
+        'en/CA':"Password",
+        'fr/CA':"Mot de passe",
+        'chs/CN':"密码"
     },
     passReq:{
-        'en/US':'Password is required',
-        'chs/CN':'密码是必需的'
+        'en/CA':"Password is required",
+        'fr/CA':"Mot de passe requis",
+        'chs/CN':"密码是必需的"
     },
     loginBtn:{
-        'en/US':'Login',
-        'chs/CN':'登录'
+        'en/CA':"Login',
+        'fr/CA':"S'identifier",
+        'chs/CN':"登录"
     },
     usernameNotExist:{
-        'en/US':'Username does not exist!',
-        'chs/CN':'用户名不存在！'
+        'en/CA':"Username does not exist!",
+        'fr/CA':"Le nom d'utilisateur n'existe pas!",
+        'chs/CN':"用户名不存在！"
     },
     usernameExist:{
-        'en/US':'Username already exists!',
-        'chs/CN':'此用户名已存在！'
+        'en/CA':"Username already exists!",
+        'fr/CA':"Ce nom d'utilisateur existe déjà!",
+        'chs/CN':"此用户名已存在！"
     },
     wrongPass:{
-        'en/US':'Wrong password!',
-        'chs/CN':'密码错误！'
+        'en/CA':"Incorrect password!",
+        'fr/CA':"Mauvais mot de passe!",
+        'chs/CN':"密码错误！"
     },
     usernameOrPassEmpty:{
-        'en/US':'Username or password cannot be empty!',
-        'chs/CN':'用户名或密码不能为空！'
+        'en/CA':"Username or password cannot be empty!",
+        'fr/CA':"Le nom d'utilisateur ou le mot de passe ne peuvent pas être vides!",
+        'chs/CN':"用户名或密码不能为空！"
     },
     initCAIT:{
-        'en/US':'Starting CAIT System',
-        'chs/CN':'正在启动CAIT系统中'
+        'en/CA':"Starting CAIT System",
+        'fr/CA':"Démarrage du système CAIT",
+        'chs/CN':"正在启动CAIT系统中"
     },
     createAcc:{
-        'en/US':'Create your Account',
-        'chs/CN':'创建您的帐户'
+        'en/CA':"Create your Account",
+        'fr/CA':"Créez votre compte",
+        'chs/CN':"创建您的帐户"
     },
     signupTitle:{
-        'en/US':'Signup to start using CAIT',
-        'chs/CN':'注册以开始使用CAIT'
+        'en/CA':"Signup to start using CAIT",
+        'fr/CA':"nscrivez-vous pour commencer à utiliser CAIT",
+        'chs/CN':"注册以开始使用CAIT"
     },
     register:{
-        'en/US':'Register',
-        'chs/CN':'注册'
+        'en/CA':"Register",
+        'fr/CA':"S'inscrire",
+        'chs/CN':"注册"
     },
     cancel:{
-        'en/US':'Cancel',
+        'en/CA':"Cancel",
+        'fr/CA':"Annuler",
         'chs/CN':'取消'
     },
     registerSuccess:{
-        'en/US':'Registration succeeded!',
-        'chs/CN':'注册成功！'
+        'en/CA':"Registration succeeded!",
+        'fr/CA':"Inscription réussie!",
+        'chs/CN':"注册成功！"
     },
     vpTitle:{
-        'en/US':'CAIT Visual Programming Interface',
-        'chs/CN':'CAIT可视化编程界面'
+        'en/CA':"CAIT Visual Programming Interface",
+        'fr/CA':"Interface de programmation visuelle CAIT",
+        'chs/CN':"CAIT可视化编程界面"
     },
     save:{
-        'en/US':'Save',
-        'chs/CN':'保存'
+        'en/CA':"Save",
+        'fr/CA':"Enregistrer",
+        'chs/CN':"保存"
     },
     saveName:{
-        'en/US':'Filename to save: ',
-        'chs/CN':'要保存的文件名： '
+        'en/CA':"Filename to save: ",
+        'fr/CA':"Nom de fichier à enregistrer: ",
+        'chs/CN':"要保存的文件名： "
     },
     load:{
-        'en/US':'Load',
-        'chs/CN':'加载'
+        'en/CA':"Load",
+        'fr/CA':"Charger",
+        'chs/CN':"加载"
     },
     loadName:{
-        'en/US':'Filename to load: ',
-        'chs/CN':'要加载的文件名： '
+        'en/CA':"Filename to load: ",
+        'fr/CA':"Nom de fichier à charger: ",
+        'chs/CN':"要加载的文件名： "
     },
     run:{
-        'en/US':'Run',
-        'chs/CN':'运行'
+        'en/CA':"Run",
+        'fr/CA':"Exécutez",
+        'chs/CN':"运行"
     },
     stop:{
-        'en/US':'Stop',
-        'chs/CN':'停止'
+        'en/CA':"Stop",
+        'fr/CA':"Arrêtez",
+        'chs/CN':"停止"
     },
     genPython:{
-        'en/US':'Generate Python Code',
-        'chs/CN':'生成Python代码'
+        'en/CA':"Generate Python Code",
+        'fr/CA':"Générer du code Python",
+        'chs/CN':"生成Python代码"
     },
     genPyName:{
-        'en/US':'Filename to save generated python code: ',
-        'chs/CN':'保存生成的python代码的文件名： '
+        'en/CA':"Filename to save generated python code: ",
+        'fr/CA':"Nom de fichier pour enregistrer le code python généré: ",
+        'chs/CN':"保存生成的python代码的文件名： "
     },
     genPyNB:{
-        'en/US':'Generate Jupyter Notebook',
-        'chs/CN':'生成Jupyter笔记本'
+        'en/CA':"Generate Jupyter Notebook",
+        'fr/CA':"Générer le bloc-notes Jupyter",
+        'chs/CN':"生成Jupyter笔记本"
     },
     genPyNBName:{
-        'en/US':'Filename to save generated jupyter notebook: ',
-        'chs/CN':'保存生成的jupyter笔记本的文件名：'
+        'en/CA':"Filename to save generated jupyter notebook: ",
+        'fr/CA':"Nom de fichier pour enregistrer le notebook jupyter généré: ",
+        'chs/CN':"保存生成的jupyter笔记本的文件名： "
     },
     visInit:{
-        'en/US':'Initializing vision component...',
-        'chs/CN':'初始化视觉组件...'
+        'en/CA':"Initializing vision module...",
+        'fr/CA':"Initialisation du module de vision ...",
+        'chs/CN':"初始化视觉模块..."
     },
     voiceInit:{
-        'en/US':'Initializing voice component...',
-        'chs/CN':'初始化语音组件...'
+        'en/CA':"Initializing voice module...",
+        'fr/CA':"Initialisation du module vocal ...",
+        'chs/CN':"初始化语音模块..."
     },
     nlpInit:{
-        'en/US':'Initializing nlp component...',
-        'chs/CN':'初始化自然语言处理组件...'
+        'en/CA':"Initializing nlp module...",
+        'fr/CA':"Initialisation du module nlp ...",
+        'chs/CN':"初始化自然语言处理模块..."
     },
     controlInit:{
-        'en/US':'Initializing control component...',
-        'chs/CN':'初始化控制组件...'
+        'en/CA':"Initializing control module...",
+        'fr/CA':"Initialisation du module de commande ...",
+        'chs/CN':"初始化控制模块..."
     },
     sHomeInit:{
-        'en/US':'Initializing smart home component...',
-        'chs/CN':'初始化智能家居组件...'
+        'en/CA':"Initializing smart home module...",
+        'fr/CA':"Initialisation du module maison intelligente ...",
+        'chs/CN':"初始化智能家居模块..."
     },
     visNotInit:{
-        'en/US':'Vision is not initialized. Please initialize it in the setup block first',
-        'chs/CN':'视觉未初始化。请首先在设置块中对其进行初始化'
+        'en/CA':"Vision is not initialized. Please initialize it in the setup block first.",
+        'fr/CA':"La vision n'est pas initialisée. Veuillez d'abord l'initialiser dans le bloc de configuration.",
+        'chs/CN':"视觉未初始化。请首先在设置块中对其进行初始化。"
     },
     voiceNotInit:{
-        'en/US':'Speech is not initialized. Please initialize it in the setup block first',
-        'chs/CN':'语音未初始化。请首先在设置块中对其进行初始化'
+        'en/CA':"Speech is not initialized. Please initialize it in the setup block first.",
+        'fr/CA':"La parole n'est pas initialisée. Veuillez d'abord l'initialiser dans le bloc de configuration.",
+        'chs/CN':"语音未初始化。请首先在设置块中对其进行初始化。"
     },
     nlpNotInit:{
-        'en/US':'NLP is not initialized. Please initialize it in the setup block first',
-        'chs/CN':'自然语言处理未初始化。请首先在设置块中对其进行初始化'
+        'en/CA':"NLP is not initialized. Please initialize it in the setup block first.",
+        'fr/CA':"NLP n'est pas initialisé. Veuillez d'abord l'initialiser dans le bloc de configuration.",
+        'chs/CN':"自然语言处理未初始化。请首先在设置块中对其进行初始化。"
     },
     controlNotInit:{
-        'en/US':'Control is not initialized. Please initialize it in the setup block first',
-        'chs/CN':'控制系统未初始化。请首先在设置块中对其进行初始化'
+        'en/CA':"Control is not initialized. Please initialize it in the setup block first.",
+        'fr/CA':"Le contrôle n'est pas initialisé. Veuillez d'abord l'initialiser dans le bloc de configuration.",
+        'chs/CN':"控制系统未初始化。请首先在设置块中对其进行初始化。"
     },
     sHomeNotInit:{
-        'en/US':'Smart Home Control is not initialized. Please initialize it in the setup block first',
-        'chs/CN':'智能家居控制未初始化。请首先在设置块中对其进行初始化'
+        'en/CA':"Smart Home Control is not initialized. Please initialize it in the setup block first.",
+        'fr/CA':"Smart Home Control n'est pas initialisé. Veuillez d'abord l'initialiser dans le bloc de configuration.",
+        'chs/CN':"智能家居控制未初始化。请首先在设置块中对其进行初始化。"
     },
     logout:{
-        'en/US':'Logout',
-        'chs/CN':'登出'
+        'en/CA':"Logout",
+        'fr/CA':"Se déconnecter",
+        'chs/CN':"登出"
     },
     setupWelcome:{
-        'en/US':'Welcome to the CAIT setup',
-        'chs/CN':'欢迎来到CAIT的设置页面'
+        'en/CA':"Welcome to the CAIT setup",
+        'fr/CA':"Bienvenue dans la configuration CAIT",
+        'chs/CN':"欢迎来到CAIT的设置页面"
     },
     lastUpdate:{
-        'en/US':'Last updated: May 22, 2020',
-        'chs/CN':'上次更新时间：2020年5月22日'
+        'en/CA':"Last updated: May 22, 2020",
+        'fr/CA':"Dernière mise à jour: 22 mai 2020",
+        'chs/CN':"上次更新时间：2020年5月22日"
     },
     connectWifi:{
-        'en/US':"Connecting to WIFI network",
-        'chs/CN':'让我们连接到WiFi网络'
+        'en/CA':"Connecting to WiFi network",
+        'fr/CA':"Connexion au réseau WiFi",
+        'chs/CN':"让我们连接到WiFi网络"
     },
     selectedWifi:{
-        'en/US':"Select WiFi",
-        'chs/CN':'选择WiFi'
+        'en/CA':"Select WiFi",
+        'fr/CA':"Sélectionnez WiFi",
+        'chs/CN':"选择WiFi"
     },
     availWifi:{
-        'en/US':"Click for WIFI list",
-        'chs/CN':'可用的Wifi'
+        'en/CA':"Click for WiFi list",
+        'fr/CA':"Cliquez pour la liste WiFi",
+        'chs/CN':"可用的WiFi"
     },
     enterPassword:{
-        'en/US':"Enter Password",
-        'chs/CN':'输入密码'
+        'en/CA':"Enter Password",
+        'fr/CA':"Entrer le mot de passe",
+        'chs/CN':"输入密码"
     },
     connect:{
-        'en/US':"Connect",
-        'chs/CN':'连接'
+        'en/CA':"Connect",
+        'fr/CA':"Relier",
+        'chs/CN':"连接"
     },
     loadingTextWifi:{
-        'en/US':"Testing WiFi Connection",
-        'chs/CN':'测试WiFi连接'
+        'en/CA':"Testing WiFi Connection",
+        'fr/CA':"Test de la connexion WiFi",
+        'chs/CN':"测试WiFi连接"
     },
     loadingReboot:{
-        'en/US':"Cleaning up and rebooting CAIT",
-        'chs/CN':'正在重新启动CAIT中'
+        'en/CA':"Cleaning up and rebooting CAIT",
+        'fr/CA':"Nettoyage et redémarrage de CAIT",
+        'chs/CN':"正在重新启动CAIT中"
     },
     doneTextWifi:{
-        'en/US':"Please refresh this page in a few minutes",
-        'chs/CN':'请在几分钟后刷新此页面'
+        'en/CA':"Please refresh this page in a few minutes",
+        'fr/CA':"Veuillez actualiser cette page dans quelques minutes",
+        'chs/CN':"请在几分钟后刷新此页面"
     },
     wifiSuccess:{
-        'en/US':"WiFi Connection successed! CAIT will reboot now. Please switch to your selected Wifi and wait for a few minutes",
-        'chs/CN':'WiFi连接成功！ CAIT现在将重新启动。请切换到您选择的Wifi，然后等待几分钟。'
+        'en/CA':"WiFi Connection successed! CAIT will reboot now. Please switch to your selected Wifi and wait for a few minutes",
+        'fr/CA':"Connexion WiFi réussie! CAIT va redémarrer maintenant. Veuillez basculer vers votre Wi-Fi sélectionné et patienter quelques minutes",
+        'chs/CN':"WiFi连接成功！ CAIT现在将重新启动。请切换到您选择的Wifi，然后等待几分钟。"
     },
     wifiFailed:{
-        'en/US':"Cannot connect to selected WiFi, please refresh this page and try again.",
-        'chs/CN':'无法连接到所选的WiFi，请刷新此页面，然后重试。'
+        'en/CA':"Cannot connect to selected WiFi, please refresh this page and try again.",
+        'fr/CA':"Impossible de se connecter au WiFi sélectionné, veuillez actualiser cette page et réessayer.",
+        'chs/CN':"无法连接到所选的WiFi，请刷新此页面，然后重试。"
     },
     startSetup:{
-        'en/US':'Start setup',
-        'chs/CN':'开始设定'
+        'en/CA':"Start setup",
+        'fr/CA':"Démarrer la configuration",
+        'chs/CN':"开始设定"
     },
     customDevice:{
-        'en/US':'Setup your device',
-        'chs/CN':'自定义您的设备'
+        'en/CA':"Setup your device",
+        'fr/CA':"Configurez votre appareil",
+        'chs/CN':"自定义您的设备"
     },
     nameDevice:{
-        'en/US':'Hostname',
-        'chs/CN':'您想如何命名您的设备？'
+        'en/CA':"Hostname",
+        'fr/CA':"Nom d'hôte",
+        'chs/CN':"您想如何命名您的设备？"
     },
     askUsername:{
-        'en/US':'Username?',
-        'chs/CN':'您的用户名是什么？'
+        'en/CA':'Username',
+        'fr/CA':"Nom d'utilisateur",
+        'chs/CN':"您的用户名是什么"
     },
     askPassword:{
-        'en/US':'Password',
-        'chs/CN':'请输入您的用户密码'
+        'en/CA':"Password",
+        'fr/CA':"Mot de passe",
+        'chs/CN':"请输入您的用户密码"
     },
     testHardware:{
-        'en/US':'Peripheral test',
-        'chs/CN':'现在，我们将测试连接的摄像头和音频设备'
+        'en/CA':"Peripheral test",
+        'fr/CA':"Test périphérique",
+        'chs/CN':"我们将测试连接的摄像头和音频设备"
     },
     availCam:{
-        'en/US':'Available Camera',
-        'chs/CN':'可用摄像头'
+        'en/CA':"Available Camera(s)",
+        'fr/CA':"Caméra(s) disponible(s)",
+        'chs/CN':"可用摄像头"
     },
     availMicrophone:{
-        'en/US':'Available Microphone',
-        'chs/CN':'可用麦克风'
+        'en/CA':"Available Microphone(s)",
+        'fr/CA':"Microphone(s) disponible(s)",
+        'chs/CN':"可用麦克风"
     },
     testCam:{
-        'en/US':'Test Camera',
-        'chs/CN':'测试摄像头'
+        'en/CA':"Test Camera",
+        'fr/CA':"Caméra de test",
+        'chs/CN':"测试摄像头"
     },
     testSpeaker:{
-        'en/US':'Test Speaker',
-        'chs/CN':'测试扬声器'
+        'en/CA':"Test Speaker",
+        'fr/CA':"Test du haut-parleur",
+        'chs/CN':"测试扬声器"
     },
     testMicrophone:{
-        'en/US':'Test Microphone',
-        'chs/CN':'测试麦克风'
+        'en/CA':"Test Microphone",
+        'fr/CA':"Microphone de test",
+        'chs/CN':"测试麦克风"
     },
     loadingTextHardware:{
-        'en/US':'Initializing Hardware',
-        'chs/CN':'初始化硬件'
+        'en/CA':"Initializing Hardware",
+        'fr/CA':"Initialisation du matériel",
+        'chs/CN':"初始化硬件"
     },
     thirdSignin:{
-        'en/US':"Cloud Service Provider",
-        'chs/CN':'让我们登录或注册到第三方云服务提供商，创建帐户后，请在下面输入API Key和Secret Key，然后按下一步按钮'
+        'en/CA':"Cloud Service Provider",
+        'fr/CA':"Fournisseur de services cloud",
+        'chs/CN':"让我们登录或注册到第三方云服务提供商，创建帐户后，请在下面输入API Key和Secret Key，然后按下一步按钮"
     },
     thirdLoginin:{
-        'en/US':"Create Google Service Accont",
-        'chs/CN':'让我们登录或注册到第三方云服务提供商'
+        'en/CA':"Create Google Service Accont",
+        'fr/CA':"Créer un compte de service Google",
+        'chs/CN':"让我们登录或注册到第三方云服务提供商"
     },
     thirdsignin_explain:{
-        'en/US':"You may choose to connect to a cloud service provider for better speech recognition/generation performance.  However, if privacy is important to you, you may skip this step and opt to process audio inputs locally.",
-        'chs/CN':''
+        'en/CA':"You may choose to connect to a cloud service provider for better speech recognition/generation performance.  However, if privacy is important to you, you may skip this step and opt to process audio inputs locally.",
+        'fr/CA':"Vous pouvez choisir de vous connecter à un fournisseur de services cloud pour de meilleures performances de reconnaissance / génération de la parole. Cependant, si la confidentialité est importante pour vous, vous pouvez ignorer cette étape et choisir de traiter les entrées audio localement.",
+        'chs/CN':""
     },
     thirdsignin_upload:{
-        'en/US':"Please refer to the User Manual for a step by step Google setup guide",
-        'chs/CN':''
+        'en/CA':"Please refer to the User Manual for a step by step Google setup guide",
+        'fr/CA':"Veuillez consulter le manuel de l'utilisateur pour un guide de configuration Google étape par étape",
+        'chs/CN':""
     },
     json_upload:{
-        'en/US':"Please upload the JSON file from Google",
-        'chs/CN':''
+        'en/CA':"Please upload the JSON file from Google",
+        'fr/CA':"Veuillez télécharger le fichier JSON de Google",
+        'chs/CN':""
     },
     signinSuccess:{
-        'en/US':"Sign in Success! Please press next button to continue.",
-        'chs/CN':'登录成功！请按下一步按钮继续。'
+        'en/CA':"Sign in successful! Please press the Next button to continue.",
+        'fr/CA':"Connexion réussie! Veuillez appuyer sur le bouton Suivant pour continuer.",
+        'chs/CN':"登录成功！请按下一步按钮继续。"
     },
     next:{
-        'en/US':'Next',
-        'chs/CN':'下一步'
+        'en/CA':"Next",
+        'fr/CA':"Suivant",
+        'chs/CN':"下一步"
     },
     previous:{
-        'en/US':'Previous',
-        'chs/CN':'上一步'
+        'en/CA':"Previous",
+        'fr/CA':"Précédent",
+        'chs/CN':"上一步"
     },
     skip:{
-        'en/US':'Skip',
-        'chs/CN':'跳过'
+        'en/CA':"Skip:,
+        'fr/CA':"Sauter",
+        'chs/CN':"跳过"
     },
     skipWifi:{
-        'en/US':'If you skip setting up the Wifi, you can only connect to CAIT through AP mode',
-        'chs/CN':'如果您跳过设置Wifi，则只能通过AP模式连接到CAIT'
+        'en/CA':"If you skip setting up the WiFi, you can only connect to CAIT through AP mode",
+        'fr/CA':"Si vous ignorez la configuration du WiFi, vous ne pouvez vous connecter à CAIT qu'en mode AP",
+        'chs/CN':"如果您跳过设置WiFi，则只能通过AP模式连接到CAIT"
     },
     skipDeviceInfo:{
-        'en/US':'If you skip setting up account, you will not have a personal account for Visual Programming',
-        'chs/CN':'如果您跳过设置帐户，则将没有用于可视化编程的个人帐户'
+        'en/CA':"If you skip setting up account, you will not have a personal account for Visual Programming",
+        'fr/CA':"Si vous ignorez la configuration du compte, vous n'aurez pas de compte personnel pour la programmation visuelle",
+        'chs/CN':"如果您跳过设置帐户，则将没有用于可视化编程的个人帐户"
     },
     skipBaidu:{
-        'en/US':'If you skip setting up Baidu account, you will not be able to use any speech services',
-        'chs/CN':'如果您跳过设置百度帐户的操作，则将无法使用任何语音服务'
+        'en/CA':"If you skip setting up Baidu account, you will not be able to use online speech services",
+        'fr/CA':"Si vous ignorez la configuration du compte Baidu, vous ne pourrez pas utiliser les services vocaux en ligne",
+        'chs/CN':"如果您跳过设置百度帐户的操作，则将无法使用任何云端语音服务"
     },
     thirdlogin:{
-        'en/US':'Login/Register Baidu Account',
-        'chs/CN':'登录/注册百度帐号'
+        'en/CA':"Login/Register Baidu Account",
+        'fr/CA':"Se connecter / S'inscrire au compte Baidu",
+        'chs/CN':"登录/注册百度帐号"
     },
     apiKey:{
-        'en/US':'API Key',
-        'chs/CN':'API Key'
+        'en/CA':"API Key",
+        'fr/CA':"Clé API",
+        'chs/CN':"API Key"
     },
     secretKey:{
-        'en/US':'Secret Key',
-        'chs/CN':'Secret Key'
+        'en/CA':"Secret Key",
+        'fr/CA':"Clef secrète",
+        'chs/CN':"Secret Key"
     },
     emptyField:{
-        'en/US':"All fields cannot be empty!",
-        'chs/CN':'所有字段不能为空！'
+        'en/CA':"None of the fields can be empty!",
+        'fr/CA':"Aucun des champs ne peut être vide!",
+        'chs/CN':"所有字段不能为空！"
     },
     congrats:{
-        'en/US':"Restart Your Device",
-        'chs/CN':'恭喜你！现在已完成CAIT的所有设置，请单击下面的按钮立即重新启动CAIT'
+        'en/CA':"Restart Your Device",
+        'fr/CA':"Redémarrez votre appareil",
+        'chs/CN':"请单击下面的按钮立即重新启动CAIT"
     },
     reboot:{
-        'en/US':"Restart CAIT",
-        'chs/CN':'重新启动CAIT'
+        'en/CA':"Restart CAIT",
+        'fr/CA':"Redémarrez CAIT",
+        'chs/CN':"重新启动CAIT"
     }
 }
