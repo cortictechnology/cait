@@ -7,6 +7,8 @@ Written by Michael Ng <michaelng@cortic.ca>, May 2020
 
 'use strict';
 
+var locale="en/CA";
+
 var localizedStrings={
     login:{
         'en/CA':"User Login",
@@ -34,7 +36,7 @@ var localizedStrings={
         'chs/CN':"密码是必需的"
     },
     loginBtn:{
-        'en/CA':"Login',
+        'en/CA':"Login",
         'fr/CA':"S'identifier",
         'chs/CN':"登录"
     },
@@ -359,7 +361,7 @@ var localizedStrings={
         'chs/CN':"上一步"
     },
     skip:{
-        'en/CA':"Skip:,
+        'en/CA':"Skip",
         'fr/CA':"Sauter",
         'chs/CN':"跳过"
     },

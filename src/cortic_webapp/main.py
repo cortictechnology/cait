@@ -470,6 +470,51 @@ def saveworkspace():
 @auth.login_required
 def savepythoncode():
     code = request.form.get('code')
+    formatted_code = []
+    code_split = code.splitlines()
+    for line in code_split:
+        if line.find("import") == 0:
+            formatted_code.append(line)
+        
+    need_indent = False
+    for i in range(len(code_split)):
+        line = code_split[i]
+        if line.find("import ") == 0 or line.find("  global ") != -1:
+            continue
+        if line.find("def") == 0 or line.find('"""') == 0:
+            need_indent = False
+        else:
+            need_indent = True
+        if need_indent:
+            if line.find('  ') == 0:
+                line = '  ' + line
+            else:
+                line = '    ' + line
+        formatted_code.append(line)
+    
+    line_to_remove = []
+    for line in formatted_code:
+        if line.find('"""') == 0 or line.find("def") == 0:
+            break
+        if line.find("import ") == -1:
+            line_to_remove.append(line)
+        
+    for line in line_to_remove:
+        formatted_code.remove(line)
+
+    for i in range(len(formatted_code) - 1):
+        line = formatted_code[i]
+        if line.find("import ") == 0:
+            if formatted_code[i+1].find("import ") == -1:
+                formatted_code[i] = line + "\n"
+
+    formatted_code.append('\nif __name__ == "__main__":')
+    formatted_code.append("    setup()")
+    formatted_code.append("    main()")
+
+    code = "\n".join(formatted_code)
+
+
     filename = request.form.get('filename')
     if filename != "":
         location = "/home/" + g.username + "/cait_workspace/python_code/"

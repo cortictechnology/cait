@@ -14,7 +14,7 @@ var smart_home_func = ["control_light", "control_media_player"]
 Blockly.defineBlocksWithJsonArray([
     {
       "type": "setup_block",
-      "message0": "setup",
+      "message0": "%{BKY_SETUP}",
       "message1": "%1",
       "args1": [
         {
@@ -23,12 +23,12 @@ Blockly.defineBlocksWithJsonArray([
         }
       ],
       "colour" : "#1d8cf7",
-      "tooltip": "Setup point of the program.",
+      "tooltip": "%{BKY_SETUP_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "main_block",
-      "message0": "main",
+      "message0": "%{BKY_MAIN}",
       "message1": "%1",
       "args1": [
         {
@@ -37,12 +37,12 @@ Blockly.defineBlocksWithJsonArray([
         }
       ],
       "colour" : "#1d8cf7",
-      "tooltip": "Entry point of the program.",
+      "tooltip": "%{BKY_MAIN_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "set_parameter",
-      "message0": "set parameter %1 %2 %3 to value %4",
+      "message0": "%{BKY_SET_PARAMS}",
       "args0": [
         {
           "type": "input_dummy",
@@ -66,22 +66,22 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#1d8cf7",
-      "tooltip": "",
+      "tooltip": "%{BKY_SET_PARAMS_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "init_vision",
-      "message0": "initialize vision",
+      "message0": "%{BKY_INIT_VISION}",
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#5D0095",
-      "tooltip": "Initialize the vision component",
+      "tooltip": "%{BKY_INIT_VISION_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "init_voice",
       "lastDummyAlign0": "CENTRE",
-      "message0": "initialize voice with %1 mode %2 using %3 account in %4 %5",
+      "message0": "%{BKY_INIT_VOICE}",
       "args0": [
         {
           "type": "field_dropdown",
@@ -132,13 +132,13 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#019191",
-      "tooltip": "Initialize the voice component",
+      "tooltip": "%{BKY_INIT_VOICE_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "init_nlp",
       "lastDummyAlign0": "CENTRE",
-      "message0": "initialize nlp with %1 model",
+      "message0": "%{BKY_INIT_NLP}",
       "args0": [
         {
           "type": "input_dummy",
@@ -150,41 +150,41 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#3ACFF7",
-      "tooltip": "Initialize the nlp component",
+      "tooltip": "%{BKY_INIT_NLP_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "init_control",
       "lastDummyAlign0": "CENTRE",
-      "message0": "initialize control",
+      "message0": "%{BKY_INIT_CONTROL}",
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F78C00",
-      "tooltip": "Initialize the control component",
+      "tooltip": "%{BKY_INIT_CONTROL_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "init_smarthome",
       "lastDummyAlign0": "CENTRE",
-      "message0": "initialize smart home control",
+      "message0": "%{BKY_INIT_HOME}",
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F70090",
-      "tooltip": "Scan for available devices, initialize their status",
+      "tooltip": "%{BKY_INIT_HOME_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "vision_recognize_face",
-      "message0": "Recognize Face",
+      "message0": "%{BKY_FACE_RECOGNIZE}",
       "inputsInline": true,
       "output": "String",
       "colour": "#5D0095",
-      "tooltip": "Recognize the person above the specific confidence in scene",
+      "tooltip": "%{BKY_FACE_RECOGNIZE_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "vision_add_person",
-      "message0": "Add person with name %1",
+      "message0": "%{BKY_FACE_ADD}",
       "args0": [
         {
           "type": "input_value",
@@ -195,12 +195,12 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#5D0095",
-      "tooltip": "Add a new person into database with input name",
+      "tooltip": "%{BKY_FACE_ADD_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "vision_remove_person",
-      "message0": "Remove person named %1",
+      "message0": "%{BKY_FACE_DELETE}",
       "args0": [
         {
           "type": "input_value",
@@ -211,42 +211,42 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#5D0095",
-      "tooltip": "Remove a person from database with specific name",
+      "tooltip": "%{BKY_FACE_DELETE_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "vision_detect_objects",
       "lastDummyAlign0": "CENTRE",
-      "message0": "detect objects",
+      "message0": "%{BKY_OBJECT_DETECT}",
       "inputsInline": true,
       "output": null,
       "colour": "#5D0095",
-      "tooltip": "Detect objects in front of camera",
+      "tooltip": "%{BKY_OBJECT_DETECT_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "vision_classify_image",
       "lastDummyAlign0": "CENTRE",
-      "message0": "classify image",
+      "message0": "%{BKY_IMAGE_CLASSIFY}",
       "inputsInline": true,
       "output": null,
       "colour": "#5D0095",
-      "tooltip": "Classify a camera image",
+      "tooltip": "%{BKY_IMAGE_CLASSIFY_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "listen",
       "lastDummyAlign0": "CENTRE",
-      "message0": "listen for user speech",
+      "message0": "%{BKY_LISTEN}",
       "output": null,
       "colour": "#019191",
-      "tooltip": "Listen to user speech, and output that as text",
+      "tooltip": "%{BKY_LISTEN_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "say",
       "lastDummyAlign0": "CENTRE",
-      "message0": "say %1",
+      "message0": "%{BKY_SAY}",
       "args0": [
         {
           "type": "input_value",
@@ -257,12 +257,12 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#019191",
-      "tooltip": "Convert text to audio speech",
+      "tooltip": "%{BKY_SAY_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "analyze",
-      "message0": "analyze %1",
+      "message0": "%{BKY_ANALYZE}",
       "args0": [
         {
           "type": "input_value",
@@ -272,12 +272,12 @@ Blockly.defineBlocksWithJsonArray([
       ],
       "output": null,
       "colour": "#3ACFF7",
-      "tooltip": "Analyze text from input",
+      "tooltip": "%{BKY_ANALYZE_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "get_name",
-      "message0": "get name with: intention %1",
+      "message0": "%{BKY_GET_NAME}",
       "args0": [
         {
           "type": "input_value",
@@ -288,12 +288,12 @@ Blockly.defineBlocksWithJsonArray([
       "inputsInline": true,
       "output": null,
       "colour": "#3252D4",
-      "tooltip": "Get person name from an intention",
+      "tooltip": "%{BKY_GET_NAME_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "comment",
-      "message0": "Comment:  %1",
+      "message0": "%{BKY_COMMENT}",
       "args0": [
         {
           "type": "input_value",
@@ -304,21 +304,21 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#B2820B",
-      "tooltip": "Comment Block",
+      "tooltip": "%{BKY_COMMENT_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "create_empty_dictionary",
-      "message0": "Create empty dictionary",
+      "message0": "%{BKY_EMPTY_DICT}",
       "inputsInline": true,
       "output": null,
       "colour": "#001F4E",
-      "tooltip": "Create an empty Dictionary",
+      "tooltip": "%{BKY_EMPTY_DICT_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "dictionary_keys",
-      "message0": "In dictionary %1 get list of keys",
+      "message0": "%{BKY_DICT_KEYS}",
       "args0": [
         {
           "type": "input_value",
@@ -328,12 +328,12 @@ Blockly.defineBlocksWithJsonArray([
       "inputsInline": true,
       "output": null,
       "colour": "#001F4E",
-      "tooltip": "Get a list of keys from the dictionary",
+      "tooltip": "%{BKY_DICT_KEYS_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "dictionary_value",
-      "message0": "In dictionary %1 get value for key %2",
+      "message0": "%{BKY_DICT_VAL}",
       "args0": [
         {
           "type": "input_value",
@@ -347,12 +347,12 @@ Blockly.defineBlocksWithJsonArray([
       "inputsInline": true,
       "output": null,
       "colour": "#001F4E",
-      "tooltip": "Get value from a dictionary with a specific key",
+      "tooltip": "%{BKY_DICT_VAL_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "dictionary_value_set",
-      "message0": "In dictionary %1 set value for key %2 to %3",
+      "message0": "%{BKY_DICT_SET_VAL}",
       "args0": [
         {
           "type": "input_value",
@@ -371,12 +371,12 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#001F4E",
-      "tooltip": "Set the value from a dictionary with a specific key",
+      "tooltip": "%{BKY_DICT_SET_VAL_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "dictionary_remove",
-      "message0": "In dictionary %1 remove value with key %2",
+      "message0": "%{BKY_DICT_REMOVE_VAL}",
       "args0": [
         {
           "type": "input_value",
@@ -391,12 +391,12 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#001F4E",
-      "tooltip": "Remove a key-value pair from dictionary",
+      "tooltip": "%{BKY_DICT_REMOVE_VAL_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "dictionary_add",
-      "message0": "In dictionary %1 add key %2 with value %3",
+      "message0": "%{BKY_DICT_ADD_VAL}",
       "args0": [
         {
           "type": "input_value",
@@ -415,12 +415,12 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#001F4E",
-      "tooltip": "Add a key-value pair to dictionary",
+      "tooltip": "%{BKY_DICT_ADD_VAL_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "motor_speed_block",
-      "message0": "setup motor group speed %1 %2",
+      "message0": "%{BKY_SET_MOTOR_GROUP_SPEED}",
       "args0": [
         {
           "type": "input_dummy",
@@ -435,12 +435,12 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F78C00",
-      "tooltip": "Execute motor controls concurrently",
+      "tooltip": "%{BKY_SET_MOTOR_GROUP_SPEED_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "motor_degree_block",
-      "message0": "setup motor group angle %1 %2",
+      "message0": "%{BKY_SET_MOTOR_GROUP_ANGLE}",
       "args0": [
         {
           "type": "input_dummy",
@@ -455,13 +455,13 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F78C00",
-      "tooltip": "Rotate motor for certain degrees concurrently",
+      "tooltip": "%{BKY_SET_MOTOR_GROUP_ANGLE_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "motor_control",
       "lastDummyAlign0": "CENTRE",
-      "message0": "set motor %1 %2 to speed %3 for %4 second(s)",
+      "message0": "%{BKY_SET_MOTOR_SPEED}",
       "args0": [
         {
           "type": "field_dropdown",
@@ -503,12 +503,12 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F78C00",
-      "tooltip": "Control individual motor motion",
+      "tooltip": "%{BKY_SET_MOTOR_SPEED_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "motor_rotate",
-      "message0": "rotate motor %1 for %2 %3 degree(s)",
+      "message0": "%{BKY_SET_MOTOR_ROTATE}",
       "args0": [
         {
           "type": "field_dropdown",
@@ -545,13 +545,13 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F78C00",
-      "tooltip": "Rotate the motor to certain degree",
+      "tooltip": "%{BKY_SET_MOTOR_ROTATE_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "move",
       "lastDummyAlign0": "RIGHT",
-      "message0": "move motor group: motor group %1 direction %2",
+      "message0": "%{BKY_MOVE_MOTOR}",
       "args0": [
         {
           "type": "input_value",
@@ -577,13 +577,13 @@ Blockly.defineBlocksWithJsonArray([
       "nextStatement": null,
       "inputsInline": true,
       "colour": "#3252D4",
-      "tooltip": "Get person name from an intention",
+      "tooltip": "%{BKY_MOVE_MOTOR_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "turn",
       "lastDummyAlign0": "CENTRE",
-      "message0": "turn motor group: motor group %1 degree(s) %2",
+      "message0": "%{BKY_TURN_MOTOR}",
       "args0": [
         {
           "type": "input_value",
@@ -603,12 +603,12 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#3252D4",
-      "tooltip": "Turn the robot to certain degree",
+      "tooltip": "%{BKY_TURN_MOTOR_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "lights",
-      "message0": "for light %1 perform %2 %3 %4",
+      "message0": "%{BKY_LIGHT_CONTROL}",
       "args0": [
         {
           "type": "input_dummy",
@@ -657,13 +657,13 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F70090",
-      "tooltip": "Control media player devices",
+      "tooltip": "%{BKY_LIGHT_CONTROL_TOOLTIP}",
       "helpUrl": ""
     },
     {
       "type": "media_player",
       "lastDummyAlign0": "CENTRE",
-      "message0": "for media player %1 perform %2",
+      "message0": "%{BKY_MEDIA_CONTROL}",
       "args0": [
         {
           "type": "input_dummy",
@@ -697,7 +697,7 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F70090",
-      "tooltip": "Control media player devices",
+      "tooltip": "%{BKY_MEDIA_CONTROL_TOOLTIP}",
       "helpUrl": ""
     }
   ]);
@@ -808,7 +808,7 @@ Blockly.Python['setup_block'] = function(block) {
     statements_main = statements_main.substring(0, index+1) + statements_main.substring(index+3, statements_main.length);
     index = statements_main.indexOf("\n", index+1);
   }
-  var code = "import cait.essentials\n\n" + "# Initialize and setup different components\n" + statements_main;
+  var code = "import cait.essentials\n" + "def setup():\n" + statements_main;
   return code;
 };
 
@@ -832,7 +832,7 @@ Blockly.Python['main_block'] = function(block) {
     statements_main = statements_main.substring(0, index+1) + statements_main.substring(index+3, statements_main.length);
     index = statements_main.indexOf("\n", index+1);
   }
-  var code = "\n# Entry point of program\n" + statements_main;
+  var code = "def main():\n" + statements_main;
   return code;
 };
 

@@ -83,43 +83,50 @@ RUN pip install keras_applications==1.0.8 --no-deps; \
     pip install cython; \
     pip install h5py==2.10.0 pybind11 six wheel mock "jsonschema>=3.2,<3.3" pycparser
 
-RUN wget https://github.com/PINTO0309/Tensorflow-bin/raw/master/tensorflow-2.1.0-cp37-cp37m-linux_armv7l_download.sh; \
-    chmod a+x tensorflow-2.1.0-cp37-cp37m-linux_armv7l_download.sh; \
-    bash tensorflow-2.1.0-cp37-cp37m-linux_armv7l_download.sh; \
-    pip install tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl; \
-    rm tensorflow-2.1.0-cp37-cp37m-linux_armv7l_download.sh; \
-	rm tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl; \
+RUN wget https://github.com/PINTO0309/Tensorflow-bin/raw/master/tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
+    chmod a+x tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
+    bash tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
+    pip install tensorflow-2.3.1-cp37-none-linux_armv7l.whl; \
+    rm tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
+	rm tensorflow-2.3.1-cp37-none-linux_armv7l.whl; \
 	pip install pip==20.0.2; \
 	apt install rsync libpq-dev -y
 
-COPY tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl /root
+# COPY tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl /root
+# WORKDIR /root
+# RUN pip install tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
 WORKDIR /root
-RUN pip install tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
-	pip install protobuf==3.12.2
+RUN git clone https://github.com/tensorflow/addons.git
+#     cd addons; \
+#     echo "N" | ./configure.sh; \
+#     bazel build --jobs=2 --enable_runfiles build_pip_pkg; \
+#     bazel-bin/build_pip_pkg artifacts; \
+#     pip install artifacts/tensorflow_addons-*.whl
+# 	pip install protobuf==3.12.2
 
-WORKDIR /root
-RUN pip install scikit-build wheel==0.34.2 setuptools; \
-	git clone https://github.com/RasaHQ/rasa.git; \
-    cd rasa; \
-    git checkout tags/1.10.2; \
-	sed -i 's/version = "3.12.0"/version = "3.12.2"/g' poetry.lock
+# WORKDIR /root
+# RUN pip install scikit-build wheel==0.34.2 setuptools; \
+# 	git clone https://github.com/RasaHQ/rasa.git; \
+#     cd rasa; \
+#     git checkout tags/1.10.2; \
+# 	sed -i 's/version = "3.12.0"/version = "3.12.2"/g' poetry.lock
 
-WORKDIR /root/rasa
-RUN /bin/bash -c "source /root/.poetry/env && make install"
+# WORKDIR /root/rasa
+# RUN /bin/bash -c "source /root/.poetry/env && make install"
 
-WORKDIR /root
-RUN git clone https://github.com/explosion/spaCy; \
-    export BLIS_ARCH=generic; \
-    cd spaCy; \
-    pip install -r requirements.txt; \
-    python setup.py build_ext --inplace; \
-    pip install .
+# WORKDIR /root
+# RUN git clone https://github.com/explosion/spaCy; \
+#     export BLIS_ARCH=generic; \
+#     cd spaCy; \
+#     pip install -r requirements.txt; \
+#     python setup.py build_ext --inplace; \
+#     pip install .
 
-WORKDIR /root
-RUN apt-get clean; \
-    apt-get -y autoremove; \
-    rm -rf Bazel_bin; \
-    rm tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
-    rm -rf spaCy; \
-    rm get-pip.py; \
-    rm get-poetry.py
+# WORKDIR /root
+# RUN apt-get clean; \
+#     apt-get -y autoremove; \
+#     rm -rf Bazel_bin; \
+#     rm tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
+#     rm -rf spaCy; \
+#     rm get-pip.py; \
+#     rm get-poetry.py
