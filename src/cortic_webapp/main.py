@@ -466,28 +466,34 @@ def saveworkspace():
         result = {"success": -1}
     return jsonify(result)
 
-@application.route("/savepythoncode", methods=['POST'])
-@auth.login_required
-def savepythoncode():
-    code = request.form.get('code')
+def format_python_code(code_string):
+    code = code_string
     formatted_code = []
     code_split = code.splitlines()
     for line in code_split:
         if line.find("import") == 0:
             formatted_code.append(line)
-        
     need_indent = False
+    under_main_block = False
     for i in range(len(code_split)):
         line = code_split[i]
         if line.find("import ") == 0 or line.find("  global ") != -1:
             continue
         if line.find("def") == 0 or line.find('"""') == 0:
             need_indent = False
+            if line.find("def main():") == 0:
+                under_main_block = True
+            else:
+                under_main_block = False
         else:
-            need_indent = True
+            need_indent = True                          
         if need_indent:
-            if line.find('  ') == 0:
-                line = '  ' + line
+            leading_space = len(line) - len(line.lstrip(' '))
+            if leading_space > 0:
+                line = line.lstrip(' ')
+                line = ' ' * leading_space * 2 + line
+                if under_main_block:
+                    line = '    ' + line
             else:
                 line = '    ' + line
         formatted_code.append(line)
@@ -514,7 +520,13 @@ def savepythoncode():
 
     code = "\n".join(formatted_code)
 
+    return code
 
+@application.route("/savepythoncode", methods=['POST'])
+@auth.login_required
+def savepythoncode():
+    code = request.form.get('code')
+    code = format_python_code(code)
     filename = request.form.get('filename')
     if filename != "":
         location = "/home/" + g.username + "/cait_workspace/python_code/"
@@ -541,15 +553,28 @@ def savepythoncode():
 def savenotebook():
     nb = nbf.v4.new_notebook()
     code = request.form.get('code')
-    import_code = code[0:code.find("# Initialize and setup different components")]
-    import_code = import_code + "from lolviz import *"
-    init_code = code[code.find("# Initialize and setup different components"):code.find("# Entry point of program")]
-    rest_code = code[code.find("# Entry point of program"):]
-    text = "Jupyter notebook generated from blockly Program"
-    nb['cells'] = [nbf.v4.new_markdown_cell(text),
-               nbf.v4.new_code_cell(import_code),
-               nbf.v4.new_code_cell(init_code),
-               nbf.v4.new_code_cell(rest_code)]
+    code = format_python_code(code)
+    import_code = code[0:code.find("\n\n")]
+    import_code = import_code + "\nfrom lolviz import *"
+    init_code = code[code.find("def setup():"):code.find("\n    \n", code.find("def setup():"))]
+    main_code = code[code.find("def main()"):code.find("\n\n", code.find("def main()"))]
+    run_code = code[code.find("if __name__"):]
+    text = "Jupyter notebook generated from Cait visual programming interface"
+    func_code = ""
+    if code.find('"""') != -1:
+        func_code = code[code.find('"""'):code.find("\n    \n    \n")]
+        nb['cells'] = [nbf.v4.new_markdown_cell(text),
+                nbf.v4.new_code_cell(import_code),
+                nbf.v4.new_code_cell(func_code),
+                nbf.v4.new_code_cell(init_code),
+                nbf.v4.new_code_cell(main_code),
+                nbf.v4.new_code_cell(run_code)]
+    else:
+        nb['cells'] = [nbf.v4.new_markdown_cell(text),
+                nbf.v4.new_code_cell(import_code),
+                nbf.v4.new_code_cell(init_code),
+                nbf.v4.new_code_cell(main_code),
+                nbf.v4.new_code_cell(run_code)]
     filename = request.form.get('filename')
     if filename != "":
         location = "/home/" + g.username + "/cait_workspace/python_notebooks/"

@@ -1,4 +1,4 @@
-FROM python:3.7-slim
+FROM ubuntu
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y update && apt-get -y upgrade
@@ -13,13 +13,13 @@ RUN apt-get -y update && apt-get -y install \
     pkg-config \
 	gnupg
 
-RUN echo "deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
-	echo "deb-src http://archive.raspbian.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
-    echo "deb http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
-    echo "deb-src http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
-    wget -qO - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -; \
-    wget http://archive.raspbian.org/raspbian.public.key -O - | apt-key add -; \
-    apt-get -y update && apt-get -y upgrade
+# RUN echo "deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
+# 	echo "deb-src http://archive.raspbian.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
+#     echo "deb http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
+#     echo "deb-src http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
+#     wget -qO - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -; \
+#     wget http://archive.raspbian.org/raspbian.public.key -O - | apt-key add -; \
+#     apt-get -y update && apt-get -y upgrade
 
 WORKDIR /root
 RUN mkdir -p .config/pip; \
@@ -59,7 +59,8 @@ RUN apt-get -y update && apt-get -y install \
     libatlas-base-dev \
     openmpi-bin \
     libopenmpi-dev \
-    python3-dev 
+    python3-dev \
+    python3-venv
 
 ENV VIRTUAL_ENV=/root/rasa_env
 RUN python3 -m venv $VIRTUAL_ENV
@@ -74,29 +75,30 @@ RUN wget https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetr
 
 WORKDIR /root
 RUN git clone https://github.com/PINTO0309/Bazel_bin.git; \
-    cd Bazel_bin/2.0.0/Raspbian_Debian_Buster_armhf/openjdk-8-jdk; \
+    cd Bazel_bin/3.1.0/Raspbian_Debian_Buster_armhf/openjdk-8-jdk; \
     chmod a+x install.sh; \
     ./install.sh
 
 RUN pip install keras_applications==1.0.8 --no-deps; \
-    pip install keras_preprocessing==1.1.0 --no-deps; \
+    pip install keras_preprocessing==1.1.2 --no-deps; \
     pip install cython; \
     pip install h5py==2.10.0 pybind11 six wheel mock "jsonschema>=3.2,<3.3" pycparser
 
-RUN wget https://github.com/PINTO0309/Tensorflow-bin/raw/master/tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
-    chmod a+x tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
-    bash tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
-    pip install tensorflow-2.3.1-cp37-none-linux_armv7l.whl; \
-    rm tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
-	rm tensorflow-2.3.1-cp37-none-linux_armv7l.whl; \
-	pip install pip==20.0.2; \
-	apt install rsync libpq-dev -y
-
+# RUN wget https://github.com/PINTO0309/Tensorflow-bin/raw/master/tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
+#     chmod a+x tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
+#     bash tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
+#     pip install tensorflow-2.3.1-cp37-none-linux_armv7l.whl; \
+#     rm tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
+# 	rm tensorflow-2.3.1-cp37-none-linux_armv7l.whl; \
+RUN	apt install rsync libpq-dev llvm unzip -y; \
+    wget https://github.com/tensorflow/tensorflow/archive/v2.3.1.zip; \
+    unzip v2.3.1.zip; \
+    cd tensorflow-2.3.1
 # COPY tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl /root
 # WORKDIR /root
 # RUN pip install tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
-WORKDIR /root
-RUN git clone https://github.com/tensorflow/addons.git
+#WORKDIR /root
+#RUN git clone https://github.com/tensorflow/addons.git
 #     cd addons; \
 #     echo "N" | ./configure.sh; \
 #     bazel build --jobs=2 --enable_runfiles build_pip_pkg; \
