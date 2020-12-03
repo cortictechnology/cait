@@ -7,11 +7,11 @@ apCountryCode="CA"
 serial=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2)
 
 # Using an older wifi firmware due to a known issue for rpt8 firmware: https://github.com/raspberrypi/firmware/issues/1463
-wget http://archive.raspberrypi.org/debian/pool/main/f/firmware-nonfree/firmware-brcm80211_20190114-1+rpt4_all.deb
-sudo dpkg --purge firmware-brcm80211
-sudo dpkg --install firmware-brcm80211_20190114-1+rpt4_all.deb
-sudo apt-mark hold firmware-brcm80211
-rm firmware-brcm80211_20190114-1+rpt4_all.deb
+#wget http://archive.raspberrypi.org/debian/pool/main/f/firmware-nonfree/firmware-brcm80211_20190114-1+rpt4_all.deb
+#sudo dpkg --purge firmware-brcm80211
+#sudo dpkg --install firmware-brcm80211_20190114-1+rpt4_all.deb
+#sudo apt-mark hold firmware-brcm80211
+#rm firmware-brcm80211_20190114-1+rpt4_all.deb
 sudo apt update
 sudo apt -y full-upgrade
 cd setup_scripts
@@ -26,10 +26,10 @@ sudo mkdir ~/cait_workspace
 sudo cp ../samples/* ~/cait_workspace
 sudo systemctl restart docker
 sudo docker pull homeassistant/home-assistant:stable
-sudo docker pull cortictech/speech:0.51
-sudo docker pull cortictech/nlp:0.51
-sudo docker pull cortictech/vision:0.51
-sudo docker pull cortictech/control:0.51
+sudo docker pull cortictech/speech:0.52
+sudo docker pull cortictech/nlp:0.52
+sudo docker pull cortictech/vision:0.52
+sudo docker pull cortictech/control:0.52
 sudo docker pull cortictech/broker:0.51
 sudo sh -c "echo 'dtparam=spi=on' >> /boot/config.txt"
 # Need to add nameserver for later apt-get install, otherwise, there is chance for it to not able reolve domain
