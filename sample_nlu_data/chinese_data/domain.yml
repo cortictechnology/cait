@@ -1,0 +1,54 @@
+intents:
+- user_answer_affirmative
+- user_remain_anonymous
+- user_give_name
+- user_say_move_forward
+- user_say_move_backward
+- user_say_turn_left
+- user_say_turn_right
+
+responses:
+  utter_agent_age:
+    - text: "I prefer not to answer with a number. I know I'm young."
+    - text: "I was created recently, but don't know my exact age."
+    - text: "Age is just a number. You're only as old as you feel."
+
+  utter_ask_user_name:
+    - text: "I haven't seen you before, may I know your name?"
+    - text: "I would like to add you into my database, what is your name?"
+    - text: "Please tell me your name."
+
+  utter_say_hi:
+    - text: "Good day"
+    - text: "Hi there, how are you?"
+    - text: "Hello, nice to see you"
+
+  utter_user_name:
+    - text: "Hello, {PERSON}, My name is Kate, nice to meet you!"
+    - text: "Hi {PERSON}, glad to know you. You can call me Kate"
+    - text: "Good day {PERSON}, I am Kate. it's my pleasure to know you"
+
+  utter_user_name_unknown:
+    - text: "It seems my dictionary is not up-to-date, I couldn't spell your name, I will call you Friend for now."
+    - text: "Hi Friend, glad to know you. My dictionary does not contain the spelling of your name, I will update myself later."
+
+  utter_greet_user_name:
+    - text: "Hi {PERSON}, good to see you again!"
+    - text: "Good day {PERSON}, glad to see you."
+    - text: "Hello {PERSON}, how are you?"
+
+  utter_say_demo:
+    - text: "Would you like to check out some AI demos?"
+
+  utter_dont_record_name:
+    - text: "No worries, I will call you Friend for now"
+    - text: "Ok, my friend, I will not add you to my database"
+    - text: "That's ok if you don't want to give me your name, you are still my friend"
+
+  utter_say_bye:
+    - text: "No worries, see you then"
+    - text: "Ok, bye bye"
+
+  utter_default:
+    - text: "Sorry, can you repeat that?"
+    - text: "Sorry, I couldn't understand that."

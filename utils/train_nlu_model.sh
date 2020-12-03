@@ -1,17 +1,26 @@
 options=("$@")
 modelName="my_nlu_model"
-
-docker run -it --network host --privileged -v /opt/cortic_modules/nlp_module:/nlp_module --rm cortictech/nlp:0.51 rasa train --config /nlp_module/config.yml  --data /nlp_module/training_data/  --domain /nlp_module/domain.yml --out /nlp_module/tmp_models
+traininDataPath="/nlp_module/training_data/default"
 
 for i in ${!options[@]}; do
 
     option="${options[$i]}"
 
-    if [ "$option" = --model-name=* ]; then
+    if [[ $option == --model-name=* ]]; then
         modelName="$(echo $option | awk -F '=' '{print $2}')"
     fi
 
+    if [[ $option == --training-data-path=* ]]; then
+        traininDataPath="$(echo $option | awk -F '=' '{print $2}')"
+    fi
+
 done
+
+nluDataPath=$traininDataPath
+configPath="$traininDataPath/config.yml"
+domainPath="$traininDataPath/domain.yml"
+
+docker run -it --network host --privileged -v /opt/cortic_modules/nlp_module:/nlp_module -v $traininDataPath:$traininDataPath --rm cortictech/nlp:0.52 rasa train --config $configPath  --data $nluDataPath  --domain $domainPath --out /nlp_module/tmp_models
 
 echo "Extracting the trained model to CAIT directory..."
 

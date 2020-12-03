@@ -28,5 +28,6 @@ class ImageClassification:
 
     def run(self, image):
         top5_results = self.image_lib.classify_image(image)
+        #logging.info(str(top5_results))
         result = '{ "mode" : "ImageClassification", "names": "' + str(top5_results) + '" }'
         return result

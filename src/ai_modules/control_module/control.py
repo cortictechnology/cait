@@ -63,29 +63,34 @@ def on_message_control(client, userdata, msg):
                 time.sleep(5)
             logging.info("Successfully connected to EV3 Hub")
             controlUp = True
-    elif data.find("move") != -1:
-        motor_begin_idx = data.find("move") + 5
-        motor_end_idx = data.find(" ", motor_begin_idx)
-        speed_begin_idx = motor_end_idx + 1
-        speed_end_idx = data.find(" ", speed_begin_idx)
-        duration_begin_idx = speed_end_idx + 1
-        motor = data[motor_begin_idx:motor_end_idx]
-        speed = int(data[speed_begin_idx:speed_end_idx])
-        duration = int(data[duration_begin_idx:])
-        move(motor, speed, duration)
-    elif data.find("motor_speed_group") != -1:
-        operation_list = data[data.find("motor_speed_group") + 18:]
-        move_group(operation_list)
-    elif data.find("motor_degree_group") != -1:
-        operation_list = data[data.find("motor_degree_group") + 19:]
-        rotate_group(operation_list)
-    elif data.find("rotate") != -1:
-        motor_begin_idx = data.find("rotate") + 7
-        motor_end_idx = data.find(" ", motor_begin_idx)
-        angle_begin_idx = motor_end_idx + 1
-        motor = data[motor_begin_idx:motor_end_idx]
-        degree = int(data[angle_begin_idx:])
-        setPosition(motor, degree)
+    else:
+        if controlUp:
+            if data.find("move") != -1:
+                motor_begin_idx = data.find("move") + 5
+                motor_end_idx = data.find(" ", motor_begin_idx)
+                speed_begin_idx = motor_end_idx + 1
+                speed_end_idx = data.find(" ", speed_begin_idx)
+                duration_begin_idx = speed_end_idx + 1
+                motor = data[motor_begin_idx:motor_end_idx]
+                speed = int(data[speed_begin_idx:speed_end_idx])
+                duration = int(data[duration_begin_idx:])
+                move(motor, speed, duration)
+            elif data.find("motor_speed_group") != -1:
+                operation_list = data[data.find("motor_speed_group") + 18:]
+                move_group(operation_list)
+            elif data.find("motor_degree_group") != -1:
+                operation_list = data[data.find("motor_degree_group") + 19:]
+                rotate_group(operation_list)
+            elif data.find("rotate") != -1:
+                motor_begin_idx = data.find("rotate") + 7
+                motor_end_idx = data.find(" ", motor_begin_idx)
+                angle_begin_idx = motor_end_idx + 1
+                motor = data[motor_begin_idx:motor_end_idx]
+                degree = int(data[angle_begin_idx:])
+                setPosition(motor, degree)
+            elif data.find("speak") != -1:
+                sentence = data[data.find(",")+1:]
+                speak(sentence)
 
 client_control = mqtt.Client()
 client_control.on_connect = on_connect_control
@@ -205,8 +210,10 @@ def play_sound(sound_obj):
     speaker.play(sound_obj)
 
 def speak(sentence):
+    client_control.publish("cait/module_states", "Start Speaking", qos=1)
     speaker = ev3_sound.Sound()
     speaker.speak(sentence)
+    client_control.publish("cait/module_states", "Done Speaking", qos=1)
 
 def heartbeat_func():
     global controlUp

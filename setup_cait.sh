@@ -37,7 +37,7 @@ sudo sh -c "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf"
 sudo sh -c "echo 'wireless-power off' >> /etc/network/interfaces"
 sudo apt-get install v4l-utils -y
 sudo apt-get install portaudio19-dev mplayer graphviz -y
-sudo pip3 install docker-compose flask Flask-HTTPAuth flask_cors paho-mqtt gunicorn pyaudio lolviz cython
+sudo pip3 install docker-compose flask Flask-HTTPAuth flask-login flask_cors paho-mqtt gunicorn pyaudio lolviz cython
 npm install --save-dev javascript-obfuscator
 sudo npm link javascript-obfuscator
 cd ../utils
@@ -82,7 +82,7 @@ for i in ${!options[@]}; do
 
     option="${options[$i]}"
 
-    if [ "$option" = --ap-ssid=* ]; then
+    if [[ "$option" == --ap-ssid=* ]]; then
         apSsid="$(echo $option | awk -F '=' '{print $2}')"
     fi
 

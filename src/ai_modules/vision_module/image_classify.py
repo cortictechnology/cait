@@ -26,6 +26,8 @@ logging.getLogger().setLevel(logging.INFO)
 class ImageLib:
 
     def __init__(self):
+        self.ctx = tvm.cpu()
+        
         loaded_json = open("/vision_module/tuned32_efficientnet_lite.json").read()
         loaded_lib = tvm.runtime.load_module("/vision_module/tuned32_efficientnet_lite_lib.tar")
         loaded_params = bytearray(open("/vision_module/tuned32_efficientnet_lite_param.params", "rb").read())
@@ -50,6 +52,9 @@ class ImageLib:
 
         classified_results = []
         for res in top5:
-            classified_results.append(image_labels[res])
+            label = image_labels[res]
+            if label.find(",") != -1:
+                label = label[0:label.find(",")]
+            classified_results.append(label)
 
         return classified_results

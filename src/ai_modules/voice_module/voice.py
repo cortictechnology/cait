@@ -96,6 +96,8 @@ def on_message_stt_mode(client, userdata, msg):
                 online_account = audio_device["account"]
                 if audio_device["language"] == "french":
                     language_code = "fr-FR"
+                elif audio_device["language"] == "chinese":
+                    language_code = "zh-CN"
                 mode = "Online"
         else:
             if VoiceInit:
@@ -475,6 +477,8 @@ def main():
                 if mode == "Online":
                     if language_code == "fr-FR":
                         os.system('/voice_module/speech_fr.sh "' + robotSpeakMsg + '"')
+                    elif language_code == "zh-CN":
+                        os.system('/voice_module/speech_chs.sh "' + robotSpeakMsg + '"')
                     else:
                         os.system('/voice_module/speech_en.sh "' + robotSpeakMsg + '"')
                 else:

@@ -210,7 +210,7 @@ def listen_for_wakeword():
 
     return gotWakeWord
 
-def say(text, volume=100):
+def say(text):
     """Speak the text through speaker at the specific volume.
     
     Parameters:

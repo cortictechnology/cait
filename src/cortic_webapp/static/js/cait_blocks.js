@@ -121,8 +121,12 @@ Blockly.defineBlocksWithJsonArray([
               "english"
             ],
             [
-              "French",
+              "Française",
               "french"
+            ],
+            [
+              "普通话",
+              "chinese"
             ]
           ]
         }

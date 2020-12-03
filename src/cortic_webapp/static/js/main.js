@@ -58,7 +58,8 @@ Written by Michael Ng <michaelng@cortic.ca>, March 2020
 
 var hostname = window.location.hostname;
 var cait_system_up = false
-var client = new Paho.Client(hostname, 8083, "cait_login_client");
+var clientID = "cait_login_client_" + parseInt(Math.random() * 100);
+var client = new Paho.Client(hostname, 8083, clientID);
 client.onConnectionLost = onConnectionLost;
 client.onMessageArrived = onMessageArrived;
 
@@ -121,7 +122,7 @@ function login(){
                     loader.style.display = "flex";
                     loader.style.zIndex = 1;
                 } else {
-                    url = window.location.protocol + "//" + username_ + ":" + password_ + "@" + window.location.hostname + "/programming";
+                    url = window.location.protocol + "//" + window.location.hostname + "/programming";
                     window.location.href = url;
                 }
             }

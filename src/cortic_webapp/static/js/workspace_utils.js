@@ -213,6 +213,9 @@ function updateFunction(event) {
           }
         }
       }
+      if (block.type == "set_parameter" && block.parentBlock_ != null) {
+        block.setEnabled(true);
+      }
       if (block.parentBlock_ != null) {
         if (block.parentBlock_.type == "set_parameter" && !block.parentBlock_.isDisabled){
           block.setEnabled(true);

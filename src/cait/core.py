@@ -48,7 +48,7 @@ not_needed_domains = ["homeassistant", "persistent_notification",
 
 cloud_accounts = {}
 account_names = []
-
+audio_output_device = "speaker"
 current_nlp_model = ""
 
 acc_list = [line.rstrip() for line in open('/opt/accounts')]
@@ -254,7 +254,7 @@ def initialize_nlp(mode="english_default"):
 
 
 def deactivate_nlp():
-    caitCore.client_module_state.publish("cait/userMsg", "NLP Down", qos=1)
+    caitCore..send_component_commond("nlp", "Down", qos=1)
 
 
 def initialize_control():
@@ -287,13 +287,14 @@ def deactivate_control():
 
 
 def change_module_parameters(parameter_name, value):
+    global audio_output_device
     #print("name: ", parameter_name, ", value: ", value)
     if parameter_name == "face recognition confidence":
         result = caitCore.send_component_commond("vision", "set face confidence:" + str(value))
         if result == False:
             logging.info("Change Vision params: Error occurred")
-    if parameter_name == "object detection confidence":
-        caitCore.component_manager.object_confidence_threshold = value
+    elif parameter_name == "audio output device":
+        audio_output_device = value
     time.sleep(0.1)
 
 
@@ -447,36 +448,35 @@ def get_person_name_from_speech(entities):
         return None
     name = "my friend"
     for entity in entities:
-        if entity['entity'] == 'PERSON':
+        if entity['entity'] == 'person':
             name = entity['value']
     return name
 
 
-def say(message_topic, entities=[], useTemplate=False):
+def say(message_topic, entities=[]):
     global responses
-    if not caitCore.get_component_state("voice", "Up"):
-        logging.info("Please call initialize_voice() function before using the voice module")
+    global audio_output_device
+    message = message_topic
+    if audio_output_device != "speaker" and audio_output_device != "ev3":
         return
-    if useTemplate:
-        messages = responses[message_topic]
-        selected_message_number = random.randrange(len(messages))
-        message = messages[selected_message_number]
-        if len(entities) > 0 and message.find('[') != -1:
-            begin_idx = 0
-            for entity in entities:
-                start = message.find('[', begin_idx)
-                end = message.find(']', begin_idx)
-                message = message[0:start] + entity + message[end+1:]
-                begin_idx = end+1
-    else:
-        message = message_topic
-
+    if audio_output_device == "speaker":
+        if not caitCore.get_component_state("voice", "Up"):
+            logging.info("Please call initialize_voice() function before using the voice module")
+            return
+    elif audio_output_device == "ev3":
+        if not caitCore.get_component_state("control", "Up"):
+            logging.info("Please call initialize_control() function before using the control module")
+            return
     logging.info("say: " + message)
     while not caitCore.component_manager.doneInitRecording:
         #print("Waiting for doneInitRecording")
         time.sleep(0.03)
     while not caitCore.component_manager.startSpeaking:
-        result = caitCore.send_component_commond("speak", message)
+        if audio_output_device == "speaker":
+            result = caitCore.send_component_commond("speak", message)
+        elif audio_output_device == "ev3":
+            message = "speak," + message
+            result = caitCore.send_component_commond("control", message)
         if result == False:
             logging.info("Say: Error occurred")
         time.sleep(0.5)
@@ -553,8 +553,8 @@ def analyze(user_message):
     for entity in extracted_entities:
         entity_entry = {"entity_name" : entity["entity"], "entity_value" : entity["value"]}
         entry_is_uniqued = True
-        for entity in entities:
-            if entity_entry["entity_name"] == entity["entity"] and entity_entry["entity_value"] == entity["value"]:
+        for e in entities:
+            if entity_entry["entity_name"] == e["entity_name"] and entity_entry["entity_value"] == e["entity_value"]:
                 entry_is_uniqued = False
         if entry_is_uniqued:
             entities.append(entity_entry)
@@ -620,7 +620,7 @@ def control_motor_degree_group(operation_list):
         time.sleep(0.03)
     return True
 
-
+# Deprecated Function
 def rotate_to_face(coordinate):
     global previous_steering_error
     global previous_2_steering_error
@@ -649,7 +649,7 @@ def rotate_to_face(coordinate):
             logging.info("Rotate To Face: Error occurred")
         print("Command robot to rotate to:", rotatePosition)
 
-
+# Deprecated Function
 def stop_face_tracking():
     if not caitCore.get_component_state("control", "Up"):
         logging.info("Please call initialize_control() function before using Control module")
@@ -659,6 +659,7 @@ def stop_face_tracking():
         logging.info("Stop face tracking: Error occurred")
 
 
+# Deprecated Function
 def run_every_x_sec(sec, func, params=None):
     global startedTimer
     global startTime
@@ -679,7 +680,7 @@ def run_every_x_sec(sec, func, params=None):
         #else:
         #    print(time.time() - startTime)
 
-
+# Deprecated Function
 def run_after_x_sec(sec, func, params=None):
     global startedTimer
     global startTime
@@ -694,6 +695,7 @@ def run_after_x_sec(sec, func, params=None):
                 func()
 
 
+# Deprecated Function
 def run_once(func, id, params=None):
     global onceFunction
     notRunBefore = True

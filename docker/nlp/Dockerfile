@@ -1,66 +1,34 @@
-FROM ubuntu
+FROM python:3.7-slim
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get -y update && apt-get -y install \
-    curl \
-    wget \
-    sudo \
-    gcc \
-    git \
     build-essential \
-    cmake \
+    wget \
+    openssh-client \
+    graphviz-dev \
     pkg-config \
-	gnupg
-
-# RUN echo "deb http://raspbian.raspberrypi.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
-# 	echo "deb-src http://archive.raspbian.org/raspbian/ buster main contrib non-free rpi" >> /etc/apt/sources.list; \
-#     echo "deb http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
-#     echo "deb-src http://archive.raspberrypi.org/debian/ buster main ui" >> /etc/apt/sources.list.d/raspi.list; \
-#     wget -qO - http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add -; \
-#     wget http://archive.raspbian.org/raspbian.public.key -O - | apt-key add -; \
-#     apt-get -y update && apt-get -y upgrade
+    git-core \
+    openssl \
+    libssl-dev \
+    libffi6 \
+    libffi-dev \
+    libpng-dev \
+    libatlas3-base \
+    libgfortran5 \
+    libfreetype6 \
+    libgomp1 \
+    libatomic1 \
+    python3-venv \
+    python3-dev \
+    libeigen3-dev \
+    cmake
 
 WORKDIR /root
 RUN mkdir -p .config/pip; \
     echo "[global]" >> .config/pip/pip.conf; \
     echo "index-url=https://pypi.org/simple" >> .config/pip/pip.conf; \
-    echo "extra-index-url=https://www.piwheels.org/simple" >> .config/pip/pip.conf; \
-	mkdir -p /usr/share/man/man1
-
-RUN apt-get -y update && apt-get -y install \
-    libbz2-dev \
-    libssl-dev \
-    tk-dev \
-    libncurses5-dev \
-    libncursesw5-dev \
-    libreadline6-dev \
-    libdb5.3-dev \
-    libgdbm-dev \
-    libsqlite3-dev \
-    libbz2-dev \
-    libexpat1-dev \
-    liblzma-dev \
-    zlib1g-dev \
-    libffi-dev \
-    openjdk-8-jdk \
-    libhdf5-dev \
-    libc-ares-dev \
-    libeigen3-dev \
-    gfortran \
-    python-dev \
-    libgfortran5 \
-    libatlas3-base \
-    libatlas-base-dev \
-    libopenblas-dev \
-    libopenblas-base \
-    libblas-dev \
-    liblapack-dev \
-    libatlas-base-dev \
-    openmpi-bin \
-    libopenmpi-dev \
-    python3-dev \
-    python3-venv
+    echo "extra-index-url=https://www.piwheels.org/simple" >> .config/pip/pip.conf
 
 ENV VIRTUAL_ENV=/root/rasa_env
 RUN python3 -m venv $VIRTUAL_ENV
@@ -73,62 +41,46 @@ WORKDIR /root
 RUN wget https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py; \
     python get-poetry.py --version 1.0.8
 
-WORKDIR /root
-RUN git clone https://github.com/PINTO0309/Bazel_bin.git; \
-    cd Bazel_bin/3.1.0/Raspbian_Debian_Buster_armhf/openjdk-8-jdk; \
-    chmod a+x install.sh; \
-    ./install.sh
-
 RUN pip install keras_applications==1.0.8 --no-deps; \
-    pip install keras_preprocessing==1.1.2 --no-deps; \
+    pip install keras_preprocessing==1.1.0 --no-deps; \
     pip install cython; \
-    pip install h5py==2.10.0 pybind11 six wheel mock "jsonschema>=3.2,<3.3" pycparser
+    pip install h5py==2.10.0 pybind11 six mock "jsonschema>=3.2,<3.3" pycparser protobuf==3.12.2 scikit-build wheel==0.34.2
 
-# RUN wget https://github.com/PINTO0309/Tensorflow-bin/raw/master/tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
-#     chmod a+x tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
-#     bash tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
-#     pip install tensorflow-2.3.1-cp37-none-linux_armv7l.whl; \
-#     rm tensorflow-2.3.1-cp37-none-linux_armv7l_download.sh; \
-# 	rm tensorflow-2.3.1-cp37-none-linux_armv7l.whl; \
-RUN	apt install rsync libpq-dev llvm unzip -y; \
-    wget https://github.com/tensorflow/tensorflow/archive/v2.3.1.zip; \
-    unzip v2.3.1.zip; \
-    cd tensorflow-2.3.1
-# COPY tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl /root
-# WORKDIR /root
-# RUN pip install tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
-#WORKDIR /root
-#RUN git clone https://github.com/tensorflow/addons.git
-#     cd addons; \
-#     echo "N" | ./configure.sh; \
-#     bazel build --jobs=2 --enable_runfiles build_pip_pkg; \
-#     bazel-bin/build_pip_pkg artifacts; \
-#     pip install artifacts/tensorflow_addons-*.whl
-# 	pip install protobuf==3.12.2
+WORKDIR /root
+RUN wget https://github.com/Qengineering/TensorFlow-Raspberry-Pi/raw/master/tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl; \
+    wget https://github.com/koenvervloesem/tensorflow-addons-on-arm/releases/download/v0.7.1/tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
+    pip install tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl; \
+    pip install tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
+    rm tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl; \
+    rm tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl
 
-# WORKDIR /root
-# RUN pip install scikit-build wheel==0.34.2 setuptools; \
-# 	git clone https://github.com/RasaHQ/rasa.git; \
-#     cd rasa; \
-#     git checkout tags/1.10.2; \
-# 	sed -i 's/version = "3.12.0"/version = "3.12.2"/g' poetry.lock
+WORKDIR /root
+RUN git clone https://github.com/RasaHQ/rasa.git; \
+    cd rasa; \
+    git checkout tags/1.10.18; \
+	sed -i 's/tensorflow = "~2.1"/tensorflow = "2.1.0"/g' pyproject.toml; \
+    sed -i 's/version = "2.1.1"/version = "2.1.0"/g' poetry.lock
 
-# WORKDIR /root/rasa
-# RUN /bin/bash -c "source /root/.poetry/env && make install"
+WORKDIR /root
+RUN apt install cmake -y; \
+    git clone --recursive https://github.com/googleapis/python-crc32c; \
+    cd python-crc32c; \
+    mkdir google_crc32c/build; \
+    cd google_crc32c/build; \
+    cmake -DCRC32C_BUILD_TESTS=no -DCRC32C_BUILD_BENCHMARKS=no -DBUILD_SHARED_LIBS=yes ..; \
+    make all install; \
+    cd ../..;\
+    python setup.py install; \
+    pip install crc32c
 
-# WORKDIR /root
-# RUN git clone https://github.com/explosion/spaCy; \
-#     export BLIS_ARCH=generic; \
-#     cd spaCy; \
-#     pip install -r requirements.txt; \
-#     python setup.py build_ext --inplace; \
-#     pip install .
+WORKDIR /root/rasa
+RUN sed -i 's/version = "0.1.0"/version = "1.0.0"/g' poetry.lock
+    /bin/bash -c "source /root/.poetry/env && make install"; \
+    pip install jieba paho-matt
 
-# WORKDIR /root
-# RUN apt-get clean; \
-#     apt-get -y autoremove; \
-#     rm -rf Bazel_bin; \
-#     rm tensorflow_addons-0.7.1-cp37-cp37m-linux_armv7l.whl; \
-#     rm -rf spaCy; \
-#     rm get-pip.py; \
-#     rm get-poetry.py
+WORKDIR /root
+RUN apt-get clean; \
+    apt-get -y autoremove; \
+    rm -rf python-crc32c; \
+    rm get-pip.py; \
+    rm get-poetry.py

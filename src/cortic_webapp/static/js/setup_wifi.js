@@ -149,7 +149,7 @@ async function connect_wifi() {
         }
         else {
             loader.style.display = 'none';
-            url = window.location.protocol + "//" +  window.location.hostname + "/set_device_info";
+            url = window.location.protocol + "//" + window.location.hostname + "/set_device_info";
             window.location.href = url;
         }
       } 

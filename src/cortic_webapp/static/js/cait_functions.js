@@ -6,12 +6,23 @@ Written by Michael Ng <michaelng@cortic.ca>, December 2019
  */
 
 async function ajax_post(url, data) {
-    return $.ajax({
-      url: url,
-      type: 'POST',
-      data: data
+  return $.ajax({
+    url: url,
+    type: 'POST',
+    data: data
+  });
+}
+
+function switch_lang() {
+  var language = document.getElementById("languageDropdown").value;
+  $.post("/switchlang", { "language": language})
+    .done(function(data) {
+      if (data['result']) {
+        url = window.location.protocol + "//" + window.location.hostname + "/programming";
+        window.location.href = url;
+      }
     });
-  }
+}
 
 async function recognize_face() {
   try {

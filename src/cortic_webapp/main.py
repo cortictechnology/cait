@@ -6,9 +6,9 @@ Written by Michael Ng <michaelng@cortic.ca>, November 2019
 """
 
 from flask import Flask
-from flask import render_template, request, redirect, g, session, jsonify, Response
-from flask_httpauth import HTTPBasicAuth
+from flask import render_template, request, redirect, session, jsonify, Response
 from flask_cors import CORS
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 from urllib.parse import urlparse
 from PIL import Image, ImageTk
 from io import BytesIO
@@ -36,11 +36,23 @@ logging.getLogger().setLevel(logging.INFO)
 auth = HTTPBasicAuth()
 
 application = Flask(__name__)
+application.secret_key = os.urandom(24)
+#application.config['SESSION_TYPE'] = 'filesystem'
+
+login_manager = LoginManager()
+login_manager.init_app(application)
+login_manager.login_view = "/"
 CORS(application)
 
 new_hostname = ""
+current_language = "english"
 
 connecting_to_wifi = False
+
+class User(UserMixin):
+
+    def __init__(self, id):
+        self.id = id
 
 def is_internet_connected(host="8.8.8.8", port=53, timeout=3):
   """
@@ -71,13 +83,11 @@ def get_ip(ifname):
         struct.pack('256s', bytes(ifname[:15], 'utf-8'))
     )[20:24])
 
-@auth.verify_password
-def verify_password(username, password):
-    #logging.info("Username: " + username)
-    if username == "":
-        return False
-    g.username = username
-    return True
+
+@login_manager.user_loader
+def load_user(id):
+    return User(id)
+
 
 @application.route('/setup')
 def setup():
@@ -88,6 +98,7 @@ def setup():
             return redirect('/set_device_info')
     else:
         return render_template('setup.html')
+
 
 @application.route('/prev_setup')
 def prev_setup():
@@ -267,7 +278,7 @@ def upload_account():
 @application.route('/newname', methods=['POST'])
 def newname():
     global new_hostname
-    result = {"hostname": new_hostname}    
+    result = {"hostname": new_hostname} 
     return jsonify(result)
 
 @application.route('/congrats')
@@ -304,12 +315,19 @@ def login():
     password = request.form.get('password')
     p = subprocess.Popen(['sudo', '/opt/chkpass.sh', username], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     out,err = p.communicate(str.encode(password))
-    result = {"result": out, "error": err}        
+    if out.decode("utf-8").find("Correct") != -1:
+        user = User(username)
+        login_user(user)
+    result = {"result": out, "error": err}
     return jsonify(result)
+
+@application.route('/logout')
+def logout():
+    logout_user()
+    return redirect("/", code=302)
 
 @application.route("/signup", methods=['POST'])
 def signup():
-    print("IN singup")
     username = request.form.get('username')
     password = request.form.get('password')
     res = os.system("sudo useradd -m " + username)
@@ -318,33 +336,44 @@ def signup():
         return jsonify(result)
     out = os.system("echo " + "\"" + password + "\n" +  password + "\" | sudo passwd " + username)
     g_out = os.system("sudo usermod -a -G cait " + username)
-    result = {"result" : out}
+    result = {"result": out}
+    return jsonify(result)
+
+
+@application.route("/switchlang", methods=['POST'])
+def switchlang():
+    global current_language
+    language = request.form.get('language')
+    current_language = language
+    result = {"result": True}
     return jsonify(result)
 
 @application.route('/programming')
-@auth.login_required
+@login_required
 def programming():
-    if not g.username or g.username == "logout":
-        o = urlparse(request.base_url)
-        return redirect("http://" + o.hostname, code=302)
-    return render_template('programming.html')
+    if current_language == "chinese":
+        return render_template('programming_chs.html')
+    elif current_language == "french":
+        return render_template('programming_fr.html')
+    else:
+        return render_template('programming.html')
 
 @application.route("/get_cloud_accounts", methods=['POST'])
-@auth.login_required
+@login_required
 def get_cloud_accounts():
     account_list = essentials.get_cloud_accounts()
     return jsonify(account_list)
 
 
 @application.route("/get_nlp_models", methods=['POST'])
-@auth.login_required
+@login_required
 def get_nlp_models():
     model_list = essentials.get_nlp_models()
     return jsonify(model_list)
 
 
 @application.route("/initialize_component", methods=['POST'])
-@auth.login_required
+@login_required
 def initialize_component():
     component_name = request.form.get('component_name')
     mode = request.form.get('mode')
@@ -360,7 +389,7 @@ def initialize_component():
 
 
 @application.route("/change_module_parameters", methods=['POST'])
-@auth.login_required
+@login_required
 def change_module_parameters():
     parameter_name = request.form.get('parameter_name')
     value = float(request.form.get('value'))
@@ -369,7 +398,7 @@ def change_module_parameters():
     return jsonify(result)
 
 @application.route("/camerafeed", methods=['POST'])
-@auth.login_required
+@login_required
 def camerafeed():
     img = essentials.get_camera_image()
     if img is not None:
@@ -381,13 +410,13 @@ def camerafeed():
         return contents
 
 @application.route("/recognizeface", methods=['POST'])
-@auth.login_required
+@login_required
 def recognizeface():
     person = essentials.recognize_face()
     return jsonify(person)
 
 @application.route("/addperson", methods=['POST'])
-@auth.login_required
+@login_required
 def addperson():
     person_name = request.form.get('name')
     success = essentials.add_person(person_name)
@@ -395,7 +424,7 @@ def addperson():
     return jsonify(result)
 
 @application.route("/removeperson", methods=['POST'])
-@auth.login_required
+@login_required
 def removeperson():
     person_name = request.form.get('name')
     logging.info("Remove: " + person_name)
@@ -404,26 +433,26 @@ def removeperson():
     return jsonify(result)
 
 @application.route("/detectobject", methods=['POST'])
-@auth.login_required
+@login_required
 def detectobject():
     objects = essentials.detect_objects()
     return jsonify(objects)
 
-@application.route("/classifyimag", methods=['POST'])
-@auth.login_required
+@application.route("/classifyimage", methods=['POST'])
+@login_required
 def classifyimage():
     names = essentials.classify_image()
     return jsonify(names)
 
 @application.route("/listen", methods=['POST'])
-@auth.login_required
+@login_required
 def listen():
     text = essentials.listen()
     result = {"text" : text}
     return jsonify(result)
 
 @application.route("/say", methods=['POST'])
-@auth.login_required
+@login_required
 def say():
     text = request.form.get('text')
     success = essentials.say(text)
@@ -431,29 +460,29 @@ def say():
     return jsonify(result)
 
 @application.route("/analyze", methods=['POST'])
-@auth.login_required
+@login_required
 def analyze():
     text = request.form.get('text')
     result = essentials.analyse_text(text)
     return jsonify(result)
 
 @application.route("/saveworkspace", methods=['POST'])
-@auth.login_required
+@login_required
 def saveworkspace():
     xml_text = request.form.get('xml_text')
     filename = request.form.get('filename')
     if filename != "":
         save_type = request.form.get('save_type')
         if save_type == "autosave":
-            location = "/home/" + g.username + "/tmp/"
+            location = "/home/" + current_user.id + "/tmp/"
         else:
-            location = "/home/" + g.username + "/cait_workspace/"
+            location = "/home/" + current_user.id + "/cait_workspace/"
         savename = location+filename
         if not os.path.exists(os.path.dirname(savename)):
             try:
                 #os.makedirs(os.path.dirname(savename))
                 os.system("sudo mkdir " + location)
-                os.system("sudo chown " + g.username + ":cait " + location)
+                os.system("sudo chown " + current_user.id + ":cait " + location)
                 os.system("sudo chmod -R g+rwx " + location)
             except OSError as exc: # Guard against race condition
                 if exc.errno != errno.EEXIST:
@@ -523,19 +552,19 @@ def format_python_code(code_string):
     return code
 
 @application.route("/savepythoncode", methods=['POST'])
-@auth.login_required
+@login_required
 def savepythoncode():
     code = request.form.get('code')
     code = format_python_code(code)
     filename = request.form.get('filename')
     if filename != "":
-        location = "/home/" + g.username + "/cait_workspace/python_code/"
+        location = "/home/" + current_user.id + "/cait_workspace/python_code/"
         savename = location+filename
         if not os.path.exists(os.path.dirname(savename)):
             try:
                 #os.makedirs(os.path.dirname(savename))
                 os.system("sudo mkdir " + location)
-                os.system("sudo chown " + g.username + ":cait " + location)
+                os.system("sudo chown " + current_user.id + ":cait " + location)
                 os.system("sudo chmod -R g+rwx " + location)
             except OSError as exc: # Guard against race condition
                 if exc.errno != errno.EEXIST:
@@ -549,7 +578,7 @@ def savepythoncode():
     return jsonify(result)
 
 @application.route("/savenotebook", methods=['POST'])
-@auth.login_required
+@login_required
 def savenotebook():
     nb = nbf.v4.new_notebook()
     code = request.form.get('code')
@@ -577,13 +606,13 @@ def savenotebook():
                 nbf.v4.new_code_cell(run_code)]
     filename = request.form.get('filename')
     if filename != "":
-        location = "/home/" + g.username + "/cait_workspace/python_notebooks/"
+        location = "/home/" + current_user.id + "/cait_workspace/python_notebooks/"
         savename = location+filename
         if not os.path.exists(os.path.dirname(savename)):
             try:
                 #os.makedirs(os.path.dirname(savename))
                 os.system("sudo mkdir " + location)
-                os.system("sudo chown " + g.username + ":cait " + location)
+                os.system("sudo chown " + current_user.id + ":cait " + location)
                 os.system("sudo chmod -R g+rwx " + location)
             except OSError as exc: # Guard against race condition
                 if exc.errno != errno.EEXIST:
@@ -596,15 +625,15 @@ def savenotebook():
     return jsonify(result)
 
 @application.route("/loadworkspace", methods=['POST'])
-@auth.login_required
+@login_required
 def loadworkspace():
     filename = request.form.get('filename')
     if filename != "":
         save_type = request.form.get('save_type')
         if save_type == "autosave":
-            location = "/home/" + g.username + "/tmp/"
+            location = "/home/" + current_user.id + "/tmp/"
         else:
-            location = "/home/" + g.username + "/cait_workspace/"
+            location = "/home/" + current_user.id + "/cait_workspace/"
         savename = location+filename
         if os.path.exists(savename):
             f = open(savename, 'r')
@@ -620,7 +649,7 @@ def loadworkspace():
     return jsonify(result)
 
 @application.route("/control_motor", methods=['POST'])
-@auth.login_required
+@login_required
 def move():
     motor_name = request.form.get('motor_name')
     speed = request.form.get('speed')
@@ -630,7 +659,7 @@ def move():
     return jsonify(result)
 
 @application.route("/control_motor_speed_group", methods=['POST'])
-@auth.login_required
+@login_required
 def control_motor_speed_group():
     operation_list = request.form.get('data')
     success = essentials.control_motor_speed_group(operation_list)
@@ -638,7 +667,7 @@ def control_motor_speed_group():
     return jsonify(result)
 
 @application.route("/rotate_motor", methods=['POST'])
-@auth.login_required
+@login_required
 def rotate_motor():
     motor_name = request.form.get('motor_name')
     angle = request.form.get('angle')
@@ -647,7 +676,7 @@ def rotate_motor():
     return jsonify(result)
 
 @application.route("/control_motor_degree_group", methods=['POST'])
-@auth.login_required
+@login_required
 def control_motor_degree_group():
     operation_list = request.form.get('data')
     success = essentials.control_motor_degree_group(operation_list)
@@ -655,14 +684,14 @@ def control_motor_degree_group():
     return jsonify(result)
 
 @application.route("/get_states", methods=['POST'])
-@auth.login_required
+@login_required
 def get_states():
     device_type = request.form.get('device_type')
     devices = essentials.get_devices(device_type)
     return jsonify(devices)
 
 @application.route("/control_light", methods=['POST'])
-@auth.login_required
+@login_required
 def control_light():
     device_name = "light." + request.form.get('device_name')
     operation = request.form.get('operation')
@@ -672,7 +701,7 @@ def control_light():
     return jsonify(result)
 
 @application.route("/control_media_player", methods=['POST'])
-@auth.login_required
+@login_required
 def control_media_player():
     device_name = "media_player." + request.form.get('device_name')
     operation = request.form.get('operation')

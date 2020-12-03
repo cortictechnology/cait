@@ -121,7 +121,7 @@ class ComponentManager:
             #logging.info("Done check time interval")
             draw = ImageDraw.Draw(image)
             #logging.info("Ready to load font")
-            font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeSerif.ttf', int(0.0625*width))
+            font = ImageFont.truetype('/opt/cortic_modules/cait/managers/NotoSansCJKtc-Regular.ttf', int(0.0625*width))
             #logging.info("done loading font")
             #logging.info("done drawing")
             if not self.resultOverlayed:

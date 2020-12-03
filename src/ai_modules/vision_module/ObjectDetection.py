@@ -47,7 +47,7 @@ class ObjectDetection:
         if self.inferenceProcessor=="local":
             #self.object_detector = ObjectDetector("/vision_module/mbv3_ssdlite.param.bin", "/vision_module/mbv3_ssdlite.bin")
             self.object_detector = ObjectLib()
-            logging.info("Loaded object detector model")
+            #logging.info("Loaded object detector model")
         else:
             self.client = mqtt.Client()
             self.client.on_connect = self.on_connect
@@ -57,7 +57,7 @@ class ObjectDetection:
                 time.sleep(1)
                 ret = self.connectMQTT(self.client)
             self.client.loop_start()
-            logging.info("Connected to virtual processor")
+            #logging.info("Connected to virtual processor")
 
     def run(self, image):
         global fps
