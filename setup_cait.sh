@@ -67,16 +67,15 @@ sudo chmod +x /usr/sbin/change_hostname.sh
 sudo systemctl daemon-reload
 sudo systemctl enable /etc/systemd/system/cait_*
 sudo rm get-docker.sh
-sudo echo "dtoverlay=dwc2" >> /boot/config.txt
-sudo echo "modules-load=dwc2" >> /boot/cmdline.txt
-sudo echo "libcomposite" >> /etc/modules
-sudo echo "denyinterfaces usb0" >> /etc/dhcpcd.conf
+sudo bash -c 'echo "dtoverlay=dwc2" >> /boot/config.txt'
+sudo bash -c 'echo "modules-load=dwc2" >> /boot/cmdline.txt'
+sudo bash -c 'echo "libcomposite" >> /etc/modules'
+sudo bash -c 'echo "denyinterfaces usb0" >> /etc/dhcpcd.conf'
 sudo cp usb /etc/dnsmasq.d
 sudo cp usb0 /etc/network/interfaces.d
 sudo cp usb.sh /root/
 sudo chmod +x /root/usb.sh
-output=$(head -n -2 /etc/rc.local ; echo '/root/ush.sh' ; tail -2 /etc/rc.local)
-sudo echo "$output" > /etc/rc.local
+sudo bash -c  'output=$(head -n -2 /etc/rc.local ; echo "/root/ush.sh" ; tail -2 /etc/rc.local); echo "$output" > /etc/rc.local'
 
 for i in ${!options[@]}; do
 
