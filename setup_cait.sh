@@ -23,7 +23,7 @@ sudo gpasswd -a $USER docker
 sudo touch /etc/docker/daemon.json
 sudo bash -c 'echo "{\"experimental\": true}" > /etc/docker/daemon.json'
 sudo mkdir ~/cait_workspace
-sudo cp ../samples/* ~/cait_workspace
+sudo cp ../block_samples/* ~/cait_workspace
 sudo systemctl restart docker
 sudo docker pull homeassistant/home-assistant:stable
 sudo docker pull cortictech/speech:0.52
@@ -38,6 +38,7 @@ sudo sh -c "echo 'wireless-power off' >> /etc/network/interfaces"
 sudo apt-get install v4l-utils -y
 sudo apt-get install portaudio19-dev mplayer graphviz -y
 sudo pip3 install docker-compose flask Flask-HTTPAuth flask-login flask_cors paho-mqtt gunicorn pyaudio lolviz cython
+sudo apt-get install npm nodejs -y
 npm install --save-dev javascript-obfuscator
 sudo npm link javascript-obfuscator
 cd ../utils
@@ -56,7 +57,6 @@ sudo cp -R ../src/ai_modules_bin/* /opt/cortic_modules
 sudo mkdir /opt/cortic_modules/vision_module/database
 sudo cp ../src/docker-compose.yml ~/
 sudo touch /opt/accounts
-sudo apt-get install npm nodejs -y
 sudo npm install -g configurable-http-proxy
 sudo pip3 install notebook
 sudo pip3 install jupyterhub

@@ -20,29 +20,32 @@ mkdir nlp_module
 mkdir vision_module
 mkdir voice_module
 cd ../ai_modules/vision_module
-docker run -it --network host --privileged -v $(pwd):/vision_module --rm cortictech/vision:0.51 python3 /vision_module/compile.py build_ext --build-lib /vision_module
+docker run -it --network host --privileged -v $(pwd):/vision_module --rm cortictech/vision:0.52 python3 /vision_module/compile.py build_ext --build-lib /vision_module
 sudo rm *.c
 sudo mv *.so ../../ai_modules_bin/vision_module
 cp -R * ../../ai_modules_bin/vision_module
 rm ../../ai_modules_bin/vision_module/facelib.py
 rm ../../ai_modules_bin/vision_module/FaceRecognition.py
 rm ../../ai_modules_bin/vision_module/ObjectDetection.py
+rm ../../ai_modules_bin/vision_module/object_detection.py
+rm ../../ai_modules_bin/vision_module/ImageClassification.py
+rm ../../ai_modules_bin/vision_module/image_classify.py
 rm ../../ai_modules_bin/vision_module/inference.py
 rm ../../ai_modules_bin/vision_module/compile.py
 cd ../control_module
-docker run -it --network host --privileged -v $(pwd):/control_module --rm cortictech/control:0.51 python3.5 /control_module/compile.py build_ext --build-lib /control_module
+docker run -it --network host --privileged -v $(pwd):/control_module --rm cortictech/control:0.52 python3.5 /control_module/compile.py build_ext --build-lib /control_module
 sudo rm *.c
 sudo mv *.so ../../ai_modules_bin/control_module
 cp main.py ../../ai_modules_bin/control_module
 cd ../nlp_module
-docker run -it --network host --privileged -v $(pwd):/nlp_module --rm cortictech/nlp:0.51 python3 /nlp_module/compile.py build_ext --build-lib /nlp_module
+docker run -it --network host --privileged -v $(pwd):/nlp_module --rm cortictech/nlp:0.52 python3 /nlp_module/compile.py build_ext --build-lib /nlp_module
 sudo rm *.c
 sudo mv *.so ../../ai_modules_bin/nlp_module
 cp -R * ../../ai_modules_bin/nlp_module
 rm ../../ai_modules_bin/nlp_module/nlu.py
 rm ../../ai_modules_bin/nlp_module/compile.py
 cd ../voice_module
-docker run -it --network host --privileged -v $(pwd):/voice_module --rm cortictech/speech:0.51 python3 /voice_module/compile.py build_ext --build-lib /voice_module
+docker run -it --network host --privileged -v $(pwd):/voice_module --rm cortictech/speech:0.52 python3 /voice_module/compile.py build_ext --build-lib /voice_module
 sudo rm *.c
 sudo mv *.so ../../ai_modules_bin/voice_module
 cp -R * ../../ai_modules_bin/voice_module
