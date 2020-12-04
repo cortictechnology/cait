@@ -47,6 +47,19 @@ function enableChileBlock(block) {
   }
 }
 
+function disableChileBlock(block) {
+  var chileBlks = block.childBlocks_;
+  if (chileBlks.length > 0) {
+    for (i in chileBlks) {
+      chileBlks[i].setEnabled(false);
+      disableChileBlock(chileBlks[i]);
+    }
+  }
+  else {
+    return;
+  }
+}
+
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
   var allBlocks = workspace.getAllBlocks();
@@ -142,6 +155,7 @@ function updateFunction(event) {
           if (parentBlock.type == "setup_block") {
             within_setup_block = true;
             block.setEnabled(true);
+            enableChileBlock(block);
             break;
           }
           else {
@@ -150,6 +164,7 @@ function updateFunction(event) {
         }
         if (!within_setup_block) {
           block.setEnabled(false);
+          disableChileBlock(block);
         }
       }
       else if (block.type == "setup_block") {
@@ -208,6 +223,7 @@ function updateFunction(event) {
         }
         if (!within_main_block) {
           block.setEnabled(false);
+          disableChileBlock(block);
           if (block.type.indexOf("vision_") != -1) {
             emptyVisionMode();
           }
@@ -305,13 +321,13 @@ function run_code() {
         runtime_code = replaceAll(runtime_code, async_function[f], "await " + async_function[f]);
       }
       code = code.substring(0, init_idx) + runtime_code;
-      code = "(async () => {" + code + "})()";
+      code = "(async () => {" + code + "})().catch(error => alert(error.message));";
     }
     var ready_to_execute_code = true;
     for (i in vision_func){
       if (code.indexOf(vision_func[i]) != -1){
         if (code.indexOf('init_vision') == -1) {
-          alert("Vision is not initialized. Please initialize it in the setup block first");
+          alert(localizedStrings.visNotInit[locale]);
           ready_to_execute_code = false;
           break;
         }
@@ -320,7 +336,7 @@ function run_code() {
     for (i in speech_func){
       if (code.indexOf(speech_func[i]) != -1){
         if (code.indexOf('init_voice') == -1) {
-          alert("Speech is not initialized. Please initialize it in the setup block first");
+          alert(localizedStrings.voiceNotInit[locale]);
           ready_to_execute_code = false;
           break;
         }
@@ -329,7 +345,7 @@ function run_code() {
     for (i in nlp_func){
       if (code.indexOf(nlp_func[i]) != -1){
         if (code.indexOf('init_nlp') == -1) {
-          alert("NLP is not initialized. Please initialize it in the setup block first");
+          alert(localizedStrings.nlpNotInit[locale]);
           ready_to_execute_code = false;
           break;
         }
@@ -338,7 +354,7 @@ function run_code() {
     for (i in control_func){
       if (code.indexOf(control_func[i]) != -1){
         if (code.indexOf('init_control') == -1) {
-          alert("Control is not initialized. Please initialize it in the setup block first");
+          alert(localizedStrings.controlNotInit[locale]);
           ready_to_execute_code = false;
           break;
         }
@@ -347,7 +363,7 @@ function run_code() {
     for (i in smart_home_func){
       if (code.indexOf(smart_home_func[i]) != -1){
         if (code.indexOf('init_smarthome') == -1) {
-          alert("Smart Home Control is not initialized. Please initialize it in the setup block first");
+          alert(localizedStrings.sHomeNotInit[locale]);
           ready_to_execute_code = false;
           break;
         }
@@ -358,7 +374,7 @@ function run_code() {
       eval(code);
     }
   } catch (e) {
-    alert(e);
+    alert(e.message);
   }
 }
 
@@ -382,7 +398,7 @@ async function gen_py_code() {
   Blockly.Python.addReservedWords('code');
   var code = Blockly.Python.workspaceToCode(workspace);
   var filename;
-  filename = prompt("Filename to save generated python code: ");
+  filename = prompt(localizedStrings.genPyName[locale]);
   if(filename != ''){
     const res = await $.ajax({
       url: "/savepythoncode",
@@ -397,7 +413,7 @@ async function gen_py_notebook() {
   Blockly.Python.addReservedWords('code');
   var code = Blockly.Python.workspaceToCode(workspace);
   var filename;
-  filename = prompt("Filename to save generated jupyter notebook: ");
+  filename = prompt(localizedStrings.genPyNBName[locale]);
   if(filename != ''){
     const res = await $.ajax({
       url: "/savenotebook",
@@ -419,7 +435,7 @@ async function save_workspace(autosave=false) {
   }
   else {
     save_type = "save";
-    filename = prompt("Filename to save: ");
+    filename = prompt(localizedStrings.saveName[locale]);
   }
   if(filename != ''){
     const res = await $.ajax({
@@ -430,7 +446,15 @@ async function save_workspace(autosave=false) {
               "save_type": save_type}
     });
   }
-  //console.log(res);
+}
+
+async function new_workspace() {
+  if (workspace.getAllBlocks().length > 0) {
+    if(confirm(localizedStrings.saveOrNot[locale])) {
+      await save_workspace();
+    }
+  }
+  location.reload();
 }
 
 async function load_workspace(from_autosave=false) {
@@ -443,7 +467,7 @@ async function load_workspace(from_autosave=false) {
   }
   else {
     save_type = "save";
-    filename = prompt("Filename to load: ");
+    filename = prompt(localizedStrings.loadName[locale]);
   }
   const res = await $.ajax({
     url: "/loadworkspace",

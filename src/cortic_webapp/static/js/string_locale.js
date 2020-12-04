@@ -105,6 +105,16 @@ var localizedStrings={
         'fr/CA':"Nom de fichier à enregistrer: ",
         'chs/CN':"要保存的文件名： "
     },
+    new:{
+        'en/CA':"New",
+        'fr/CA':"Nouvelle",
+        'chs/CN':"新工作空间"
+    },
+    saveOrNot:{
+        'en/CA':"Do you want to save your current workspace?",
+        'fr/CA':"Voulez-vous enregistrer votre espace de travail actuel?",
+        'chs/CN':"您要保存当前的工作空间吗？"
+    },
     load:{
         'en/CA':"Load",
         'fr/CA':"Charger",

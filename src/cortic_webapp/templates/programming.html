@@ -233,6 +233,13 @@
           cursor:pointer;
         }
 
+        #new {
+          background-image: url( '/static/images/icons8-new-file-96.png' );
+          background-size: 40px 40px;
+          height: 40px;  
+          width: 40px;
+        }
+
         #save {
           background-image: url( '/static/images/icons-save-close-96.png' );
           background-size: 40px 40px;
@@ -303,6 +310,8 @@
       </tr>
       <tr>
         <td>
+            <button id="new" onclick="new_workspace()"></button>
+            <script>document.getElementById('new').title = localizedStrings.new[locale];</script>
             <button id="load" onclick="load_workspace()"></button>
             <script>document.getElementById('load').title = localizedStrings.load[locale];</script>
             <button id="save" onclick="save_workspace()"></button>
@@ -752,8 +761,6 @@
         </category>
         <category name="Cortic Snippets" colour="#3252D4" iconclass="blocklyTreeIconCustom snippets">
           <block type="get_name"></block>
-          <block type="move"></block>
-          <block type="turn"></block>
         </category>
       </category>
     </xml>

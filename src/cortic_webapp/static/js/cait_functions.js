@@ -232,32 +232,3 @@ async function control_media_player(device_name, operation) {
     return err;
   }
 }
-
-async function move(motors, direction) {
-  motor_group = [];
-  for (i in motors){
-    motor = motors[i]
-    movement = {};
-    if (direction == 'forward') {
-      movement = {'motor_name': motor, 'speed': 100, 'duration': 1}
-    }
-    else if (direction == 'backward') {
-      movement = {'motor_name': motor, 'speed': -100, 'duration': 1}
-    }
-    motor_group.push(movement);
-  }
-  await control_motor_speed_group(motor_group);
-}
-
-async function rotate(motors, degree) {
-  actual_degree = 1600 * degree / 360;
-  var negative_one = 1;
-  motor_group = [];
-  for (i in motors){
-    motor = motors[i]
-    movement = {'motor_name': motor, 'angle': actual_degree * negative_one};
-    negative_one = negative_one * -1;
-    motor_group.push(movement);
-  }
-  await control_motor_degree_group(motor_group);
-}

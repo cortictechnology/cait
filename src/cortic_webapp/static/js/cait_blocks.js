@@ -553,64 +553,6 @@ Blockly.defineBlocksWithJsonArray([
       "helpUrl": ""
     },
     {
-      "type": "move",
-      "lastDummyAlign0": "RIGHT",
-      "message0": "%{BKY_MOVE_MOTOR}",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "motors",
-          "align": "CENTRE"
-        },
-        {
-          "type": "field_dropdown",
-          "name": "direction",
-          "options": [
-            [
-              "forward",
-              "forward"
-            ],
-            [
-              "backward",
-              "backward"
-            ]
-          ]
-        }
-      ],
-      "previousStatement": null,
-      "nextStatement": null,
-      "inputsInline": true,
-      "colour": "#3252D4",
-      "tooltip": "%{BKY_MOVE_MOTOR_TOOLTIP}",
-      "helpUrl": ""
-    },
-    {
-      "type": "turn",
-      "lastDummyAlign0": "CENTRE",
-      "message0": "%{BKY_TURN_MOTOR}",
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "motors",
-          "align": "CENTRE"
-        },
-        {
-          "type": "field_number",
-          "name": "degree",
-          "value": 0,
-          "min": -360,
-          "max": 360,
-          "precision": 1
-        }
-      ],
-      "inputsInline": true,
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": "#3252D4",
-      "tooltip": "%{BKY_TURN_MOTOR_TOOLTIP}",
-      "helpUrl": ""
-    },
-    {
       "type": "lights",
       "message0": "%{BKY_LIGHT_CONTROL}",
       "args0": [

@@ -33,8 +33,6 @@ from shutil import copyfile
 
 logging.getLogger().setLevel(logging.INFO)
 
-auth = HTTPBasicAuth()
-
 application = Flask(__name__)
 application.secret_key = os.urandom(24)
 #application.config['SESSION_TYPE'] = 'filesystem'
@@ -170,6 +168,9 @@ def customdev():
         return jsonify(result)
     out = os.system("echo " + "\"" + password + "\n" +  password + "\" | sudo passwd " + username)
     g_out = os.system("sudo usermod -a -G cait " + username)
+    if out == 0:
+        os.system("sudo mkdir /home/" + username + "/cait_workspace")
+        os.system("sudo cp -R /home/pi/cait_workspace/*.cait /home/" + username + "/cait_workspace/")
     os.system("sudo touch /usr/share/done_device_info")
     result = {"result" : out}
     return jsonify(result)
@@ -337,7 +338,11 @@ def signup():
     out = os.system("echo " + "\"" + password + "\n" +  password + "\" | sudo passwd " + username)
     g_out = os.system("sudo usermod -a -G cait " + username)
     result = {"result": out}
-    return jsonify(result)
+    result = jsonify(result)
+    if out == 0:
+        os.system("sudo mkdir /home/" + username + "/cait_workspace")
+        os.system("sudo cp -R /home/pi/cait_workspace/*.cait /home/" + username + "/cait_workspace/")
+    return result
 
 
 @application.route("/switchlang", methods=['POST'])
