@@ -948,6 +948,8 @@ sudo ./setup-network.sh --install-upgrade --ap-ssid="abc-1" --ap-password="passw
     # Sleep for 10s before restarting:
     echo "[Reboot]: In 10 seconds ..."
     sleep 10
+    sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/bin/bash /root/ush.sh" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
+    sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/sbin/iwconfig wlan0 power off" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
     reboot
 fi
 

@@ -35,6 +35,7 @@ services:
       - /sys/bus/usb:/sys/bus/usb
       - /dev/bus/usb:/dev/bus/usb
       - /dev/snd:/dev/snd
+      - /dev:/dev
       - /opt/cortic_modules/voice_module:/voice_module
     #   - /tmp/pulseaudio.socket:/tmp/pulseaudio.socket
     #   - /opt/pulseaudio.client.conf:/etc/pulse/client.conf

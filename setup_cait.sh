@@ -68,8 +68,6 @@ sudo cp usb /etc/dnsmasq.d
 sudo cp usb0 /etc/network/interfaces.d
 sudo cp usb.sh /root/
 sudo chmod +x /root/usb.sh
-sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/bin/bash /root/ush.sh" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
-sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/sbin/iwconfig wlan0 power off" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
 
 for i in ${!options[@]}; do
 
