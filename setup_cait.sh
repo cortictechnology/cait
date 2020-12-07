@@ -6,12 +6,6 @@ apIp="10.0.0.1"
 apCountryCode="CA"
 serial=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2)
 
-# Using an older wifi firmware due to a known issue for rpt8 firmware: https://github.com/raspberrypi/firmware/issues/1463
-#wget http://archive.raspberrypi.org/debian/pool/main/f/firmware-nonfree/firmware-brcm80211_20190114-1+rpt4_all.deb
-#sudo dpkg --purge firmware-brcm80211
-#sudo dpkg --install firmware-brcm80211_20190114-1+rpt4_all.deb
-#sudo apt-mark hold firmware-brcm80211
-#rm firmware-brcm80211_20190114-1+rpt4_all.deb
 sudo apt update
 sudo apt -y full-upgrade
 cd setup_scripts
@@ -34,7 +28,6 @@ sudo docker pull cortictech/broker:0.51
 sudo sh -c "echo 'dtparam=spi=on' >> /boot/config.txt"
 # Need to add nameserver for later apt-get install, otherwise, there is chance for it to not able reolve domain
 sudo sh -c "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf"
-sudo sh -c "echo 'wireless-power off' >> /etc/network/interfaces"
 sudo apt-get install v4l-utils -y
 sudo apt-get install portaudio19-dev mplayer graphviz -y
 sudo pip3 install docker-compose flask Flask-HTTPAuth flask-login flask_cors paho-mqtt gunicorn pyaudio lolviz cython
@@ -75,7 +68,8 @@ sudo cp usb /etc/dnsmasq.d
 sudo cp usb0 /etc/network/interfaces.d
 sudo cp usb.sh /root/
 sudo chmod +x /root/usb.sh
-sudo bash -c  'output=$(head -n -2 /etc/rc.local ; echo "/root/ush.sh" ; tail -2 /etc/rc.local); echo "$output" > /etc/rc.local'
+sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/bin/bash /root/ush.sh" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
+sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/sbin/iwconfig wlan0 power off" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
 
 for i in ${!options[@]}; do
 
