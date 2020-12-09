@@ -257,7 +257,7 @@ def deactivate_nlp():
     caitCore.send_component_commond("nlp", "Down", qos=1)
 
 
-def initialize_control():
+def initialize_control(mode):
     control_wait = 0
     #available_control_devices = caitCore.get_devices("control")
     # if len(available_control_devices) == 0:
@@ -265,8 +265,12 @@ def initialize_control():
     
     while not caitCore.get_component_state("control", "Up"):
         if control_wait <= 100:
-            hub_address = socket.gethostbyname('ev3dev.local')
-            result = caitCore.send_component_commond("control", "Control Up," + hub_address)
+            if mode == "ev3":
+                hub_address = socket.gethostbyname('ev3dev.local')
+                result = caitCore.send_component_commond("control", "Control Up," + hub_address)
+            elif mode == "spike":
+                hub_address = "/dev/ttyACM0"
+                result = caitCore.send_component_commond("control", "Control Up," + hub_address)
             if result == False:
                 logging.info("Init Control: Error occurred")
                 return result, "MQTT Error"

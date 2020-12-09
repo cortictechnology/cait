@@ -82,7 +82,7 @@ def initialize_component(component_name, mode="online", account="default", proce
     elif component_name == "nlp":
         success, msg  = core.initialize_nlp(mode)
     elif component_name == "control":
-        success, msg  = core.initialize_control()
+        success, msg  = core.initialize_control(mode)
     elif component_name == "smart_home":
         success = True
         msg = "OK"

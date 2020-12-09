@@ -1,0 +1,6 @@
+{"InferenceMode" : [
+    "FaceRecognition",
+    "ObjectDetection",
+    "ImageClassification"
+    ]
+}

@@ -161,6 +161,22 @@ Blockly.defineBlocksWithJsonArray([
       "type": "init_control",
       "lastDummyAlign0": "CENTRE",
       "message0": "%{BKY_INIT_CONTROL}",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "mode",
+          "options": [
+            [
+              "ev3",
+              "ev3"
+            ],
+            [
+              "spike",
+              "spike"
+            ]
+          ]
+        }
+      ],
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F78C00",
@@ -840,12 +856,14 @@ Blockly.Python['init_nlp'] = function(block) {
 };
 
 Blockly.JavaScript['init_control'] = function(block) {
-  var code = 'await init_control();\n';
+  var dropdown_mode = block.getFieldValue('mode');
+  var code = "await init_control('" + dropdown_mode + "');\n";
   return code;
 };
 
 Blockly.Python['init_control'] = function(block) {
-  var code = "cait.essentials.initialize_component('control')\n";
+  var dropdown_mode = block.getFieldValue('mode');
+  var code = "cait.essentials.initialize_component('control', '" + dropdown_mode + "')\n";
   return code;
 };
 

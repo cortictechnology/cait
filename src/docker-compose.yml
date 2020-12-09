@@ -23,7 +23,7 @@ services:
       - /opt/cortic_modules/nlp_module:/nlp_module
     command: "taskset --cpu-list 2 python3 /nlp_module/main.py"
   
-  cait_stt_tts:
+  cait_speech:
     network_mode: host
     privileged: true
     image: "cortictech/speech:0.52"
@@ -35,7 +35,7 @@ services:
       - /sys/bus/usb:/sys/bus/usb
       - /dev/bus/usb:/dev/bus/usb
       - /dev/snd:/dev/snd
-      - /dev:/dev
+      - /usr/share/alsa/alsa.conf:/usr/share/alsa/alsa.conf
       - /opt/cortic_modules/voice_module:/voice_module
     #   - /tmp/pulseaudio.socket:/tmp/pulseaudio.socket
     #   - /opt/pulseaudio.client.conf:/etc/pulse/client.conf

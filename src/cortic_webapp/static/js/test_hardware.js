@@ -146,29 +146,95 @@ setInterval(get_video_devices, 5000);
 async function get_audio_devices(){
     try {
       const result = await ajax_post("/getaudiodev", {});
-      var device_list = document.getElementById("microphones");
-        device_list.innerHTML = "";
-        var new_device = [];
+      var speaker_list = document.getElementById("speakers");
+      var speaker_options = [];
+      for (var i = 0, n = speaker_list.options.length; i < n; i++) { 
+        if (speaker_list.options[i].value) speaker_options.push(speaker_list.options[i].value);
+      }
+      var microphone_list = document.getElementById("microphones");
+      microphone_options = [];
+      for (var i = 0, n = microphone_list.options.length; i < n; i++) { 
+        if (microphone_list.options[i].value) microphone_options.push(microphone_list.options[i].value);
+      }
+
+      // speaker_list.innerHTML = "";
+      // microphone_list.innerHTML = "";
+        var new_devices = [];
         for (var i = 0; i < result.length; i++) {
             device = result[i];
-            device_name = device["index"] + ": " + device["device"];
-            new_device.push(device_name);
-            if (current_audio_devices.includes(device_name) == false){
-              current_audio_devices.push(device_name);
+            device_index = device["index"];
+            device_name = device["device"];
+            device_type = device["type"];
+            this_device = {"name": device_name, "type": device_type, "index": device_index};
+            new_devices.push(this_device );
+            var new_device = true;
+            for (dev in current_audio_devices){
+              current_dev = current_audio_devices[dev];
+              if (current_dev['name'] == device_name && current_dev['index'] == device_index) {
+                new_device = false;
+              }
+            }
+            if (new_device) {
+              current_audio_devices.push(this_device);
             }
         }
         for (var j = 0; j < result.length; j++) {
             exist_device = current_audio_devices[j];
-            if (new_device.includes(exist_device) == false){
+            device_gone = true;
+            for (dev in new_devices){
+              current_dev = new_devices[dev];
+              if (current_dev['name'] == exist_device['name'] && current_dev['index'] == exist_device['index']) {
+                device_gone  = false;
+              }
+            }
+            if (device_gone){
               current_audio_devices.splice(j, 1);
-            } 
+            }
         }
-        for (var k = 0; k < result.length; k++) {
+        for (var k = 0; k < current_audio_devices.length; k++) {
             device = current_audio_devices[k];
             var option = document.createElement("option");
-            option.text = device;
-            device_list.add(option);
+            option.text = device['index'] + ': ' + device['name'];
+            if (device['type'] == "Input"){
+              if (microphone_options.includes(option.text) == false){
+                microphone_list.add(option);
+                microphone_options.push(option.text);
+              } 
+            }
+            else{
+
+              if (speaker_options.includes(option.text) == false) {
+                speaker_list.add(option);
+                speaker_options.push(option.text);
+              }
+            }
         }
+        
+        for (opt in microphone_options) {
+          option_gone = true;
+          this_option = microphone_options[opt];
+          for (dev in current_audio_devices) {
+            if (this_option == current_audio_devices[dev]['index'] + ': ' + current_audio_devices[dev]['name']) {
+              option_gone = false;
+            }
+          }
+          if (option_gone) {
+            microphone_list.remove(opt);
+          }
+        }
+        for (opt in speaker_options) {
+          option_gone = true;
+          this_option = speaker_options[opt];
+          for (dev in current_audio_devices) {
+            if (this_option == current_audio_devices[dev]['index'] + ': ' + current_audio_devices[dev]['name']) {
+              option_gone = false;
+            }
+          }
+          if (option_gone) {
+            speaker_list.remove(opt);
+          }
+        }
+
     } catch(err) {
         console.log(err);
         return err;
@@ -179,8 +245,10 @@ get_audio_devices()
 setInterval(get_audio_devices, 5000);
 
 async function test_speaker(){
+  var speaker_list = document.getElementById("speakers");
+  var speaker_index = parseInt(speaker_list[speaker_list.selectedIndex].value[0]);
   try {
-    ajax_post("/testspeaker", {});
+    ajax_post("/testspeaker", {'index': speaker_index});
   } catch(err) {
       console.log(err);
       return err;

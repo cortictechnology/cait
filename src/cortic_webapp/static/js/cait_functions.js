@@ -195,8 +195,8 @@ async function init_nlp(mode) {
   await init("nlp", mode);
 }
 
-async function init_control() {
-  await init("control");
+async function init_control(mode) {
+  await init("control", mode);
 }
 
 async function init_smarthome() {

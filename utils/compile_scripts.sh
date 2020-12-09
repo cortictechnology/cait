@@ -5,6 +5,8 @@ mkdir managers
 cd ../cait
 python3 compile.py build_ext --inplace
 mv *.so ../cait_bin
+cp managers/NotoSansCJKtc-Regular.ttf ../cait_bin/managers
+
 rm *.c
 rm -rf build
 cd managers

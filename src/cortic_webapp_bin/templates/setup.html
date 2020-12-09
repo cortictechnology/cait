@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>CAIT Setup</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="{{url_for('static', filename='js/string_locale.js') }}"></script> 
+<!--===============================================================================================-->	
+    <link rel="icon" type="image/png" href="/static/images/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/css/util_setup.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main_setup.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<div class="bg-img1 size1 flex-w flex-c-m p-t-55 p-b-55 p-l-15 p-r-15" style="background-image: url('/static/images/bg01.jpg');">
+		<div class="wsize1 bor1 bg1 p-t-175 p-b-45 p-l-15 p-r-15 respon1">
+			<div class="wrappic1">
+				<img src="/static/images/cortic_logo.png" alt="LOGO">
+			</div>
+
+			<p class="txt-center m1-txt1 p-t-33 p-b-68" id="WelcomeText">
+			</p>
+			<script>document.getElementById('WelcomeText').innerHTML = localizedStrings.setupWelcome[locale];</script>
+			<form action="/wifi" method="get" class="flex-w flex-c-m contact100-form validate-form p-t-55">
+
+				<button class="flex-c-m s1-txt3 size3 how-btn trans-04 where1" id="startSetup">
+				</button>
+				<script>document.getElementById('startSetup').innerHTML = localizedStrings.startSetup[locale];</script>
+			</form>
+			
+		</div>
+	</div>
+
+<!--===============================================================================================-->	
+	<script src="{{url_for('static', filename='vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{url_for('static', filename='vendor/bootstrap/js/popper.js') }}"></script>
+	<script src="{{url_for('static', filename='vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{url_for('static', filename='vendor/select2/select2.min.js') }}"></script>
+	
+<!--===============================================================================================-->
+    <script src="{{url_for('static', filename='vendor/tilt/tilt.jquery.min.js') }}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+
+</body>
+</html>

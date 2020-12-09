@@ -246,7 +246,7 @@ def main():
                     imgByteArr = base64.b64encode(buffer)
                     #imgByteArr = imgByteArr.split('\n')[0]
                     #logging.info("base64 encode time: " + str(time.time() - start_time))
-                    #client_inference.publish("cait/rawFrame", imgByteArr, qos=0)
+                    client_inference.publish("cait/rawFrame", imgByteArr, qos=0)
                     #logging.info("Raw frame jpegTime: " + str(time.time() - start_time))
                     if currentInferenceMode != "":
                         model = inferencers[inferenceMode.index(currentInferenceMode)]

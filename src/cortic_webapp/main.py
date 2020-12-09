@@ -205,6 +205,11 @@ def testcam():
 
 @application.route('/testspeaker', methods=['POST'])
 def testspeaker():
+    speaker_index = request.form.get('index')
+
+    out = os.system("sed -i '/defaults.ctl.card/c\defaults.ctl.card " + str(speaker_index) + "' /usr/share/alsa/alsa.conf")
+    out = os.system("sed -i '/defaults.pcm.card/c\defaults.pcm.card " + str(speaker_index) + "' /usr/share/alsa/alsa.conf")
+
     out = os.system("sudo -u pi aplay /opt/cortic_modules/voice_module/siri.wav")
 
     result = {"result": out}        

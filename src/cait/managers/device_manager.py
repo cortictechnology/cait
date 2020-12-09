@@ -16,10 +16,12 @@ import pyaudio
 import spidev
 from ctypes import *
 
+logging.getLogger().setLevel(logging.INFO)
+
 EXCLUDED_DEVICES = ['bcm2835-codec-decode (platform:bcm2835-codec):', 'bcm2835-isp (platform:bcm2835-isp):']
 TESTED_CAMERAS = {'Webcam C170': [320,240], 'HD Webcam C615':[640,480], 'UVC': [320, 240], 'PiCamera':[640,480], 'C922': [640, 480], 'C310': [640, 480]}
-SUPPORTED_SPEAKERS = ['bcm2835']
-SUPPORTED_MIC = ['Webcam C170', 'HD Webcam C615', 'USB Device', 'C922', 'C310']
+SUPPORTED_SPEAKERS = ['bcm2835 HDMI 1', 'bcm2835 Headphones', 'USB']
+SUPPORTED_MIC = ['Webcam C170', 'HD Webcam C615', 'USB', 'C922', 'C310']
 SUPPORTED_CONTROL_HAT = ['BrickPi', 'Adafruit Servo HAT', "Makebot"]
 
 ERROR_HANDLER_FUNC = CFUNCTYPE(None, c_char_p, c_int, c_char_p, c_int, c_char_p)
@@ -30,8 +32,6 @@ c_error_handler = ERROR_HANDLER_FUNC(py_error_handler)
 asound = cdll.LoadLibrary('libasound.so')
 # Set error handler
 asound.snd_lib_error_set_handler(c_error_handler)
-
-logging.getLogger().setLevel(logging.INFO)
 
 class DeviceManager:
     def scan_usb_devices(self):
@@ -82,15 +82,13 @@ class DeviceManager:
                 #logging.info(dev['name'])
                 for mic in SUPPORTED_MIC:
                     if mic in dev['name']:
-                        ainfo = {"device": mic, "type": "Input", "index": num_aout, "time": time.time()}
-                        audio_devices.append(ainfo)
-                        num_aout = num_aout + 1
+                        ainfo = {"device": mic, "type": "Input", "index": dev['index'], "time": time.time()}
+                        audio_devices.append(ainfo)                        
             else:
                 for speaker in SUPPORTED_SPEAKERS:
                     if speaker in dev['name']:
-                        ainfo = {"device": speaker, "type": "Output", "index": num_ain, "time": time.time()}
-                        audio_devices.append(ainfo)
-                        num_ain = num_ain + 1
+                        ainfo = {"device": speaker, "type": "Output", "index": dev['index'], "time": time.time()}
+                        audio_devices.append(ainfo)   
         p.terminate()
         return audio_devices
 
