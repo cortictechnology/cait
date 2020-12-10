@@ -11,4 +11,4 @@ sys.path.insert(0, '/opt/cortic_modules')
 from main import application 
 
 if __name__ == "__main__":
-    application.run()
+    application.run(host="0.0.0.0", port=80, threaded=True)

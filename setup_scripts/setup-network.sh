@@ -945,7 +945,7 @@ sudo ./setup-network.sh --install-upgrade --ap-ssid="abc-1" --ap-password="passw
     
     doInstall
     echo -e "Hostname is changed to: ${RED}$hostName${NC}"
-    sudo sed -i "/hostname/c\hostname=$hostName.local" /etc/dhcpcd.conf
+    #sudo sed -i "/hostname/c\hostname=$hostName.local" /etc/dhcpcd.conf
     # Sleep for 10s before restarting:
     echo "[Reboot]: In 10 seconds ..."
     sleep 10

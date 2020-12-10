@@ -8,7 +8,7 @@ Restart=always
 RestartSec=1
 User=root
 WorkingDirectory=/opt/cortic_webapp
-ExecStart=/usr/local/bin/gunicorn --threads=2 --bind 0.0.0.0:80 --limit-request-line 0 wsgi:application
+ExecStart=/usr/bin/python3 wsgi.py
 
 [Install]
 WantedBy=multi-user.target

@@ -35,7 +35,6 @@ logging.getLogger().setLevel(logging.INFO)
 
 application = Flask(__name__)
 application.secret_key = os.urandom(24)
-#application.config['SESSION_TYPE'] = 'filesystem'
 
 login_manager = LoginManager()
 login_manager.init_app(application)
