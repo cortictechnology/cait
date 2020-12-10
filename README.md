@@ -30,7 +30,8 @@ Here is a list of hardware components that we currently support.  You may choose
 * Logitech USB webcam (C270, C922, C615, C310 are tested)
 * Mini speaker with 3.5mm audio jack 
 * LEGO Mindstorms EV3 
-  * BrickPi3 Core
+* LEGO Mindstorms Robot Inventor
+* LEGO Spike Prime
 * Smart home devices such as Philips Hue, smart speakers, etc
 
 We also support the use of Raspberry Pi's CSI camera interface.  However, if your project requires audio/speech input, it's much better to use a USB webcam as it has an integrate microphone.  The integrated mic usually offers much better audio input performance than any of the mini USB mics that we have tested.
@@ -41,9 +42,7 @@ You can try CAIT by downloading the pre-loaded Raspberry Pi OS (32bit) [image](h
 
 ## Installing from source
 
-Before you start, make sure there is at least 16GB of free space on your SD card.  
-
-> :warning: **The latest WIFI firmware (ver. 20190114-1+rpt8) has a known issue that crashes when using a virtual AP interface**: The setup script you are about to run will downgrade this firmware to the 20190114-1+rpt4 version.  Proceed only if you are okay with this downgrade.
+Before you start, make sure there is at least 32GB of free space on your SD card.  
 
 ```
 $ git clone https://github.com/cortictechnology/cait.git
@@ -70,6 +69,12 @@ The above setup script configures the raspberry pi to operate in access point mo
 ## Quick start
 
 Please follow our <a href="https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md">"Quick Start"</a> guide to get started.  
+
+## LEGO Mindstorms/Education Setup
+
+### EV3 Hub
+
+### Robot Inventor/Spike Prime Hub
 
 ## How to contribute
 
