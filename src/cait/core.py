@@ -254,7 +254,7 @@ def initialize_nlp(mode="english_default"):
 
 
 def deactivate_nlp():
-    caitCore.send_component_commond("nlp", "Down", qos=1)
+    caitCore.send_component_commond("nlp", "Down")
 
 
 def initialize_control(mode):

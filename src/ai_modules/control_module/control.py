@@ -43,8 +43,10 @@ def connect_to_spike(hub_address):
     global current_hub
     try:
         spike_conn = serial.Serial(hub_address, 115200)
+        spike_conn.write(b'\x03')
         spike_conn.write(b'import hub\x0D')
         current_hub = "spike"
+        time.sleep(0.5)
         return True
     except:
         logging.warning("No spike hub connected")
