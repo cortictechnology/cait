@@ -26,7 +26,7 @@ echo "Extracting the trained model to CAIT directory..."
 
 cd /opt/cortic_modules/nlp_module/tmp_models
 sudo tar xvf nlu*.tar.gz
-sudo cp -R nlu /opt/cortic_modules/nlp_module/models/$modelName
+sudo mv nlu /opt/cortic_modules/nlp_module/models/$modelName
 cd ..
 sudo rm -rf tmp_models
 
