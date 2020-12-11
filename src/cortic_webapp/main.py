@@ -223,47 +223,50 @@ def testmicrophone():
     fs = 16000  
     seconds = 5
     filename = "output.wav"
+    try:
+        p = pyaudio.PyAudio()  # Create an interface to PortAudio
 
-    p = pyaudio.PyAudio()  # Create an interface to PortAudio
+        print('Recording')
+        block_size = int(fs / float(BLOCKS_PER_SECOND))
+        chunk = int(fs / float(BLOCKS_PER_SECOND))
+        stream = p.open(format=sample_format,
+                        channels=channels,
+                        rate=fs,
+                        frames_per_buffer=chunk,
+                        input=True)
 
-    print('Recording')
-    block_size = int(fs / float(BLOCKS_PER_SECOND))
-    chunk = int(fs / float(BLOCKS_PER_SECOND))
-    stream = p.open(format=sample_format,
-                    channels=channels,
-                    rate=fs,
-                    frames_per_buffer=chunk,
-                    input=True)
+        frames = []  # Initialize array to store frames
 
-    frames = []  # Initialize array to store frames
+        # Store data in chunks for 3 seconds
+        for i in range(0, int(fs / chunk * seconds)):
+            data = stream.read(chunk)
+            frames.append(data)
 
-    # Store data in chunks for 3 seconds
-    for i in range(0, int(fs / chunk * seconds)):
-        data = stream.read(chunk)
-        frames.append(data)
+        # Stop and close the stream 
+        stream.stop_stream()
+        stream.close()
+        # Not terminating as the scan device thread will take care of that
+        #p.terminate()
 
-    # Stop and close the stream 
-    stream.stop_stream()
-    stream.close()
-    # Terminate the PortAudio interface
-    p.terminate()
+        print('Finished recording')
 
-    print('Finished recording')
+        # Save the recorded data as a WAV file
+        wf = wave.open(filename, 'wb')
+        wf.setnchannels(channels)
+        wf.setsampwidth(p.get_sample_size(sample_format))
+        wf.setframerate(fs)
+        wf.writeframes(b''.join(frames))
+        wf.close()
 
-    # Save the recorded data as a WAV file
-    wf = wave.open(filename, 'wb')
-    wf.setnchannels(channels)
-    wf.setsampwidth(p.get_sample_size(sample_format))
-    wf.setframerate(fs)
-    wf.writeframes(b''.join(frames))
-    wf.close()
+        os.system("sudo -u pi aplay " + filename)
 
-    os.system("sudo -u pi aplay " + filename)
+        out = os.system("rm " + filename)
 
-    out = os.system("rm " + filename)
-
-    result = {"result": out}        
-    return jsonify(result)
+        result = {"result": out}        
+        return jsonify(result)
+    except:
+        result = {"result": -1}      
+        return jsonify(result)
 
 @application.route('/thirdsignin')
 def thirdsignin():

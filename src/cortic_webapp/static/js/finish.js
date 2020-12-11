@@ -44,11 +44,13 @@ function serverReachable(hostname) {
 async function restart() {
   $.post( "/newname", {}, async function( data ) {
     var hostname = data['hostname'] + ".local";
+    var raw_hostname = data['hostname']
     console.log(hostname);
     if (data['hostname'] == "") {
       hostname = window.location.hostname;
     }
     url = window.location.protocol + "//" +  hostname;
+    raw_url = window.location.protocol + "//" +  raw_hostname;
     console.log(url);
     var loader = document.getElementById('loader');
     loader.style.display = "flex";
@@ -59,10 +61,13 @@ async function restart() {
       // Wait until cait is done booting up.
       await sleep(60000);
       var i;
-      for (i = 0; i < 3; i++) {
+      for (i = 0; i < 5; i++) {
         if (serverReachable(hostname)) {
           // Redirect to new hostname
           window.location.href = url;
+        }
+        else if (serverReachable(raw_hostname)) {
+          window.location.href = raw_url;
         }
         else {
           console.log("Not done rebooting yet");

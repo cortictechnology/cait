@@ -135,11 +135,14 @@ class DeviceManager:
 
     def heartbeat_func(self):
         while True:
-            self.usb_devices = self.update_device_list(self.usb_devices, self.scan_usb_devices())
-            self.video_devices = self.update_device_list(self.video_devices, self.scan_video_devices())
-            self.audio_devices = self.update_device_list(self.audio_devices, self.scan_audio_devices())
-            self.control_devices = self.update_device_list(self.control_devices, self.scan_control_devices())
-            time.sleep(5)
+            try:
+                self.usb_devices = self.update_device_list(self.usb_devices, self.scan_usb_devices())
+                self.video_devices = self.update_device_list(self.video_devices, self.scan_video_devices())
+                self.audio_devices = self.update_device_list(self.audio_devices, self.scan_audio_devices())
+                self.control_devices = self.update_device_list(self.control_devices, self.scan_control_devices())
+                time.sleep(5)
+            except:
+                continue
 
     def get_usb_devices(self):
         return self.usb_devices
