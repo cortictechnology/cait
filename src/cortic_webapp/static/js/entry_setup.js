@@ -152,3 +152,5 @@ function get_media_players() {
 }
 
 get_media_players();
+
+load_workspace(true);
