@@ -6,7 +6,7 @@ Written by Michael Ng <michaelng@cortic.ca>, November 2019
 """
 
 from flask import Flask
-from flask import render_template, request, redirect, session, jsonify, Response
+from flask import render_template, request, redirect, session, jsonify, Response, url_for
 from flask_cors import CORS
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 from urllib.parse import urlparse
@@ -45,6 +45,20 @@ new_hostname = ""
 current_language = "english"
 
 connecting_to_wifi = False
+
+
+@application.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                     endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
 
 class User(UserMixin):
 
