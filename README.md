@@ -38,6 +38,7 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 ## How do I try it
 
+(Outdated)
 You can try CAIT by downloading the pre-loaded Raspberry Pi OS (32bit) [image](https://drive.google.com/file/d/1X3WZKvRrfnwW6rnpNIRLJcqPT1vcZZ_m/view?usp=sharing).  You will need to use a 32GB micro SD card for this.  Please follow the <a href="https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md">"Quick Start"</a> guide to configure your WIFI and any additional hardware components.  
 
 ## Installing from source
