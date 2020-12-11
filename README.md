@@ -96,6 +96,9 @@ Once the hub is properly updated, you can simply connect the hub to a Raspberry 
 
 We welcome contributions from all our users.  You can contribute by requesting features or reporting bugs under "Issues".  You can also submit proposed code updates through pull requests to our "dev" branch.
 
+## Roadmap
+
+
 ## License
 
 [GPLv3 License](LICENSE)
