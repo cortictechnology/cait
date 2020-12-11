@@ -38,8 +38,11 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 ## How do I try it
 
-(Outdated)
-You can try CAIT by downloading the pre-loaded Raspberry Pi OS (32bit) [image](https://drive.google.com/file/d/1X3WZKvRrfnwW6rnpNIRLJcqPT1vcZZ_m/view?usp=sharing).  You will need to use a 32GB micro SD card for this.  Please follow the <a href="https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md">"Quick Start"</a> guide to configure your WIFI and any additional hardware components.  
+You can download our latest release from this repository and execute the setup_cait.sh script in it directly. A screencast is shown below to demostrate this process.
+
+<Setup screencast>
+    
+Alternatively, you can choose to start by cloning this repository and install from source.
 
 ## Installing from source
 
@@ -69,13 +72,25 @@ The above setup script configures the raspberry pi to operate in access point mo
 
 ## Quick start
 
-Please follow our <a href="https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md">"Quick Start"</a> guide to get started.  
+Please follow our <a href="https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md">"Quick Start"</a> guide to get started. A screencast of this is also available below:
+
+<screencast of setup and login>
 
 ## LEGO Mindstorms/Education Setup
 
 ### EV3 Hub
 
+P.S. A power supply HAT is required for the following setup. We recommand to use the PiJuice HAT: https://uk.pi-supply.com/products/pijuice-standard
+
+In order to control the EV3 motors with EV3 hub, you need to download and use the ev3dev image from here: https://www.ev3dev.org/docs/getting-started/. After you have finished setup your hub with ev3dev, a screencast is shown below to show you how to setup the hub to be used with CAIT:
+
+<screencast of ev3 setup>
+
 ### Robot Inventor/Spike Prime Hub
+
+Before you process, make sure you have first setup the Robot Inventor/Spike Prime Hub by following LEGO's instruction. Most importantly, make sure you have updated the hub/s firmware and motors to latest version with the official LEGO Mindstorms App. 
+
+Once the hub is properly updated, you can simply connect the hub to a Raspberry Pi 4B using a USB-A to Micro-USB cable. CAIT will take care of the conenction and control.
 
 ## How to contribute
 
