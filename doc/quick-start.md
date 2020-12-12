@@ -22,6 +22,8 @@ After that, you will be asked to signup for a google cloud service account for v
 
 <img src="../images/google.png" width="60%">	
 
+<screencast of google setup>
+
 Finally, you need to reboot CAIT for everything to be applied.	
 
 <img src="../images/finish.png" width="60%">	
