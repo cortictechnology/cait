@@ -40,7 +40,7 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 You can download our latest release from this repository and run the setup_cait.sh script under the project directory.  The following screencast illustrates this process.
 
-[![Watch the video](https://img.youtube.com/vi/jOG4wboVPo0/3.jpg)](https://youtu.be/jOG4wboVPo0)
+[![Setup screencast](https://img.youtube.com/vi/jOG4wboVPo0/hqdefault.jpg)](https://youtu.be/jOG4wboVPo0)
     
 Alternatively, you may choose to clone this repository and follow the instructions in the next section.
 
@@ -72,32 +72,21 @@ The above setup script configures the raspberry pi to operate in access point mo
 
 ## Quick start
 
-Please follow our <a href="https://github.com/cortictechnology/cait/blob/main/doc/quick-start.md">"Quick Start"</a> guide to get started. A screencast of this is also available below:
+Please follow our [Quick Start](https://github.com/cortictechnology/cait/wiki/Quick-Start) wiki page to get started. The screencast below also illustrates the initial configuration process.
 
-<screencast of setup and login>
-
-## LEGO Mindstorms/Education Setup
-
-### EV3 Hub
-
-P.S. A power supply HAT is required for the following setup. We recommand to use the PiJuice HAT: https://uk.pi-supply.com/products/pijuice-standard
-
-In order to control the EV3 motors with EV3 hub, you need to download and use the ev3dev image from here: https://www.ev3dev.org/docs/getting-started/. After you have finished setup your hub with ev3dev, a screencast is shown below to show you how to setup the hub to be used with CAIT:
-
-<screencast of ev3 setup>
-
-### Robot Inventor/Spike Prime Hub
-
-Before you process, make sure you have first setup the Robot Inventor/Spike Prime Hub by following LEGO's instruction. Most importantly, make sure you have updated the hub/s firmware and motors to latest version with the official LEGO Mindstorms App. 
-
-Once the hub is properly updated, you can simply connect the hub to a Raspberry Pi 4B using a USB-A to Micro-USB cable. CAIT will take care of the conenction and control.
+[![Configuration screencast](https://img.youtube.com/vi/JMBmK45JhI4/hqdefault.jpg)](https://youtu.be/JMBmK45JhI4)
 
 ## How to contribute
 
 We welcome contributions from all our users.  You can contribute by requesting features or reporting bugs under "Issues".  You can also submit proposed code updates through pull requests to our "dev" branch.
 
-## Roadmap
+## Upcoming new project
 
+While working on CAIT, we ran into a lot of computational constraints.  Even though the quad core Raspberry Pi 4B CPU is quite powerful, it is still sometime not fast enough to run multiple deep learning inferences.  We kept wishing that there is an easy way for us to offload some of the computation to another nearby idle device without having to deal the complexity of distributed programs.  After spending some time researching the available open-source technology, we decided to implement something that suits our needs.  
+
+The result is the upcoming CURT project, or the big brother to CAIT if you will.  The goal of CURT is to enable our users to create distributed A.I. applications with minimal effort and minimal computational overhead.  We also want to minimize the amount of effort spent in configuring each device and allow different hardware devices to work together seamlessly.  CURT can be used as a backend for CAIT to offer more flexibility and gives users the ability to write programs for difference devices to cooperate to accomplish a common goal.
+
+The CURT project is progressing very nicely.  We are planning to release it in the first half of 2021.  Stay tuned.
 
 ## License
 
