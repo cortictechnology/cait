@@ -41,7 +41,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 
 <img src="../images/add_face.png" width="20%">	
 
-**Description:** Add a new face to the face recognition database. 
+**Description:** Add a new face to the face recognition database.  
 **Usage:** Can only be use in a main block. The added face can be recognized with the Recognize Face block afterward.  
 **Example:**   
 <img src="../images/add_face_example.png" width="30%">	
@@ -57,7 +57,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 
 <img src="../images/object_detect.png" width="20%">	
 
-**Description:** Detect objects in the scene, returns a list of detected object and their coordinates.
+**Description:** Detect objects in the scene, returns a list of detected object and their coordinates.  
 **Usage:** Can only be use in a main block. Result is returned in the form of a combination of dictionary and list, it can then be used with dictionary and list blocks.  
 **Return Data Example:**  {"name" : ["tv", "cellphone", "mouse"], "coordinate": [[0, 0, 10, 10], [10, 10, 120, 120], [20, 20, 40, 40], [30, 30, 70, 70]]}  
 **Example:**   
@@ -66,7 +66,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 
 <img src="../images/classify_image.png" width="20%">	
 
-**Description:** Classify the current scene, returns the top 5 possibile classes with correspondign confidences.
+**Description:** Classify the current scene, returns the top 5 possibile classes with correspondign confidences.  
 **Usage:** Can only be use in a main block. Result is returned in the form of a combination of dictionary and list, it can then be used with dictionary and list blocks.  
 **Return Data Example:**  {"names" : [["cellphone", 0.799], ["iPod", 0.088], ["remote control", 0.0034], ["water bottle", 0.0022], ["Band Aid", 0.0015]}  
 **Example:**   
@@ -83,19 +83,19 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 
 <img src="../images/listen.png" width="20%">	
 
-**Description:** Listen for user's speech through microphone, then converts the speech to text.
-**Usage:** Can only be use in a main block. Result is returned as a string. 
-**Return Data Example:**  "Hi, nice to meet you"
+**Description:** Listen for user's speech through microphone, then converts the speech to text.  
+**Usage:** Can only be use in a main block. Result is returned as a string.  
+**Return Data Example:**  "Hi, nice to meet you"  
 **Example:**   
 <img src="../images/listen_example.png" width="30%">	
 * * *
 
 <img src="../images/say.png" width="20%">	
 
-**Description:** Takes in a text and generate voice from it.
+**Description:** Takes in a text and generate voice from it.  
 **Usage:** Can only be use in a main block.  
 **Example:**   
-<img src="../images/say_example.png" width="30%">	
+<img src="../images/say_example.png" width="20%">	
 * * *
 
 <img src="../images/init_nlp.png" width="30%">	
@@ -108,7 +108,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 
 <img src="../images/analyze.png" width="20%">	
 
-**Description:** Takes in a text and analyze the user intention. It will also extract entity information from the text.
+**Description:** Takes in a text and analyze the user intention. It will also extract entity information from the text.  
 **Usage:** Can only be use in a main block. Result is returned in the form of a combination of dictionary and list, it can then be used with dictionary and list blocks.  
 **Return Data Example:** {"confidence": 0.99, "entities": [{"entity_name": "person", "entity_value": "Michael"}], "topic": "user_give_name"}  
 **Example:**   
