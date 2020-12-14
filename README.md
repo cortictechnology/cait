@@ -40,7 +40,7 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 You can download our latest release from this repository and run the setup_cait.sh script under the project directory.  The following screencast illustrates this process.
 
-[![Setup screencast](https://img.youtube.com/vi/jOG4wboVPo0/0.jpg)](https://youtu.be/jOG4wboVPo0)
+[![Setup screencast](https://img.youtube.com/vi/jOG4wboVPo0/hqdefault.jpg)](https://youtu.be/jOG4wboVPo0)
     
 Alternatively, you may choose to clone this repository and follow the instructions in the next section.
 
@@ -74,7 +74,7 @@ The above setup script configures the raspberry pi to operate in access point mo
 
 Please follow our [Quick Start](https://github.com/cortictechnology/cait/wiki/Quick-Start) wiki page to get started. The screencast below also illustrates the initial configuration process.
 
-[![Configuration screencast](https://img.youtube.com/vi/JMBmK45JhI4/2.jpg)](https://youtu.be/JMBmK45JhI4)
+[![Configuration screencast](https://img.youtube.com/vi/JMBmK45JhI4/hqdefault.jpg)](https://youtu.be/JMBmK45JhI4)
 
 ## How to contribute
 
