@@ -20,11 +20,64 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 **Usage:** Must be placed after a setup block.  
 * * *
 
+## AI Blocks
+
 <img src="../images/init_vision.png" width="20%">	
 
 **Description:** Initialize the vision module, must call before using any other vision blocks.  
 **Usage:** Can only be use in a setup block.  
 **Example:**   
 <img src="../images/init_vision_example.png" width="20%">	
+* * *
+
+<img src="../images/recognize_face.png" width="20%">	
+
+**Description:** Detect and recognize the largest face in the scene.   
+**Usage:** Can only be use in a main block. Result is returned in the form of a dictionary, it can then be used with dictionary blocks.
+**Return Data Example:**  {"name" : "Michael", "coordinate": [0, 0, 10, 10]}  
+**Example:**   
+<img src="../images/recognize_face_example.png" width="20%">	
+* * *
+
+<img src="../images/add_face.png" width="20%">	
+
+**Description:** Add a new face to the face recognition database. 
+**Usage:** Can only be use in a main block. The added face can be recognized with the Recognize Face block afterward.  
+**Example:**   
+<img src="../images/add_face_example.png" width="20%">	
+* * *
+
+<img src="../images/remove_face.png" width="20%">	
+
+**Description:** Remove an existing face from the face recognition database. 
+**Usage:** Can only be use in a main block. The person with the removed face becomes Unknown after calling the Face Recognize block.  
+**Example:**   
+<img src="../images/remove_face_example.png" width="20%">	
+* * *
+
+<img src="../images/object_detect.png" width="20%">	
+
+**Description:** Detect objects in the scene, returns a list of detected object and their coordinates.
+**Usage:** Can only be use in a main block. Result is returned in the form of a combination of dictionary and list, it can then be used with dictionary and list blocks.  
+**Return Data Example:**  {"name" : ["tv", "cellphone", "mouse"], "coordinate": [[0, 0, 10, 10], [10, 10, 120, 120], [20, 20, 40, 40], [30, 30, 70, 70]]}  
+**Example:**   
+<img src="../images/object_detect_example.png" width="20%">	
+* * *
+
+<img src="../images/classify_image.png" width="20%">	
+
+**Description:** Classify the current scene, returns the top 5 possibile classes with correspondign confidences.
+**Usage:** Can only be use in a main block. Result is returned in the form of a combination of dictionary and list, it can then be used with dictionary and list blocks.  
+**Return Data Example:**  {"names" : [["cellphone", 0.799], ["iPod", 0.088], ["remote control", 0.0034], ["water bottle", 0.0022], ["Band Aid", 0.0015]}  
+**Example:**   
+<img src="../images/classify_image_example.png" width="20%">	
+* * *
+
+<img src="../images/init_speech.png" width="20%">	
+
+**Description:** Initialize the speech module, must call before using any other speech blocks.  
+**Usage:** Can only be use in a setup block.  
+**Example:**   
+<img src="../images/init_speech_example.png" width="20%">	
 * * *
 
