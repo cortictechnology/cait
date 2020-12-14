@@ -27,7 +27,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 **Description:** Initialize the vision module, must call before using any other vision blocks.  
 **Usage:** Can only be use in a setup block.  
 **Example:**   
-<img src="../images/init_vision_example.png" width="40%">	
+<img src="../images/init_vision_example.png" width="20%">	
 * * *
 
 <img src="../images/recognize_face.png" width="20%">	
@@ -44,7 +44,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 **Description:** Add a new face to the face recognition database. 
 **Usage:** Can only be use in a main block. The added face can be recognized with the Recognize Face block afterward.  
 **Example:**   
-<img src="../images/add_face_example.png" width="40%">	
+<img src="../images/add_face_example.png" width="30%">	
 * * *
 
 <img src="../images/remove_face.png" width="20%">	
@@ -52,7 +52,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 **Description:** Remove an existing face from the face recognition database. 
 **Usage:** Can only be use in a main block. The person with the removed face becomes Unknown after calling the Face Recognize block.  
 **Example:**   
-<img src="../images/remove_face_example.png" width="40%">	
+<img src="../images/remove_face_example.png" width="30%">	
 * * *
 
 <img src="../images/object_detect.png" width="20%">	
@@ -73,7 +73,7 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 <img src="../images/classify_image_example.png" width="40%">	
 * * *
 
-<img src="../images/init_speech.png" width="20%">	
+<img src="../images/init_speech.png" width="40%">	
 
 **Description:** Initialize the speech module, must call before using any other speech blocks.  
 **Usage:** Can only be use in a setup block. Use can choose to use online or on device mode. If using online mode, a google cloud accound must be associated with the system. Language option is only available in online mode.  
@@ -87,14 +87,31 @@ CAIT also offers a conversion tool to convert the visual code into either Jupyte
 **Usage:** Can only be use in a main block. Result is returned as a string. 
 **Return Data Example:**  "Hi, nice to meet you"
 **Example:**   
-<img src="../images/listen_example.png" width="40%">	
+<img src="../images/listen_example.png" width="30%">	
 * * *
 
 <img src="../images/say.png" width="20%">	
 
 **Description:** Takes in a text and generate voice from it.
-**Usage:** Can only be use in a main block.
+**Usage:** Can only be use in a main block.  
 **Example:**   
-<img src="../images/say_example.png" width="40%">	
+<img src="../images/say_example.png" width="30%">	
+* * *
+
+<img src="../images/init_nlp.png" width="30%">	
+
+**Description:** Initialize the NLP module, must call before using any other NLP blocks.  
+**Usage:** Can only be use in a setup block. Users can choose to use different models trained on their own. Model training can be done by using the train_nlu_model.sh from the utils folder.  
+**Example:**   
+<img src="../images/init_nlp_example.png" width="30%">	
+* * *
+
+<img src="../images/analyze.png" width="20%">	
+
+**Description:** Takes in a text and analyze the user intention. It will also extract entity information from the text.
+**Usage:** Can only be use in a main block. Result is returned in the form of a combination of dictionary and list, it can then be used with dictionary and list blocks.  
+**Return Data Example:** {"confidence": 0.99, "entities": [{"entity_name": "person", "entity_value": "Michael"}], "topic": "user_give_name"}  
+**Example:**   
+<img src="../images/analyze_example.png" width="40%">	
 * * *
 
