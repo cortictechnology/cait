@@ -5,7 +5,7 @@ Written by Michael Ng <michaelng@cortic.ca>, December 2019
   
  */
 
-var vision_func = ["recognize_face", "add_person", "delete_person", "detect_objects"];
+var vision_func = ["recognize_face", "add_person", "delete_person", "detect_objects", "classify_image"];
 var speech_func = ["listen", "say"];
 var nlp_func = ["analyze"];
 var control_func = ["rotate_motor", "control_motor", "control_motor_speed_group", "control_motor_degree_group", "move", "rotate"];

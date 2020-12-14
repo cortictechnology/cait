@@ -302,6 +302,10 @@ def change_module_parameters(parameter_name, value):
     time.sleep(0.1)
 
 
+def get_camera_image():
+    pass
+
+
 def change_vision_mode(mode):
     if not caitCore.get_component_state("vision", "Up"):
         logging.info("Please call initialize_vision() function before using the vision module")

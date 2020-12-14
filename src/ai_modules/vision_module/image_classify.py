@@ -51,10 +51,11 @@ class ImageLib:
         top5 = (-softmax_tensor).argsort()[:5]
 
         classified_results = []
-        for res in top5:
-            label = image_labels[res]
+        for idx in top5:
+            label = image_labels[idx]
+            probability = softmax_tensor[idx]
             if label.find(",") != -1:
                 label = label[0:label.find(",")]
-            classified_results.append(label)
+            classified_results.append([label, probability])
 
         return classified_results
