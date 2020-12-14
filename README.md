@@ -40,7 +40,7 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 You can download our latest release from this repository and run the setup_cait.sh script under the project directory.  The following screencast illustrates this process.
 
-[![Setup screencast](https://img.youtube.com/vi/jOG4wboVPo0/3.jpg)](https://youtu.be/jOG4wboVPo0)
+[![Setup screencast](https://img.youtube.com/vi/jOG4wboVPo0/0.jpg)](https://youtu.be/jOG4wboVPo0)
     
 Alternatively, you may choose to clone this repository and follow the instructions in the next section.
 
@@ -82,7 +82,7 @@ We welcome contributions from all our users.  You can contribute by requesting f
 
 ## Upcoming new project
 
-While working on CAIT, we ran into a lot of computational constraint.  Even though the quad core Raspberry Pi 4B CPU is quite powerful, it is still sometime not fast enough to run multiple deep learning inferences.  We kept wishing that there is an easy way for us to offload some of the computation to another nearby idle device without having to deal the complexity of distributed programs.  After spending some time researching the available open-source technology, we decided to implement something that suits our needs.  
+While working on CAIT, we ran into a lot of computational constraints.  Even though the quad core Raspberry Pi 4B CPU is quite powerful, it is still sometime not fast enough to run multiple deep learning inferences.  We kept wishing that there is an easy way for us to offload some of the computation to another nearby idle device without having to deal the complexity of distributed programs.  After spending some time researching the available open-source technology, we decided to implement something that suits our needs.  
 
 The result is the upcoming CURT project, or the big brother to CAIT if you will.  The goal of CURT is to enable our users to create distributed A.I. applications with minimal effort and minimal computational overhead.  We also want to minimize the amount of effort spent in configuring each device and allow different hardware devices to work together seamlessly.  CURT can be used as a backend for CAIT to offer more flexibility and gives users the ability to write programs for difference devices to cooperate to accomplish a common goal.
 
