@@ -38,11 +38,11 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 ## How do I try it
 
-You can download our latest release from this repository and execute the setup_cait.sh script in it directly. A screencast is shown below to demostrate this process.
+You can download our latest release from this repository and run the setup_cait.sh script under the project directory.  The following screencast illustrates this process.
 
-<Setup screencast>
+[![Watch the video](https://img.youtube.com/vi/jOG4wboVPo0/3.jpg)](https://youtu.be/jOG4wboVPo0)
     
-Alternatively, you can choose to start by cloning this repository and install from source.
+Alternatively, you may choose to clone this repository and follow the instructions in the next section.
 
 ## Installing from source
 
@@ -68,7 +68,7 @@ After the setup process is completed, the device's hostname is changed to cait-<
 
 <img src="images/hostname.png" width="80%">
 
-The above setup script configures the raspberry pi to operate in access point mode if it cannot connect to any WIFI hotspot.  This can be very useful if the raspberry pi is brought to a new location where the WIFI has not been configured.  In this case, you can easily configure it to use the new WIFI headlessly by connecting your computer to the raspberry pi's access point, and then visit `http://<hostname>.local/setup`.  If there is a problem resolving the hostname, you can also go to `http://<ap-ip-address>.local/setup` instead.
+The above setup script configures the raspberry pi to operate in access point mode if it cannot connect to any WIFI hotspot.  This can be very useful if the raspberry pi is brought to a new location where the WIFI has not been configured.  In this case, you can easily configure it to use the new WIFI headlessly by connecting your computer to the raspberry pi's access point, and then visit `http://<hostname>.local/setup`.  If there is a problem resolving the hostname, you can also go to `http://<ap-ip-address>/setup` instead.
 
 ## Quick start
 
