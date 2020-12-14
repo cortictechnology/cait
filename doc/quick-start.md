@@ -18,9 +18,11 @@ Next, you can test the functionality of any attached camera and audio device, to
 
 <img src="../images/testhw.png" width="60%">	
 
-After that, you will be asked to signup for a google cloud service account for voice-related service, and upload the account file to the device.	
+After that, you will be asked to signup for a google cloud service account for voice-related service, and upload the account file to the device. A screencast of how to create a google cloud service account and download the account file is shown below.
 
 <img src="../images/google.png" width="60%">	
+
+<screencast of google setup>
 
 Finally, you need to reboot CAIT for everything to be applied.	
 
