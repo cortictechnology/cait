@@ -74,7 +74,7 @@ RUN apt install cmake -y; \
     pip install crc32c
 
 WORKDIR /root/rasa
-RUN sed -i 's/version = "0.1.0"/version = "1.0.0"/g' poetry.lock
+RUN sed -i 's/version = "0.1.0"/version = "1.0.0"/g' poetry.lock; \
     /bin/bash -c "source /root/.poetry/env && make install"; \
     pip install jieba paho-matt
 
