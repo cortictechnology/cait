@@ -9,15 +9,11 @@
 
 The Cortic A.I. Toolkit, or CAIT for short, is a software package that enables makers and students to learn and experiment with A.I. algorithms on the popular Raspberry Pi 4B single board computer.  Our goal is to eliminate complicated software setup and allow people to easily integrate A.I. into their own projects.  We take a container based approach and pre-installed many state-of-the-art open source A.I. software packages/frameworks into cohesive docker containers.  We link these containers into a single system by employing the lightweight MQTT protocol. We also extended Google's Blockly visual programming language to offer a quick prototyping environment for our users.  CAIT currently has a nubmer of custom A.I. and automation blocks:
 
-* Face detection
-* Face recognition
-* Image classification
-* Object detection, 
-* Text to speech 
-* Speech to text
-* Natural language processing
-* LEGO motor control
-* Smart home device control
+| <img src="https://github.com/cortictechnology/cait/blob/main/images/face-recognition.gif" width="100%"> | <img src="https://github.com/cortictechnology/cait/blob/main/images/image-classification.gif" width="100%"> | <img src="https://github.com/cortictechnology/cait/blob/main/images/object-detection.gif" width="100%">
+|:--:|:--:|:--:|
+| *Face Recognition* | *Image Classification* | *Object Detection* |
+| <img src="https://github.com/cortictechnology/cait/blob/main/images/nlp.gif" width="100%"> | <img src="https://github.com/cortictechnology/cait/blob/main/images/lego-motor.gif" width="100%"> | <img src="https://github.com/cortictechnology/cait/blob/main/images/home-assistant.gif" width="100%"> |
+| *Natural Language Processing* | *LEGO Motor Control* | *Smart Home Control* |
 
 All of these custom blocks are backed by a simple Python API.  You may choose to program directly using this API for added flexibility and power.  In fact, if you already have a running project that uses the visual programming interface, you can easily convert it into Python code using our automated conversion tool.  
 
