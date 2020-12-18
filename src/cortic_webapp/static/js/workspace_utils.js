@@ -238,7 +238,10 @@ function updateFunction(event) {
         }
       }
       if (block.type.indexOf('procedures_') != -1) {
-        block.setEnabled(true);
+        if (block.tooltip.indexOf("Creates a function") == 0) {
+          block.setEnabled(true);
+          enableChileBlock(block);
+        }
       } 
     }
   }
@@ -397,6 +400,7 @@ function stop_code() {
 async function gen_py_code() {
   Blockly.Python.addReservedWords('code');
   var code = Blockly.Python.workspaceToCode(workspace);
+  console.log(code);
   var filename;
   filename = prompt(localizedStrings.genPyName[locale]);
   if(filename != ''){

@@ -27,7 +27,7 @@ function switch_lang() {
 async function recognize_face() {
   try {
     const res = await ajax_post("/recognizeface", {});
-    console.log(res);
+    //console.log(res);
     return res;
   } catch(err) {
       console.log(err);
@@ -205,7 +205,7 @@ async function init_smarthome() {
 
 async function control_light(device_name, operation, parameter) {
   try {
-    console.log("device name: " + device_name + ", operation: " + operation);
+    //console.log("device name: " + device_name + ", operation: " + operation);
     const res = await ajax_post("/control_light", {'device_name' : device_name, 'operation' : operation, 'parameter' : parameter});
     console.log(res);
   } catch(err) {
@@ -224,7 +224,7 @@ async function get_name(intention) {
 
 async function control_media_player(device_name, operation) {
   try {
-    console.log("device name: " + device_name + ", operation: " + operation);
+    //console.log("device name: " + device_name + ", operation: " + operation);
     const res = await ajax_post("/control_media_player", {'device_name' : device_name, 'operation' : operation});
     console.log(res);
   } catch(err) {

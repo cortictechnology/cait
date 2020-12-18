@@ -34,7 +34,7 @@ from shutil import copyfile
 logging.getLogger().setLevel(logging.INFO)
 
 application = Flask(__name__)
-application.secret_key = os.urandom(24)
+application.secret_key = "corticCAIT"
 
 login_manager = LoginManager()
 login_manager.init_app(application)
@@ -376,6 +376,7 @@ def switchlang():
 @application.route('/programming')
 @login_required
 def programming():
+    session.permanent = True
     if current_language == "chinese":
         return render_template('programming_chs.html')
     elif current_language == "french":
@@ -525,15 +526,19 @@ def format_python_code(code_string):
     formatted_code = []
     code_split = code.splitlines()
     for line in code_split:
-        if line.find("import") == 0:
+        if line.find("import ") == 0 or line.find("from ") == 0:
             formatted_code.append(line)
     need_indent = False
     under_main_block = False
+    variable_list = []
     for i in range(len(code_split)):
         line = code_split[i]
-        if line.find("import ") == 0 or line.find("  global ") != -1:
+        if line.find("import ") == 0 or line.find("from ") == 0:
             continue
-        if line.find("def") == 0 or line.find('"""') == 0:
+        if line.find(" = None") != -1:
+            variable_name = line[0:line.find(" = None")]
+            variable_list.append(variable_name)
+        if line.find("def") == 0 or line.find('"""') == 0 or line.find(" = None") != -1:
             need_indent = False
             if line.find("def main():") == 0:
                 under_main_block = True
@@ -556,17 +561,30 @@ def format_python_code(code_string):
     for line in formatted_code:
         if line.find('"""') == 0 or line.find("def") == 0:
             break
-        if line.find("import ") == -1:
+        if line.find("import ") == -1 and line.find(" = None") == -1:
             line_to_remove.append(line)
         
     for line in line_to_remove:
         formatted_code.remove(line)
 
+    main_line_location = -1
     for i in range(len(formatted_code) - 1):
         line = formatted_code[i]
         if line.find("import ") == 0:
             if formatted_code[i+1].find("import ") == -1:
                 formatted_code[i] = line + "\n"
+        if line.find(" = None") != -1:
+            if formatted_code[i+1].find(" = None") == -1:
+                formatted_code[i] = line + "\n"
+        if line.find("def main():") == 0: 
+            main_line_location = i
+    
+    if main_line_location != -1:
+        global_line = "    global "
+        for var in variable_list:
+            global_line = global_line + var + ", "
+        global_line = global_line[0:-2]
+        formatted_code.insert(main_line_location + 1, global_line)
 
     formatted_code.append('\nif __name__ == "__main__":')
     formatted_code.append("    setup()")
@@ -610,6 +628,9 @@ def savenotebook():
     code = format_python_code(code)
     import_code = code[0:code.find("\n\n")]
     import_code = import_code + "\nfrom lolviz import *"
+    if code.find("None\n\n") != -1:
+        import_code = import_code + code[code.find("\n\n"):code.find("None\n\n")] + "None"
+
     init_code = code[code.find("def setup():"):code.find("\n    \n", code.find("def setup():"))]
     main_code = code[code.find("def main()"):code.find("\n\n", code.find("def main()"))]
     run_code = code[code.find("if __name__"):]

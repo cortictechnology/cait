@@ -1254,10 +1254,10 @@ Blockly.JavaScript['lights'] = function(block) {
   var dropdown_operation = block.getFieldValue('operation');
   var text_parameter = block.getFieldValue('parameter');
   if (text_parameter != null) {
-    var code = "control_light('" + dropdown_light + "', '" + dropdown_operation + "', '" + text_parameter + "');\n";
+    var code = "await control_light('" + dropdown_light + "', '" + dropdown_operation + "', '" + text_parameter + "');\n";
   }
   else{
-    var code = "control_light('" + dropdown_light + "', '" + dropdown_operation + "', 'none');\n";
+    var code = "await control_light('" + dropdown_light + "', '" + dropdown_operation + "', 'none');\n";
   }
   return code;
 };
@@ -1278,7 +1278,7 @@ Blockly.Python['lights'] = function(block) {
 Blockly.JavaScript['media_player'] = function(block) {
   var dropdown_media_player = block.getFieldValue('media_player');
   var dropdown_operation = block.getFieldValue('operation');
-  var code = "control_media_player('" + dropdown_media_player + "', '" + dropdown_operation + "');\n";
+  var code = "await control_media_player('" + dropdown_media_player + "', '" + dropdown_operation + "');\n";
   return code;
 };
 
