@@ -5,6 +5,8 @@ Written by Michael Ng <michaelng@cortic.ca>, December 2019
   
  */
 
+var current_workspace = "";
+
 function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
   }
@@ -283,6 +285,7 @@ function updateFunction(event) {
       }
     }
   }  
+  current_workspace = workspace;
 }
 
 var stopCode = false;
@@ -392,7 +395,8 @@ function onReload () {
   load_workspace(true);
 }
 
-function stop_code() {
+async function stop_code() {
+  await save_workspace(true);
   window.location.hash = '#reload';
   location.reload();
 }
