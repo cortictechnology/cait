@@ -68,11 +68,7 @@ The above setup script configures the raspberry pi to operate in access point mo
 
 ## Quick start
 
-First follow the screencast below to complete the initial configuration process.
-
-[![Configuration screencast](https://img.youtube.com/vi/JMBmK45JhI4/hqdefault.jpg)](https://youtu.be/JMBmK45JhI4)
-
-Then you can follow our [Quick Start](https://github.com/cortictechnology/cait/wiki/1.0-Quick-Start) wiki page to get started.
+Please follow our [Quick Start](https://github.com/cortictechnology/cait/wiki/1.0-Quick-Start) wiki page to get started.
 
 ## How to contribute
 
