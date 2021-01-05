@@ -34,13 +34,7 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 ## How do I try it
 
-You can download our latest release from this repository and run the setup_cait.sh script under the project directory.  The following screencast illustrates this process.
-
-[![Setup screencast](https://img.youtube.com/vi/jOG4wboVPo0/hqdefault.jpg)](https://youtu.be/jOG4wboVPo0)
-    
-Alternatively, you may choose to clone this repository and follow the instructions in the next section.
-
-## Installing from source
+### Installing from source
 
 Before you start, make sure there is at least 32GB of free space on your SD card.  
 
@@ -66,9 +60,7 @@ After the setup process is completed, the device's hostname is changed to cait-<
 
 The above setup script configures the raspberry pi to operate in access point mode if it cannot connect to any WIFI hotspot.  This can be very useful if the raspberry pi is brought to a new location where the WIFI has not been configured.  In this case, you can easily configure it to use the new WIFI headlessly by connecting your computer to the raspberry pi's access point, and then visit `http://<hostname>.local/setup`.  If there is a problem resolving the hostname, you can also go to `http://<ap-ip-address>/setup` instead.
 
-## Quick start
-
-Please follow our [Quick Start](https://github.com/cortictechnology/cait/wiki/1.0-Quick-Start) wiki page to get started.
+Next, Please follow our [Quick Start](https://github.com/cortictechnology/cait/wiki/1.0-Quick-Start) wiki page to get started.
 
 ## How to contribute
 
