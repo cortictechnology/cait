@@ -34,8 +34,6 @@ We also support the use of Raspberry Pi's CSI camera interface.  However, if you
 
 ## How do I try it
 
-### Installing from source
-
 Before you start, make sure there is at least 32GB of free space on your SD card.  
 
 ```
