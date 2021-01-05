@@ -3,7 +3,7 @@
 </div>
 <br>
 
-[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/)  [![QuickStart](https://img.shields.io/badge/doc-quick%20start-blue.svg)](https://github.com/cortictechnology/cait/wiki/1.0-Quick-Start)
+[![Documentation](https://img.shields.io/badge/api-reference-blue.svg)](https://michaelnhw.github.io/test_page/)
 
 ## CAIT
 
