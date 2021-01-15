@@ -12,6 +12,7 @@ import time
 import json
 import threading
 import serial
+import bluetooth
 
 logging.getLogger().setLevel(logging.INFO)
 

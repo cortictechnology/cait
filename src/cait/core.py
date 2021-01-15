@@ -95,6 +95,10 @@ def get_audio_devices():
     return caitCore.get_devices("audio")
 
 
+def get_control_devices():
+    return caitCore.get_devices("control")
+
+
 def test_camera(index):
     available_video_devices = caitCore.get_devices("video")
     current_video_device = None
@@ -259,10 +263,9 @@ def deactivate_nlp():
 
 def initialize_control(mode):
     control_wait = 0
-    #available_control_devices = caitCore.get_devices("control")
-    # if len(available_control_devices) == 0:
-    #     return False, "No control device is detected, or connected device is not supported"
-    
+    available_control_devices = caitCore.get_devices("control")
+    if len(available_control_devices) == 0:
+        return False, "No control device is detected, or connected device is not supported"
     while not caitCore.get_component_state("control", "Up"):
         if control_wait <= 100:
             if mode == "ev3":

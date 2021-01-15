@@ -29,8 +29,8 @@ sudo sh -c "echo 'dtparam=spi=on' >> /boot/config.txt"
 # Need to add nameserver for later apt-get install, otherwise, there is chance for it to not able reolve domain
 sudo sh -c "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf"
 sudo apt-get install v4l-utils -y
-sudo apt-get install portaudio19-dev mplayer graphviz -y
-sudo pip3 install docker-compose flask Flask-HTTPAuth flask-login flask_cors paho-mqtt gunicorn pyaudio lolviz cython
+sudo apt-get install portaudio19-dev mplayer graphviz bluez-tools -y
+sudo pip3 install docker-compose flask Flask-HTTPAuth flask-login flask_cors paho-mqtt gunicorn pyaudio lolviz cython pybluez
 sudo apt-get install npm nodejs -y
 npm install --save-dev javascript-obfuscator
 sudo npm link javascript-obfuscator
@@ -54,20 +54,17 @@ sudo npm install -g configurable-http-proxy
 sudo pip3 install notebook
 sudo pip3 install jupyterhub
 sudo cp chkpass.sh start_cait_components.sh start_jupyterhub.sh add_wifi.py scan_wifi.py monitor_wifi.py /opt/
-sudo cp cait_webapp.service cait_jupyter.service cait_components.service cait_wifi.service /etc/systemd/system
+sudo cp cait_webapp.service cait_jupyter.service cait_components.service cait_wifi.service bt-agent.service bt-network.service /etc/systemd/system
+sudo cp pan0.netdev pan0.network /etc/systemd/network
 sudo cp change_hostname.sh /usr/sbin
 sudo chmod +x /usr/sbin/change_hostname.sh
 sudo systemctl daemon-reload
+sudo systemctl enable systemd-networkd
+sudo systemctl enable bt-agent
+sudo systemctl enable bt-network
 sudo systemctl enable /etc/systemd/system/cait_*
 sudo rm get-docker.sh
-sudo bash -c 'echo "dtoverlay=dwc2" >> /boot/config.txt'
-sudo bash -c 'echo "modules-load=dwc2" >> /boot/cmdline.txt'
-sudo bash -c 'echo "libcomposite" >> /etc/modules'
-sudo bash -c 'echo "denyinterfaces usb0" >> /etc/dhcpcd.conf'
-sudo cp usb /etc/dnsmasq.d
-sudo cp usb0 /etc/network/interfaces.d
-sudo cp usb.sh /root/
-sudo chmod +x /root/usb.sh
+sudo bash -c 'echo "denyinterfaces pan0" >> /etc/dhcpcd.conf'
 
 for i in ${!options[@]}; do
 

@@ -50,6 +50,7 @@ var media_players = [];
 var cloud_accounts = [];
 var nlp_models = [];
 var virtual_processors = {"Vision": [], "STT": [], "TTS": [], "NLP": []}
+var control_hubs = [];
 
 function initDevices(interpreter, scope) {
   var wrapper = function(device_type, callback) {
@@ -91,7 +92,10 @@ function get_cloud_accounts() {
   }
 }
 
-get_cloud_accounts();
+setInterval(function() {
+  myInterpreter_cloud = new Interpreter(get_cloud_accounts_code, cloudAccounts);
+  get_cloud_accounts();
+}, 5000);
 
 
 function NLPModels(interpreter, scope) {
@@ -120,8 +124,10 @@ function get_nlp_models() {
   }
 }
 
-get_nlp_models()
-
+setInterval(function() {
+  myInterpreter_nlp = new Interpreter(get_nlp_models_code, NLPModels);
+  get_nlp_models();
+}, 5000);
 
 var get_light_device_code = "get_devices('light');";
 var myInterpreter_light = new Interpreter(get_light_device_code, initDevices);
@@ -136,7 +142,10 @@ function get_light_devices() {
   }
 }
 
-get_light_devices();
+setInterval(function() {
+  myInterpreter_light = new Interpreter(get_light_device_code, initDevices);
+  get_light_devices();
+}, 5000);
 
 var get_media_player_code = "get_devices('media_player');";
 var myInterpreter_mdeia = new Interpreter(get_media_player_code, initDevices);
@@ -151,6 +160,47 @@ function get_media_players() {
   }
 }
 
-get_media_players();
+setInterval(function() {
+  myInterpreter_mdeia = new Interpreter(get_media_player_code, initDevices);
+  get_media_players();
+}, 5000);
+
+function ControlHubs(interpreter, scope) {
+  var wrapper = function(callback) {
+    $.post("/get_control_devices",
+    {},
+    function(data, status){
+      callback(data['control_devices']);
+    });
+  };
+  interpreter.setProperty(scope, 'get_control_devices',
+      interpreter.createAsyncFunction(wrapper));
+}
+
+
+var get_control_devices_code = "get_control_devices();";
+var myInterpreter_control_devices = new Interpreter(get_control_devices_code, ControlHubs);
+
+function get_control_devices() {
+  var options = [];
+  if (myInterpreter_control_devices.run()) {
+    setTimeout(get_control_devices, 100);
+  }
+  if (myInterpreter_control_devices.value != null) {
+    control_hubs = [];
+    for (var i = 0; i < myInterpreter_control_devices.value.length; i++){
+      if (myInterpreter_control_devices.value[i]['device'] == "EV3") {
+        control_hubs.push(myInterpreter_control_devices.value[i]['device'] + ": " + myInterpreter_control_devices.value[i]['ip_addr']);
+      } else {
+        control_hubs.push(myInterpreter_control_devices.value[i]['device'] + ": " + myInterpreter_control_devices.value[i]['mac_addr']);
+      }
+    }
+  }
+}
+
+setInterval(function() {
+  myInterpreter_control_devices = new Interpreter(get_control_devices_code, ControlHubs);
+  get_control_devices();
+}, 5000);
 
 load_workspace(true);

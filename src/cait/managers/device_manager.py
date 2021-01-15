@@ -15,6 +15,7 @@ import threading
 import pyaudio
 import spidev
 from ctypes import *
+import bluetooth
 
 logging.getLogger().setLevel(logging.INFO)
 
@@ -94,31 +95,29 @@ class DeviceManager:
 
     def scan_control_devices(self):
         control_devices = []
-        for hat in SUPPORTED_CONTROL_HAT:
-            if hat == 'BrickPi':
-                BP_SPI = spidev.SpiDev()
-                BP_SPI.open(0, 1)
-                BP_SPI.max_speed_hz = 500000
-                BP_SPI.mode = 0b00
-                BP_SPI.bits_per_word = 8
-                outArray = [1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                try:
-                    reply = BP_SPI.xfer2(outArray)
-                    name = ""
-                    if reply[3] == 0xA5 :
-                        
-                        for c in range(4, 24):
-                            if reply[c] != 0:
-                                name += chr(reply[c])
-                            else:
-                                break
-                    if hat in name:
-                        cinfo = {"device": hat, "time": time.time()}
-                        control_devices.append(cinfo)
-                except:
-                    pass
-                BP_SPI.close()
-            #elif hat == 'Adafruit Servo HAT':
+        nearby_devices = bluetooth.discover_devices(lookup_names=True)
+        for addr, name in nearby_devices:
+            if name.find("LEGO") != -1:
+                cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time()}
+                control_devices.append(cinfo)
+        connected_devices = subprocess.check_output(["hcitool", "con"]).decode("utf-8").split("\n")
+        mac_addr_re = re.compile("^.*([0-9,:,A-F]{17}).*$")
+        for device in connected_devices:
+            mac_addr = mac_addr_re.match(device)
+            if mac_addr != None:
+                addr = mac_addr.group(1)
+                device_name = subprocess.check_output(["hcitool", "name", addr]).decode("utf-8").split("\n")[0]
+                if device_name.find("ev3") != -1:
+                    with open("/var/lib/misc/dnsmasq.leases") as f:
+                        ip_list = f.readlines()
+                    for ip in ip_list:
+                        ip_info = ip.split(" ")
+                        if ip_info[1].upper() == addr:
+                            cinfo = {"device": "EV3", "mac_addr": addr, "ip_addr":  ip_info[2], "time": time.time()}
+                            control_devices.append(cinfo)
+                elif device_name.find("LEGO") != -1:
+                    cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time()}
+                    control_devices.append(cinfo)
         return control_devices
 
     def update_device_list(self, current_list, new_list):

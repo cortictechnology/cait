@@ -163,24 +163,37 @@ Blockly.defineBlocksWithJsonArray([
       "message0": "%{BKY_INIT_CONTROL}",
       "args0": [
         {
-          "type": "field_dropdown",
-          "name": "mode",
-          "options": [
-            [
-              "ev3",
-              "ev3"
-            ],
-            [
-              "spike",
-              "spike"
-            ]
-          ]
+          "type": "input_dummy",
+          "align": "CENTRE"
+        },
+        {
+          "type": "input_statement",
+          "name": "statements",
+          "align": "CENTRE"
         }
       ],
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F78C00",
       "tooltip": "%{BKY_INIT_CONTROL_TOOLTIP}",
+      "helpUrl": ""
+    },
+    {
+      "type": "add_control_hub",
+      "lastDummyAlign0": "CENTRE",
+      "message0": "%{BKY_ADD_CONTROL_HUB}",
+      "args0": [
+        {
+          "type": "input_dummy",
+          "name" : "control_hubs",
+          "align": "CENTRE"
+        }
+      ],
+      "extensions": ["dynamic_control_hubs_extension"],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#F78C00",
+      "tooltip": "%{BKY_ADD_CONTROL_HUB_TOOLTIP}",
       "helpUrl": ""
     },
     {
@@ -749,6 +762,25 @@ function() {
         return options;
       }), 'models');
 });
+
+
+Blockly.Extensions.register('dynamic_control_hubs_extension',
+  function() {
+    this.getInput('control_hubs')
+      .appendField(new Blockly.FieldDropdown(
+        function() {
+          var options = [];
+          if (control_hubs.length > 0) {
+            for (i in control_hubs) {
+              options.push([control_hubs[i], control_hubs[i]])
+            }
+          }
+          else {
+            options.push(['none', 'none']);
+          }
+          return options;
+        }), 'hubs');
+  });
 
 Blockly.JavaScript['setup_block'] = function(block) {
   var statements_main = Blockly.JavaScript.statementToCode(block, 'init_blocks');

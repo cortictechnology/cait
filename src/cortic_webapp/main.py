@@ -209,6 +209,18 @@ def getaudiodev():
         audio_devices.append(dev)
     return jsonify(audio_devices)
 
+@application.route('/get_control_devices', methods=['POST'])
+def get_control_devices():
+    devices = essentials.get_control_devices()
+    control_devices = []
+    for control_dev in devices:
+        if control_dev["device"] == "EV3":
+            dev = {"device": control_dev["device"], "mac_addr": control_dev["mac_addr"], "ip_addr": control_dev["ip_addr"]}
+        else:
+            dev = {"device": control_dev["device"], "mac_addr": control_dev["mac_addr"]}
+        control_devices.append(dev)
+    return jsonify({"control_devices": control_devices})
+
 @application.route('/testcam', methods=['POST'])
 def testcam():
     cam_index = request.form.get('index')

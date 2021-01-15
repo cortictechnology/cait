@@ -663,13 +663,14 @@ if [ ! -f "/etc/dnsmasq.conf.orig" ]; then
 fi
 
 cat > /etc/dnsmasq.conf <<EOF
-interface=lo,${apInterfaceName}               #Use interfaces lo and ${apInterfaceName}
+interface=lo,${apInterfaceName},pan0               #Use interfaces lo and ${apInterfaceName}
 no-dhcp-interface=lo,${wlanInterfaceName}
 bind-interfaces                 #Bind to the interfaces
 server=8.8.8.8                  #Forward DNS requests to Google DNS
 #domain-needed                  #Don't forward short names
 bogus-priv                      #Never forward addresses in the non-routed address spaces
-dhcp-range=$apDhcpRange
+dhcp-range=${apInterfaceName},$apDhcpRange
+dhcp-range=dhcp-range=pan0,172.20.1.2,172.20.1.102,12h
 EOF
 
 cat > /etc/hostapd/hostapd.conf <<EOF
@@ -950,7 +951,7 @@ sudo ./setup-network.sh --install-upgrade --ap-ssid="abc-1" --ap-password="passw
     echo "[Reboot]: In 10 seconds ..."
     sleep 10
     sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/sbin/iwconfig wlan0 power off" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
-    sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/bin/bash /root/usb.sh" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
+    sudo bash -c  'output=$(head -n -1 /etc/rc.local ; echo "/bin/hciconfig hci0 piscan" ; tail -1 /etc/rc.local); echo "$output" > /etc/rc.local'
     reboot
 fi
 

@@ -151,6 +151,7 @@ function updateFunction(event) {
           block.type == "init_voice" || 
           block.type == "init_nlp" || 
           block.type == "init_control" ||  
+          block.type == "add_control_hub" ||
           block.type == "init_smarthome") {
         var within_setup_block = false;
         while (parentBlock != null) {

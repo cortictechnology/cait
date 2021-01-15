@@ -48,6 +48,16 @@ def get_audio_devices():
     """  
     return core.get_audio_devices()
 
+
+def get_control_devices():
+    """Get a list of connected control device
+
+    Returns:
+        (list): List of control device
+    """  
+    return core.get_control_devices()
+
+
 def test_camera(index):
     """Open the camera device with specific index, test for its connetion
 
