@@ -51,6 +51,7 @@ var cloud_accounts = [];
 var nlp_models = [];
 var virtual_processors = {"Vision": [], "STT": [], "TTS": [], "NLP": []}
 var control_hubs = [];
+var added_hubs = [];
 
 function initDevices(interpreter, scope) {
   var wrapper = function(device_type, callback) {
@@ -201,6 +202,22 @@ function get_control_devices() {
 setInterval(function() {
   myInterpreter_control_devices = new Interpreter(get_control_devices_code, ControlHubs);
   get_control_devices();
-}, 5000);
+}, 3000);
+
+
+function update_added_hub_list() {
+  var allBlocks = workspace.getAllBlocks();
+  for (blk in allBlocks){
+    if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
+      var hub_name = allBlocks[blk].inputList[0].fieldRow[1].value_;
+      var index = added_hubs.indexOf(hub_name);
+      if (index == -1) {
+        added_hubs.push(hub_name);
+      }
+    }
+  }
+}
+
+setInterval(update_added_hub_list, 1000);
 
 load_workspace(true);

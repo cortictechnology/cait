@@ -709,28 +709,40 @@ def loadworkspace():
 @application.route("/control_motor", methods=['POST'])
 @login_required
 def move():
+    hub_name = request.form.get('hub_name')
     motor_name = request.form.get('motor_name')
     speed = request.form.get('speed')
     duration = request.form.get('duration')
-    success = essentials.control_motor(motor_name, speed, duration)
-    result = {"success": success}
+    success, msg = essentials.control_motor(hub_name, motor_name, speed, duration)
+    if success == False:
+        result = {"success": success, "error": msg}
+    else:
+        result = {"success": success}
     return jsonify(result)
 
 @application.route("/control_motor_speed_group", methods=['POST'])
 @login_required
 def control_motor_speed_group():
     operation_list = request.form.get('data')
-    success = essentials.control_motor_speed_group(operation_list)
+    success, msg = essentials.control_motor_speed_group(operation_list)
     result = {"success": success}
+    if success == False:
+        result = {"success": success, "error": msg}
+    else:
+        result = {"success": success}
     return jsonify(result)
 
 @application.route("/rotate_motor", methods=['POST'])
 @login_required
 def rotate_motor():
+    hub_name = request.form.get('hub_name')
     motor_name = request.form.get('motor_name')
     angle = request.form.get('angle')
-    success = essentials.rotate_motor(motor_name, int(angle))
-    result = {"success": success}
+    success, msg = essentials.rotate_motor(hub_name, motor_name, int(angle))
+    if success == False:
+        result = {"success": success, "error": msg}
+    else:
+        result = {"success": success}
     return jsonify(result)
 
 @application.route("/control_motor_degree_group", methods=['POST'])
@@ -738,7 +750,11 @@ def rotate_motor():
 def control_motor_degree_group():
     operation_list = request.form.get('data')
     success = essentials.control_motor_degree_group(operation_list)
-    result = {"success": success}
+    result, msg = {"success": success}
+    if success == False:
+        result = {"success": success, "error": msg}
+    else:
+        result = {"success": success}
     return jsonify(result)
 
 @application.route("/get_states", methods=['POST'])

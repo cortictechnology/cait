@@ -20,7 +20,7 @@ import random
 
 from .cait_core import CAITCore
 
-logging.getLogger().setLevel(logging.WARNING)
+logging.getLogger().setLevel(logging.INFO)
 
 caitCore = CAITCore()
 
@@ -242,7 +242,7 @@ def initialize_nlp(mode="english_default"):
         caitCore.set_component_state("nlp", False)
         current_nlp_model = mode
     while not caitCore.get_component_state("nlp", "Up"):
-        if nlp_wait <= 1000:
+        if nlp_wait <= 200:
             result = caitCore.send_component_commond("nlp", "NLP Up," + mode)
             if result == False:
                 logging.info("Init NLP: Error occurred")
@@ -266,14 +266,10 @@ def initialize_control(mode):
     available_control_devices = caitCore.get_devices("control")
     if len(available_control_devices) == 0:
         return False, "No control device is detected, or connected device is not supported"
+    caitCore.set_component_state("control", False)
     while not caitCore.get_component_state("control", "Up"):
-        if control_wait <= 100:
-            if mode == "ev3":
-                hub_address = socket.gethostbyname('ev3dev.local')
-                result = caitCore.send_component_commond("control", "Control Up," + hub_address)
-            elif mode == "spike":
-                hub_address = "/dev/ttyACM0"
-                result = caitCore.send_component_commond("control", "Control Up," + hub_address)
+        if control_wait <= 30:
+            result = caitCore.send_component_commond("control", "Control Up," + mode)
             if result == False:
                 logging.info("Init Control: Error occurred")
                 return result, "MQTT Error"
@@ -572,64 +568,80 @@ def analyze(user_message):
     return topic, condifence, entities
 
 
-def control_motor(motor_name, speed, duration):
+def control_motor(hub_name, motor_name, speed, duration):
     caitCore.component_manager.doneMoving = False
     if not caitCore.get_component_state("control", "Up"):
         logging.info("Please call initialize_control() function before using Control module")
-        return
-    command = "move " + motor_name + " " + str(speed) + " " + str(duration)
+        return False, "Not initialized"
+    command = "hub " + hub_name + " move " + motor_name + " " + str(speed) + " " + str(duration)
     logging.info("Robot command:"+ str(command))
     result = caitCore.send_component_commond("control", command)
     if result == False:
         logging.info("Control Motor: Error occurred")
     while not caitCore.component_manager.doneMoving:
+        if caitCore.component_manager.controlException:
+            caitCore.component_manager.controlException = False
+            logging.warning("Hub disconnected")
+            return False, caitCore.component_manager.controlExceptionMsg
         time.sleep(0.03)
-    return True
+    return True, "OK"
 
 
 def control_motor_speed_group(operation_list):
     caitCore.component_manager.doneMoving = False
     if not caitCore.get_component_state("control", "Up"):
         logging.info("Please call initialize_control() function before using Control module")
-        return
+        return False, "Not initialized"
     command = "motor_speed_group " + operation_list
     logging.info("Robot command:"+ str(command))
     result = caitCore.send_component_commond("control", command)
     if result == False:
         logging.info("Control Motor Speed Group: Error occurred")
     while not caitCore.component_manager.doneMoving:
+        if caitCore.component_manager.controlException:
+            caitCore.component_manager.controlException = False
+            logging.warning("Hub disconnected")
+            return False, caitCore.component_manager.controlExceptionMsg
         time.sleep(0.03)
-    return True
+    return True, "OK"
 
 
-def rotate_motor(motor_name, angle):
+def rotate_motor(hub_name, motor_name, angle):
     caitCore.component_manager.doneMoving = False
     if not caitCore.get_component_state("control", "Up"):
         logging.info("Please call initialize_control() function before using Control module")
-        return
-    command = "rotate " + motor_name + " " + str(angle)
+        return False, "Not initialized"
+    command = "hub " + hub_name + " rotate " + motor_name + " " + str(angle)
     logging.info("Robot command:"+ str(command))
     result = caitCore.send_component_commond("control", command)
     if result == False:
         logging.info("Rotate Motor: Error occurred")
     while not caitCore.component_manager.doneMoving:
+        if caitCore.component_manager.controlException:
+            caitCore.component_manager.controlException = False
+            logging.warning("Hub disconnected")
+            return False, caitCore.component_manager.controlExceptionMsg
         time.sleep(0.03)
-    return True
+    return True, "OK"
 
 
 def control_motor_degree_group(operation_list):
     caitCore.component_manager.doneMoving = False
     if not caitCore.get_component_state("control", "Up"):
         logging.info("Please call initialize_control() function before using Control module")
-        return
+        return False, "Not initialized"
     command = "motor_degree_group " + operation_list
     logging.info("Robot command:"+ str(command))
     result = caitCore.send_component_commond("control", command)
     if result == False:
         logging.info("Rotate Motor Degree Group: Error occurred")
     while not caitCore.component_manager.doneMoving:
+        if caitCore.component_manager.controlException:
+            caitCore.component_manager.controlException = False
+            logging.warning("Hub disconnected")
+            return False, caitCore.component_manager.controlExceptionMsg
         time.sleep(0.03)
-    return True
+    return True, "OK"
 
 # Deprecated Function
 def rotate_to_face(coordinate):

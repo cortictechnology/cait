@@ -50,7 +50,10 @@ class ComponentManager:
         elif data == "Control Up":
             self.controlUp = True
         elif data == "Control Done":
-            self.doneMoving = True      
+            self.doneMoving = True  
+        elif data.find("Control Exception") != -1:
+            self.controlException = True
+            self.controlExceptionMsg = data[data.find(": ") + 2:]
         elif data == "Reset":
             logging.info("Resetting")
             self.resetVision = True
@@ -232,7 +235,7 @@ class ComponentManager:
         self.no_bounding_box = False
 
         self.receivedNewSTTMsg = False
-        self.currentSTTMsg = ''
+        self.currentSTTMsg = ""
 
         self.receivedWakeWord = False
         self.startSpeaking = False
@@ -243,10 +246,12 @@ class ComponentManager:
 
         self.nlpUp = False
         self.receivedNewNLPResponse = False
-        self.currentNLPResponse = ''
+        self.currentNLPResponse = ""
 
         self.controlUp = False
         self.doneMoving = True
+        self.controlException = False
+        self.controlExceptionMsg = ""
 
         self.token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjZGFhZGYwNTM5ZDM0NGUwYWNmNmMxNzk2MTMzMTQwOCIsImlhdCI6MTU4MjI2MjgyNywiZXhwIjoxODk3NjIyODI3fQ.8eixv03gAqgx-Mw3BZQmjuewDfStdDqzdHMzqt2JXbo'
         self.authorization = 'Bearer ' + self.token

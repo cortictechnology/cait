@@ -41,6 +41,14 @@ function enableChileBlock(block) {
   if (chileBlks.length > 0) {
     for (i in chileBlks) {
       chileBlks[i].setEnabled(true);
+      if (chileBlks[i].type == "add_control_hub") {
+        if (chileBlks[i].inputList[0].fieldRow[1].value_ != 'none'){
+          var index = added_hubs.indexOf(chileBlks[i].inputList[0].fieldRow[1].value_);
+          if (index == -1) {
+            added_hubs.push(chileBlks[i].inputList[0].fieldRow[1].value_);
+          }
+        }
+      }
       enableChileBlock(chileBlks[i]);
     }
   }
@@ -54,6 +62,23 @@ function disableChileBlock(block) {
   if (chileBlks.length > 0) {
     for (i in chileBlks) {
       chileBlks[i].setEnabled(false);
+      if (chileBlks[i].type == "add_control_hub") {
+        var allBlocks = workspace.getAllBlocks();
+        var index = added_hubs.indexOf(chileBlks[i].inputList[0].fieldRow[1].value_);
+        if (index != -1) {
+          var hub_still_exists = false;
+          for (blk in allBlocks){
+            if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
+              if (allBlocks[blk].inputList[0].fieldRow[1].value_ == chileBlks[i].inputList[0].fieldRow[1].value_) {
+                hub_still_exists = true;
+              }
+            }
+          }
+          if (!hub_still_exists) {
+            added_hubs.splice(index, 1);
+          }
+        }
+      }
       disableChileBlock(chileBlks[i]);
     }
   }
@@ -62,11 +87,47 @@ function disableChileBlock(block) {
   }
 }
 
+var test;
+
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
   var allBlocks = workspace.getAllBlocks();
-  if (event.type == Blockly.Events.BLOCK_CHANGE) {
+  if (event.type == Blockly.Events.BLOCK_CHANGE) {    
     if (event.element == "field") {
+      if (block.type == "add_control_hub") {
+        if (event.oldValue == "none") {
+          var index = added_hubs.indexOf(event.newValue);
+          if (index == -1) {
+            added_hubs.push(event.newValue);
+          }
+        }
+        if (event.newValue == "none") {
+          var index = added_hubs.indexOf(event.oldValue);
+          if (index != -1) {
+            added_hubs.splice(index, 1);
+          }
+        }
+        else {
+          var index = added_hubs.indexOf(event.newValue);
+          if (index == -1) {
+            added_hubs.push(event.newValue);
+          }
+          index = added_hubs.indexOf(event.oldValue);
+          if (index != -1) {
+            var hub_still_exists = false;
+            for (blk in allBlocks){
+              if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
+                if (allBlocks[blk].inputList[0].fieldRow[1].value_ == event.oldValue) {
+                  hub_still_exists = true;
+                }
+              }
+            }
+            if (!hub_still_exists) {
+              added_hubs.splice(index, 1);
+            }
+          }
+        }
+      }
       if (event.oldValue == "color_name" || event.oldValue == "brightness_pct") {
         block.getInput("param_input").removeField('parameter');
       }
@@ -158,6 +219,14 @@ function updateFunction(event) {
           if (parentBlock.type == "setup_block") {
             within_setup_block = true;
             block.setEnabled(true);
+            if (block.type == "add_control_hub") {
+              if (block.inputList[0].fieldRow[1].value_ != 'none'){
+                var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
+                if (index == -1) {
+                  added_hubs.push(block.inputList[0].fieldRow[1].value_);
+                }
+              }
+            }
             enableChileBlock(block);
             break;
           }
@@ -167,6 +236,23 @@ function updateFunction(event) {
         }
         if (!within_setup_block) {
           block.setEnabled(false);
+          allBlocks = workspace.getAllBlocks();
+          if (block.type == "add_control_hub") {
+            var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
+            if (index != -1) {
+              var hub_still_exists = false;
+              for (blk in allBlocks){
+                if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
+                  if (allBlocks[blk].inputList[0].fieldRow[1].value_ == block.inputList[0].fieldRow[1].value_) {
+                    hub_still_exists = true;
+                  }
+                }
+              }
+              if (!hub_still_exists) {
+                added_hubs.splice(index, 1);
+              }
+            }
+          }
           disableChileBlock(block);
         }
       }
@@ -250,6 +336,24 @@ function updateFunction(event) {
   }
 
   if (event.type == Blockly.Events.BLOCK_DELETE) {
+    if (event.oldXml.getAttribute("type") == "add_control_hub"){
+      var index = added_hubs.indexOf(event.oldXml.getRootNode().firstElementChild.textContent);
+      allBlocks = workspace.getAllBlocks();
+      if (index != -1) {
+        var hub_still_exists = false;
+        for (blk in allBlocks){
+          if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
+            if (allBlocks[blk].inputList[0].fieldRow[1].value_ == event.oldXml.getRootNode().firstElementChild.textContent) {
+              hub_still_exists = true;
+            }
+          }
+        }
+        if (!hub_still_exists) {
+          added_hubs.splice(index, 1);
+        }        
+      }
+    }
+
     var setupBlockRemains = false;
     for (blk in allBlocks) {
       if (allBlocks[blk].type == "setup_block") {

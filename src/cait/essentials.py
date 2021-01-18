@@ -255,7 +255,7 @@ def analyse_text(text):
 
     return intention
 
-def control_motor(motor_name, speed, duration):
+def control_motor(hub_name, motor_name, speed, duration):
     """Move robot forward or backward, with specific speed and for specific duration
 
     Parameters:
@@ -267,9 +267,9 @@ def control_motor(motor_name, speed, duration):
         (bool): True if successfully moved. False otherwise.
     """    
 
-    success = core.control_motor(motor_name, speed, duration)
+    success, msg = core.control_motor(hub_name, motor_name, speed, duration)
 
-    return success
+    return success, msg
 
 def control_motor_speed_group(operation_list):
     """Move a group of motors together
@@ -281,11 +281,11 @@ def control_motor_speed_group(operation_list):
         (bool): True if successfully moved. False otherwise.
     """ 
 
-    success = core.control_motor_speed_group(operation_list)
+    success, msg = core.control_motor_speed_group(operation_list)
 
-    return success
+    return success, msg
 
-def rotate_motor(motor_name, angle):
+def rotate_motor(hub_name, motor_name, angle):
     """Rotate robot to a certain angle
 
     Parameters:
@@ -296,9 +296,9 @@ def rotate_motor(motor_name, angle):
         (bool): True if successfully moved. False otherwise.
     """    
 
-    success = core.rotate_motor(motor_name, angle)
+    success, msg = core.rotate_motor(hub_name, motor_name, angle)
 
-    return success
+    return success, msg
 
 def control_motor_degree_group(operation_list):
     """Rotate a group of motors together
@@ -309,9 +309,9 @@ def control_motor_degree_group(operation_list):
     Returns:
         (bool): True if successfully moved. False otherwise.
     """ 
-    success = core.control_motor_degree_group(operation_list)
+    success, msg = core.control_motor_degree_group(operation_list)
 
-    return success
+    return success, msg
 
 
 def get_devices(device_type):

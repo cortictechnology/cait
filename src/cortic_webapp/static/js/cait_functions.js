@@ -110,20 +110,26 @@ async function analyze(text) {
   }
 }
 
-async function rotate_motor(motor_name, angle) {
+async function rotate_motor(hub_name, motor_name, angle) {
   try {
-    const res = await ajax_post("/rotate_motor", {'motor_name' : motor_name, 'angle' : angle});
+    const res = await ajax_post("/rotate_motor", {'hub_name': hub_name, 'motor_name' : motor_name, 'angle' : angle});
     console.log(res);
+    if(res['success'] == false) {
+      alert(res["error"] + ". Please fix the problem and click Run again.");
+    }
   } catch(err) {
       console.log(err);
       return err;
   }
 }
 
-async function control_motor(motor_name, speed, duration) {
+async function control_motor(hub_name, motor_name, speed, duration) {
   try {
-    const res = await ajax_post("/control_motor", {'motor_name' : motor_name, "speed" : speed, "duration" : duration});
+    const res = await ajax_post("/control_motor", {'hub_name': hub_name, 'motor_name' : motor_name, "speed" : speed, "duration" : duration});
     console.log(res);
+    if(res['success'] == false) {
+      alert(res["error"] + ". Please fix the problem and click Run again.");
+    }
   } catch(err) {
       console.log(err);
       return err;
@@ -136,6 +142,9 @@ async function control_motor_speed_group(operation_list) {
     dataToSend = JSON.stringify({ 'operation_list': operation_list });
     const res = await ajax_post("/control_motor_speed_group", {'data' : dataToSend});
     console.log(res);
+    if(res['success'] == false) {
+      alert(res["error"] + ". Please fix the problem and click Run again.");
+    }
   } catch(err) {
       console.log(err);
       return err;
@@ -145,9 +154,11 @@ async function control_motor_speed_group(operation_list) {
 async function control_motor_degree_group(operation_list) {
   try {
     dataToSend = JSON.stringify({ 'operation_list': operation_list });
-    console.log(dataToSend)
     const res = await ajax_post("/control_motor_degree_group", {'data' : dataToSend});
     console.log(res);
+    if(res['success'] == false) {
+      alert(res["error"] + ". Please fix the problem and click Run again.");
+    }
   } catch(err) {
       console.log(err);
       return err;
@@ -158,10 +169,16 @@ async function init(component_name, mode="online", processor="local", account="d
   try{
     loader.style.display="flex";
     document.getElementById("loading_text").innerHTML = "Initializing " + component_name + " component...";
-    const res = await ajax_post("/initialize_component", {'component_name': component_name, 'mode' : mode, 'processor' : processor, 'account' : account, 'language': language});
+    var res;
+    if (Array.isArray(mode)){
+      res = await ajax_post("/initialize_component", {'component_name': component_name, 'mode' : JSON.stringify(mode), 'processor' : processor, 'account' : account, 'language': language});
+    }
+    else {
+      res = await ajax_post("/initialize_component", {'component_name': component_name, 'mode' : mode, 'processor' : processor, 'account' : account, 'language': language});
+    }
     loader.style.display="none";
     if(res['success'] == false) {
-      alert(res["error"] + ". Please fix the problem and click Run again in 10 seconds");
+      alert("Initialization of " + component_name + " " + res["error"] + ". Please fix the problem and click Run again.");
     }
   } catch(err) {
       console.log(err);
