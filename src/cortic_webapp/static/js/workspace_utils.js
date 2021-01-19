@@ -136,6 +136,7 @@ function updateFunction(event) {
           new Blockly.FieldTextInput(), "parameter"
         )
       }
+
       if (event.oldValue == "on_device") {
         block.getInput("cloud_accounts").setVisible(true);
         block.getInput("ending").setVisible(true);
@@ -318,6 +319,21 @@ function updateFunction(event) {
           }
         }
       }
+      // if (block.type == "motor_control") {
+      //   if (block.inputList[0].fieldRow[1].value_.indexOf("Robot Inventor: ") != -1){
+      //     if (block.inputList[1].fieldRow[1].menuGenerator_.length == 4) {
+      //       block.inputList[1].fieldRow[1].menuGenerator_.push(['motor_E', 'motor_E']);
+      //       block.inputList[1].fieldRow[1].menuGenerator_.push(['motor_F', 'motor_F']);
+      //     } 
+      //   }
+      //   else if (block.inputList[0].fieldRow[1].value_.indexOf("EV3: ") != -1) {
+      //     if (block.inputList[1].fieldRow[1].menuGenerator_.length == 6) {
+      //       block.inputList[1].fieldRow[1].menuGenerator_.pop();
+      //       block.inputList[1].fieldRow[1].menuGenerator_.pop();
+      //     }
+      //   }
+      // }
+
       if (block.type == "set_parameter" && block.parentBlock_ != null) {
         block.setEnabled(true);
       }

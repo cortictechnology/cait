@@ -196,7 +196,7 @@ def setPosition(hub_name, motor_name, position):
             this_motor.on_for_degrees(100, position)
         except:
             logging.warning("Time out occured, Hub disconnected")
-            client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected", qos=1)
+            client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected motor port not working", qos=1)
             del current_hubs[hub_name]
             return
     elif hub_type == "Robot Inventor":
@@ -235,7 +235,7 @@ def rotate_group(operation_list):
                 this_motor.on_for_degrees(100, angle, block=False)
             except:
                 logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected", qos=1)
+                client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected motor port not working", qos=1)
                 del current_hubs[operation['hub_name']]
                 return
         elif hub_type == "Robot Inventor":
@@ -277,7 +277,7 @@ def move(hub_name, motor_name, speed=1, duration=0):
                 this_motor.on(speed)
             except:
                 logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected", qos=1)
+                client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected or motor port not working", qos=1)
                 del current_hubs[hub_name]
                 return
         elif hub_type == "Robot Inventor":
@@ -300,7 +300,7 @@ def move(hub_name, motor_name, speed=1, duration=0):
                 this_motor.reset()
             except:
                 logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected", qos=1)
+                client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected motor port not working", qos=1)
                 del current_hubs[hub_name]
                 return
         elif hub_type == "Robot Inventor":
@@ -345,7 +345,7 @@ def move_group(operation_list):
                 this_motor.on(speed, block=False)
             except:
                 logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected", qos=1)
+                client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected motor port not working", qos=1)
                 del current_hubs[operation['hub_name']]
                 del hub_name_list[-1]
                 del hub_list[-1]
@@ -382,7 +382,7 @@ def move_group(operation_list):
                         this_motor.stop()
                     except:
                         logging.warning("Time out occured, Hub disconnected")
-                        client_control.publish("cait/module_states", "Control Exception: " + hub_name_list[i] + " Disconnected", qos=1)
+                        client_control.publish("cait/module_states", "Control Exception: " + hub_name_list[i] + " Disconnected motor port not working", qos=1)
                         del current_hubs[hub_name_list[i]]
                         all_motor_moved = False
                 elif hub_type == "Robot Inventor":
@@ -409,7 +409,7 @@ def move_group(operation_list):
                 this_motor.stop()
             except:
                 logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + hub_name_list[m] + " Disconnected", qos=1)
+                client_control.publish("cait/module_states", "Control Exception: " + hub_name_list[m] + " Disconnected motor port not working", qos=1)
                 del current_hubs[hub_name_list[m]]
                 all_motor_moved = False
         elif hub_type == "Robot Inventor":

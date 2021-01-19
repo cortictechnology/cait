@@ -492,6 +492,78 @@ Blockly.defineBlocksWithJsonArray([
       "helpUrl": ""
     },
     {
+      "type": "ev3_motor_block",
+      "message0": "%{BKY_EV3_MOTOR}",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "motor_name",
+          "options": [
+            [
+              "A",
+              "ev3_motor_A"
+            ],
+            [
+              "B",
+              "ev3_motor_B"
+            ],
+            [
+              "C",
+              "ev3_motor_C"
+            ],
+            [
+              "D",
+              "ev3_motor_D"
+            ]
+          ]
+        }
+      ],
+      "output": "String",
+      "colour": "#F78C00",
+      "tooltip": "%{BKY_EV3_MOTOR_TOOLTIP}",
+      "helpUrl": ""
+    },
+    {
+      "type": "robot_inventor_motor_block",
+      "message0": "%{BKY_RI_MOTOR}",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "motor_name",
+          "options": [
+            [
+              "A",
+              "ri_motor_A"
+            ],
+            [
+              "B",
+              "ri_motor_B"
+            ],
+            [
+              "C",
+              "ri_motor_C"
+            ],
+            [
+              "D",
+              "ri_motor_D"
+            ],
+            [
+              "E",
+              "ri_motor_E"
+            ],
+            [
+              "F",
+              "ri_motor_F"
+            ]
+          ]
+        }
+      ],
+      "output": "String",
+      "colour": "#F78C00",
+      "tooltip": "%{BKY_RI_MOTOR_TOOLTIP}",
+      "helpUrl": ""
+    },
+    {
       "type": "motor_control",
       "lastDummyAlign0": "CENTRE",
       "message0": "%{BKY_SET_MOTOR_SPEED}",
@@ -502,26 +574,9 @@ Blockly.defineBlocksWithJsonArray([
           "align": "CENTRE"
         },
         {
-          "type": "field_dropdown",
-          "name": "motor_name",
-          "options": [
-            [
-              "motor_A",
-              "motor_A"
-            ],
-            [
-              "motor_B",
-              "motor_B"
-            ],
-            [
-              "motor_C",
-              "motor_C"
-            ],
-            [
-              "motor_D",
-              "motor_D"
-            ]
-          ]
+          "type": "input_value",
+          "name": "motor",
+          "check": "String"
         },
         {
           "type": "input_dummy"
@@ -555,26 +610,9 @@ Blockly.defineBlocksWithJsonArray([
           "align": "CENTRE"
         },
         {
-          "type": "field_dropdown",
+          "type": "input_value",
           "name": "motor_name",
-          "options": [
-            [
-              "motor_A",
-              "motor_A"
-            ],
-            [
-              "motor_B",
-              "motor_B"
-            ],
-            [
-              "motor_C",
-              "motor_C"
-            ],
-            [
-              "motor_D",
-              "motor_D"
-            ]
-          ]
+          "check": "String"
         },
         {
           "type": "input_dummy"
@@ -794,23 +832,51 @@ Blockly.Extensions.register('dynamic_control_hubs_extension',
         }), 'hubs');
   });
 
-  Blockly.Extensions.register('dynamic_added_hubs_extension',
-  function() {
-    this.getInput('added_hubs')
-      .appendField(new Blockly.FieldDropdown(
-        function() {
-          var options = [];
-          if (added_hubs.length > 0) {
-            for (i in added_hubs) {
-              options.push([added_hubs[i], added_hubs[i]])
-            }
+Blockly.Extensions.register('dynamic_added_hubs_extension',
+function() {
+  this.getInput('added_hubs')
+    .appendField(new Blockly.FieldDropdown(
+      function() {
+        var options = [];
+        if (added_hubs.length > 0) {
+          for (i in added_hubs) {
+            options.push([added_hubs[i], added_hubs[i]])
           }
-          else {
-            options.push(['none', 'none']);
-          }
-          return options;
-        }), 'available_hubs');
-  });
+        }
+        else {
+          options.push(['none', 'none']);
+        }
+        return options;
+      }), 'available_hubs');
+});
+
+// Blockly.Extensions.register('dynamic_motors_extension',
+// function() {
+//   thisInputList = this.inputList
+//   this.getInput('motors')
+//     .appendField(new Blockly.FieldDropdown(
+//       function() {
+//         var options = [['none', 'none']];
+//         console.log(thisInputList);
+//         // if (thisBlock.inputList.length > 0){
+//         //   if (thisBlock.inputList[0].fieldRow[1].value_.indexOf('EV3: ') != -1) {
+//         //     options = [['motor_A', 'motor_A'], 
+//         //                ['motor_B', 'motor_B'],
+//         //                ['motor_C', 'motor_C'],
+//         //                ['motor_D', 'motor_D']]
+//         //   }
+//         //   else if (thisBlock.inputList[0].fieldRow[1].value_.indexOf('Robot Inventor: ') != -1) {
+//         //     options = [['motor_A', 'motor_A'], 
+//         //                ['motor_B', 'motor_B'],
+//         //                ['motor_C', 'motor_C'],
+//         //                ['motor_D', 'motor_D'],
+//         //                ['motor_E', 'motor_E'],
+//         //                ['motor_F', 'motor_F']]
+//         //   }
+//         // }
+//         return options;
+//       }), 'motor_name');
+// });
 
 Blockly.JavaScript['setup_block'] = function(block) {
   var statements_main = Blockly.JavaScript.statementToCode(block, 'init_blocks');
@@ -1178,24 +1244,57 @@ Blockly.Python['comment'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['motor_rotate'] = function(block) {
-  var hub_name = block.getFieldValue('available_hubs');
-  var dropdown_motor_name = block.getFieldValue('motor_name');
-  var number_degree = Blockly.JavaScript.valueToCode(block, 'degree', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = "await rotate_motor('" + hub_name + "', '"  + dropdown_motor_name + "', " + String(number_degree) + ");\n";
-  return code;
-};
+Blockly.JavaScript['ev3_motor_block'] = function(block) {
+  var motor_name = block.getFieldValue('motor_name');
+  return [motor_name, Blockly.JavaScript.ORDER_NONE];
+}
 
-Blockly.Python['motor_rotate'] = function(block) {
+Blockly.Python['ev3_motor_block'] = function(block) {
+  var motor_name = block.getFieldValue('motor_name');
+  return [motor_name, Blockly.Python.ORDER_NONE];
+}
+
+Blockly.JavaScript['robot_inventor_motor_block'] = function(block) {
+  var motor_name = block.getFieldValue('motor_name');
+  return [motor_name, Blockly.JavaScript.ORDER_NONE];
+}
+
+Blockly.Python['robot_inventor_motor_block'] = function(block) {
+  var motor_name = block.getFieldValue('motor_name');
+  return [motor_name, Blockly.Python.ORDER_NONE];
+}
+
+Blockly.JavaScript['motor_rotate'] = function(block) {
   var hub_name = block.getFieldValue('available_hubs');
   var index = added_hubs.indexOf(hub_name);
   if (index == -1){
     alert("The selected hub: " + hub_name + " is not available, please make sure the selection is valid")
     throw new Error("selected hub invalid");
   }
-  var dropdown_motor_name = block.getFieldValue('motor_name');
+  var motor_name = Blockly.JavaScript.valueToCode(block, 'motor', Blockly.JavaScript.ORDER_ATOMIC);
+  if (hub_name.indexOf("EV3") != -1) {
+    if (motor_name.indexOf("ev3") == -1) {
+      alert("EV3 Hub must use EV3 motors only");
+      throw new Error("motor type and hub type not matched");
+    }
+  } else if (hub_name.indexOf("Robot Inventor") != -1) {
+    if (motor_name.indexOf("ri") == -1) {
+      alert("Robot Inventor Hub must use Robot Inventor motors only");
+      throw new Error("motor type and hub type not matched");
+    }
+  }
+  motor_name = motor_name.substring(motor_name.indexOf("_") + 1,motor_name.length-1)
+  var number_degree = Blockly.JavaScript.valueToCode(block, 'degree', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = "await rotate_motor('" + hub_name + "', '"  + motor_name + "', " + String(number_degree) + ");\n";
+  return code;
+};
+
+Blockly.Python['motor_rotate'] = function(block) {
+  var hub_name = block.getFieldValue('available_hubs');
+  var motor_name = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_ATOMIC);
+  motor_name = motor_name.substring(motor_name.indexOf("_") + 1,motor_name.length-1)
   var number_degree = Blockly.Python.valueToCode(block, 'degree', Blockly.Python.ORDER_ATOMIC);
-  var code = "cait.essentials.rotate_motor('" + hub_name + "', '" + dropdown_motor_name + "', " + String(number_degree) + ")\n";
+  var code = "cait.essentials.rotate_motor('" + hub_name + "', '" + motor_name + "', " + String(number_degree) + ")\n";
   return code;
 };
 
@@ -1206,19 +1305,32 @@ Blockly.JavaScript['motor_control'] = function(block) {
     alert("The selected hub: " + hub_name + " is not available, please make sure the selection is valid")
     throw new Error("selected hub invalid");
   }
-  var dropdown_motor_name = block.getFieldValue('motor_name');
+  var motor_name = Blockly.JavaScript.valueToCode(block, 'motor', Blockly.JavaScript.ORDER_ATOMIC);
+  if (hub_name.indexOf("EV3") != -1) {
+    if (motor_name.indexOf("ev3") == -1) {
+      alert("EV3 Hub must use EV3 motors only");
+      throw new Error("motor type and hub type not matched");
+    }
+  } else if (hub_name.indexOf("Robot Inventor") != -1) {
+    if (motor_name.indexOf("ri") == -1) {
+      alert("Robot Inventor Hub must use Robot Inventor motors only");
+      throw new Error("motor type and hub type not matched");
+    }
+  }
+  motor_name = motor_name.substring(motor_name.indexOf("_") + 1,motor_name.length-1)
   var number_speed = Blockly.JavaScript.valueToCode(block, 'speed', Blockly.JavaScript.ORDER_ATOMIC);
   var number_duration = Blockly.JavaScript.valueToCode(block, 'duration', Blockly.JavaScript.ORDER_ATOMIC);
-  var code = "await control_motor('" + hub_name + "', '" + dropdown_motor_name + "', " + String(number_speed) + ", " +  String(number_duration) + ");\n";
+  var code = "await control_motor('" + hub_name + "', '" + motor_name + "', " + String(number_speed) + ", " +  String(number_duration) + ");\n";
   return code;
 };
 
 Blockly.Python['motor_control'] = function(block) {
   var hub_name = block.getFieldValue('available_hubs');
-  var dropdown_motor_name = block.getFieldValue('motor_name');
+  var motor_name = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_ATOMIC);
+  motor_name = motor_name.substring(motor_name.indexOf("_") + 1,motor_name.length-1)
   var number_speed = Blockly.Python.valueToCode(block, 'speed', Blockly.Python.ORDER_ATOMIC);
   var number_duration = Blockly.Python.valueToCode(block, 'duration', Blockly.Python.ORDER_ATOMIC);
-  var code = "cait.essentials.control_motor('" + hub_name + "', '" + dropdown_motor_name + "', " + String(number_speed) + ", " +  String(number_duration) + ")\n";
+  var code = "cait.essentials.control_motor('" + hub_name + "', '" + motor_name + "', " + String(number_speed) + ", " +  String(number_duration) + ")\n";
   return code;
 };
 
