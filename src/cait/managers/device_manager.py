@@ -106,7 +106,7 @@ class DeviceManager:
             mac_addr = mac_addr_re.match(device)
             if mac_addr != None:
                 addr = mac_addr.group(1)
-                device_name = subprocess.check_output(["hcitool", "name", addr]).decode("utf-8").split("\n")[0]
+                device_name = subprocess.check_output("hcitool name " + addr, shell=True).decode("utf-8").split("\n")[0]
                 if device_name.find("ev3") != -1:
                     with open("/var/lib/misc/dnsmasq.leases") as f:
                         ip_list = f.readlines()
@@ -120,25 +120,24 @@ class DeviceManager:
                     control_devices.append(cinfo)
         return control_devices
 
-    def update_device_list(self, current_list, new_list):
-        num_new_dev = len(new_list)
-        for dev in current_list:
-            dev_exist = False
-            for i in range(num_new_dev):
-                if dev['device'] == new_list[i]['device']:
-                    dev_exist = True
-            if not dev_exist:
-                if time.time() - dev['time'] < 5:
-                    new_list.append(dev)
-        return new_list
+    # def update_device_list(self, current_list, new_list):
+    #     num_new_dev = len(new_list)
+    #     for dev in current_list:
+    #         dev_exist = False
+    #         for i in range(num_new_dev):
+    #             if dev['device'] == new_list[i]['device']:
+    #                 dev_exist = True
+    #         if not dev_exist:
+    #             new_list.append(dev)
+    #     return new_list
 
     def heartbeat_func(self):
         while True:
             try:
-                self.usb_devices = self.update_device_list(self.usb_devices, self.scan_usb_devices())
-                self.video_devices = self.update_device_list(self.video_devices, self.scan_video_devices())
-                self.audio_devices = self.update_device_list(self.audio_devices, self.scan_audio_devices())
-                self.control_devices = self.update_device_list(self.control_devices, self.scan_control_devices())
+                self.usb_devices = self.scan_usb_devices()
+                self.video_devices = self.scan_video_devices()
+                self.audio_devices = self.scan_audio_devices()
+                self.control_devices = self.scan_control_devices()
                 time.sleep(5)
             except:
                 continue

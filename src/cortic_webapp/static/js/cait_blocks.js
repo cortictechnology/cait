@@ -942,6 +942,9 @@ Blockly.Python['set_parameter'] = function(block) {
 
 Blockly.JavaScript['init_vision'] = function(block) {
   var code = "await init_vision();\n";
+  if (cameras.length == 0){
+    throw new Error("No camera is connected, please connect a camera and run again in a few seconds.");
+  }
   return code;
 };
 
@@ -954,6 +957,12 @@ Blockly.JavaScript['init_voice'] = function(block) {
   var dropdown_mode = block.getFieldValue('mode');
   var dropdown_account = block.getFieldValue('accounts');
   var dropdown_langauage = block.getFieldValue('language');
+  if (speakers.length == 0){
+    throw new Error("No speaker is connected, please connect a speaker and run again in a few seconds.");
+  }
+  if (microphones.length == 0){
+    throw new Error("No microphone is connected, please connect a microphone and run again in a few seconds.");
+  }
   var code = "await init_voice('" + dropdown_mode + "', '" + dropdown_account + "', '" + dropdown_langauage + "');\n";
   return code;
 };
@@ -973,6 +982,9 @@ Blockly.Python['init_voice'] = function(block) {
 
 Blockly.JavaScript['init_nlp'] = function(block) {
   var dropdown_models = block.getFieldValue('models');
+  if (nlp_models.length == 0) {
+    throw new Error("No NLP model is available, please train at least one NLP model and run again in a few seconds.");
+  }
   var code = "await init_nlp('" + dropdown_models + "');\n";
   return code;
 };
@@ -1025,8 +1037,7 @@ Blockly.JavaScript['add_control_hub'] = function(block) {
   var dropdown_hub = block.getFieldValue('hubs');
   var index = control_hubs.indexOf(dropdown_hub);
   if (index == -1){
-    alert("The selected hub: " + dropdown_hub + " is not connected, please make sure the selection is valid")
-    throw new Error("selected hub invalid");
+    throw new Error("The selected hub: " + dropdown_hub + " is not connected, please make sure the selection is valid");
   }
   var code = "(" + dropdown_hub + ")";
   return code;
@@ -1268,19 +1279,16 @@ Blockly.JavaScript['motor_rotate'] = function(block) {
   var hub_name = block.getFieldValue('available_hubs');
   var index = added_hubs.indexOf(hub_name);
   if (index == -1){
-    alert("The selected hub: " + hub_name + " is not available, please make sure the selection is valid")
-    throw new Error("selected hub invalid");
+    throw new Error("The selected hub: " + hub_name + " is not available, please make sure the selection is valid");
   }
   var motor_name = Blockly.JavaScript.valueToCode(block, 'motor', Blockly.JavaScript.ORDER_ATOMIC);
   if (hub_name.indexOf("EV3") != -1) {
     if (motor_name.indexOf("ev3") == -1) {
-      alert("EV3 Hub must use EV3 motors only");
-      throw new Error("motor type and hub type not matched");
+      throw new Error("EV3 Hub must use EV3 motors only");
     }
   } else if (hub_name.indexOf("Robot Inventor") != -1) {
     if (motor_name.indexOf("ri") == -1) {
-      alert("Robot Inventor Hub must use Robot Inventor motors only");
-      throw new Error("motor type and hub type not matched");
+      throw new Error("Robot Inventor Hub must use Robot Inventor motors only");
     }
   }
   motor_name = motor_name.substring(motor_name.indexOf("_") + 1,motor_name.length-1)
@@ -1302,19 +1310,16 @@ Blockly.JavaScript['motor_control'] = function(block) {
   var hub_name = block.getFieldValue('available_hubs');
   var index = added_hubs.indexOf(hub_name);
   if (index == -1){
-    alert("The selected hub: " + hub_name + " is not available, please make sure the selection is valid")
-    throw new Error("selected hub invalid");
+    throw new Error("The selected hub: " + hub_name + " is not available, please make sure the selection is valid");
   }
   var motor_name = Blockly.JavaScript.valueToCode(block, 'motor', Blockly.JavaScript.ORDER_ATOMIC);
   if (hub_name.indexOf("EV3") != -1) {
     if (motor_name.indexOf("ev3") == -1) {
-      alert("EV3 Hub must use EV3 motors only");
-      throw new Error("motor type and hub type not matched");
+      throw new Error("EV3 Hub must use EV3 motors only");
     }
   } else if (hub_name.indexOf("Robot Inventor") != -1) {
     if (motor_name.indexOf("ri") == -1) {
-      alert("Robot Inventor Hub must use Robot Inventor motors only");
-      throw new Error("motor type and hub type not matched");
+      throw new Error("Robot Inventor Hub must use Robot Inventor motors only");
     }
   }
   motor_name = motor_name.substring(motor_name.indexOf("_") + 1,motor_name.length-1)

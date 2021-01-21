@@ -45,6 +45,11 @@ function onMessageArrived(message) {
   }  
 }
 
+var scan_for_devices = true;
+
+var cameras = [];
+var speakers = [];
+var microphones = []
 var light_devices = [];
 var media_players = [];
 var cloud_accounts = [];
@@ -79,7 +84,6 @@ function cloudAccounts(interpreter, scope) {
       interpreter.createAsyncFunction(wrapper));
 }
 
-
 var get_cloud_accounts_code = "get_cloud_accounts();";
 var myInterpreter_cloud = new Interpreter(get_cloud_accounts_code, cloudAccounts);
 
@@ -94,10 +98,11 @@ function get_cloud_accounts() {
 }
 
 setInterval(function() {
-  myInterpreter_cloud = new Interpreter(get_cloud_accounts_code, cloudAccounts);
-  get_cloud_accounts();
+  if (scan_for_devices) {
+    myInterpreter_cloud = new Interpreter(get_cloud_accounts_code, cloudAccounts);
+    get_cloud_accounts();
+  }
 }, 5000);
-
 
 function NLPModels(interpreter, scope) {
   var wrapper = function(callback) {
@@ -110,7 +115,6 @@ function NLPModels(interpreter, scope) {
   interpreter.setProperty(scope, 'get_nlp_models',
       interpreter.createAsyncFunction(wrapper));
 }
-
 
 var get_nlp_models_code = "get_nlp_models();";
 var myInterpreter_nlp = new Interpreter(get_nlp_models_code, NLPModels);
@@ -126,8 +130,10 @@ function get_nlp_models() {
 }
 
 setInterval(function() {
-  myInterpreter_nlp = new Interpreter(get_nlp_models_code, NLPModels);
-  get_nlp_models();
+  if (scan_for_devices) {
+    myInterpreter_nlp = new Interpreter(get_nlp_models_code, NLPModels);
+    get_nlp_models();
+  }
 }, 5000);
 
 var get_light_device_code = "get_devices('light');";
@@ -144,8 +150,10 @@ function get_light_devices() {
 }
 
 setInterval(function() {
-  myInterpreter_light = new Interpreter(get_light_device_code, initDevices);
-  get_light_devices();
+  if (scan_for_devices) {
+    myInterpreter_light = new Interpreter(get_light_device_code, initDevices);
+    get_light_devices();
+  }
 }, 5000);
 
 var get_media_player_code = "get_devices('media_player');";
@@ -162,8 +170,119 @@ function get_media_players() {
 }
 
 setInterval(function() {
-  myInterpreter_mdeia = new Interpreter(get_media_player_code, initDevices);
-  get_media_players();
+  if (scan_for_devices) {
+    myInterpreter_mdeia = new Interpreter(get_media_player_code, initDevices);
+    get_media_players();
+  }
+}, 5000);
+
+function Cameras(interpreter, scope) {
+  var wrapper = function(callback) {
+    $.post("/getvideodev",
+    {},
+    function(data, status){
+      callback(data);
+    });
+  };
+  interpreter.setProperty(scope, 'get_cameras',
+      interpreter.createAsyncFunction(wrapper));
+}
+
+var get_cameras_code = "get_cameras();";
+var myInterpreter_cameras = new Interpreter(get_cameras_code, Cameras);
+
+function get_cameras() {
+  var options = [];
+  if (myInterpreter_cameras.run()) {
+    setTimeout(get_cameras, 100);
+  }
+  if (myInterpreter_cameras.value != null) {
+    cameras = [];
+    for (var i = 0; i < myInterpreter_cameras.value.length; i++){
+        cameras.push(myInterpreter_cameras.value[i]);
+    }
+  }
+}
+
+setInterval(function() {
+  if (scan_for_devices) {
+    myInterpreter_cameras = new Interpreter(get_cameras_code, Cameras);
+    get_cameras();
+  }
+}, 5000);
+
+function Speakers(interpreter, scope) {
+  var wrapper = function(callback) {
+    $.post("/getaudiodev",
+    {},
+    function(data, status){
+      callback(data);
+    });
+  };
+  interpreter.setProperty(scope, 'get_speakers',
+      interpreter.createAsyncFunction(wrapper));
+}
+
+var get_speakers_code = "get_speakers();";
+var myInterpreter_speakers = new Interpreter(get_speakers_code, Speakers);
+
+function get_speakers() {
+  var options = [];
+  if (myInterpreter_speakers.run()) {
+      setTimeout(get_speakers, 100);
+  }
+  if (myInterpreter_speakers.value != null) {
+      speakers = [];
+      for (var i = 0; i < myInterpreter_speakers.value.length; i++){
+          if (myInterpreter_speakers.value[i]['type'] == "Output") {
+              speakers.push(myInterpreter_speakers.value[i]);
+          }   
+      }
+  }
+}
+
+setInterval(function() {
+  if (scan_for_devices) {
+      myInterpreter_speakers = new Interpreter(get_speakers_code, Speakers);
+      get_speakers();
+  }
+}, 5000);
+
+function Microphones(interpreter, scope) {
+  var wrapper = function(callback) {
+    $.post("/getaudiodev",
+    {},
+    function(data, status){
+      callback(data);
+    });
+  };
+  interpreter.setProperty(scope, 'get_microphones',
+      interpreter.createAsyncFunction(wrapper));
+}
+
+var get_microphones_code = "get_microphones();";
+var myInterpreter_microphones = new Interpreter(get_microphones_code, Microphones);
+
+function get_microphones() {
+  var options = [];
+  if (myInterpreter_microphones.run()) {
+      setTimeout(get_microphones, 100);
+  }
+  if (myInterpreter_microphones.value != null) {
+      microphones = [];
+      for (var i = 0; i < myInterpreter_microphones.value.length; i++){
+          if (myInterpreter_microphones.value[i]['type'] == "Input") {
+              microphones.push(myInterpreter_microphones.value[i]);
+          }   
+      }
+  }
+}
+
+setInterval(function() {
+  if (scan_for_devices) {
+      myInterpreter_microphones = new Interpreter(get_microphones_code, Microphones);
+      get_microphones();
+  }
 }, 5000);
 
 function ControlHubs(interpreter, scope) {
@@ -177,7 +296,6 @@ function ControlHubs(interpreter, scope) {
   interpreter.setProperty(scope, 'get_control_devices',
       interpreter.createAsyncFunction(wrapper));
 }
-
 
 var get_control_devices_code = "get_control_devices();";
 var myInterpreter_control_devices = new Interpreter(get_control_devices_code, ControlHubs);
@@ -200,8 +318,10 @@ function get_control_devices() {
 }
 
 setInterval(function() {
-  myInterpreter_control_devices = new Interpreter(get_control_devices_code, ControlHubs);
-  get_control_devices();
+  if (scan_for_devices) {
+    myInterpreter_control_devices = new Interpreter(get_control_devices_code, ControlHubs);
+    get_control_devices();
+  }
 }, 3000);
 
 

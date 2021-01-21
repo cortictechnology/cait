@@ -92,6 +92,15 @@ var test;
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
   var allBlocks = workspace.getAllBlocks();
+  if (event.type == Blockly.Events.UI) { 
+    if (event.newValue != null){
+      if (event.newValue.indexOf("Robot Inventor") != -1) {
+        topicMessage = new Paho.Message('Control Up,["' + event.newValue + '"]');
+        topicMessage.topic = "cait/motor_control";
+        client.publish(topicMessage)
+      }
+    } 
+  }  
   if (event.type == Blockly.Events.BLOCK_CHANGE) {    
     if (event.element == "field") {
       if (block.type == "add_control_hub") {
@@ -126,6 +135,11 @@ function updateFunction(event) {
               added_hubs.splice(index, 1);
             }
           }
+        }
+        if (event.newValue.indexOf("Robot Inventor") != -1) {
+          topicMessage = new Paho.Message('Control Up,["' + event.newValue + '"]');
+          topicMessage.topic = "cait/motor_control";
+          client.publish(topicMessage)
         }
       }
       if (event.oldValue == "color_name" || event.oldValue == "brightness_pct") {
@@ -418,9 +432,9 @@ function run_code() {
   stopCode = false;
   Blockly.JavaScript.addReservedWords('code');
 
-  var code = Blockly.JavaScript.workspaceToCode(workspace);
-  save_workspace(true);
   try {
+    var code = Blockly.JavaScript.workspaceToCode(workspace);
+    save_workspace(true);
     if (code.indexOf("await") != -1){
       if (code.indexOf("function") != -1) {
         if (code[code.indexOf("function")-1] != '_' || code[code.indexOf("function")+8] != '_'){

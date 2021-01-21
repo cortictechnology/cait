@@ -205,8 +205,8 @@ def setPosition(hub_name, motor_name, position):
             speed = -100
         degree = abs(position)
         msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_for_degrees(' + str(degree).encode('utf-8') + b', ' + str(speed).encode('utf-8') + b')\x0D'
-        hub[1].send(msg_individual)
         try:
+            hub[1].send(msg_individual)
             rec = hub[1].recv(102400)
             logging.warning(rec)
         except:
@@ -244,8 +244,8 @@ def rotate_group(operation_list):
                 speed = -100
             degree = abs(angle)
             msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_for_degrees(' + str(degree).encode('utf-8') + b', ' + str(speed).encode('utf-8') + b')\x0D'
-            hub[1].send(msg_individual)
             try:
+                hub[1].send(msg_individual)
                 rec = hub[1].recv(102400)
                 logging.warning(rec)
             except:
@@ -282,8 +282,8 @@ def move(hub_name, motor_name, speed=1, duration=0):
                 return
         elif hub_type == "Robot Inventor":
             msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_at_speed(' + str(speed).encode('utf-8') + b', 100)\x0D'
-            hub[1].send(msg_individual)
             try:
+                hub[1].send(msg_individual)
                 rec = hub[1].recv(102400)
                 logging.warning(rec)
             except:
@@ -305,8 +305,8 @@ def move(hub_name, motor_name, speed=1, duration=0):
                 return
         elif hub_type == "Robot Inventor":
             msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.brake()\x0D'
-            hub[1].send(msg_individual)
             try:
+                hub[1].send(msg_individual)
                 rec = hub[1].recv(102400)
                 logging.warning(rec)
             except:
@@ -355,8 +355,8 @@ def move_group(operation_list):
                 break
         elif hub_type == "Robot Inventor":
             msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_at_speed(' + str(speed).encode('utf-8') + b', 100)\x0D'
-            hub[1].send(msg_individual)
             try:
+                hub[1].send(msg_individual)
                 rec = hub[1].recv(102400)
                 logging.warning(rec)
             except:
@@ -387,8 +387,8 @@ def move_group(operation_list):
                         all_motor_moved = False
                 elif hub_type == "Robot Inventor":
                     msg_individual = b'hub.port.' + motor_list[i].encode('utf-8') + b'.motor.brake()\x0D'
-                    hub[1].send(msg_individual)
                     try:
+                        hub[1].send(msg_individual)
                         rec = hub[1].recv(102400)
                         logging.warning(rec)
                     except:
@@ -414,8 +414,8 @@ def move_group(operation_list):
                 all_motor_moved = False
         elif hub_type == "Robot Inventor":
             msg_individual = b'hub.port.' + motor_list[m].encode('utf-8') + b'.motor.brake()\x0D'
-            hub[1].send(msg_individual)
             try:
+                hub[1].send(msg_individual)
                 rec = hub[1].recv(102400)
                 logging.warning(rec)
             except:

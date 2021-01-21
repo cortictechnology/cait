@@ -596,7 +596,8 @@ def format_python_code(code_string):
         for var in variable_list:
             global_line = global_line + var + ", "
         global_line = global_line[0:-2]
-        formatted_code.insert(main_line_location + 1, global_line)
+        if global_line != "    globa":
+            formatted_code.insert(main_line_location + 1, global_line)
 
     formatted_code.append('\nif __name__ == "__main__":')
     formatted_code.append("    setup()")
@@ -698,7 +699,10 @@ def loadworkspace():
             xml_text = f.read()
             f.close()
             if filename == "workspace_autosave.xml":
-                os.remove(savename) 
+                try:
+                    os.remove(savename) 
+                except:
+                    pass
         else:
             xml_text = ''
         result = {"xml_text": xml_text}
