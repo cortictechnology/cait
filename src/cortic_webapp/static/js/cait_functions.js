@@ -200,6 +200,16 @@ async function set_module_parameters(parameter_name, value) {
   }
 }
 
+async function cait_sleep(time) {
+  try {
+    const res = await ajax_post("/sleep", {"time" : time});
+    console.log(res);
+  } catch(err) {
+      console.log(err);
+      return err;
+  }
+}
+
 async function init_vision() {
   await init("vision", "offline", 'local');
   stopStreaming = false;

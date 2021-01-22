@@ -6,6 +6,10 @@ Written by Michael Ng <michaelng@cortic.ca>, December 2019
 """
 
 import cait.core as core
+import time
+import logging
+
+logging.getLogger().setLevel(logging.INFO)
 
 """
 Assumptions:
@@ -106,6 +110,16 @@ def change_module_parameters(parameter_name, value):
     
     """    
     core.change_module_parameters(parameter_name, value)
+
+
+def sleep(time_value):
+    """Wrapper function for the time.sleep() function
+    Parameters:
+        time_value {int}: sleep time in second
+    
+    """  
+    time.sleep(time_value)
+    return True
 
 def get_camera_image():
     """Development test function, retrieve one camera image

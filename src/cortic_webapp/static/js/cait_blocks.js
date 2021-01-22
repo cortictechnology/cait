@@ -70,6 +70,26 @@ Blockly.defineBlocksWithJsonArray([
       "helpUrl": ""
     },
     {
+      "type": "sleep",
+      "message0": "%{BKY_SLEEP}",
+      "args0": [
+        {
+          "type": "input_dummy",
+          "align": "CENTRE"
+        },
+        {
+          "type": "input_value",
+          "name": "time"
+        }
+      ],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#1d8cf7",
+      "tooltip": "%{BKY_SLEEP_TOOLTIP}",
+      "helpUrl": ""
+    },
+    {
       "type": "init_vision",
       "message0": "%{BKY_INIT_VISION}",
       "previousStatement": null,
@@ -937,6 +957,18 @@ Blockly.Python['set_parameter'] = function(block) {
   var text_parameter = block.getFieldValue('parameter');
   var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
   var code = "cait.essentials.set_module_parameters('" + text_parameter + "', " + value_value +  ")\n";
+  return code;
+};
+
+Blockly.JavaScript['sleep'] = function(block) {
+  var time_value = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = "await cait_sleep(" + time_value +  ");\n";
+  return code;
+};
+
+Blockly.Python['sleep'] = function(block) {
+  var time_value = Blockly.Python.valueToCode(block, 'time', Blockly.Python.ORDER_ATOMIC);
+  var code = "cait.essentials.sleep(" + time_value + ")\n";
   return code;
 };
 

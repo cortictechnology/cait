@@ -356,6 +356,14 @@ function updateFunction(event) {
           block.setEnabled(true);
         }
       }
+      if (block.type == "sleep" && block.parentBlock_ != null) {
+        block.setEnabled(true);
+      }
+      if (block.parentBlock_ != null) {
+        if (block.parentBlock_.type == "sleep" && !block.parentBlock_.isDisabled){
+          block.setEnabled(true);
+        }
+      }
       if (block.type.indexOf('procedures_') != -1) {
         if (block.tooltip.indexOf("Creates a function") == 0) {
           block.setEnabled(true);

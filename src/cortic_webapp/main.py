@@ -425,7 +425,6 @@ def initialize_component():
         result = {"success": success}
     return jsonify(result)
 
-
 @application.route("/change_module_parameters", methods=['POST'])
 @login_required
 def change_module_parameters():
@@ -433,6 +432,14 @@ def change_module_parameters():
     value = float(request.form.get('value'))
     essentials.change_module_parameters(parameter_name, value)
     result = {"success": True}
+    return jsonify(result)
+
+@application.route("/sleep", methods=['POST'])
+@login_required
+def cait_sleep():
+    time_value = int(request.form.get('time'))
+    result = essentials.sleep(time_value)
+    result = {"success": result}
     return jsonify(result)
 
 @application.route("/camerafeed", methods=['POST'])
