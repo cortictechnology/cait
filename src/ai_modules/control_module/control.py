@@ -129,9 +129,9 @@ def on_message_control(client, userdata, msg):
                 motor = data[motor_begin_idx:motor_end_idx]
                 degree = int(data[angle_begin_idx:])
                 setPosition(hub_name, motor, degree)
-            elif data.find("speak") != -1:
-                sentence = data[data.find(",")+1:]
-                speak(sentence)
+            # elif data.find("speak") != -1:
+            #     sentence = data[data.find(",")+1:]
+            #     speak(sentence)
 
 client_control = mqtt.Client()
 client_control.on_connect = on_connect_control
