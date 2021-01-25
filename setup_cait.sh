@@ -29,7 +29,7 @@ sudo sh -c "echo 'dtparam=spi=on' >> /boot/config.txt"
 # Need to add nameserver for later apt-get install, otherwise, there is chance for it to not able reolve domain
 sudo sh -c "echo 'nameserver 8.8.8.8' >> /etc/resolv.conf"
 sudo apt-get install v4l-utils -y
-sudo apt-get install portaudio19-dev mplayer graphviz bluez-tools -y
+sudo apt-get install portaudio19-dev mplayer graphviz libbluetooth-dev bluez-tools -y
 sudo pip3 install docker-compose flask Flask-HTTPAuth flask-login flask_cors paho-mqtt gunicorn pyaudio lolviz cython pybluez
 sudo apt-get install npm nodejs -y
 npm install --save-dev javascript-obfuscator

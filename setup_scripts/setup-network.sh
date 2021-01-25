@@ -583,7 +583,8 @@ downloadReqDependancies() {
         apt-get upgrade -y --fix-missing
         apt-get dist-upgrade -y
     fi
-    apt-get install -y hostapd dnsmasq iptables-persistent
+    apt-get install -y hostapd dnsmasq iptables-persistent || return 1
+    return 0
 }
 
 isAvailableReqDependancies() {
@@ -615,7 +616,7 @@ echo iptables-persistent iptables-persistent/autosave_v6 boolean true | debconf-
 #If Internet is available then, install hostapd, dnsmasq, iptables-persistent from internet:
 if [ $(curl -Is http://www.google.com 2>/dev/null | head -n 1 | grep -c '200 OK') -gt 0 ]; then
     echo "[Install]: installing: hostapd dnsmasq iptables-persistent from net ..."
-    downloadReqDependancies
+    if downloadReqDependancies; then echo "dependencies installed successfully"; else downloadReqDependancies; fi
 else
     if [ -f $downloadDir/1_libnl-route-3-200.deb -a \
          -f $downloadDir/2_hostapd.deb -a \
