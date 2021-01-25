@@ -106,7 +106,17 @@ class DeviceManager:
             mac_addr = mac_addr_re.match(device)
             if mac_addr != None:
                 addr = mac_addr.group(1)
-                device_name = subprocess.check_output("hcitool name " + addr, shell=True).decode("utf-8").split("\n")[0]
+                device_name = ''
+                try:
+                    cmd = ["hcitool", "name", addr]
+                    logging.warning(str(cmd))
+                    out, err = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+                    device_name = out.decode("utf-8").split("\n")[0]
+                    logging.warning("Control device Out: " + str(out))
+                    logging.warning("Control device Err: " + str(err))
+                    logging.warning("***************************")
+                except:
+                    pass                
                 if device_name.find("ev3") != -1:
                     with open("/var/lib/misc/dnsmasq.leases") as f:
                         ip_list = f.readlines()
