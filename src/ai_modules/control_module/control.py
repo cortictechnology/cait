@@ -462,17 +462,17 @@ def move_group(operation_list):
         client_control.publish("cait/module_states", "Control Done", qos=1)
         logging.info("Done moving group")
 
-def play_sound(sound_obj):
-    if current_hub == "ev3":
-        speaker = ev3_sound.Sound()
-        speaker.play(sound_obj)
+# def play_sound(sound_obj):
+#     if current_hub == "ev3":
+#         speaker = ev3_sound.Sound()
+#         speaker.play(sound_obj)
 
-def speak(sentence):
-    if current_hub == "ev3":
-        client_control.publish("cait/module_states", "Start Speaking", qos=1)
-        speaker = ev3_sound.Sound()
-        speaker.speak(sentence)
-        client_control.publish("cait/module_states", "Done Speaking", qos=1)
+# def speak(sentence):
+#     if current_hub == "ev3":
+#         client_control.publish("cait/module_states", "Start Speaking", qos=1)
+#         speaker = ev3_sound.Sound()
+#         speaker.speak(sentence)
+#         client_control.publish("cait/module_states", "Done Speaking", qos=1)
 
 def heartbeat_func():
     global controlUp
