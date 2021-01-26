@@ -104,18 +104,9 @@ Blockly.defineBlocksWithJsonArray([
       "message0": "%{BKY_INIT_VOICE}",
       "args0": [
         {
-          "type": "field_dropdown",
-          "name": "mode",
-          "options": [
-            [
-              "online",
-              "online"
-            ],
-            [
-              "on device",
-              "on_device"
-            ]
-          ]
+          "type": "input_dummy",
+          "name": "voice_mode",
+          "align": "CENTRE"
         },
         {
           "type": "input_dummy",
@@ -152,7 +143,7 @@ Blockly.defineBlocksWithJsonArray([
         }
         
       ],
-      "extensions": ["dynamic_cloud_accounts_extension"],
+      "extensions": ["dynamic_voice_mode_extension", "dynamic_cloud_accounts_extension"],
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#019191",
@@ -785,19 +776,27 @@ function() {
       }), 'media_player');
 });
 
+Blockly.Extensions.register("dynamic_voice_mode_extension",
+function() {
+  this.getInput('voice_mode')
+    .appendField(new Blockly.FieldDropdown(
+      function() {
+        var options = [];
+        if (voice_mode.length > 0) {
+          for (i in voice_mode) {
+            options.push([voice_mode[i], voice_mode[i]])
+          }
+        }
+        else {
+          options.push(['none', 'none']);
+        }
+        return options;
+      }), 'mode');
+});
 
 Blockly.Extensions.register('dynamic_cloud_accounts_extension',
 function() {
-  if (cloud_accounts.length < 1) {
-    this.getInput("cloud_accounts").setVisible(false);
-    this.getInput("ending").setVisible(false);
-    this.getField('mode').menuGenerator_[0] = this.getField('mode').menuGenerator_[1]
-    //this.getField('mode').menuGenerator_.pop();
-    this.getField('mode').value_ = 'on_device';
-    this.getField('mode').text_ = 'on device';
-  }
-  else {
-    this.getInput('cloud_accounts')
+  this.getInput('cloud_accounts')
     .appendField(new Blockly.FieldDropdown(
       function() {
         var options = [];
@@ -811,7 +810,15 @@ function() {
         }
         return options;
       }), 'accounts');
+  if (cloud_accounts.length < 1) {
+    this.getInput("cloud_accounts").setVisible(false);
+    this.getInput("ending").setVisible(false);
+    this.getField("language").setVisible(false);
+    //this.getField('mode').menuGenerator_[0] = this.getField('mode').menuGenerator_[1]
+    //this.getField('mode').value_ = 'on_device';
+    //this.getField('mode').text_ = 'on device';
   }
+
   
 });
 

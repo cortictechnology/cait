@@ -492,8 +492,11 @@ def classifyimage():
 @application.route("/listen", methods=['POST'])
 @login_required
 def listen():
-    text = essentials.listen()
-    result = {"text" : text}
+    success, text = essentials.listen()
+    if success == False:
+        result = {"success": success, "text": text}
+    else:
+        result = {"success": success, "text": text}
     return jsonify(result)
 
 @application.route("/say", methods=['POST'])

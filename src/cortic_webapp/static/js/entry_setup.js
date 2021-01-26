@@ -52,6 +52,7 @@ var speakers = [];
 var microphones = []
 var light_devices = [];
 var media_players = [];
+var voice_mode = ["on device"]
 var cloud_accounts = [];
 var nlp_models = [];
 var virtual_processors = {"Vision": [], "STT": [], "TTS": [], "NLP": []}
@@ -94,6 +95,16 @@ function get_cloud_accounts() {
   }
   if (myInterpreter_cloud.value != null) {
     cloud_accounts = myInterpreter_cloud.value;
+    if (cloud_accounts.length >= 1) {
+      if (voice_mode.length == 1) {
+        voice_mode.push("online");
+      }
+    }
+    else {
+      if (voice_mode.length == 2) {
+        voice_mode.pop();
+      }
+    }
   }
 }
 

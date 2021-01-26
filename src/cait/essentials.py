@@ -216,12 +216,9 @@ def listen():
         (string): the user speech generated from speech-to-text module.
     """
 
-    text = core.listen()
+    success, text = core.listen()
 
-    if text is not None:
-        return text
-    else:
-        return None
+    return success, text
 
 def listen_for_wakeword():
     """Continuously detecting the appeareance of wakeword from the audio stream. Higher priority than the listen() function.

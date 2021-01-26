@@ -81,6 +81,9 @@ async function listen() {
   try {
     const res = await ajax_post("/listen", {});
     console.log(res);
+    if(res['success'] == false) {
+      alert(res["text"] + ". Please fix the problem and click Run again.");
+    }
     return res['text'];
   } catch(err) {
       console.log(err);

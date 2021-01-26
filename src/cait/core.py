@@ -499,7 +499,7 @@ def listen():
     caitCore.component_manager.resetVoice = False
     if not caitCore.get_component_state("voice", "Up"):
         logging.info("Please call initialize_voice() function before using the voice module")
-        return
+        return False,  "Not initialized"
     if not startedListen:
         result = caitCore.send_component_commond("voice", "Start Listen")
         if result == False:
@@ -512,15 +512,19 @@ def listen():
         if time.time() - start_time > 50:
             caitCore.component_manager.receivedNewSTTMsg = False
             startedListen = False
-            return ""
+            return True, ""
         if caitCore.component_manager.resetVoice:
             caitCore.component_manager.receivedNewSTTMsg = False
             startedListen = False
             caitCore.component_manager.resetVoice = False
-            return ""
+            return True, ""
+        if caitCore.component_manager.voiceException:
+            caitCore.component_manager.voiceException = False
+            logging.warning("Voice module error")
+            return False, caitCore.component_manager.voiceExceptionMsg
     caitCore.component_manager.receivedNewSTTMsg = False
     startedListen = False
-    return caitCore.component_manager.currentSTTMsg
+    return True, caitCore.component_manager.currentSTTMsg
 
 
 def listen_for_wakeword():

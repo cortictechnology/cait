@@ -151,13 +151,13 @@ function updateFunction(event) {
         )
       }
 
-      if (event.oldValue == "on_device") {
+      if (event.oldValue == "on device") {
         block.getInput("cloud_accounts").setVisible(true);
         block.getInput("ending").setVisible(true);
         block.getField("language").setVisible(true);
         block.render();
       }
-      if (event.newValue == "on_device") {
+      if (event.newValue == "on device") {
         block.getInput("cloud_accounts").setVisible(false);
         block.getInput("ending").setVisible(false);
         block.getField("language").setVisible(false);

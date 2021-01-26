@@ -21,6 +21,7 @@ from time                  import time, sleep
 import sys
 import threading
 from six.moves import queue
+import google
 from google.cloud import speech
 import numpy as np
 import json
@@ -311,6 +312,8 @@ def listen_print_loop(responses):
     global playedNotification
     global wakeWordMode
     global doneSpeaking
+    if responses is None:
+        return
     for response in responses:
         if not response.results:
             continue
@@ -420,7 +423,14 @@ def main():
                     audio_generator = stream.generator()
                     requests = (speech.StreamingRecognizeRequest(audio_content=content)
                                 for content in audio_generator)
-                    responses = client.streaming_recognize(streaming_config, requests)
+                    try:
+                        responses = client.streaming_recognize(streaming_config, requests)
+                    except google.api_core.exceptions.PermissionDenied:
+                        logging.warning("Google account error.")
+                        responses = None
+                        client_stt_response.publish("cait/module_states", "Voice Exception: Google cloud client denied, check your account to make sure it is working", qos=1)
+                        startListen = False
+                        playedNotification = False
                     # Now, put the transcription responses to use.
                     try:
                         listen_print_loop(responses)

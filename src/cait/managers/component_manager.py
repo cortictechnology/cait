@@ -35,6 +35,9 @@ class ComponentManager:
         elif data == "Voice Up":
             if self.voiceInit:
                 self.voiceUp = True
+        elif data.find("Voice Exception") != -1:
+            self.voiceException = True
+            self.voiceExceptionMsg = data[data.find(": ") + 2:]
         elif data == "Init recording":
             self.doneInitRecording = False
         elif data == "Init recording done":
@@ -243,7 +246,9 @@ class ComponentManager:
         self.doneInitRecording = True
         self.voiceInit = False
         self.voiceUp = False
-
+        self.voiceException = False
+        self.voiceExceptionMsg = ""
+        
         self.nlpUp = False
         self.receivedNewNLPResponse = False
         self.currentNLPResponse = ""
