@@ -6,6 +6,13 @@ apIp="10.0.0.1"
 apCountryCode="CA"
 serial=$(cat /proc/cpuinfo | grep Serial | cut -d ' ' -f 2)
 
+# Using an older wifi firmware due to a known issue for rpt8 firmware: https://github.com/raspberrypi/firmware/issues/1463
+wget http://archive.raspberrypi.org/debian/pool/main/f/firmware-nonfree/firmware-brcm80211_20190114-1+rpt10_all.deb
+sudo dpkg --purge firmware-brcm80211
+sudo dpkg --install firmware-brcm80211_20190114-1+rpt10_all.deb
+sudo apt-mark hold firmware-brcm80211
+rm firmware-brcm80211_20190114-1+rpt10_all.deb
+
 sudo apt update
 sudo apt -y full-upgrade
 cd setup_scripts
