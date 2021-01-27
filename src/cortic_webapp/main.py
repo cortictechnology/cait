@@ -734,11 +734,11 @@ def move():
         result = {"success": success}
     return jsonify(result)
 
-@application.route("/control_motor_speed_group", methods=['POST'])
+@application.route("/control_motor_group", methods=['POST'])
 @login_required
 def control_motor_speed_group():
     operation_list = request.form.get('data')
-    success, msg = essentials.control_motor_speed_group(operation_list)
+    success, msg = essentials.control_motor_group(operation_list)
     result = {"success": success}
     if success == False:
         result = {"success": success, "error": msg}
@@ -759,17 +759,6 @@ def rotate_motor():
         result = {"success": success}
     return jsonify(result)
 
-@application.route("/control_motor_degree_group", methods=['POST'])
-@login_required
-def control_motor_degree_group():
-    operation_list = request.form.get('data')
-    success = essentials.control_motor_degree_group(operation_list)
-    result, msg = {"success": success}
-    if success == False:
-        result = {"success": success, "error": msg}
-    else:
-        result = {"success": success}
-    return jsonify(result)
 
 @application.route("/get_states", methods=['POST'])
 @login_required

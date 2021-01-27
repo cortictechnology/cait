@@ -140,24 +140,10 @@ async function control_motor(hub_name, motor_name, speed, duration) {
 }
 
 
-async function control_motor_speed_group(operation_list) {
+async function control_motor_group(operation_list) {
   try {
     dataToSend = JSON.stringify({ 'operation_list': operation_list });
-    const res = await ajax_post("/control_motor_speed_group", {'data' : dataToSend});
-    console.log(res);
-    if(res['success'] == false) {
-      alert(res["error"] + ". Please fix the problem and click Run again.");
-    }
-  } catch(err) {
-      console.log(err);
-      return err;
-  }
-}
-
-async function control_motor_degree_group(operation_list) {
-  try {
-    dataToSend = JSON.stringify({ 'operation_list': operation_list });
-    const res = await ajax_post("/control_motor_degree_group", {'data' : dataToSend});
+    const res = await ajax_post("/control_motor_group", {'data' : dataToSend});
     console.log(res);
     if(res['success'] == false) {
       alert(res["error"] + ". Please fix the problem and click Run again.");

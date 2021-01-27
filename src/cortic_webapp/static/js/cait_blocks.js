@@ -463,8 +463,8 @@ Blockly.defineBlocksWithJsonArray([
       "helpUrl": ""
     },
     {
-      "type": "motor_speed_block",
-      "message0": "%{BKY_SET_MOTOR_GROUP_SPEED}",
+      "type": "motor_control_block",
+      "message0": "%{BKY_SET_MOTOR_GROUP}",
       "args0": [
         {
           "type": "input_dummy",
@@ -479,27 +479,7 @@ Blockly.defineBlocksWithJsonArray([
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#F78C00",
-      "tooltip": "%{BKY_SET_MOTOR_GROUP_SPEED_TOOLTIP}",
-      "helpUrl": ""
-    },
-    {
-      "type": "motor_degree_block",
-      "message0": "%{BKY_SET_MOTOR_GROUP_ANGLE}",
-      "args0": [
-        {
-          "type": "input_dummy",
-          "align": "CENTRE"
-        },
-        {
-          "type": "input_statement",
-          "name": "statements",
-          "align": "CENTRE"
-        }
-      ],
-      "previousStatement": null,
-      "nextStatement": null,
-      "colour": "#F78C00",
-      "tooltip": "%{BKY_SET_MOTOR_GROUP_ANGLE_TOOLTIP}",
+      "tooltip": "%{BKY_SET_MOTOR_GROUP_TOOLTIP}",
       "helpUrl": ""
     },
     {
@@ -622,7 +602,7 @@ Blockly.defineBlocksWithJsonArray([
         },
         {
           "type": "input_value",
-          "name": "motor_name",
+          "name": "motor",
           "check": "String"
         },
         {
@@ -1378,14 +1358,16 @@ Blockly.Python['motor_control'] = function(block) {
   return code;
 };
 
-Blockly.JavaScript['motor_speed_block'] = function(block) {
+Blockly.JavaScript['motor_control_block'] = function(block) {
   var statements_statements = Blockly.JavaScript.statementToCode(block, 'statements');
-  var code = "await control_motor_speed_group([\n";
-  motor_control_idx = statements_statements.indexOf("control_motor", 0);
-  var being_idx = motor_control_idx + 13;
+  var code = "await control_motor_group([\n";
+  motor_speed_idx = statements_statements.indexOf("control_motor", 0);
+  motor_rotate_idx = statements_statements.indexOf("rotate_motor", 0);
+  var speed_being_idx = motor_speed_idx + 13;
+  var degree_being_idx = motor_rotate_idx + 12;
   //console.log(statements_statements);
-  while (motor_control_idx != -1){
-    hub_name_begin_idx = statements_statements.indexOf("('", motor_control_idx) + 2
+  while (motor_speed_idx != -1){
+    hub_name_begin_idx = statements_statements.indexOf("('", speed_being_idx) + 2
     hub_name_end_idx = statements_statements.indexOf("', ", hub_name_begin_idx)
     motor_name_begin_idx = statements_statements.indexOf("'", hub_name_end_idx + 1) + 1
     motor_name_end_idx = statements_statements.indexOf("'", motor_name_begin_idx + 1)
@@ -1402,23 +1384,48 @@ Blockly.JavaScript['motor_speed_block'] = function(block) {
     code_line = "{'hub_name': '" + hub_name + "', 'motor_name': '" + motor_name + "', 'speed': " + speed + ", 'duration': " + duration + "}"
     code = code + code_line;
 
-    motor_control_idx = statements_statements.indexOf("control_motor", being_idx);
-    if (motor_control_idx != -1) {
+    motor_speed_idx = statements_statements.indexOf("control_motor", speed_being_idx);
+    if (motor_speed_idx != -1) {
       code = code + ",\n";
     }
-    being_idx = motor_control_idx + 13;
+    speed_being_idx = motor_speed_idx + 13;
   }
+  code = code + ",";
+  while (motor_rotate_idx != -1){
+    hub_name_begin_idx = statements_statements.indexOf("('", motor_rotate_idx) + 2
+    hub_name_end_idx = statements_statements.indexOf("', ", hub_name_begin_idx)
+    motor_name_begin_idx = statements_statements.indexOf("'", hub_name_end_idx + 1) + 1
+    motor_name_end_idx = statements_statements.indexOf("'", motor_name_begin_idx + 1)
+    angle_begin_idx = motor_name_end_idx + 3;
+    angle_end_idx = statements_statements.indexOf(");", angle_begin_idx);
+
+    hub_name = statements_statements.substring(hub_name_begin_idx, hub_name_end_idx);
+    motor_name = statements_statements.substring(motor_name_begin_idx, motor_name_end_idx);
+    angle = statements_statements.substring(angle_begin_idx, angle_end_idx);
+
+    code_line = "{'hub_name': '" + hub_name + "', 'motor_name': '" + motor_name + "', 'angle': " + angle + "}"
+    code = code + code_line;
+
+    motor_rotate_idx = statements_statements.indexOf("rotate_motor", degree_being_idx);
+    if (motor_rotate_idx != -1) {
+      code = code + ",\n";
+    }
+    degree_being_idx = motor_rotate_idx + 13;
+  }
+
   code = code + "\n]);"
   return code;
 };
 
-Blockly.Python['motor_speed_block'] = function(block) {
+Blockly.Python['motor_control_block'] = function(block) {
   var statements_statements = Blockly.Python.statementToCode(block, 'statements');
-  var code = "cait.essentials.control_motor_speed_group(" + "'{" + '"operation_list" :[';
-  motor_control_idx = statements_statements.indexOf("control_motor", 0);
-  var being_idx = motor_control_idx + 13;
-  while (motor_control_idx != -1){
-    hub_name_begin_idx = statements_statements.indexOf("('", motor_control_idx) + 2
+  var code = "cait.essentials.control_motor_group(" + "'{" + '"operation_list" :[';
+  motor_speed_idx = statements_statements.indexOf("control_motor", 0);
+  motor_rotate_idx = statements_statements.indexOf("rotate_motor", 0);
+  var speed_being_idx = motor_speed_idx + 13;
+  var degree_being_idx = motor_rotate_idx + 12;
+  while (motor_speed_idx != -1){
+    hub_name_begin_idx = statements_statements.indexOf("('", motor_speed_idx) + 2
     hub_name_end_idx = statements_statements.indexOf("', ", hub_name_begin_idx)
     motor_name_begin_idx = statements_statements.indexOf("'", hub_name_end_idx + 1) + 1
     motor_name_end_idx = statements_statements.indexOf("'", motor_name_begin_idx + 1)
@@ -1437,55 +1444,15 @@ Blockly.Python['motor_speed_block'] = function(block) {
     code_line = "{'hub_name': '" + hub_name + "', 'motor_name': '" + motor_name + "', 'speed': " + speed + ", 'duration': " + duration + "}"
     code = code + code_line;
 
-    motor_control_idx = statements_statements.indexOf("control_motor", being_idx);
-    if (motor_control_idx != -1) {
+    motor_speed_idx = statements_statements.indexOf("control_motor", speed_being_idx);
+    if (motor_speed_idx != -1) {
       code = code + ",";
     }
-    being_idx = motor_control_idx + 13;
+    speed_being_idx = motor_speed_idx + 13;
   }
-  code = code + "]}')\n"
-  return code;
-};
-
-Blockly.JavaScript['motor_degree_block'] = function(block) {
-  var statements_statements = Blockly.JavaScript.statementToCode(block, 'statements');
-  var code = "await control_motor_degree_group([\n";
-  motor_rotate_idx = statements_statements.indexOf("rotate_motor", 0);
-  var being_idx = motor_rotate_idx + 12;
-  //console.log(statements_statements);
+  code = code + ",";
   while (motor_rotate_idx != -1){
     hub_name_begin_idx = statements_statements.indexOf("('", motor_rotate_idx) + 2
-    hub_name_end_idx = statements_statements.indexOf("', ", hub_name_begin_idx)
-    motor_name_begin_idx = statements_statements.indexOf("'", hub_name_end_idx + 1) + 1
-    motor_name_end_idx = statements_statements.indexOf("'", motor_name_begin_idx + 1)
-    angle_begin_idx = motor_name_end_idx + 3;
-    angle_end_idx = statements_statements.indexOf(");", angle_begin_idx);
-
-    hub_name = statements_statements.substring(hub_name_begin_idx, hub_name_end_idx);
-    motor_name = statements_statements.substring(motor_name_begin_idx, motor_name_end_idx);
-    angle = statements_statements.substring(angle_begin_idx, angle_end_idx);
-
-    code_line = "{'hub_name': '" + hub_name + "', 'motor_name': '" + motor_name + "', 'angle': " + angle + "}"
-    code = code + code_line;
-
-    motor_rotate_idx = statements_statements.indexOf("rotate_motor", being_idx);
-    if (motor_rotate_idx != -1) {
-      code = code + ",\n";
-    }
-    being_idx = motor_rotate_idx + 13;
-  }
-  code = code + "\n]);"
-  return code;
-}
-
-Blockly.Python['motor_degree_block'] = function(block) {
-  var statements_statements = Blockly.Python.statementToCode(block, 'statements');
-  var code = "cait.essentials.control_motor_degree_group(" + "'{" + '"operation_list" :[';
-  motor_rotate_idx = statements_statements.indexOf("rotate_motor", 0);
-  var being_idx = motor_rotate_idx + 12;
-  //console.log(statements_statements);
-  while (motor_rotate_idx != -1){
-    hub_name_begin_idx = statements_statements.indexOf("('", motor_rotate_idx)
     hub_name_end_idx = statements_statements.indexOf("', ", hub_name_begin_idx)
     motor_name_begin_idx = statements_statements.indexOf("'", hub_name_end_idx + 1) + 1
     motor_name_end_idx = statements_statements.indexOf("'", motor_name_begin_idx + 1)
@@ -1502,15 +1469,16 @@ Blockly.Python['motor_degree_block'] = function(block) {
     code_line = "{'hub_name': '" + hub_name + "', 'motor_name': '" + motor_name + "', 'angle': " + angle + "}"
     code = code + code_line;
 
-    motor_rotate_idx = statements_statements.indexOf("rotate_motor", being_idx);
+    motor_rotate_idx = statements_statements.indexOf("rotate_motor", degree_being_idx);
     if (motor_rotate_idx != -1) {
       code = code + ",";
     }
-    being_idx = motor_rotate_idx + 13;
+    degree_being_idx = motor_rotate_idx + 13;
   }
+
   code = code + "]}')\n"
   return code;
-}
+};
 
 Blockly.JavaScript['move'] = function(block) {
   var value_motors = Blockly.JavaScript.valueToCode(block, 'motors', Blockly.JavaScript.ORDER_ATOMIC);

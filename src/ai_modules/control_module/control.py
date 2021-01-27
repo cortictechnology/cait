@@ -113,12 +113,12 @@ def on_message_control(client, userdata, msg):
                 speed = int(data[speed_begin_idx:speed_end_idx])
                 duration = int(data[duration_begin_idx:])
                 move(hub_name, motor, speed, duration)
-            elif data.find("motor_speed_group") != -1:
-                operation_list = data[data.find("motor_speed_group") + 18:]
+            elif data.find("motor_group") != -1:
+                operation_list = data[data.find("motor_group") + 12:]
                 move_group(operation_list)
-            elif data.find("motor_degree_group") != -1:
-                operation_list = data[data.find("motor_degree_group") + 19:]
-                rotate_group(operation_list)
+            # elif data.find("motor_degree_group") != -1:
+            #     operation_list = data[data.find("motor_degree_group") + 19:]
+            #     rotate_group(operation_list)
             elif data.find("rotate") != -1:
                 hub_name_begin_idx = data.find("hub") + 4
                 hub_name_end_idx = data.find(" rotate", hub_name_begin_idx)
@@ -235,55 +235,6 @@ def setPosition(hub_name, motor_name, position):
     client_control.publish("cait/module_states", "Control Done", qos=1)
     logging.info("Done rotating")
 
-def rotate_group(operation_list):
-    global current_hubs
-    operation_list = json.loads(operation_list)['operation_list']
-    largest_angle = 0
-    for operation in operation_list:
-        hub = current_hubs[operation['hub_name']]
-        hub_type = hub[0]
-        motor = translate_motor_name(hub, operation['motor_name'])
-        angle = int(operation['angle'])
-        if abs(angle) > largest_angle:
-            largest_angle = abs(angle)
-        if hub_type == "EV3":
-            try:
-                this_motor = hub[2].Motor(motor)
-                this_motor.on_for_degrees(100, angle, block=False)
-            except:
-                logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected motor port not working", qos=1)
-                del current_hubs[operation['hub_name']]
-                return
-        elif hub_type == "Robot Inventor":
-            speed = 100
-            if angle< 0:
-                speed = -100
-            degree = abs(angle)
-            msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_for_degrees(' + str(degree).encode('utf-8') + b', ' + str(speed).encode('utf-8') + b')\x0D'
-            try:
-                hub[1].send(msg_individual)
-                rec = hub[1].recv(102400)
-                logging.warning(rec)
-                if is_robot_inventor_port_error(rec):
-                    client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
-                    return
-            except:
-                logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected", qos=1)
-                del current_hubs[operation['hub_name']]
-                return
-    if largest_angle <= 400:
-        time.sleep(0.5)
-    elif largest_angle <= 800:
-        time.sleep(0.9)
-    elif largest_angle <= 1200:
-        time.sleep(1.5)
-    else:
-        time.sleep(2)
-    client_control.publish("cait/module_states", "Control Done", qos=1)
-    logging.info("Done rotating group")
-
 def move(hub_name, motor_name, speed=1, duration=0):
     global current_hubs
     hub = current_hubs[hub_name]
@@ -351,6 +302,7 @@ def move_group(operation_list):
     motor_list = []
     duration_list = []
     largest_duration = 0
+    largest_angle = 0
     all_motor_moved = True
     for operation in operation_list:
         hub = current_hubs[operation['hub_name']]
@@ -359,44 +311,79 @@ def move_group(operation_list):
         hub_list.append(hub)
         motor = translate_motor_name(hub, operation['motor_name'])
         motor_list.append(motor)
-        speed = int(operation['speed'])
-        duration = int(operation['duration'])
-        if duration > largest_duration:
-            largest_duration = duration
-        duration_list.append(duration)
-        if hub_type == "EV3":
-            try:
-                this_motor = hub[2].Motor(motor)
-                this_motor.on(speed, block=False)
-            except:
-                logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected motor port not working", qos=1)
-                del current_hubs[operation['hub_name']]
-                del hub_name_list[-1]
-                del hub_list[-1]
-                del motor_list[-1]
-                del duration_list[-1]
-                all_motor_moved = False
-                break
-        elif hub_type == "Robot Inventor":
-            msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_at_speed(' + str(speed).encode('utf-8') + b', 100)\x0D'
-            try:
-                hub[1].send(msg_individual)
-                rec = hub[1].recv(102400)
-                logging.warning(rec)
-                if is_robot_inventor_port_error(rec):
-                    client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
+        if 'speed' in operation:
+            speed = int(operation['speed'])
+            duration = int(operation['duration'])
+            if duration > largest_duration:
+                largest_duration = duration
+            duration_list.append(duration)
+            if hub_type == "EV3":
+                try:
+                    this_motor = hub[2].Motor(motor)
+                    this_motor.on(speed, block=False)
+                except:
+                    logging.warning("Time out occured, Hub disconnected")
+                    client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected motor port not working", qos=1)
+                    del current_hubs[operation['hub_name']]
+                    del hub_name_list[-1]
+                    del hub_list[-1]
+                    del motor_list[-1]
+                    del duration_list[-1]
+                    all_motor_moved = False
                     break
-            except:
-                logging.warning("Time out occured, Hub disconnected")
-                client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected", qos=1)
-                del current_hubs[operation['hub_name']]
-                del hub_name_list[-1]
-                del hub_list[-1]
-                del motor_list[-1]
-                del duration_list[-1]
-                all_motor_moved = False
-                break
+            elif hub_type == "Robot Inventor":
+                msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_at_speed(' + str(speed).encode('utf-8') + b', 100)\x0D'
+                try:
+                    hub[1].send(msg_individual)
+                    rec = hub[1].recv(102400)
+                    logging.warning(rec)
+                    if is_robot_inventor_port_error(rec):
+                        client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
+                        break
+                except:
+                    logging.warning("Time out occured, Hub disconnected")
+                    client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected", qos=1)
+                    del current_hubs[operation['hub_name']]
+                    del hub_name_list[-1]
+                    del hub_list[-1]
+                    del motor_list[-1]
+                    del duration_list[-1]
+                    all_motor_moved = False
+                    break
+        elif 'angle' in operation:
+            angle = int(operation['angle'])
+            if abs(angle) > largest_angle:
+                largest_angle = abs(angle)
+            if hub_type == "EV3":
+                try:
+                    this_motor = hub[2].Motor(motor)
+                    this_motor.on_for_degrees(100, angle, block=False)
+                except:
+                    logging.warning("Time out occured, Hub disconnected")
+                    client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected motor port not working", qos=1)
+                    del current_hubs[operation['hub_name']]
+                    return
+            elif hub_type == "Robot Inventor":
+                speed = 100
+                if angle< 0:
+                    speed = -100
+                degree = abs(angle)
+                msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_for_degrees(' + str(degree).encode('utf-8') + b', ' + str(speed).encode('utf-8') + b')\x0D'
+                try:
+                    hub[1].send(msg_individual)
+                    rec = hub[1].recv(102400)
+                    logging.warning(rec)
+                    if is_robot_inventor_port_error(rec):
+                        client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
+                        return
+                except:
+                    logging.warning("Time out occured, Hub disconnected")
+                    client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected", qos=1)
+                    del current_hubs[operation['hub_name']]
+                    return
+    if largest_angle > 800:
+        if largest_duration < 2:
+            largest_duration = 2
     start_time = time.time()
     while time.time() - start_time < largest_duration:
         remaining_duration_list = []

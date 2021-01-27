@@ -282,7 +282,7 @@ def control_motor(hub_name, motor_name, speed, duration):
 
     return success, msg
 
-def control_motor_speed_group(operation_list):
+def control_motor_group(operation_list):
     """Move a group of motors together
 
     Parameters:
@@ -292,7 +292,7 @@ def control_motor_speed_group(operation_list):
         (bool): True if successfully moved. False otherwise.
     """ 
 
-    success, msg = core.control_motor_speed_group(operation_list)
+    success, msg = core.control_motor_group(operation_list)
 
     return success, msg
 
@@ -308,19 +308,6 @@ def rotate_motor(hub_name, motor_name, angle):
     """    
 
     success, msg = core.rotate_motor(hub_name, motor_name, angle)
-
-    return success, msg
-
-def control_motor_degree_group(operation_list):
-    """Rotate a group of motors together
-
-    Parameters:
-        operation_list (list): A list of operation in string, refer to code generated from the visual programming interface
-
-    Returns:
-        (bool): True if successfully moved. False otherwise.
-    """ 
-    success, msg = core.control_motor_degree_group(operation_list)
 
     return success, msg
 
