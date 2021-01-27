@@ -41,7 +41,7 @@ while True:
     all_disconnect_count = 0
   else:
     if stat != 0:
-      if all_disconnect_count == 3:
+      if all_disconnect_count == 6:
           logging.info("WIFI + AP off")
           all_disconnect_count = 0
           os.system("mplayer /opt/cortic_modules/voice_module/apOn.mp3")
