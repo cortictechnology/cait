@@ -33,7 +33,7 @@ while True:
       if (time.time() - first_internet_up_time) > 120:
         logging.info("WIFI + AP on")
         os.system("mplayer /opt/cortic_modules/voice_module/apOff.mp3")
-        os.system("sudo systemctl mask hostapd.service")
+        #os.system("sudo systemctl mask hostapd.service")
         os.system("sudo systemctl stop hostapd.service")
         #os.system("reboot")
     else:
@@ -45,7 +45,7 @@ while True:
           logging.info("WIFI + AP off")
           all_disconnect_count = 0
           os.system("mplayer /opt/cortic_modules/voice_module/apOn.mp3")
-          os.system("sudo systemctl unmask hostapd.service")
+          #os.system("sudo systemctl unmask hostapd.service")
           os.system("reboot")
       all_disconnect_count = all_disconnect_count + 1
     else:

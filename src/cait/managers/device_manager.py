@@ -102,11 +102,13 @@ class DeviceManager:
                 control_devices.append(cinfo)
         connected_devices = subprocess.check_output(["hcitool", "con"]).decode("utf-8").split("\n")
         mac_addr_re = re.compile("^.*([0-9,:,A-F]{17}).*$")
+        logging.warning("Connected device: " + str(connected_devices))
         for device in connected_devices:
             mac_addr = mac_addr_re.match(device)
             if mac_addr != None:
                 addr = mac_addr.group(1)
                 device_name = ''
+                logging.warning("Device mac address:" + str(addr)
                 try:
                     cmd = ["hcitool", "name", addr]
                     logging.warning(str(cmd))

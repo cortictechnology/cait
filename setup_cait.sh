@@ -42,18 +42,18 @@ sudo apt-get install npm nodejs -y
 npm install --save-dev javascript-obfuscator
 sudo npm link javascript-obfuscator
 cd ../utils
-bash compile_scripts.sh
+#bash compile_scripts.sh
 cd ../setup_scripts
-sudo cp -R ../src/cortic_webapp_bin /opt
-sudo mv /opt/cortic_webapp_bin /opt/cortic_webapp
+sudo cp -R ../src/cortic_webapp /opt
+#sudo mv /opt/cortic_webapp_bin /opt/cortic_webapp
 sudo cp -R ./homeassistant/ ~/
 sudo apt-get install python3-pil python3-pil.imagetk -y
 sudo pip3 install filelock wifi
 sudo apt install whois
 sudo mkdir /opt/cortic_modules
-sudo cp -R ../src/cait_bin /opt/cortic_modules
-sudo mv /opt/cortic_modules/cait_bin /opt/cortic_modules/cait
-sudo cp -R ../src/ai_modules_bin/* /opt/cortic_modules
+sudo cp -R ../src/cait /opt/cortic_modules
+#sudo mv /opt/cortic_modules/cait_bin /opt/cortic_modules/cait
+sudo cp -R ../src/ai_modules/* /opt/cortic_modules
 sudo mkdir /opt/cortic_modules/vision_module/database
 sudo cp ../src/docker-compose.yml ~/
 sudo touch /opt/accounts
