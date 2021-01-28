@@ -108,7 +108,7 @@ class DeviceManager:
             if mac_addr != None:
                 addr = mac_addr.group(1)
                 device_name = ''
-                logging.warning("Device mac address:" + str(addr)
+                logging.warning("Device mac address:" + str(addr))
                 try:
                     cmd = ["hcitool", "name", addr]
                     logging.warning(str(cmd))
