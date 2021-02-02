@@ -599,14 +599,14 @@ async function save_workspace(autosave=false) {
   }
 }
 
-async function new_workspace() {
-  if (workspace.getAllBlocks().length > 0) {
-    if(confirm(localizedStrings.saveOrNot[locale])) {
-      await save_workspace();
-    }
-  }
+function new_workspace() {
   location.reload();
 }
+
+async function new_workspace_save() {
+  await save_workspace();
+}
+
 
 async function load_workspace(from_autosave=false) {
   var filename;

@@ -4,6 +4,7 @@
     <title>CAIT Visual Programming</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/loading-bar.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jquery-ui.min.css">
     <link rel="icon" type="image/png" href="/static/images/favicon.ico"/>
     <script type=text/javascript src="{{url_for('static', filename='js/blockly_compressed.js') }}"></script>
     <script type=text/javascript src="{{url_for('static', filename='js/blocks_compressed.js') }}"></script>
@@ -12,6 +13,7 @@
     <script type=text/javascript src="{{url_for('static', filename='js/javascript_compressed.js') }}"></script>
     <script type=text/javascript src="{{url_for('static', filename='js/en.js') }}"></script>
     <script type=text/javascript src="{{url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script type=text/javascript src="{{url_for('static', filename='js/jquery-ui.min.js') }}"></script>
     <script src="{{url_for('static', filename='js/string_locale.js') }}"></script> 
     <script src="{{url_for('static', filename='js/version.js') }}"></script> 
     <script>var locale="en/CA";</script>
@@ -299,6 +301,11 @@
           overflow:hidden;
         }
 
+        .leftButton
+        {
+          text-align: left;
+        }
+
       </style>
 </head>
 <body>
@@ -310,8 +317,27 @@
       </tr>
       <tr>
         <td>
-            <button id="new" onclick="new_workspace()"></button>
+            <script>
+              function click_new() {
+                $( "#new_dialog" ).dialog(
+                                  { buttons: [ 
+                                    { id:"yes_save",
+                                      text: "Yes", 
+                                      class: 'leftButton',
+                                      click: new_workspace_save
+                                    },
+                                    { id:"no_save",
+                                      text: "No", 
+                                      click: new_workspace
+                                    } 
+                                  ] 
+                                }
+                                );
+                              }
+            </script>
+            <button id="new" onclick="click_new()"></button>
             <script>document.getElementById('new').title = localizedStrings.new[locale];</script>
+            
             <button id="load" onclick="load_workspace()"></button>
             <script>document.getElementById('load').title = localizedStrings.load[locale];</script>
             <button id="save" onclick="save_workspace()"></button>
@@ -829,5 +855,10 @@
       onresize();
       Blockly.svgResize(workspace);
     </script> 
+
+<div id="new_dialog" title="New workspace">
+  <p>Do you want to save your current workspace?</p>
+</div>
+
 </body>
 </html>
