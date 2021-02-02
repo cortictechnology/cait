@@ -48,6 +48,12 @@ function enableChileBlock(block) {
             added_hubs.push(chileBlks[i].inputList[0].fieldRow[1].value_);
           }
         }
+        if (chileBlks[i].getSurroundParent().type != "init_control") {
+          chileBlks[i].setEnabled(false);
+        }
+        else {
+          chileBlks[i].setEnabled(true);
+        }
       }
       enableChileBlock(chileBlks[i]);
     }
@@ -229,10 +235,8 @@ function updateFunction(event) {
           block.type == "init_control" ||  
           block.type == "add_control_hub" ||
           block.type == "init_smarthome") {
-        var within_setup_block = false;
-        while (parentBlock != null) {
-          if (parentBlock.type == "setup_block") {
-            within_setup_block = true;
+        if (block.getSurroundParent() != null) {
+          if (block.getSurroundParent().type == "setup_block") {
             block.setEnabled(true);
             if (block.type == "add_control_hub") {
               if (block.inputList[0].fieldRow[1].value_ != 'none'){
@@ -243,32 +247,49 @@ function updateFunction(event) {
               }
             }
             enableChileBlock(block);
-            break;
           }
           else {
-            parentBlock = parentBlock.parentBlock_;
-          }
-        }
-        if (!within_setup_block) {
-          block.setEnabled(false);
-          allBlocks = workspace.getAllBlocks();
-          if (block.type == "add_control_hub") {
-            var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
-            if (index != -1) {
-              var hub_still_exists = false;
-              for (blk in allBlocks){
-                if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
-                  if (allBlocks[blk].inputList[0].fieldRow[1].value_ == block.inputList[0].fieldRow[1].value_) {
-                    hub_still_exists = true;
+            block.setEnabled(false);
+            allBlocks = workspace.getAllBlocks();
+            if (block.type == "add_control_hub") {
+              var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
+              if (index != -1) {
+                var hub_still_exists = false;
+                for (blk in allBlocks){
+                  if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
+                    if (allBlocks[blk].inputList[0].fieldRow[1].value_ == block.inputList[0].fieldRow[1].value_) {
+                      hub_still_exists = true;
+                    }
                   }
                 }
-              }
-              if (!hub_still_exists) {
-                added_hubs.splice(index, 1);
+                if (!hub_still_exists) {
+                  added_hubs.splice(index, 1);
+                }
               }
             }
+            disableChileBlock(block);
           }
-          disableChileBlock(block);
+        }
+        else {
+          block.setEnabled(false);
+            allBlocks = workspace.getAllBlocks();
+            if (block.type == "add_control_hub") {
+              var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
+              if (index != -1) {
+                var hub_still_exists = false;
+                for (blk in allBlocks){
+                  if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
+                    if (allBlocks[blk].inputList[0].fieldRow[1].value_ == block.inputList[0].fieldRow[1].value_) {
+                      hub_still_exists = true;
+                    }
+                  }
+                }
+                if (!hub_still_exists) {
+                  added_hubs.splice(index, 1);
+                }
+              }
+            }
+            disableChileBlock(block);
         }
       }
 
@@ -349,10 +370,16 @@ function updateFunction(event) {
       //   }
       // }
       if (block.type == "add_control_hub") {
+        test = block;
         if (block.getSurroundParent() != null) {
-          if (block.getSurroundParent().type != "init_control") {
+          if (block.getSurroundParent().type == "init_control") {
+            console.log("Within init_control")
+            block.setEnabled(true);
+          }
+          else {
+            console.log("Not within init_control");
             block.setEnabled(false);
-          } 
+          }
         }
       }
 
@@ -607,7 +634,12 @@ async function save_workspace(autosave=false) {
   }
 }
 
-function new_workspace() {
+async function new_workspace() {
+  const res = await $.ajax({
+    url: "/clearcache",
+    type: 'POST',
+    data: {}
+  });
   location.reload();
 }
 

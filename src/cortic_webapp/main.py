@@ -693,6 +693,20 @@ def savenotebook():
         result = {"success": -1}
     return jsonify(result)
 
+@application.route("/clearcache", methods=['POST'])
+@login_required
+def clearcache():
+    location = "/home/" + current_user.id + "/tmp/"
+    filename = "workspace_autosave.xml"
+    savename = location+filename
+    result = {"success": True}
+    try:
+        os.remove(savename) 
+        
+    except:
+        pass
+    return jsonify(result)
+
 @application.route("/loadworkspace", methods=['POST'])
 @login_required
 def loadworkspace():
