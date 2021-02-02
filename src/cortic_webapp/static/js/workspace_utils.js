@@ -271,6 +271,7 @@ function updateFunction(event) {
           disableChileBlock(block);
         }
       }
+
       else if (block.type == "setup_block") {
         var needsDisable = false;
         for (blk in allBlocks) {
@@ -347,6 +348,13 @@ function updateFunction(event) {
       //     }
       //   }
       // }
+      if (block.type == "add_control_hub") {
+        if (block.getSurroundParent() != null) {
+          if (block.getSurroundParent().type != "init_control") {
+            block.setEnabled(false);
+          } 
+        }
+      }
 
       if (block.type == "set_parameter" && block.parentBlock_ != null) {
         block.setEnabled(true);

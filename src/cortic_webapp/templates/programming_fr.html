@@ -312,7 +312,25 @@
       </tr>
       <tr>
         <td>
-            <button id="new" onclick="new_workspace()"></button>
+            <script>
+              function click_new() {
+                $( "#new_dialog" ).dialog(
+                                  { buttons: [ 
+                                    { id:"yes_save",
+                                      text: "Yes", 
+                                      class: 'leftButton',
+                                      click: new_workspace_save
+                                    },
+                                    { id:"no_save",
+                                      text: "No", 
+                                      click: new_workspace
+                                    } 
+                                  ] 
+                                }
+                                );
+                              }
+            </script>
+            <button id="new" onclick="click_new()"></button>
             <script>document.getElementById('new').title = localizedStrings.new[locale];</script>
             <button id="load" onclick="load_workspace()"></button>
             <script>document.getElementById('load').title = localizedStrings.load[locale];</script>
@@ -833,5 +851,10 @@
       onresize();
       Blockly.svgResize(workspace);
     </script> 
+
+<div id="new_dialog" title="New workspace">
+  <p>Voulez-vous enregistrer votre espace de travail actuel?</p>
+</div>
+
 </body>
 </html>
