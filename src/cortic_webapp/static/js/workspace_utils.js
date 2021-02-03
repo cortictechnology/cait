@@ -98,6 +98,9 @@ var test;
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
   var allBlocks = workspace.getAllBlocks();
+  if (event.type == Blockly.Events.BLOCK_CREATE) {
+    block.contextMenu = false;
+  }
   if (event.type == Blockly.Events.UI) { 
     if (event.newValue != null){
       if (event.newValue.indexOf("Robot Inventor") != -1) {
