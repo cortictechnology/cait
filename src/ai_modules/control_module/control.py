@@ -82,13 +82,27 @@ def on_message_control(client, userdata, msg):
                 connection = None
                 if hub_type == "EV3":
                     ev3_connection = connect_to_ev3(hub_address)
-                    ev3_motor = ev3_connection.modules['ev3dev2.motor']
-                    ev3_sensor = ev3_connection.modules['ev3dev2.sensor']
-                    ev3_sound = ev3_connection.modules['ev3dev2.sound']
-                    connection = ["EV3", ev3_connection, ev3_motor, ev3_sensor, ev3_sound]
+                    retry_count = 0
+                    while ev3_connection is None:
+                        ev3_connection = connect_to_ev3(hub_address)
+                        retry_count = retry_count + 1
+                        if retry_count > 3:
+                            break
+                    if ev3_connection is not None:
+                        ev3_motor = ev3_connection.modules['ev3dev2.motor']
+                        ev3_sensor = ev3_connection.modules['ev3dev2.sensor']
+                        ev3_sound = ev3_connection.modules['ev3dev2.sound']
+                        connection = ["EV3", ev3_connection, ev3_motor, ev3_sensor, ev3_sound]
                 elif hub_type == "Robot Inventor":
                     robot_inventor_connection = connect_to_robot_inventor(hub_address)
-                    connection = ["Robot Inventor", robot_inventor_connection]
+                    retry_count = 0
+                    while robot_inventor_connection is None:
+                        robot_inventor_connection = connect_to_robot_inventor(hub_address)
+                        retry_count = retry_count + 1
+                        if retry_count > 3:
+                            break
+                    if robot_inventor_connection is not None:
+                        connection = ["Robot Inventor", robot_inventor_connection]
                 if connection is not None:
                     current_hubs[hub] = connection
                     logging.warning("Connected to: " + hub_type + " at address: " + hub_address)

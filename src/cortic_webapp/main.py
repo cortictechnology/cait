@@ -722,11 +722,11 @@ def loadworkspace():
             f = open(savename, 'r')
             xml_text = f.read()
             f.close()
-            if filename == "workspace_autosave.xml":
-                try:
-                    os.remove(savename) 
-                except:
-                    pass
+            # if filename == "workspace_autosave.xml":
+            #     try:
+            #         os.remove(savename) 
+            #     except:
+            #         pass
         else:
             xml_text = ''
         result = {"xml_text": xml_text}

@@ -790,13 +790,10 @@ function() {
         }
         return options;
       }), 'accounts');
-  if (cloud_accounts.length < 1) {
+  if (cloud_accounts.length < 1 || this.getInput('voice_mode').fieldRow[1].value_ == "on device") {
     this.getInput("cloud_accounts").setVisible(false);
     this.getInput("ending").setVisible(false);
     this.getField("language").setVisible(false);
-    //this.getField('mode').menuGenerator_[0] = this.getField('mode').menuGenerator_[1]
-    //this.getField('mode').value_ = 'on_device';
-    //this.getField('mode').text_ = 'on device';
   }
 
   
