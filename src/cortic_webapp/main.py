@@ -385,6 +385,13 @@ def switchlang():
     result = {"result": True}
     return jsonify(result)
 
+
+@application.route("/getusername", methods=['POST'])
+def getusername():
+    result = {"username": current_user.id}
+    return jsonify(result)
+
+
 @application.route('/programming')
 @login_required
 def programming():
@@ -395,6 +402,7 @@ def programming():
         return render_template('programming_fr.html')
     else:
         return render_template('programming.html')
+
 
 @application.route("/get_cloud_accounts", methods=['POST'])
 @login_required

@@ -45,6 +45,13 @@ function onMessageArrived(message) {
   }  
 }
 
+
+$.post("/getusername",
+{},
+function(data, status){
+  document.getElementById('loggedUser').innerHTML = localizedStrings.loggedInAs[locale] + data['username'];
+});
+
 var scan_for_devices = true;
 
 var cameras = [];
@@ -351,4 +358,4 @@ function update_added_hub_list() {
 
 setInterval(update_added_hub_list, 1000);
 
-load_workspace(true);
+setTimeout(() => { load_workspace(true); }, 100);

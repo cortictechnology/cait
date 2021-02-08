@@ -645,7 +645,6 @@ async function new_workspace_save() {
   await save_workspace();
 }
 
-
 async function load_workspace(from_autosave=false) {
   var filename;
   var path;
@@ -663,7 +662,7 @@ async function load_workspace(from_autosave=false) {
     type: 'POST',
     data: {"filename" : filename, "save_type": save_type }
   });
-  //console.log(res);
+  // console.log(res);
   xml_text = res['xml_text'];
   if (xml_text != ''){
     var xml = Blockly.Xml.textToDom(xml_text);

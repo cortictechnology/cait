@@ -311,9 +311,14 @@
 <body>
     <table>
       <tr>
-        <h1><span id="vpTitle"></span><i id="version"></i></h1>
-        <script>document.getElementById('vpTitle').innerHTML = localizedStrings.vpTitle[locale];</script>
-        <script>document.getElementById('version').innerHTML = "    version: " + VERSION;</script>
+        <td>
+          <h1><span id="vpTitle"></span><i id="version"></i></h1>
+          <script>document.getElementById('vpTitle').innerHTML = localizedStrings.vpTitle[locale];</script>
+          <script>document.getElementById('version').innerHTML = "    version: " + VERSION;</script>
+        </td>
+        <td>
+          <span id="loggedUser" style="float: right;"></span>
+        </td>
       </tr>
       <tr>
         <td>

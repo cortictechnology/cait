@@ -95,6 +95,11 @@ var localizedStrings={
         'fr/CA':"Interface de programmation visuelle CAIT",
         'chs/CN':"CAIT可视化编程界面"
     },
+    loggedInAs:{
+        'en/CA':"Logged in as: ",
+        'fr/CA':"Connecté en tant que: ",
+        'chs/CN':"登入为: "
+    },
     save:{
         'en/CA':"Save",
         'fr/CA':"Enregistrer",
