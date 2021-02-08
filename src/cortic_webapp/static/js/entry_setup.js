@@ -23,10 +23,6 @@ function onConnect() {
     document.getElementById('loggedUser').innerHTML = localizedStrings.loggedInAs[locale] + data['username'];
     client.subscribe("cait/displayFrame/" + data['username']);
   });
-  //stopVideoFeed();
-  //emptyVisionMode();
-  stopVoice();
-  resetModules();
 }
 
 // called when the client loses its connection
@@ -357,4 +353,4 @@ function update_added_hub_list() {
 
 setInterval(update_added_hub_list, 1000);
 
-setTimeout(() => { load_workspace(true); }, 100);
+setTimeout(() => { load_workspace(true); }, 200);

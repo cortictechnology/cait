@@ -112,6 +112,24 @@ def deactivate_vision():
     return core.deactivate_vision()
 
 
+def deactivate_voice():
+    """Deactivate the voice component
+
+    Returns:
+        (Bool): True if deactivate successfullt, False otherwise
+    """  
+    return core.deactivate_voice()
+
+
+def reset_modules():
+    """Reset all module states
+
+    Returns:
+        (Bool): True if reset successfullt, False otherwise
+    """  
+    return core.reset_modules()
+
+
 def change_module_parameters(parameter_name, value):
     """Generic function for setting ai module parameters
     Parameters:

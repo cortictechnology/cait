@@ -974,13 +974,13 @@ Blockly.Python['init_nlp'] = function(block) {
 Blockly.JavaScript['init_control'] = function(block) {
   var statements_statements = Blockly.JavaScript.statementToCode(block, 'statements');
   var code = "await init_control([";
-  hub_name_idx = statements_statements.indexOf("(", 0);
+  hub_name_idx = statements_statements.indexOf("<", 0);
   var being_idx = hub_name_idx + 1;
   while (hub_name_idx != -1) {
-    var end_idx = statements_statements.indexOf(")", being_idx);
+    var end_idx = statements_statements.indexOf(">", being_idx);
     var hub_name = statements_statements.substring(being_idx, end_idx);
     code = code + "'" +  hub_name + "'";
-    hub_name_idx = statements_statements.indexOf("(", being_idx);
+    hub_name_idx = statements_statements.indexOf("<", being_idx);
     being_idx = hub_name_idx + 1;
     if (hub_name_idx != -1) {
       code = code + ",";
@@ -1014,7 +1014,7 @@ Blockly.JavaScript['add_control_hub'] = function(block) {
   if (dropdown_hub == "none"){
     throw new Error("The selected hub: " + dropdown_hub + " is not valid, please make sure to select an available hub.");
   }
-  var code = "(" + dropdown_hub + ")";
+  var code = "<" + dropdown_hub + ">";
   return code;
 };
 

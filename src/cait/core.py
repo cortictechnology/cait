@@ -247,6 +247,13 @@ def initialize_voice(useOnline=False, account="default", language="english"):
     return True, "OK"
 
 
+def deactivate_voice():
+    result = caitCore.send_component_commond("voice", "VoiceDown")
+    if result == False:
+        logging.info("Deactivate Voice: Error occurred")
+    return result
+
+
 def initialize_nlp(mode="english_default"):
     global current_nlp_model
     nlp_wait = 0
@@ -302,6 +309,13 @@ def deactivate_control():
     result = caitCore.send_component_commond("control", "Control Down")
     if result == False:
         logging.info("Deactivate Control: Error occurred")
+        return result
+
+
+def reset_modules():
+    result = caitCore.send_component_commond("module_states", "Reset")
+    if result == False:
+        logging.info("Reset Modules: Error occurred")
         return result
 
 

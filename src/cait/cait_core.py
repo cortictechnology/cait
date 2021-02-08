@@ -130,5 +130,8 @@ class CAITCore:
         elif component_name == "system_state":
             self.component_manager.client_module_state.publish("cait/system_status", command)
             return True
+        elif component_name == "module_states":
+            self.component_manager.client_module_state.publish("cait/module_states", command)
+            return True
         else:
             return False

@@ -47,7 +47,10 @@ current_language = "english"
 connecting_to_wifi = False
 
 current_vision_user = ""
-current_speech_user = ""
+current_voice_user = ""
+current_nlp_user = ""
+current_control_hub_user = ""
+current_smarthome_user = ""
 
 @application.context_processor
 def override_url_for():
@@ -425,15 +428,43 @@ def get_nlp_models():
 @login_required
 def initialize_component():
     global current_vision_user
+    global current_voice_user
+    global current_nlp_user
+    global current_control_hub_user
+    global current_smarthome_user
+
     component_name = request.form.get('component_name')
+    mode = request.form.get('mode')
+
     if component_name == "vision":
         if current_vision_user == "" or current_vision_user == current_user.id:
             current_vision_user = current_user.id
             logging.warning("Vision User: " + current_vision_user)
         else:
-            result = {"success": False, "error": "Vision compoent is already in used, please try again later."}
+            result = {"success": False, "error": "Vision compoent is being used by another user, please try again later."}
             return jsonify(result)
-    mode = request.form.get('mode')
+    elif component_name == "voice":
+        if current_voice_user == "" or current_voice_user == current_user.id:
+            current_voice_user = current_user.id
+            logging.warning("Voice User: " + current_voice_user)
+        else:
+            result = {"success": False, "error": "Speech compoent is being used by another user, please try again later."}
+            return jsonify(result)
+    elif component_name == "nlp":
+        if current_nlp_user == "" or current_nlp_user == current_user.id:
+            current_nlp_user = current_user.id
+            logging.warning("NLP User: " + current_nlp_user)
+        else:
+            result = {"success": False, "error": "NLP compoent is being used by another user, please try again later."}
+            return jsonify(result)
+    elif component_name == "control":
+        if current_control_hub_user == "" or current_control_hub_user == current_user.id:
+            current_control_hub_user = current_user.id
+            logging.warning("Control Hub User: " + current_control_hub_user)
+        else:
+            result = {"success": False, "error": "Control compoent is being used by another user, please try again later."}
+            return jsonify(result)
+
     account = request.form.get('account')
     if account == "default":
         account = current_user.id
@@ -451,11 +482,25 @@ def initialize_component():
 @login_required
 def release_components():
     global current_vision_user
-    logging.warning("Releasing components**************")
+    global current_voice_user
+    global current_nlp_user
+    global current_control_hub_user
+    success = False
+    logging.warning("Releasing components")
     if current_vision_user == current_user.id:
         current_vision_user = ""
         success = essentials.deactivate_vision()
-    result = {"success": True}
+    if current_voice_user == current_user.id:
+        current_voice_user = ""
+        success = essentials.deactivate_voice()
+    if current_nlp_user == current_user.id:
+        current_nlp_user = ""
+        success = True
+    if current_control_hub_user == current_user.id:
+        current_control_hub_user = ""
+        success = True
+    success = essentials.reset_modules()
+    result = {"success": success}
     return jsonify(result)
 
 

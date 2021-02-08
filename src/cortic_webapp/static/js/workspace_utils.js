@@ -580,8 +580,8 @@ function onReload () {
 }
 
 async function stop_code() {
-  await save_workspace(true);
-  window.location.hash = '#reload';
+  //await save_workspace(true);
+  //window.location.hash = '#reload';
   location.reload();
 }
 

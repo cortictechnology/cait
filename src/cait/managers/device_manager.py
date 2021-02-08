@@ -148,7 +148,6 @@ class DeviceManager:
         while True:
             try:
                 self.video_devices = self.scan_video_devices()
-                logging.warning("Video devics: " + str(self.video_devices))
                 time.sleep(5)
             except:
                 continue
