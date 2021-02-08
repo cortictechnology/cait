@@ -96,7 +96,16 @@ def get_audio_devices():
 
 
 def get_control_devices():
-    return caitCore.get_devices("control")
+    control_devices = caitCore.get_devices("control")
+    connected_devices = []
+    for device in control_devices:
+        if device['connected']:
+            if device["device"] == "EV3":
+                connected_devices.append(device["device"] + ": " + device['ip_addr'])
+            else:
+                connected_devices.append(device["device"] + ": " + device['mac_addr'])
+    caitCore.send_component_commond("control", "connectedHubs," + str(connected_devices))
+    return control_devices
 
 
 def test_camera(index):
@@ -264,8 +273,8 @@ def deactivate_nlp():
 def initialize_control(mode):
     control_wait = 0
     available_control_devices = caitCore.get_devices("control")
-    if len(available_control_devices) == 0:
-        return False, "No control device is detected, or connected device is not supported"
+    #if len(available_control_devices) == 0:
+    #    return False, "No control device is detected, or connected device is not supported"
     caitCore.set_component_state("control", False)
     while not caitCore.get_component_state("control", "Up"):
         if control_wait <= 30:
@@ -276,6 +285,10 @@ def initialize_control(mode):
             logging.info("Init Control: Waiting for control up")
             control_wait = control_wait + 1
             time.sleep(1)
+            if caitCore.component_manager.controlException:
+                caitCore.component_manager.controlException = False
+                logging.warning("Hub disconnected")
+                return False, caitCore.component_manager.controlExceptionMsg
         else:
             logging.info("Init Control Error: Control module not responding, please check the module status")
             return False,  "Timout"

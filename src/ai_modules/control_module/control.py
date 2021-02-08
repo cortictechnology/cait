@@ -36,12 +36,14 @@ def connect_to_robot_inventor(hub_address):
         robot_inventor_sock = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
         logging.warning("Connecting to: " + str(port) + ", " + str(host))
         robot_inventor_sock.connect((host, port))
-        
+        time.sleep(1)
         robot_inventor_sock.settimeout(5)
         robot_inventor_sock.send(b'\x03')
         robot_inventor_sock.send(b'import hub\x0D')
+        time.sleep(0.5)
         dump = robot_inventor_sock.recv(102400)
         time.sleep(0.5)
+        logging.warning("Dump message: " + str(dump))
         return robot_inventor_sock
     except:
         logging.warning("No spike hub connected")
@@ -87,12 +89,13 @@ def on_message_control(client, userdata, msg):
                         ev3_connection = connect_to_ev3(hub_address)
                         retry_count = retry_count + 1
                         if retry_count > 3:
+                            logging.warning("Exceed retry time")
                             break
                     if ev3_connection is not None:
                         ev3_motor = ev3_connection.modules['ev3dev2.motor']
                         ev3_sensor = ev3_connection.modules['ev3dev2.sensor']
                         ev3_sound = ev3_connection.modules['ev3dev2.sound']
-                        connection = ["EV3", ev3_connection, ev3_motor, ev3_sensor, ev3_sound]
+                        connection = ["EV3", ev3_connection, ev3_motor, ev3_sensor, ev3_sound, 0]
                 elif hub_type == "Robot Inventor":
                     robot_inventor_connection = connect_to_robot_inventor(hub_address)
                     retry_count = 0
@@ -100,14 +103,16 @@ def on_message_control(client, userdata, msg):
                         robot_inventor_connection = connect_to_robot_inventor(hub_address)
                         retry_count = retry_count + 1
                         if retry_count > 3:
+                            logging.warning("Exceed retry time")
                             break
                     if robot_inventor_connection is not None:
-                        connection = ["Robot Inventor", robot_inventor_connection]
+                        connection = ["Robot Inventor", robot_inventor_connection, 0]
                 if connection is not None:
                     current_hubs[hub] = connection
                     logging.warning("Connected to: " + hub_type + " at address: " + hub_address)
                 else:
                     logging.warning("Failed Connecting to: " + hub_type + " at address: " + hub_address)
+                    client.publish("cait/module_states", "Control Exception: " + hub_address + " is not responding", qos=1)
                     connection_success = False
                 connecting = False
         if connection_success:
@@ -130,9 +135,6 @@ def on_message_control(client, userdata, msg):
             elif data.find("motor_group") != -1:
                 operation_list = data[data.find("motor_group") + 12:]
                 move_group(operation_list)
-            # elif data.find("motor_degree_group") != -1:
-            #     operation_list = data[data.find("motor_degree_group") + 19:]
-            #     rotate_group(operation_list)
             elif data.find("rotate") != -1:
                 hub_name_begin_idx = data.find("hub") + 4
                 hub_name_end_idx = data.find(" rotate", hub_name_begin_idx)
@@ -143,9 +145,17 @@ def on_message_control(client, userdata, msg):
                 motor = data[motor_begin_idx:motor_end_idx]
                 degree = int(data[angle_begin_idx:])
                 setPosition(hub_name, motor, degree)
-            # elif data.find("speak") != -1:
-            #     sentence = data[data.find(",")+1:]
-            #     speak(sentence)
+            elif data.find("connectedHubs") != -1:
+                hub_addresses = ast.literal_eval(data[data.find(",")+1:])
+                connected_hubs = {}
+                for hub in list(current_hubs.keys()):
+                    if hub in hub_addresses:
+                        connected_hubs[hub] = current_hubs[hub]
+                    else:
+                        if current_hubs[hub][-1] < 8:
+                            connected_hubs[hub] = current_hubs[hub]
+                        current_hubs[hub][-1] = current_hubs[hub][-1] + 1
+                current_hubs = connected_hubs
 
 client_control = mqtt.Client()
 client_control.on_connect = on_connect_control

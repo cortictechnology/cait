@@ -455,13 +455,23 @@ function updateFunction(event) {
 
 var stopCode = false;
 
+function highlightBlock(id) {
+  workspace.highlightBlock(id);
+}
+
+function resetStepUi(clearOutput) {
+  workspace.highlightBlock(null);
+}
+
 function run_code() {
   //var xml = Blockly.Xml.workspaceToDom(workspace);
   //var xml_text = Blockly.Xml.domToText(xml);
   //console.log(xml_text);
   stopCode = false;
   Blockly.JavaScript.addReservedWords('code');
-
+  Blockly.JavaScript.STATEMENT_PREFIX = 'highlightBlock(%1);\n';
+  Blockly.JavaScript.addReservedWords('highlightBlock');
+  resetStepUi(true);
   try {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
     save_workspace(true);
@@ -492,6 +502,7 @@ function run_code() {
         runtime_code = replaceAll(runtime_code, async_function[f], "await " + async_function[f]);
       }
       code = code.substring(0, init_idx) + runtime_code;
+      code = code + "\n resetStepUi(true);\n"
       code = "(async () => {" + code + "})().catch(error => alert(error.message));";
     }
     var ready_to_execute_code = true;

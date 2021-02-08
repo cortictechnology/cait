@@ -854,34 +854,6 @@ function() {
       }), 'available_hubs');
 });
 
-// Blockly.Extensions.register('dynamic_motors_extension',
-// function() {
-//   thisInputList = this.inputList
-//   this.getInput('motors')
-//     .appendField(new Blockly.FieldDropdown(
-//       function() {
-//         var options = [['none', 'none']];
-//         console.log(thisInputList);
-//         // if (thisBlock.inputList.length > 0){
-//         //   if (thisBlock.inputList[0].fieldRow[1].value_.indexOf('EV3: ') != -1) {
-//         //     options = [['motor_A', 'motor_A'], 
-//         //                ['motor_B', 'motor_B'],
-//         //                ['motor_C', 'motor_C'],
-//         //                ['motor_D', 'motor_D']]
-//         //   }
-//         //   else if (thisBlock.inputList[0].fieldRow[1].value_.indexOf('Robot Inventor: ') != -1) {
-//         //     options = [['motor_A', 'motor_A'], 
-//         //                ['motor_B', 'motor_B'],
-//         //                ['motor_C', 'motor_C'],
-//         //                ['motor_D', 'motor_D'],
-//         //                ['motor_E', 'motor_E'],
-//         //                ['motor_F', 'motor_F']]
-//         //   }
-//         // }
-//         return options;
-//       }), 'motor_name');
-// });
-
 Blockly.JavaScript['setup_block'] = function(block) {
   var statements_main = Blockly.JavaScript.statementToCode(block, 'init_blocks');
   statements_main = statements_main.substring(2, statements_main.length)
@@ -958,9 +930,6 @@ Blockly.Python['sleep'] = function(block) {
 
 Blockly.JavaScript['init_vision'] = function(block) {
   var code = "await init_vision();\n";
-  if (cameras.length == 0){
-    throw new Error("No camera is connected, please connect a camera and run again in a few seconds.");
-  }
   return code;
 };
 
@@ -973,12 +942,6 @@ Blockly.JavaScript['init_voice'] = function(block) {
   var dropdown_mode = block.getFieldValue('mode');
   var dropdown_account = block.getFieldValue('accounts');
   var dropdown_langauage = block.getFieldValue('language');
-  if (speakers.length == 0){
-    throw new Error("No speaker is connected, please connect a speaker and run again in a few seconds.");
-  }
-  if (microphones.length == 0){
-    throw new Error("No microphone is connected, please connect a microphone and run again in a few seconds.");
-  }
   var code = "await init_voice('" + dropdown_mode + "', '" + dropdown_account + "', '" + dropdown_langauage + "');\n";
   return code;
 };
@@ -998,9 +961,6 @@ Blockly.Python['init_voice'] = function(block) {
 
 Blockly.JavaScript['init_nlp'] = function(block) {
   var dropdown_models = block.getFieldValue('models');
-  if (nlp_models.length == 0) {
-    throw new Error("No NLP model is available, please train at least one NLP model and run again in a few seconds.");
-  }
   var code = "await init_nlp('" + dropdown_models + "');\n";
   return code;
 };
@@ -1031,7 +991,7 @@ Blockly.JavaScript['init_control'] = function(block) {
 };
 
 Blockly.Python['init_control'] = function(block) {
-  var statements_statements = Blockly.JavaScript.statementToCode(block, 'statements');
+  var statements_statements = Blockly.Python.statementToCode(block, 'statements');
   var code = "cait.essentials.initialize_component('control', [";
   hub_name_idx = statements_statements.indexOf("(", 0);
   var being_idx = hub_name_idx + 1;
@@ -1051,9 +1011,8 @@ Blockly.Python['init_control'] = function(block) {
 
 Blockly.JavaScript['add_control_hub'] = function(block) {
   var dropdown_hub = block.getFieldValue('hubs');
-  var index = control_hubs.indexOf(dropdown_hub);
-  if (index == -1){
-    throw new Error("The selected hub: " + dropdown_hub + " is not connected, please make sure the selection is valid");
+  if (dropdown_hub == "none"){
+    throw new Error("The selected hub: " + dropdown_hub + " is not valid, please make sure to select an available hub.");
   }
   var code = "(" + dropdown_hub + ")";
   return code;

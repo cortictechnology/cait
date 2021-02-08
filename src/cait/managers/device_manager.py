@@ -99,7 +99,7 @@ class DeviceManager:
         logging.warning("Nearby devices: " + str(nearby_devices))
         for addr, name in nearby_devices:
             if name.find("LEGO") != -1:
-                cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time()}
+                cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time(), 'connected': False}
                 control_devices.append(cinfo)
         connected_devices = subprocess.check_output(["hcitool", "con"]).decode("utf-8").split("\n")
         mac_addr_re = re.compile("^.*([0-9,:,A-F]{17}).*$")
@@ -126,10 +126,10 @@ class DeviceManager:
                     for ip in ip_list:
                         ip_info = ip.split(" ")
                         if ip_info[1].upper() == addr:
-                            cinfo = {"device": "EV3", "mac_addr": addr, "ip_addr":  ip_info[2], "time": time.time()}
+                            cinfo = {"device": "EV3", "mac_addr": addr, "ip_addr":  ip_info[2], "time": time.time(), 'connected': True}
                             control_devices.append(cinfo)
                 elif device_name.find("LEGO") != -1:
-                    cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time()}
+                    cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time(), 'connected': True}
                     control_devices.append(cinfo)
         return control_devices
 
@@ -144,12 +144,34 @@ class DeviceManager:
     #             new_list.append(dev)
     #     return new_list
 
-    def heartbeat_func(self):
+    def heartbeat_func_video(self):
+        while True:
+            try:
+                self.video_devices = self.scan_video_devices()
+                logging.warning("Video devics: " + str(self.video_devices))
+                time.sleep(5)
+            except:
+                continue
+
+    def heartbeat_func_usb(self):
         while True:
             try:
                 self.usb_devices = self.scan_usb_devices()
-                self.video_devices = self.scan_video_devices()
+                time.sleep(5)
+            except:
+                continue
+
+    def heartbeat_func_audio(self):
+        while True:
+            try:
                 self.audio_devices = self.scan_audio_devices()
+                time.sleep(5)
+            except:
+                continue
+
+    def heartbeat_func_control(self):
+        while True:
+            try:
                 self.control_devices = self.scan_control_devices()
                 time.sleep(5)
             except:
@@ -201,5 +223,12 @@ class DeviceManager:
         self.audio_devices = []
         self.control_devices = []
 
-        self.heartbeat_thread = threading.Thread(target=self.heartbeat_func, daemon=True)
-        self.heartbeat_thread.start()
+        self.heartbeat_thread_usb = threading.Thread(target=self.heartbeat_func_usb, daemon=True)
+        self.heartbeat_thread_video = threading.Thread(target=self.heartbeat_func_video, daemon=True)
+        self.heartbeat_thread_audio = threading.Thread(target=self.heartbeat_func_audio, daemon=True)
+        self.heartbeat_thread_control = threading.Thread(target=self.heartbeat_func_control, daemon=True)
+
+        self.heartbeat_thread_usb.start()
+        self.heartbeat_thread_video.start()
+        self.heartbeat_thread_audio.start()
+        self.heartbeat_thread_control.start()

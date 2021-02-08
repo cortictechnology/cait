@@ -311,9 +311,15 @@
 <body>
     <table>
       <tr>
-        <h1><span id="vpTitle"></span><i id="version"></i></h1>
-        <script>document.getElementById('vpTitle').innerHTML = localizedStrings.vpTitle[locale];</script>
-        <script>document.getElementById('version').innerHTML = "    version: " + VERSION;</script>
+        <td>
+          <h1><span id="vpTitle"></span><i id="version"></i></h1>
+          <script>document.getElementById('vpTitle').innerHTML = localizedStrings.vpTitle[locale];</script>
+          <script>document.getElementById('version').innerHTML = "    version: " + VERSION;</script>
+        </td>
+        <td>
+          <span id="loggedUser" style="float: right;"></span>
+          <script>document.getElementById('loggedUser').innerHTML = "Logged in as: " + VERSION;</script>
+        </td>
       </tr>
       <tr>
         <td>
@@ -338,7 +344,6 @@
             </script>
             <button id="new" onclick="click_new()"></button>
             <script>document.getElementById('new').title = localizedStrings.new[locale];</script>
-            
             <button id="load" onclick="load_workspace()"></button>
             <script>document.getElementById('load').title = localizedStrings.load[locale];</script>
             <button id="save" onclick="save_workspace()"></button>
