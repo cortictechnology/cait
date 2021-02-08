@@ -103,7 +103,7 @@ class ComponentManager:
         contents = base64.b64encode(encodedImage.getvalue()).decode()
         encodedImage.close()
         contents = contents.split('\n')[0]
-        self.client_frame.publish("cait/displayFrame", contents, qos=0)
+        self.client_frame.publish("cait/displayFrame/" + self.visionStreamingUser, contents, qos=0)
 
     def on_connect_frame(self, client, userdata, flags, rc):
         logging.info("Frame client Connected with result code "+str(rc))
@@ -236,6 +236,7 @@ class ComponentManager:
         self.fps = 0
         self.largest_index = -1
         self.no_bounding_box = False
+        self.visionStreamingUser = ""
 
         self.receivedNewSTTMsg = False
         self.currentSTTMsg = ""

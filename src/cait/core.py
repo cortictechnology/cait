@@ -120,12 +120,13 @@ def test_camera(index):
     return result
 
 
-def initialize_vision(processor="local"):
+def initialize_vision(processor="local", account="default"):
     available_video_devices = caitCore.get_devices("video")
     if len(available_video_devices) == 0:
         return False, "No video device is detected, or connected device is not supported"
     else:
         current_video_device = available_video_devices[0]
+    caitCore.component_manager.visionStreamingUser = ""
     current_vision_processor = caitCore.get_current_processor("vision")
     if processor == "local":
         caitCore.set_current_processor("vision", "local")
@@ -160,14 +161,16 @@ def initialize_vision(processor="local"):
         else:
             logging.info("Init Vision Error: Vision module not responding, please check the module status")
             return False, "Timout"
+    caitCore.component_manager.visionStreamingUser = account
     return True, "OK"
 
 
 def deactivate_vision():
     result = caitCore.send_component_commond("vision", "VisionDown")
+    result = caitCore.send_component_commond("vision", "ResetMode")
     if result == False:
         logging.info("Deactivate Vision: Error occurred")
-        return result
+    return result
 
 
 def get_cloud_accounts():

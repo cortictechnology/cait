@@ -560,6 +560,14 @@ function run_code() {
   }
 }
 
+async function release_components() {
+  const res = await $.ajax({
+    url: "/release_components",
+    type: 'POST',
+    data: {}
+  });
+}
+
 $(document).ready(function () {
   if (window.location.hash == '#reload') {
     onReload();

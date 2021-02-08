@@ -814,6 +814,13 @@
       }
     </script>
     <script>
+      window.addEventListener('beforeunload', (event) => {
+        // Cancel the event as stated by the standard.
+        event.preventDefault();
+        release_components();
+        // Chrome requires returnValue to be set.
+        //event.returnValue = '';
+      });
       var blocklyArea = document.getElementById('blocklyArea');
       var blocklyDiv = document.getElementById('blocklyDiv');
       var loader = document.getElementById('loader');

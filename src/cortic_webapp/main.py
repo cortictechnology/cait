@@ -46,6 +46,9 @@ current_language = "english"
 
 connecting_to_wifi = False
 
+current_vision_user = ""
+current_speech_user = ""
+
 @application.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)
@@ -421,9 +424,19 @@ def get_nlp_models():
 @application.route("/initialize_component", methods=['POST'])
 @login_required
 def initialize_component():
+    global current_vision_user
     component_name = request.form.get('component_name')
+    if component_name == "vision":
+        if current_vision_user == "" or current_vision_user == current_user.id:
+            current_vision_user = current_user.id
+            logging.warning("Vision User: " + current_vision_user)
+        else:
+            result = {"success": False, "error": "Vision compoent is already in used, please try again later."}
+            return jsonify(result)
     mode = request.form.get('mode')
     account = request.form.get('account')
+    if account == "default":
+        account = current_user.id
     processor = request.form.get('processor')
     language = request.form.get('language')
     success, msg = essentials.initialize_component(component_name, mode, account, processor, language)
@@ -432,6 +445,19 @@ def initialize_component():
     else:
         result = {"success": success}
     return jsonify(result)
+
+
+@application.route("/release_components", methods=['POST'])
+@login_required
+def release_components():
+    global current_vision_user
+    logging.warning("Releasing components**************")
+    if current_vision_user == current_user.id:
+        current_vision_user = ""
+        success = essentials.deactivate_vision()
+    result = {"success": True}
+    return jsonify(result)
+
 
 @application.route("/change_module_parameters", methods=['POST'])
 @login_required

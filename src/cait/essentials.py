@@ -86,7 +86,7 @@ def initialize_component(component_name, mode="online", account="default", proce
         (bool): True if initialization is success, False otherwise
     """    
     if component_name == "vision":
-        success, msg = core.initialize_vision(processor)
+        success, msg = core.initialize_vision(processor, account)
     elif component_name == "voice":
         if mode == "online":
             mode = True
@@ -101,6 +101,16 @@ def initialize_component(component_name, mode="online", account="default", proce
         success = True
         msg = "OK"
     return success, msg
+
+
+def deactivate_vision():
+    """Deactivate the vision component
+
+    Returns:
+        (Bool): True if deactivate successfullt, False otherwise
+    """  
+    return core.deactivate_vision()
+
 
 def change_module_parameters(parameter_name, value):
     """Generic function for setting ai module parameters

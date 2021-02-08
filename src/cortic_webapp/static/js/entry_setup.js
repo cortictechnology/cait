@@ -17,9 +17,14 @@ client.connect({onSuccess:onConnect});
 function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
   console.log("Connected to cait");
-  client.subscribe("cait/displayFrame");
-  stopVideoFeed();
-  emptyVisionMode();
+  $.post("/getusername",
+  {},
+  function(data, status){
+    document.getElementById('loggedUser').innerHTML = localizedStrings.loggedInAs[locale] + data['username'];
+    client.subscribe("cait/displayFrame/" + data['username']);
+  });
+  //stopVideoFeed();
+  //emptyVisionMode();
   stopVoice();
   resetModules();
 }
@@ -45,12 +50,6 @@ function onMessageArrived(message) {
   }  
 }
 
-
-$.post("/getusername",
-{},
-function(data, status){
-  document.getElementById('loggedUser').innerHTML = localizedStrings.loggedInAs[locale] + data['username'];
-});
 
 var scan_for_devices = true;
 

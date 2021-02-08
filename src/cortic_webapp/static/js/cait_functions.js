@@ -167,7 +167,8 @@ async function init(component_name, mode="online", processor="local", account="d
     }
     loader.style.display="none";
     if(res['success'] == false) {
-      throw new Error("Initialization of " + component_name + " failed,  " + res["error"] + ". Please fix the problem and click Run again.");
+      alert("Initialization of " + component_name + " failed.  " + res["error"]);
+      throw new Error("Initialization of " + component_name + " failed.  " + res["error"] + ". Please fix the problem and click Run again.");
     }
   } catch(err) {
       console.log(err);
