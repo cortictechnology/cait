@@ -59,8 +59,9 @@ class ObjectDetection:
             self.client.loop_start()
             #logging.info("Connected to virtual processor")
 
-    def run(self, image):
+    def run(self, image, detection_threshold):
         global fps
+        self.object_detector.detection_threshold = detection_threshold
         coordinates = []
         names = ['None']
         result = '{ "mode" : "ObjectDetection", "coordinates": "' + str(coordinates) + '", "names": "' + str(names) + '" }'

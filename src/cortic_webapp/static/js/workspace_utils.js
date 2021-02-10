@@ -7,6 +7,8 @@ Written by Michael Ng <michaelng@cortic.ca>, December 2019
 
 var current_workspace = "";
 
+var start_new_workspace = false;
+
 function replaceAll(str, find, replace) {
     return str.replace(new RegExp(find, 'g'), replace);
   }
@@ -55,6 +57,21 @@ function enableChileBlock(block) {
           chileBlks[i].setEnabled(true);
         }
       }
+      if (chileBlks[i].type == "init_vision" || 
+          chileBlks[i].type == "init_voice" || 
+          chileBlks[i].type == "init_nlp" || 
+          chileBlks[i].type == "init_control" ||  
+          chileBlks[i].type == "add_control_hub" ||
+          chileBlks[i].type == "init_smarthome") {
+            if (chileBlks[i].getSurroundParent().type != "setup_block") {
+              chileBlks[i].setEnabled(false);
+            }
+      }
+      else {
+        if (chileBlks[i].getSurroundParent().type == "setup_block") {
+          chileBlks[i].setEnabled(false);
+        }
+      }
       enableChileBlock(chileBlks[i]);
     }
   }
@@ -83,6 +100,21 @@ function disableChileBlock(block) {
           if (!hub_still_exists) {
             added_hubs.splice(index, 1);
           }
+        }
+      }
+      if (chileBlks[i].type == "init_vision" || 
+          chileBlks[i].type == "init_voice" || 
+          chileBlks[i].type == "init_nlp" || 
+          chileBlks[i].type == "init_control" ||  
+          chileBlks[i].type == "add_control_hub" ||
+          chileBlks[i].type == "init_smarthome") {
+            if (chileBlks[i].getSurroundParent().type == "setup_block") {
+              chileBlks[i].setEnabled(true);
+            }
+      }
+      else {
+        if (chileBlks[i].getSurroundParent().type == "main_block") {
+          chileBlks[i].setEnabled(true);
         }
       }
       disableChileBlock(chileBlks[i]);
@@ -363,9 +395,11 @@ function updateFunction(event) {
         if (block.getSurroundParent() != null) {
           if (block.getSurroundParent().type == "init_control") {
             block.setEnabled(true);
+            enableChileBlock(block);
           }
           else {
             block.setEnabled(false);
+            disableChileBlock(block);
           }
         }
       }
@@ -646,6 +680,7 @@ async function new_workspace() {
     type: 'POST',
     data: {}
   });
+  start_new_workspace = true;
   location.reload();
 }
 

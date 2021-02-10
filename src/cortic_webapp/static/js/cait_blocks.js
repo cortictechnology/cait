@@ -5,7 +5,7 @@ Written by Michael Ng <michaelng@cortic.ca>, December 2019
   
  */
 
-var vision_func = ["recognize_face", "add_person", "delete_person", "detect_objects", "classify_image"];
+var vision_func = ["detect_face", "recognize_face", "add_person", "delete_person", "detect_objects", "classify_image"];
 var speech_func = ["listen", "say"];
 var nlp_func = ["analyze"];
 var control_func = ["rotate_motor", "control_motor", "control_motor_speed_group", "control_motor_degree_group", "move", "rotate"];
@@ -215,6 +215,15 @@ Blockly.defineBlocksWithJsonArray([
       "nextStatement": null,
       "colour": "#F70090",
       "tooltip": "%{BKY_INIT_HOME_TOOLTIP}",
+      "helpUrl": ""
+    },
+    {
+      "type": "vision_detect_face",
+      "message0": "%{BKY_FACE_DETECT}",
+      "inputsInline": true,
+      "output": "String",
+      "colour": "#5D0095",
+      "tooltip": "%{BKY_FACE_DETECT_TOOLTIP}",
       "helpUrl": ""
     },
     {
@@ -1114,6 +1123,16 @@ Blockly.Python['dictionary_add'] = function(block) {
   var value_value = Blockly.Python.valueToCode(block, 'value', Blockly.Python.ORDER_ATOMIC);
   var code =  value_dictionary + "[" + value_key_name + "] = " + value_value + "\n";
   return code;
+};
+
+Blockly.JavaScript['vision_detect_face'] = function(block) {
+  var code = "await detect_face()";
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Python['vision_detect_face'] = function(block) {
+  var code = "cait.essentials.detect_face()";
+  return [code, Blockly.Python.ORDER_NONE];
 };
 
 Blockly.JavaScript['vision_recognize_face'] = function(block) {

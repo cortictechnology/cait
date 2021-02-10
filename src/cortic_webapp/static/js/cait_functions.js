@@ -24,6 +24,17 @@ function switch_lang() {
     });
 }
 
+async function detect_face() {
+  try {
+    const res = await ajax_post("/detectface", {});
+    //console.log(res);
+    return res;
+  } catch(err) {
+      console.log(err);
+      return err;
+  }
+}
+
 async function recognize_face() {
   try {
     const res = await ajax_post("/recognizeface", {});

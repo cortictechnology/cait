@@ -73,28 +73,33 @@ class ComponentManager:
     def on_message_inference(self, client, userdata, msg):
         message = msg.payload.decode()
         result = json.loads(message)
-        if result['mode'] == "FaceRecognition":
-            if result['name'] != "None":
-                self.currentNames = [result['name']]
-                self.largest_index = int(result['largestID'])
-                #self.coordinates = [result['coordinate'][1:-1].split(', ')]
+        if result['mode'] == self.currentInferenceMode:
+            if result['mode'] == "FaceDetection":
                 self.coordinates = ast.literal_eval(result['coordinates'])
-            else:
-                self.currentNames = ["None"]
+                self.currentNames = ['Face']
+                self.largest_index = int(result['largestID'])
+            elif result['mode'] == "FaceRecognition":
+                if result['name'] != "None":
+                    self.currentNames = [result['name']]
+                    self.largest_index = int(result['largestID'])
+                    #self.coordinates = [result['coordinate'][1:-1].split(', ')]
+                    self.coordinates = ast.literal_eval(result['coordinates'])
+                else:
+                    self.currentNames = ["None"]
+                    self.largest_index = -1
+                    self.coordinates = []
+            elif result['mode'] == "ObjectDetection":
+                self.coordinates = ast.literal_eval(result['coordinates'])
+                self.currentNames = ast.literal_eval(result['names'])
                 self.largest_index = -1
+            elif result['mode'] == "ImageClassification":
+                self.currentNames = ast.literal_eval(result['names'])
+                self.largest_index = -1
+                self.no_bounding_box = True
                 self.coordinates = []
-        elif result['mode'] == "ObjectDetection":
-            self.coordinates = ast.literal_eval(result['coordinates'])
-            self.currentNames = ast.literal_eval(result['names'])
-            self.largest_index = -1
-        elif result['mode'] == "ImageClassification":
-            self.currentNames = ast.literal_eval(result['names'])
-            self.largest_index = -1
-            self.no_bounding_box = True
-            self.coordinates = []
 
-        self.receivedInferenceResult = True
-        self.resultOverlayed = False
+            self.receivedInferenceResult = True
+            self.resultOverlayed = False
 
     def updateSelfImage(self, image):
         self.currentImage = image
@@ -202,6 +207,10 @@ class ComponentManager:
             return -1
 
     def send_vision_command(self, command):
+        if command.find("mode:") != -1:
+            mode = command[command.find(":")+1:]
+            self.receivedInferenceResult = False
+            self.currentInferenceMode = mode
         self.client_module_state.publish("cait/vision_control", command)
         return True
 
@@ -229,6 +238,7 @@ class ComponentManager:
         self.object_confidence_threshold = 0.2
         self.currentNames = ["None"]
         self.coordinates = []
+        self.currentInferenceMode = ""
         self.receivedInferenceResult = False
         self.currentImage = Image.new('RGB', (400, 300))
         self.frame_counter = 0

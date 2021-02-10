@@ -323,7 +323,15 @@ def change_module_parameters(parameter_name, value):
     global audio_output_device
     #print("name: ", parameter_name, ", value: ", value)
     if parameter_name == "face recognition confidence":
-        result = caitCore.send_component_commond("vision", "set face confidence:" + str(value))
+        result = caitCore.send_component_commond("vision", "set recognition confidence:" + str(value))
+        if result == False:
+            logging.info("Change Vision params: Error occurred")
+    elif parameter_name == "face detection confidence":
+        result = caitCore.send_component_commond("vision", "set face detection confidence:" + str(value))
+        if result == False:
+            logging.info("Change Vision params: Error occurred")
+    elif parameter_name == "object detection confidence":
+        result = caitCore.send_component_commond("vision", "set object detection confidence:" + str(value))
         if result == False:
             logging.info("Change Vision params: Error occurred")
     elif parameter_name == "audio output device":
@@ -340,11 +348,25 @@ def change_vision_mode(mode):
         logging.info("Please call initialize_vision() function before using the vision module")
         return
     #print("Send change mode to:", mode)
-    result = caitCore.send_component_commond("vision", mode)
+    result = caitCore.send_component_commond("vision", "mode:" + mode)
     if result == False:
         logging.info("Change Vision Mode: Error occurred")
     caitCore.component_manager.receivedInferenceResult = False
 
+
+def detect_face():
+    if not caitCore.get_component_state("vision", "Up"):
+        logging.info("Please call initialize_vision() function before using the vision module")
+        return None
+    change_vision_mode("FaceDetection")
+    while not caitCore.component_manager.receivedInferenceResult:
+        time.sleep(0.005)
+    if caitCore.component_manager.currentNames[0] != "None":
+        caitCore.component_manager.receivedInferenceResult = False
+        coordinates = caitCore.component_manager.coordinates
+        return coordinates
+    else:
+        return None
 
 def recognize_face():
     if not caitCore.get_component_state("vision", "Up"):
@@ -442,6 +464,8 @@ def detect_objects():
                 coordinate[2] = int(coordinate[2] * width)
                 coordinate[3] = int(coordinate[3] * height)
         return names, coordinates
+    else:
+        return "", []
 
 
 def classify_image():

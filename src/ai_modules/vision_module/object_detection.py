@@ -33,6 +33,7 @@ class ObjectLib:
         self.ssdlite_module = graph_runtime.create(loaded_json, loaded_lib, self.ctx)
         self.ssdlite_module.load_params(loaded_params)
 
+        self.detection_threshold = 0.5
         self.anchors = np.load("/vision_module/obj_anchors.npy")
 
 
@@ -75,7 +76,7 @@ class ObjectLib:
 
         detection_scores = np.amax(detection_scores_exp, axis=2)
 
-        mask = detection_scores >= 0.5
+        mask = detection_scores >= self.detection_threshold
 
         output_detections = []
         for i in range(raw_box_tensor.shape[0]):

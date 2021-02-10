@@ -533,6 +533,12 @@ def camerafeed():
         contents = contents.split('\n')[0]
         return contents
 
+@application.route("/detectface", methods=['POST'])
+@login_required
+def detectface():
+    faces = essentials.detect_face()
+    return jsonify(faces)
+
 @application.route("/recognizeface", methods=['POST'])
 @login_required
 def recognizeface():

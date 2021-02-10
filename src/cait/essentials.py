@@ -161,6 +161,22 @@ def get_camera_image():
     else:
         return None
 
+
+def detect_face():
+    """Detects all person faces from camera feed. No need to pass in camera feed explicitly at this level.
+    
+    Returns:
+        (list): coordinates
+    """    
+    faces = core.detect_face()
+
+    if faces is not None:
+        coordinates = faces
+        faces = {"coordinates" : coordinates}
+        return faces
+    else:
+        return None
+
 def recognize_face():
     """Recognize the name of person from camera feed. No need to pass in camera feed explicitly at this level.
     
