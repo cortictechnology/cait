@@ -172,7 +172,7 @@ def detect_face():
 
     if faces is not None:
         coordinates = faces
-        faces = {"coordinates" : coordinates}
+        faces = {"success": True, "coordinates" : coordinates}
         return faces
     else:
         return None
@@ -189,7 +189,7 @@ def recognize_face():
     coordinate = core.get_person_face_location(name)
 
     if name is not None and coordinate is not None:
-        people = {"name" : name, "coordinate" : coordinate}
+        people = {"success": True, "name" : name, "coordinate" : coordinate}
         return people
     else:
         return None
@@ -234,7 +234,7 @@ def detect_objects():
 
     if objects is not None:
         names, coordinates = objects
-        objects = {"names" : names, "coordinates" : coordinates}
+        objects = {"success": True, "names" : names, "coordinates" : coordinates}
         return objects
     else:
         return None
@@ -248,7 +248,7 @@ def classify_image():
     names = core.classify_image()
 
     if names is not None:
-        names = {"names" : names}
+        names = {"success": True, "names" : names}
         return names
     else:
         return None

@@ -536,18 +536,27 @@ def camerafeed():
 @application.route("/detectface", methods=['POST'])
 @login_required
 def detectface():
+    if current_vision_user != current_user.id:
+        result = {"success": False, "error": "Vision compoent is being used by another user, please try again later."}
+        return jsonify(result)
     faces = essentials.detect_face()
     return jsonify(faces)
 
 @application.route("/recognizeface", methods=['POST'])
 @login_required
 def recognizeface():
+    if current_vision_user != current_user.id:
+        result = {"success": False, "error": "Vision compoent is being used by another user, please try again later."}
+        return jsonify(result)
     person = essentials.recognize_face()
     return jsonify(person)
 
 @application.route("/addperson", methods=['POST'])
 @login_required
 def addperson():
+    if current_vision_user != current_user.id:
+        result = {"success": False, "error": "Vision compoent is being used by another user, please try again later."}
+        return jsonify(result)
     person_name = request.form.get('name')
     success = essentials.add_person(person_name)
     result = {"success": success}
@@ -556,6 +565,9 @@ def addperson():
 @application.route("/removeperson", methods=['POST'])
 @login_required
 def removeperson():
+    if current_vision_user != current_user.id:
+        result = {"success": False, "error": "Vision compoent is being used by another user, please try again later."}
+        return jsonify(result)
     person_name = request.form.get('name')
     logging.info("Remove: " + person_name)
     success = essentials.remove_person(person_name)
@@ -565,12 +577,18 @@ def removeperson():
 @application.route("/detectobject", methods=['POST'])
 @login_required
 def detectobject():
+    if current_vision_user != current_user.id:
+        result = {"success": False, "error": "Vision compoent is being used by another user, please try again later."}
+        return jsonify(result)
     objects = essentials.detect_objects()
     return jsonify(objects)
 
 @application.route("/classifyimage", methods=['POST'])
 @login_required
 def classifyimage():
+    if current_vision_user != current_user.id:
+        result = {"success": False, "error": "Vision compoent is being used by another user, please try again later."}
+        return jsonify(result)
     names = essentials.classify_image()
     return jsonify(names)
 

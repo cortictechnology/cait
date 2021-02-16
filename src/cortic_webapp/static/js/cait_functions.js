@@ -28,6 +28,9 @@ async function detect_face() {
   try {
     const res = await ajax_post("/detectface", {});
     //console.log(res);
+    if(res['success'] == false) {
+      throw new Error(res["error"] + ". Please fix the problem and click Run again.");
+    }
     return res;
   } catch(err) {
       console.log(err);
@@ -39,6 +42,9 @@ async function recognize_face() {
   try {
     const res = await ajax_post("/recognizeface", {});
     //console.log(res);
+    if(res['success'] == false) {
+      throw new Error(res["error"] + ". Please fix the problem and click Run again.");
+    }
     return res;
   } catch(err) {
       console.log(err);
@@ -50,6 +56,9 @@ async function add_person(name) {
   try {
     const res = await ajax_post("/addperson", {'name' : name});
     console.log(res);
+    if(res['success'] == false) {
+      throw new Error(res["error"] + ". Please fix the problem and click Run again.");
+    }
   } catch(err) {
       console.log(err);
       return err;
@@ -60,6 +69,9 @@ async function delete_person(name) {
   try {
     const res = await ajax_post("/removeperson", {'name' : name});
     console.log(res);
+    if(res['success'] == false) {
+      throw new Error(res["error"] + ". Please fix the problem and click Run again.");
+    }
   } catch(err) {
       console.log(err);
       return err;
@@ -70,6 +82,9 @@ async function detect_objects() {
   try {
     const res = await ajax_post("/detectobject", {});
     //console.log(res);
+    if(res['success'] == false) {
+      throw new Error(res["error"] + ". Please fix the problem and click Run again.");
+    }
     return res;
   } catch(err) {
     console.log(err);
@@ -81,6 +96,9 @@ async function classify_image() {
   try {
     const res = await ajax_post("/classifyimage", {});
     //console.log(res);
+    if(res['success'] == false) {
+      throw new Error(res["error"] + ". Please fix the problem and click Run again.");
+    }
     return res;
   } catch(err) {
     console.log(err);
