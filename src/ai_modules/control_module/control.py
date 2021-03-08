@@ -294,7 +294,6 @@ def move(hub_name, motor_name, speed=1, duration=0):
         if hub_type == "EV3":
             try:
                 this_motor.stop()
-                this_motor.reset()
             except:
                 logging.warning("Time out occured, Hub disconnected")
                 client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected motor port not working", qos=1)

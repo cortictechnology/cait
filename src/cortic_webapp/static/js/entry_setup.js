@@ -29,6 +29,7 @@ function onConnect() {
 function onConnectionLost(responseObject) {
   if (responseObject.errorCode !== 0) {
     console.log("onConnectionLost:"+responseObject.errorMessage);
+    client.connect({onSuccess:onConnect});
   }
 }
 
@@ -191,8 +192,7 @@ setInterval(function() {
 
 function Cameras(interpreter, scope) {
   var wrapper = function(callback) {
-    $.post("/getvideodev",
-    {},
+    $.get("/getvideodev",
     function(data, status){
       callback(data);
     });
@@ -226,8 +226,7 @@ setInterval(function() {
 
 function Speakers(interpreter, scope) {
   var wrapper = function(callback) {
-    $.post("/getaudiodev",
-    {},
+    $.get("/getaudiodev",
     function(data, status){
       callback(data);
     });
@@ -263,8 +262,7 @@ setInterval(function() {
 
 function Microphones(interpreter, scope) {
   var wrapper = function(callback) {
-    $.post("/getaudiodev",
-    {},
+    $.get("/getaudiodev",
     function(data, status){
       callback(data);
     });

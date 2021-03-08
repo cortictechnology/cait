@@ -112,7 +112,8 @@ def test_camera(index):
     available_video_devices = caitCore.get_devices("video")
     current_video_device = None
     for dev in available_video_devices:
-        if dev['index'] == index:
+        logging.warning(str(dev))
+        if int(dev['index']) == index:
             current_video_device = dev
     current_video_device["processor"] = "local"
     msg = json.dumps(current_video_device)

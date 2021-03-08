@@ -51,6 +51,7 @@ current_voice_user = ""
 current_nlp_user = ""
 current_control_hub_user = ""
 current_smarthome_user = ""
+wifilist = []
 
 @application.context_processor
 def override_url_for():
@@ -99,6 +100,12 @@ def get_ip(ifname):
         struct.pack('256s', bytes(ifname[:15], 'utf-8'))
     )[20:24])
 
+def get_connected_wifi():
+    try:
+        output = subprocess.check_output(['sudo', 'iwgetid'])
+        return output.decode('utf-8').split('"')[1]
+    except Exception:
+        return ""
 
 @login_manager.user_loader
 def load_user(id):
@@ -120,6 +127,16 @@ def setup():
 def prev_setup():
     return render_template('setup.html')
 
+@application.route('/isconnected', methods=['GET'])
+def isConnected():
+    connected = is_internet_connected()
+    if connected:
+        wifi_name = get_connected_wifi()
+        ip = get_ip('wlan0')
+        result = {"connected" : True, 'wifi': wifi_name, 'ip': ip}
+    else:
+        result = {"connected" : False}
+    return jsonify(result)
 
 @application.route('/wifi')
 def wifi():
@@ -131,22 +148,29 @@ def wifi():
 def prev_wifi():
     return render_template('wifi.html')
 
-@application.route('/getwifi', methods=['POST'])
+@application.route('/getwifi', methods=['GET'])
 def getwifi():
+    global wifilist
     global connecting_to_wifi
-    wifilist = []
+    current_wifilist = []
     if not connecting_to_wifi:
         cells = list(Cell.all('wlan0'))
         for cell in cells:
             if cell.ssid != "":
-                wifilist.append(cell.ssid)
+                current_wifilist.append(cell.ssid)
+    wifilist = current_wifilist
     return jsonify(wifilist)
 
 @application.route('/connectwifi', methods=['POST'])
 def connectwifi():
     global connecting_to_wifi
-    ssid = request.form.get('ssid')
-    password = request.form.get('password')
+    os.system("sudo rm /etc/wpa_supplicant/wpa_supplicant.conf.success")
+    data = request.get_json()
+    ssid = data['ssid']
+    password = data['password']
+    logging.warning("SSID: " + ssid + ", PW: " + password)
+    logging.warning("*************************")
+    os.system("sudo cp /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak")
     network_str = '\nnetwork={\n        ssid=\"' + ssid + '\"\n        psk=\"' + password + '\"\n}\n'
     with open("/etc/wpa_supplicant/wpa_supplicant.conf", 'w') as f:
         f.write('ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\nupdate_config=1\ncountry=CA')
@@ -157,13 +181,16 @@ def connectwifi():
     while not is_internet_connected():
         time.sleep(1)
         logging.info("Connecting to wifi..no internet yet...")
-        if time.time() - init_time >= 50:
+        if time.time() - init_time >= 60:
             success = False
+            os.system("sudo mv /etc/wpa_supplicant/wpa_supplicant.conf.bak /etc/wpa_supplicant/wpa_supplicant.conf")
             break
     if is_internet_connected():
         logging.info("Wifi connected.Internet connected.")
         success = True
-        
+        os.system("sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.success")
+        os.system("sudo mv /etc/wpa_supplicant/wpa_supplicant.conf.bak /etc/wpa_supplicant/wpa_supplicant.conf")
+    os.system("sudo wpa_cli -i wlan0 reconfigure")
     connecting_to_wifi = False
     result = {"result" : success}
     return jsonify(result)
@@ -197,7 +224,7 @@ def customdev():
 def testhardware():
     return render_template("testhardware.html")
 
-@application.route('/getvideodev', methods=['POST'])
+@application.route('/getvideodev', methods=['GET'])
 def getvideodev():
     devices = essentials.get_video_devices()
     video_devices = []
@@ -206,7 +233,7 @@ def getvideodev():
         video_devices.append(dev)
     return jsonify(video_devices)
 
-@application.route('/getaudiodev', methods=['POST'])
+@application.route('/getaudiodev', methods=['GET'])
 def getaudiodev():
     devices = essentials.get_audio_devices()
     audio_devices = []
@@ -227,15 +254,24 @@ def get_control_devices():
         control_devices.append(dev)
     return jsonify({"control_devices": control_devices})
 
+@application.route('/releasecam', methods=['GET'])
+def releasecam():
+    success = essentials.deactivate_vision()
+    result = {"success": success}
+    return jsonify(result)
+
 @application.route('/testcam', methods=['POST'])
 def testcam():
-    cam_index = request.form.get('index')
+    data = request.get_json()
+    cam_index = data['index']
+    logging.warning(str(cam_index))
     result = essentials.test_camera(cam_index)
     return jsonify(result)
 
 @application.route('/testspeaker', methods=['POST'])
 def testspeaker():
-    speaker_index = request.form.get('index')
+    data = request.get_json()
+    speaker_index = data['index']
 
     out = os.system("sed -i '/defaults.ctl.card/c\defaults.ctl.card " + str(speaker_index) + "' /usr/share/alsa/alsa.conf")
     out = os.system("sed -i '/defaults.pcm.card/c\defaults.pcm.card " + str(speaker_index) + "' /usr/share/alsa/alsa.conf")
@@ -247,7 +283,8 @@ def testspeaker():
 
 @application.route('/testmicrophone', methods=['POST'])
 def testmicrophone():
-    index = request.form.get('index')
+    data = request.get_json()
+    index = data['index']
     BLOCKS_PER_SECOND = 50
     sample_format = pyaudio.paInt16  # 16 bits per sample
     channels = 1
@@ -326,14 +363,28 @@ def congrats():
 
 @application.route('/finish', methods=['POST'])
 def finish():
-    global new_hostname
-    os.system('sudo sed -i \'s/ssid=[^"]*/ssid=' + new_hostname + '/g\' /etc/hostapd/hostapd.conf')
-    os.system('sudo sed -i \'s/ignore_broadcast_ssid=[^"]*/ignore_broadcast_ssid==' + new_hostname + '/g\' /etc/hostapd/hostapd.conf')
+    data = request.get_json()
+    hostname = data['hostname']
+    wifi_name = data['wifiname']
+    speech_account = data['speech_account']
+    if os.path.exists("/etc/wpa_supplicant/wpa_supplicant.conf.success"):
+        with open('/etc/wpa_supplicant/wpa_supplicant.conf.success') as f:
+            if wifi_name in f.read():
+                os.system("sudo mv /etc/wpa_supplicant/wpa_supplicant.conf.success /etc/wpa_supplicant/wpa_supplicant.conf")
+    if speech_account != "local":
+        account_credentials = json.loads(speech_account)
+        with open('/opt/accounts', 'w') as f:
+            f.write('["google_cloud", "account.json"]')
+        with open('/opt/cortic_modules/voice_module/account.json', 'w') as outfile:
+            json.dump(account_credentials, outfile)
+    subprocess.run(['sudo', '/usr/sbin/change_hostname.sh', hostname])
+    os.system('sudo sed -i \'s/ssid=[^"]*/ssid=' + hostname + '/g\' /etc/hostapd/hostapd.conf')
+    os.system('sudo sed -i \'s/ignore_broadcast_ssid=[^"]*/ignore_broadcast_ssid==' + hostname + '/g\' /etc/hostapd/hostapd.conf')
     os.system("sudo touch /usr/share/done_setup")
-    result = {"done": True}   
+    result = {"success": True}   
     return jsonify(result)
 
-@application.route('/reboot', methods=['POST'])
+@application.route('/reboot', methods=['GET'])
 def reboot():
     os.system("sudo reboot")
 
