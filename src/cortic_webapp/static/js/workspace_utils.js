@@ -37,42 +37,43 @@ function resetModules() {
   client.publish(topicMessage)
 }
 
+var test;
 
-function enableChileBlock(block) {
-  var chileBlks = block.childBlocks_;
-  if (chileBlks.length > 0) {
-    for (i in chileBlks) {
-      chileBlks[i].setEnabled(true);
-      if (chileBlks[i].type == "add_control_hub") {
-        if (chileBlks[i].inputList[0].fieldRow[1].value_ != 'none'){
-          var index = added_hubs.indexOf(chileBlks[i].inputList[0].fieldRow[1].value_);
+function enableChildBlock(block) {
+  var childBlks = block.childBlocks_;
+  console.log(childBlks);
+  if (childBlks.length > 0) {
+    for (i in childBlks) {
+      childBlks[i].setEnabled(true);
+      if (childBlks[i].type == "add_control_hub") {
+        if (childBlks[i].inputList[0].fieldRow[1].value_ != 'none'){
+          var index = added_hubs.indexOf(childBlks[i].inputList[0].fieldRow[1].value_);
           if (index == -1) {
-            added_hubs.push(chileBlks[i].inputList[0].fieldRow[1].value_);
+            added_hubs.push(childBlks[i].inputList[0].fieldRow[1].value_);
           }
         }
-        if (chileBlks[i].getSurroundParent().type != "init_control") {
-          chileBlks[i].setEnabled(false);
+        if (childBlks[i].getSurroundParent().type != "init_control") {
+          childBlks[i].setEnabled(false);
         }
         else {
-          chileBlks[i].setEnabled(true);
+          childBlks[i].setEnabled(true);
         }
       }
-      if (chileBlks[i].type == "init_vision" || 
-          chileBlks[i].type == "init_voice" || 
-          chileBlks[i].type == "init_nlp" || 
-          chileBlks[i].type == "init_control" ||  
-          chileBlks[i].type == "add_control_hub" ||
-          chileBlks[i].type == "init_smarthome") {
-            if (chileBlks[i].getSurroundParent().type != "setup_block") {
-              chileBlks[i].setEnabled(false);
+      if (childBlks[i].type == "init_vision" || 
+          childBlks[i].type == "init_voice" || 
+          childBlks[i].type == "init_nlp" || 
+          childBlks[i].type == "init_control" ||  
+          childBlks[i].type == "init_smarthome") {
+            if (childBlks[i].getSurroundParent().type != "setup_block") {
+              childBlks[i].setEnabled(false);
             }
       }
       else {
-        if (chileBlks[i].getSurroundParent().type == "setup_block") {
-          chileBlks[i].setEnabled(false);
+        if (childBlks[i].getSurroundParent().type == "setup_block") {
+          childBlks[i].setEnabled(false);
         }
       }
-      enableChileBlock(chileBlks[i]);
+      enableChildBlock(childBlks[i]);
     }
   }
   else {
@@ -80,19 +81,19 @@ function enableChileBlock(block) {
   }
 }
 
-function disableChileBlock(block) {
-  var chileBlks = block.childBlocks_;
-  if (chileBlks.length > 0) {
-    for (i in chileBlks) {
-      chileBlks[i].setEnabled(false);
-      if (chileBlks[i].type == "add_control_hub") {
+function disableChildBlock(block) {
+  var childBlks = block.childBlocks_;
+  if (childBlks.length > 0) {
+    for (i in childBlks) {
+      childBlks[i].setEnabled(false);
+      if (childBlks[i].type == "add_control_hub") {
         var allBlocks = workspace.getAllBlocks();
-        var index = added_hubs.indexOf(chileBlks[i].inputList[0].fieldRow[1].value_);
+        var index = added_hubs.indexOf(childBlks[i].inputList[0].fieldRow[1].value_);
         if (index != -1) {
           var hub_still_exists = false;
           for (blk in allBlocks){
             if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
-              if (allBlocks[blk].inputList[0].fieldRow[1].value_ == chileBlks[i].inputList[0].fieldRow[1].value_) {
+              if (allBlocks[blk].inputList[0].fieldRow[1].value_ == childBlks[i].inputList[0].fieldRow[1].value_) {
                 hub_still_exists = true;
               }
             }
@@ -102,30 +103,32 @@ function disableChileBlock(block) {
           }
         }
       }
-      if (chileBlks[i].type == "init_vision" || 
-          chileBlks[i].type == "init_voice" || 
-          chileBlks[i].type == "init_nlp" || 
-          chileBlks[i].type == "init_control" ||  
-          chileBlks[i].type == "add_control_hub" ||
-          chileBlks[i].type == "init_smarthome") {
-            if (chileBlks[i].getSurroundParent().type == "setup_block") {
-              chileBlks[i].setEnabled(true);
+      if (childBlks[i].type == "init_vision" || 
+          childBlks[i].type == "init_voice" || 
+          childBlks[i].type == "init_nlp" || 
+          childBlks[i].type == "init_control" ||  
+          childBlks[i].type == "add_control_hub" ||
+          childBlks[i].type == "init_smarthome") {
+            if (childBlks[i].getSurroundParent() != null) {
+              if (childBlks[i].getSurroundParent().type == "setup_block") {
+                childBlks[i].setEnabled(true);
+              }
             }
       }
       else {
-        if (chileBlks[i].getSurroundParent().type == "main_block") {
-          chileBlks[i].setEnabled(true);
+        if (childBlks[i].getSurroundParent() != null) {
+          if (childBlks[i].getSurroundParent().type == "main_block") {
+            childBlks[i].setEnabled(true);
+          }
         }
       }
-      disableChileBlock(chileBlks[i]);
+      disableChildBlock(childBlks[i]);
     }
   }
   else {
     return;
   }
 }
-
-var test;
 
 function updateFunction(event) {
   var block = workspace.getBlockById(event.blockId);
@@ -281,7 +284,7 @@ function updateFunction(event) {
                 }
               }
             }
-            enableChileBlock(block);
+            enableChildBlock(block);
           }
           else {
             block.setEnabled(false);
@@ -302,7 +305,7 @@ function updateFunction(event) {
                 }
               }
             }
-            disableChileBlock(block);
+            disableChildBlock(block);
           }
         }
         else {
@@ -324,7 +327,7 @@ function updateFunction(event) {
                 }
               }
             }
-            disableChileBlock(block);
+            disableChildBlock(block);
         }
       }
 
@@ -375,7 +378,7 @@ function updateFunction(event) {
           if (parentBlock.type == "main_block" || parentBlock.type.indexOf('procedures_') != -1) {
             within_main_block = true;
             block.setEnabled(true);
-            enableChileBlock(block);
+            enableChildBlock(block);
             break;
           }
           else {
@@ -384,7 +387,7 @@ function updateFunction(event) {
         }
         if (!within_main_block) {
           block.setEnabled(false);
-          disableChileBlock(block);
+          disableChildBlock(block);
           if (block.type.indexOf("vision_") != -1) {
             emptyVisionMode();
           }
@@ -395,11 +398,11 @@ function updateFunction(event) {
         if (block.getSurroundParent() != null) {
           if (block.getSurroundParent().type == "init_control") {
             block.setEnabled(true);
-            enableChileBlock(block);
+            enableChildBlock(block);
           }
           else {
             block.setEnabled(false);
-            disableChileBlock(block);
+            disableChildBlock(block);
           }
         }
       }
@@ -423,7 +426,7 @@ function updateFunction(event) {
       if (block.type.indexOf('procedures_') != -1) {
         if (block.tooltip.indexOf("Creates a function") == 0) {
           block.setEnabled(true);
-          enableChileBlock(block);
+          enableChildBlock(block);
         }
       } 
     }
