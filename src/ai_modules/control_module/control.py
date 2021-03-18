@@ -173,11 +173,11 @@ while ret != 0:
 client_heartbeat.loop_start()
 
 
-def is_robot_inventor_port_error(byte_msg):
+def is_robot_inventor_port_error(byte_msg, port_name):
     msg = byte_msg.decode("utf-8") 
     logging.warning("Return Msg: " + msg)
     logging.warning(byte_msg)
-    if msg.find("port") != -1 and msg.find("AttributeError") != -1 and msg.find("NoneType") != -1:
+    if msg.find("port." + port_name) != -1 and msg.find("AttributeError") != -1 and msg.find("NoneType") != -1:
         logging.warning("port error occurred")
         return True
     else:
@@ -247,7 +247,7 @@ def setPosition(hub_name, motor_name, position):
             hub[1].send(msg_individual)
             rec = hub[1].recv(102400)
             logging.warning(rec)
-            if is_robot_inventor_port_error(rec):
+            if is_robot_inventor_port_error(rec, motor):
                 client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
                 return
         except:
@@ -280,7 +280,7 @@ def move(hub_name, motor_name, speed=1, duration=0):
             try:
                 hub[1].send(msg_individual)
                 rec = hub[1].recv(102400)
-                if is_robot_inventor_port_error(rec):
+                if is_robot_inventor_port_error(rec, motor):
                     client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
                     return
             except:
@@ -305,7 +305,7 @@ def move(hub_name, motor_name, speed=1, duration=0):
                 hub[1].send(msg_individual)
                 rec = hub[1].recv(102400)
                 logging.warning(rec)
-                if is_robot_inventor_port_error(rec):
+                if is_robot_inventor_port_error(rec, motor):
                     client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
                     return
             except:
@@ -360,7 +360,7 @@ def move_group(operation_list):
                     hub[1].send(msg_individual)
                     rec = hub[1].recv(102400)
                     logging.warning(rec)
-                    if is_robot_inventor_port_error(rec):
+                    if is_robot_inventor_port_error(rec, motor):
                         client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
                         break
                 except:
@@ -396,7 +396,7 @@ def move_group(operation_list):
                     hub[1].send(msg_individual)
                     rec = hub[1].recv(102400)
                     logging.warning(rec)
-                    if is_robot_inventor_port_error(rec):
+                    if is_robot_inventor_port_error(rec, motor):
                         client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
                         return
                 except:
@@ -429,7 +429,7 @@ def move_group(operation_list):
                         hub[1].send(msg_individual)
                         rec = hub[1].recv(102400)
                         logging.warning(rec)
-                        if is_robot_inventor_port_error(rec):
+                        if is_robot_inventor_port_error(rec, motor_list[i]):
                             client_control.publish("cait/module_states", "Control Exception: port " + motor_list[i] + " can not be controlled, please check your setup", qos=1)
                             all_motor_moved = False
                     except:
@@ -459,7 +459,7 @@ def move_group(operation_list):
                 hub[1].send(msg_individual)
                 rec = hub[1].recv(102400)
                 logging.warning(rec)
-                if is_robot_inventor_port_error(rec):
+                if is_robot_inventor_port_error(rec, motor_list[m]):
                     client_control.publish("cait/module_states", "Control Exception: port " + motor_list[m] + " can not be controlled, please check your setup", qos=1)
                     all_motor_moved = False
             except:

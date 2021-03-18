@@ -114,13 +114,7 @@ def load_user(id):
 
 @application.route('/setup')
 def setup():
-    if not os.path.exists("/usr/share/done_setup"):
-        if not is_internet_connected():
-            return render_template('setup.html')
-        else:
-            return redirect('/set_device_info')
-    else:
-        return render_template('setup.html')
+    return render_template('setup.html')
 
 
 @application.route('/prev_setup')
@@ -141,7 +135,7 @@ def isConnected():
 @application.route('/wifi')
 def wifi():
     if is_internet_connected():
-        return redirect('/set_device_info')
+        return redirect('/setup')
     return render_template('wifi.html')
 
 @application.route('/prev_wifi')
@@ -194,10 +188,6 @@ def connectwifi():
     connecting_to_wifi = False
     result = {"result" : success}
     return jsonify(result)
-
-@application.route('/set_device_info')
-def set_device_info():
-    return render_template('set_device_info.html')
 
 @application.route('/customdev', methods=['POST'])
 def customdev():
