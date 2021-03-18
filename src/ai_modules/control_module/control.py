@@ -152,9 +152,10 @@ def on_message_control(client, userdata, msg):
                     if hub in hub_addresses:
                         connected_hubs[hub] = current_hubs[hub]
                     else:
-                        if current_hubs[hub][-1] < 8:
-                            connected_hubs[hub] = current_hubs[hub]
                         current_hubs[hub][-1] = current_hubs[hub][-1] + 1
+                        if current_hubs[hub][-1] < 30:
+                            connected_hubs[hub] = current_hubs[hub]
+                            connected_hubs[hub][-1] = 0
                 current_hubs = connected_hubs
 
 client_control = mqtt.Client()
@@ -370,7 +371,6 @@ def move_group(operation_list):
                     del hub_name_list[-1]
                     del hub_list[-1]
                     del motor_list[-1]
-                    del duration_list[-1]
                     all_motor_moved = False
                     break
         elif 'angle' in operation:
@@ -385,7 +385,11 @@ def move_group(operation_list):
                     logging.warning("Time out occured, Hub disconnected")
                     client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected motor port not working", qos=1)
                     del current_hubs[operation['hub_name']]
-                    return
+                    del hub_name_list[-1]
+                    del hub_list[-1]
+                    del motor_list[-1]
+                    all_motor_moved = False
+                    break
             elif hub_type == "Robot Inventor":
                 speed = 100
                 if angle< 0:
@@ -398,12 +402,16 @@ def move_group(operation_list):
                     logging.warning(rec)
                     if is_robot_inventor_port_error(rec, motor):
                         client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
-                        return
+                        break
                 except:
                     logging.warning("Time out occured, Hub disconnected")
                     client_control.publish("cait/module_states", "Control Exception: " + operation['hub_name'] + " Disconnected", qos=1)
                     del current_hubs[operation['hub_name']]
-                    return
+                    del hub_name_list[-1]
+                    del hub_list[-1]
+                    del motor_list[-1]
+                    all_motor_moved = False
+                    break
     if largest_angle > 800:
         if largest_duration < 2:
             largest_duration = 2

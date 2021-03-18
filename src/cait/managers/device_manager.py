@@ -95,42 +95,45 @@ class DeviceManager:
 
     def scan_control_devices(self):
         control_devices = []
-        nearby_devices = bluetooth.discover_devices(lookup_names=True)
-        logging.warning("Nearby devices: " + str(nearby_devices))
-        for addr, name in nearby_devices:
-            if name.find("LEGO") != -1:
-                cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time(), 'connected': False}
-                control_devices.append(cinfo)
-        connected_devices = subprocess.check_output(["hcitool", "con"]).decode("utf-8").split("\n")
-        mac_addr_re = re.compile("^.*([0-9,:,A-F]{17}).*$")
-        logging.warning("Connected device: " + str(connected_devices))
-        for device in connected_devices:
-            mac_addr = mac_addr_re.match(device)
-            if mac_addr != None:
-                addr = mac_addr.group(1)
-                device_name = ''
-                logging.warning("Device mac address:" + str(addr))
-                try:
-                    cmd = ["hcitool", "name", addr]
-                    logging.warning(str(cmd))
-                    out, err = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-                    device_name = out.decode("utf-8").split("\n")[0]
-                    logging.warning("Control device Out: " + str(out))
-                    logging.warning("Control device Err: " + str(err))
-                    logging.warning("***************************")
-                except:
-                    pass                
-                if device_name.find("ev3") != -1:
-                    with open("/var/lib/misc/dnsmasq.leases") as f:
-                        ip_list = f.readlines()
-                    for ip in ip_list:
-                        ip_info = ip.split(" ")
-                        if ip_info[1].upper() == addr:
-                            cinfo = {"device": "EV3", "mac_addr": addr, "ip_addr":  ip_info[2], "time": time.time(), 'connected': True}
-                            control_devices.append(cinfo)
-                elif device_name.find("LEGO") != -1:
-                    cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time(), 'connected': True}
+        try:
+            nearby_devices = bluetooth.discover_devices(lookup_names=True)
+            logging.warning("Nearby devices: " + str(nearby_devices))
+            for addr, name in nearby_devices:
+                if name.find("LEGO") != -1:
+                    cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time(), 'connected': False}
                     control_devices.append(cinfo)
+            connected_devices = subprocess.check_output(["hcitool", "con"]).decode("utf-8").split("\n")
+            mac_addr_re = re.compile("^.*([0-9,:,A-F]{17}).*$")
+            logging.warning("Connected device: " + str(connected_devices))
+            for device in connected_devices:
+                mac_addr = mac_addr_re.match(device)
+                if mac_addr != None:
+                    addr = mac_addr.group(1)
+                    device_name = ''
+                    logging.warning("Device mac address:" + str(addr))
+                    try:
+                        cmd = ["hcitool", "name", addr]
+                        logging.warning(str(cmd))
+                        out, err = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+                        device_name = out.decode("utf-8").split("\n")[0]
+                        logging.warning("Control device Out: " + str(out))
+                        logging.warning("Control device Err: " + str(err))
+                        logging.warning("***************************")
+                    except:
+                        pass                
+                    if device_name.find("ev3") != -1:
+                        with open("/var/lib/misc/dnsmasq.leases") as f:
+                            ip_list = f.readlines()
+                        for ip in ip_list:
+                            ip_info = ip.split(" ")
+                            if ip_info[1].upper() == addr:
+                                cinfo = {"device": "EV3", "mac_addr": addr, "ip_addr":  ip_info[2], "time": time.time(), 'connected': True}
+                                control_devices.append(cinfo)
+                    elif device_name.find("LEGO") != -1:
+                        cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time(), 'connected': True}
+                        control_devices.append(cinfo)
+        except:
+            pass
         return control_devices
 
     # def update_device_list(self, current_list, new_list):
