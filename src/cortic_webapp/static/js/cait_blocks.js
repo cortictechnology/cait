@@ -1396,6 +1396,7 @@ Blockly.Python['motor_control_block'] = function(block) {
   var statements_statements = Blockly.Python.statementToCode(block, 'statements');
   var code = "cait.essentials.control_motor_group(" + "'{" + '"operation_list" :[';
   motor_speed_idx = statements_statements.indexOf("control_motor", 0);
+  init_speed_idx = motor_speed_idx;
   motor_rotate_idx = statements_statements.indexOf("rotate_motor", 0);
   var speed_being_idx = motor_speed_idx + 13;
   var degree_being_idx = motor_rotate_idx + 12;
@@ -1416,7 +1417,7 @@ Blockly.Python['motor_control_block'] = function(block) {
     speed = speed.replace(')', '')
     duration = statements_statements.substring(duration_begin_idx, duration_end_idx);
 
-    code_line = "{'hub_name': '" + hub_name + "', 'motor_name': '" + motor_name + "', 'speed': " + speed + ", 'duration': " + duration + "}"
+    code_line = '{"hub_name": "' + hub_name + '", "motor_name": "' + motor_name + '", "speed": "' + speed + '", "duration": "' + duration + '"}'
     code = code + code_line;
 
     motor_speed_idx = statements_statements.indexOf("control_motor", speed_being_idx);
@@ -1425,7 +1426,9 @@ Blockly.Python['motor_control_block'] = function(block) {
     }
     speed_being_idx = motor_speed_idx + 13;
   }
-  code = code + ",";
+  if (init_speed_idx != -1 && motor_rotate_idx != -1) {
+    code = code + ",";
+  }
   while (motor_rotate_idx != -1){
     hub_name_begin_idx = statements_statements.indexOf("('", motor_rotate_idx) + 2
     hub_name_end_idx = statements_statements.indexOf("', ", hub_name_begin_idx)
@@ -1441,7 +1444,7 @@ Blockly.Python['motor_control_block'] = function(block) {
     angle = angle.replace(')', '')
 
     
-    code_line = "{'hub_name': '" + hub_name + "', 'motor_name': '" + motor_name + "', 'angle': " + angle + "}"
+    code_line = '{"hub_name": "' + hub_name + '", "motor_name": "' + motor_name + '", "angle": "' + angle + '"}'
     code = code + code_line;
 
     motor_rotate_idx = statements_statements.indexOf("rotate_motor", degree_being_idx);
