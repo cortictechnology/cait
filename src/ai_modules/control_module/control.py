@@ -144,7 +144,17 @@ def on_message_control(client, userdata, msg):
                 hub_name = data[hub_name_begin_idx:hub_name_end_idx]
                 motor = data[motor_begin_idx:motor_end_idx]
                 degree = int(data[angle_begin_idx:])
-                setPosition(hub_name, motor, degree)
+                setDegree(hub_name, motor, degree)
+            elif data.find("position") != -1:
+                hub_name_begin_idx = data.find("hub") + 4
+                hub_name_end_idx = data.find(" rotate", hub_name_begin_idx)
+                motor_begin_idx = data.find("rotate") + 7
+                motor_end_idx = data.find(" ", motor_begin_idx)
+                angle_begin_idx = motor_end_idx + 1
+                hub_name = data[hub_name_begin_idx:hub_name_end_idx]
+                motor = data[motor_begin_idx:motor_end_idx]
+                position = int(data[angle_begin_idx:])
+                setPosition(hub_name, motor, position)
             elif data.find("connectedHubs") != -1:
                 hub_addresses = ast.literal_eval(data[data.find(",")+1:])
                 connected_hubs = {}
@@ -223,7 +233,8 @@ def translate_motor_name(hub, motor_name):
             motor = "F"
     return motor
 
-def setPosition(hub_name, motor_name, position):
+
+def setDegree(hub_name, motor_name, position):
     global current_hubs
     logging.info("Rotating motor now")
     hub = current_hubs[hub_name]
@@ -244,6 +255,40 @@ def setPosition(hub_name, motor_name, position):
             speed = -100
         degree = abs(position)
         msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_for_degrees(' + str(degree).encode('utf-8') + b', ' + str(speed).encode('utf-8') + b')\x0D'
+        try:
+            hub[1].send(msg_individual)
+            rec = hub[1].recv(102400)
+            logging.warning(rec)
+            if is_robot_inventor_port_error(rec, motor):
+                client_control.publish("cait/module_states", "Control Exception: port " + motor + " can not be controlled, please check your setup", qos=1)
+                return
+        except:
+            logging.warning("Time out occured, Hub disconnected")
+            client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected", qos=1)
+            del current_hubs[hub_name]
+            return
+        time.sleep(0.1)
+    client_control.publish("cait/module_states", "Control Done", qos=1)
+    logging.info("Done rotating")
+
+def setPosition(hub_name, motor_name, position):
+    global current_hubs
+    logging.info("Rotating motor now")
+    hub = current_hubs[hub_name]
+    hub_type = hub[0]
+    motor = translate_motor_name(hub, motor_name)
+    if hub_type == "EV3":
+        try:
+            this_motor = hub[2].Motor(motor)
+            this_motor.on_to_position(100, position)
+        except:
+            logging.warning("Time out occured, Hub disconnected")
+            client_control.publish("cait/module_states", "Control Exception: " + hub_name + " Disconnected motor port not working", qos=1)
+            del current_hubs[hub_name]
+            return
+    elif hub_type == "Robot Inventor":
+        speed = 100
+        msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_to_position(' + str(position).encode('utf-8') + b', ' + str(speed).encode('utf-8') + b')\x0D'
         try:
             hub[1].send(msg_individual)
             rec = hub[1].recv(102400)

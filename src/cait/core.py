@@ -289,7 +289,7 @@ def initialize_control(mode):
     caitCore.set_component_state("control", False)
     while not caitCore.get_component_state("control", "Up"):
         if control_wait <= 30:
-            result = caitCore.send_component_commond("control", "Control Up," + mode)
+            result = caitCore.send_component_commond("control", "Control Up," + str(mode))
             if result == False:
                 logging.info("Init Control: Error occurred")
                 return result, "MQTT Error"
