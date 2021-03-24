@@ -142,6 +142,19 @@ async function analyze(text) {
   }
 }
 
+async function set_motor_position(hub_name, motor_name, position) {
+  try {
+    const res = await ajax_post("/set_motor_position", {'hub_name': hub_name, 'motor_name' : motor_name, 'position' : position});
+    console.log(res);
+    if(res['success'] == false) {
+      alert(res["error"] + ". Please fix the problem and click Run again.");
+    }
+  } catch(err) {
+      console.log(err);
+      return err;
+  }
+}
+
 async function rotate_motor(hub_name, motor_name, angle) {
   try {
     const res = await ajax_post("/rotate_motor", {'hub_name': hub_name, 'motor_name' : motor_name, 'angle' : angle});

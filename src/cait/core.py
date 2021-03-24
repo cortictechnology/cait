@@ -633,10 +633,65 @@ def control_motor(hub_name, motor_name, speed, duration):
         logging.info("Please call initialize_control() function before using Control module")
         return False, "Not initialized"
     command = "hub " + hub_name + " move " + motor_name + " " + str(speed) + " " + str(duration)
-    logging.info("Robot command:"+ str(command))
+    #logging.info("Robot command:"+ str(command))
     result = caitCore.send_component_commond("control", command)
     if result == False:
         logging.info("Control Motor: Error occurred")
+    while not caitCore.component_manager.doneMoving:
+        if caitCore.component_manager.controlException:
+            caitCore.component_manager.controlException = False
+            logging.warning("Hub disconnected")
+            return False, caitCore.component_manager.controlExceptionMsg
+        time.sleep(0.03)
+    return True, "OK"
+
+def set_motor_position(hub_name, motor_name, position):
+    caitCore.component_manager.doneMoving = False
+    if not caitCore.get_component_state("control", "Up"):
+        logging.info("Please call initialize_control() function before using Control module")
+        return False, "Not initialized"
+    command = "hub " + hub_name + " position " + motor_name + " " + str(position)
+    #logging.info("Robot command:"+ str(command))
+    result = caitCore.send_component_commond("control", command)
+    if result == False:
+        logging.info("Control Motor: Error occurred")
+    while not caitCore.component_manager.doneMoving:
+        if caitCore.component_manager.controlException:
+            caitCore.component_manager.controlException = False
+            logging.warning("Hub disconnected")
+            return False, caitCore.component_manager.controlExceptionMsg
+        time.sleep(0.03)
+    return True, "OK"
+
+def set_motor_power(hub_name, motor_name, power):
+    caitCore.component_manager.doneMoving = False
+    if not caitCore.get_component_state("control", "Up"):
+        logging.info("Please call initialize_control() function before using Control module")
+        return False, "Not initialized"
+    command = "hub " + hub_name + " pwm " + motor_name + " " + str(power)
+    #logging.info("Robot command:"+ str(command))
+    result = caitCore.send_component_commond("control", command)
+    if result == False:
+        logging.info("Control Motor: Error occurred")
+    while not caitCore.component_manager.doneMoving:
+        if caitCore.component_manager.controlException:
+            caitCore.component_manager.controlException = False
+            logging.warning("Hub disconnected")
+            return False, caitCore.component_manager.controlExceptionMsg
+        time.sleep(0.03)
+    return True, "OK"
+
+
+def set_motor_power_group(operation_list):
+    caitCore.component_manager.doneMoving = False
+    if not caitCore.get_component_state("control", "Up"):
+        logging.info("Please call initialize_control() function before using Control module")
+        return False, "Not initialized"
+    command = "power_group " + operation_list
+    #logging.info("Robot command:"+ str(command))
+    result = caitCore.send_component_commond("control", command)
+    if result == False:
+        logging.info("Control Motor Power Group: Error occurred")
     while not caitCore.component_manager.doneMoving:
         if caitCore.component_manager.controlException:
             caitCore.component_manager.controlException = False
@@ -652,7 +707,7 @@ def control_motor_group(operation_list):
         logging.info("Please call initialize_control() function before using Control module")
         return False, "Not initialized"
     command = "motor_group " + operation_list
-    logging.info("Robot command:"+ str(command))
+    #logging.info("Robot command:"+ str(command))
     result = caitCore.send_component_commond("control", command)
     if result == False:
         logging.info("Control Motor Speed Group: Error occurred")
@@ -671,7 +726,7 @@ def rotate_motor(hub_name, motor_name, angle):
         logging.info("Please call initialize_control() function before using Control module")
         return False, "Not initialized"
     command = "hub " + hub_name + " rotate " + motor_name + " " + str(angle)
-    logging.info("Robot command:"+ str(command))
+    #logging.info("Robot command:"+ str(command))
     result = caitCore.send_component_commond("control", command)
     if result == False:
         logging.info("Rotate Motor: Error occurred")
@@ -775,7 +830,7 @@ def run_once(func, id, params=None):
 
 
 def get_devices(device_type):
-    url = "http://localhost:8123/api/states"
+    url = "http://0.0.0.0:8123/api/states"
     response = requests.request('GET', url, headers=caitCore.component_manager.headers)
     response_data = response.json()
 
@@ -783,7 +838,7 @@ def get_devices(device_type):
 
     for state in response_data:
         if state['entity_id'].find(device_type+".") != -1:
-            detail_url = "http://localhost:8123/api/states/" + state['entity_id']
+            detail_url = "http://0.0.0.0:8123/api/states/" + state['entity_id']
             detail_response = requests.request('GET', detail_url, headers=caitCore.component_manager.headers).json()
             if (detail_response['state'] != "unavailable"):
                 name = state['entity_id'][state['entity_id'].find(".")+1:]
@@ -793,21 +848,21 @@ def get_devices(device_type):
 
 def control_light(device_name, operation, parameter=None):
     if operation == "turn_on" or operation == "turn_off" or operation == "toggle":
-        url = "http://localhost:8123/api/services/light/" + operation
+        url = "http://0.0.0.0:8123/api/services/light/" + operation
         data = {"entity_id": device_name}
     else:
         if operation == "color_name":
-            url = "http://localhost:8123/api/services/light/turn_on"
+            url = "http://0.0.0.0:8123/api/services/light/turn_on"
             data = {"entity_id": device_name, "color_name": parameter}
         elif operation == "brightness_pct":
-            url = "http://localhost:8123/api/services/light/turn_on"
+            url = "http://0.0.0.0:8123/api/services/light/turn_on"
             data = {"entity_id": device_name, "brightness_pct": int(parameter)}
     response = requests.request('POST', url, headers=caitCore.component_manager.headers, data=json.dumps(data))
     return response.json()
 
 
 def control_media_player(device_name, operation):
-    url = "http://localhost:8123/api/services/media_player/" + operation
+    url = "http://0.0.0.0:8123/api/services/media_player/" + operation
     data = {"entity_id": device_name}
     response = requests.request('POST', url, headers=caitCore.component_manager.headers, data=json.dumps(data))
     return response.json()

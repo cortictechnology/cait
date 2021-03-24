@@ -904,6 +904,19 @@ def control_motor_speed_group():
         result = {"success": success}
     return jsonify(result)
 
+@application.route("/set_motor_position", methods=['POST'])
+@login_required
+def set_motor_position():
+    hub_name = request.form.get('hub_name')
+    motor_name = request.form.get('motor_name')
+    position = request.form.get('position')
+    success, msg = essentials.set_motor_position(hub_name, motor_name, int(position))
+    if success == False:
+        result = {"success": success, "error": msg}
+    else:
+        result = {"success": success}
+    return jsonify(result)
+
 @application.route("/rotate_motor", methods=['POST'])
 @login_required
 def rotate_motor():

@@ -310,6 +310,50 @@ def analyse_text(text):
 
     return intention
 
+def set_motor_position(hub_name, motor_name, position):
+    """Set the absolute position of a motor
+
+    Parameters:
+        motor_name (string): Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
+        position (int): -inf to inf
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    """    
+
+    success, msg = core.set_motor_position(hub_name, motor_name, position)
+
+    return success, msg
+
+def set_motor_power(hub_name, motor_name, power):
+    """Set the power level of a motor
+
+    Parameters:
+        motor_name (string): Name of motor to control, currently, only support "motor_A", "motor_B", "motor_C", "motor_D" corresponding to BrickPi ports
+        power (int): 0-100
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    """    
+
+    success, msg = core.set_motor_power(hub_name, motor_name, power)
+
+    return success, msg
+
+def set_motor_power_group(operation_list):
+    """Set the power level of a motor group
+
+    Parameters:
+        operation_list (list): A list of operation in string, refer to code generated from the visual programming interface
+
+    Returns:
+        (bool): True if successfully moved. False otherwise.
+    """    
+
+    success, msg = core.set_motor_power_group(operation_list)
+
+    return success, msg
+
 def control_motor(hub_name, motor_name, speed, duration):
     """Move robot forward or backward, with specific speed and for specific duration
 

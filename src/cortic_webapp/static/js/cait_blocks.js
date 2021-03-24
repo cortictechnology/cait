@@ -601,6 +601,37 @@ Blockly.defineBlocksWithJsonArray([
       "helpUrl": ""
     },
     {
+      "type": "motor_position",
+      "message0": "%{BKY_SET_MOTOR_ANGLE}",
+      "args0": [
+        {
+          "type": "input_dummy",
+          "name" : "added_hubs",
+          "align": "CENTRE"
+        },
+        {
+          "type": "input_value",
+          "name": "motor",
+          "check": "String"
+        },
+        {
+          "type": "input_dummy"
+        },
+        {
+          "type": "input_value",
+          "name": "degree",
+          "check": "Number"
+        }
+      ],
+      "extensions": ["dynamic_added_hubs_extension"],
+      "inputsInline": true,
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#F78C00",
+      "tooltip": "%{BKY_SET_MOTOR_ANGLE_TOOLTIP}",
+      "helpUrl": ""
+    },
+    {
       "type": "motor_rotate",
       "message0": "%{BKY_SET_MOTOR_ROTATE}",
       "args0": [
@@ -1268,6 +1299,37 @@ Blockly.Python['robot_inventor_motor_block'] = function(block) {
   var motor_name = block.getFieldValue('motor_name');
   return [motor_name, Blockly.Python.ORDER_NONE];
 }
+
+Blockly.JavaScript['motor_position'] = function(block) {
+  var hub_name = block.getFieldValue('available_hubs');
+  var index = added_hubs.indexOf(hub_name);
+  if (index == -1){
+    throw new Error("The selected hub: " + hub_name + " is not available, please make sure the selection is valid");
+  }
+  var motor_name = Blockly.JavaScript.valueToCode(block, 'motor', Blockly.JavaScript.ORDER_ATOMIC);
+  if (hub_name.indexOf("EV3") != -1) {
+    if (motor_name.indexOf("ev3") == -1) {
+      throw new Error("EV3 Hub must use EV3 motors only");
+    }
+  } else if (hub_name.indexOf("Robot Inventor") != -1) {
+    if (motor_name.indexOf("ri") == -1) {
+      throw new Error("Robot Inventor Hub must use Robot Inventor motors only");
+    }
+  }
+  motor_name = motor_name.substring(motor_name.indexOf("_") + 1,motor_name.length-1)
+  var number_degree = Blockly.JavaScript.valueToCode(block, 'degree', Blockly.JavaScript.ORDER_ATOMIC);
+  var code = "await set_motor_position('" + hub_name + "', '"  + motor_name + "', " + String(number_degree) + ");\n";
+  return code;
+};
+
+Blockly.Python['motor_position'] = function(block) {
+  var hub_name = block.getFieldValue('available_hubs');
+  var motor_name = Blockly.Python.valueToCode(block, 'motor', Blockly.Python.ORDER_ATOMIC);
+  motor_name = motor_name.substring(motor_name.indexOf("_") + 1,motor_name.length-1)
+  var number_degree = Blockly.Python.valueToCode(block, 'degree', Blockly.Python.ORDER_ATOMIC);
+  var code = "cait.essentials.set_motor_position('" + hub_name + "', '" + motor_name + "', " + String(number_degree) + ")\n";
+  return code;
+};
 
 Blockly.JavaScript['motor_rotate'] = function(block) {
   var hub_name = block.getFieldValue('available_hubs');
