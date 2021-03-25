@@ -1399,6 +1399,7 @@ Blockly.JavaScript['motor_control_block'] = function(block) {
   var statements_statements = Blockly.JavaScript.statementToCode(block, 'statements');
   var code = "await control_motor_group([\n";
   motor_speed_idx = statements_statements.indexOf("control_motor", 0);
+  init_speed_idx = motor_speed_idx;
   motor_rotate_idx = statements_statements.indexOf("rotate_motor", 0);
   var speed_being_idx = motor_speed_idx + 13;
   var degree_being_idx = motor_rotate_idx + 12;
@@ -1427,7 +1428,9 @@ Blockly.JavaScript['motor_control_block'] = function(block) {
     }
     speed_being_idx = motor_speed_idx + 13;
   }
-  code = code + ",";
+  if (init_speed_idx != -1 && motor_rotate_idx != -1) {
+    code = code + ",";
+  }
   while (motor_rotate_idx != -1){
     hub_name_begin_idx = statements_statements.indexOf("('", motor_rotate_idx) + 2
     hub_name_end_idx = statements_statements.indexOf("', ", hub_name_begin_idx)
