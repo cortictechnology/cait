@@ -196,8 +196,9 @@ class FaceRecognition:
             for face in detected_faces:
                 face_coordinate = face['face_coordinates']
                 coordinates.append([face_coordinate[1], face_coordinate[0], face_coordinate[3], face_coordinate[2]])
-        identity = "Unknown"
+        identity = "None"
         confidence = 0
+        logging.warning("Coordinates:" + str(coordinates))
         for face_features in all_face_features:
             if self.face_database["Features"] is not None:
                 similarity = np.dot(self.face_database["Features"], face_features.T).squeeze()
@@ -205,4 +206,6 @@ class FaceRecognition:
                 if not isinstance(similarity, np.ndarray):
                     similarity = np.array([similarity])
                 identity, confidence = self.get_best_match_identity(similarity, face_recognition_confidence)
+            else:
+                identity = "Unknown"
         return '{ "mode" : "FaceRecognition", "coordinates": "' + str(coordinates) + '", "name": "' + identity + '", "confidence": "' + str(confidence) + '", "largestID": "' + str(largest_face_index) + '" }'
