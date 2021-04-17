@@ -26,8 +26,8 @@ class ImageClassification:
         self.image_lib = ImageLib()
 
 
-    def run(self, image):
-        top5_results = self.image_lib.classify_image(image)
+    def run(self, image, threshold):
+        top5_results = self.image_lib.classify_image(image, threshold)
         #logging.info(str(top5_results))
         result = '{ "mode" : "ImageClassification", "names": "' + str(top5_results) + '" }'
         return result

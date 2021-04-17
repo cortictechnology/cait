@@ -35,7 +35,7 @@ class ImageLib:
         self.image_classify_module.load_params(loaded_params)
 
 
-    def classify_image(self, _img):
+    def classify_image(self, _img, threshold):
         dim = (224, 224)
         img = np.copy(_img)
 

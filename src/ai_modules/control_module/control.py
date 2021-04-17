@@ -336,9 +336,22 @@ def setPosition(hub_name, motor_name, position):
             del current_hubs[hub_name]
             return
     elif hub_type == "Robot Inventor":
-        msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_to_position(' + str(position).encode('utf-8') + b', 100)\x0D'
+        msg_0 = b'motor = hub.port.' + motor.encode('utf-8') + b'.motor\x0D'
+        msg_1 = b'abs_pos = motor.get()[2]\x0D'
+        msg_2 = b'if abs_pos > 180: abs_pos = abs_pos - 360\x0D\x0D'
+        msg_3 = b'motor.preset(abs_pos)\x0D'
+        msg_4 = b'motor.run_to_position(' + str(position).encode('utf-8') + b', 100)\x0D'
         try:
-            hub[1].send(msg_individual)
+            hub[1].send(msg_0)
+            time.sleep(0.003)
+            hub[1].send(msg_1)
+            time.sleep(0.003)
+            hub[1].send(msg_2)
+            time.sleep(0.003)
+            hub[1].send(msg_3)
+            time.sleep(0.003)
+            hub[1].send(msg_4)
+            time.sleep(0.003)
             rec = hub[1].recv(102400)
             logging.warning(rec)
             if is_robot_inventor_port_error(rec, motor):
@@ -551,9 +564,22 @@ def move_group(operation_list):
                     all_motor_moved = False
                     break
             elif hub_type == "Robot Inventor":
-                msg_individual = b'hub.port.' + motor.encode('utf-8') + b'.motor.run_to_position(' + str(position).encode('utf-8') + b', 100)\x0D'
+                msg_0 = b'motor = hub.port.' + motor.encode('utf-8') + b'.motor\x0D'
+                msg_1 = b'abs_pos = motor.get()[2]\x0D'
+                msg_2 = b'if abs_pos > 180: abs_pos = abs_pos - 360\x0D\x0D'
+                msg_3 = b'motor.preset(abs_pos)\x0D'
+                msg_4 = b'motor.run_to_position(' + str(position).encode('utf-8') + b', 100)\x0D'
                 try:
-                    hub[1].send(msg_individual)
+                    hub[1].send(msg_0)
+                    time.sleep(0.003)
+                    hub[1].send(msg_1)
+                    time.sleep(0.003)
+                    hub[1].send(msg_2)
+                    time.sleep(0.003)
+                    hub[1].send(msg_3)
+                    time.sleep(0.003)
+                    hub[1].send(msg_4)
+                    time.sleep(0.003)
                     rec = hub[1].recv(102400)
                     logging.warning(rec)
                     if is_robot_inventor_port_error(rec, motor):
