@@ -24,7 +24,7 @@ class CAITCore:
         s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
         while True:
             self.component_manager.client_module_state.publish("cait/system_status", "CAIT UP")
-            network_discovert_str = "CAIT instance:" + os.uname()[1]
+            network_discovert_str = "CAIT instance:" + os.uname()[1].lower()
             try:
                 s.sendto(network_discovert_str.encode(), ('255.255.255.255', 50000))
             except:

@@ -1,281 +1,669 @@
-2020-03-31 15:31:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:31:51 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 5 seconds.
-2020-03-31 15:32:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:32:00 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 10 seconds.
-2020-03-31 15:32:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:32:14 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 20 seconds.
-2020-03-31 15:32:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:32:38 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 40 seconds.
-2020-03-31 15:33:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:33:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:34:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:34:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:36:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:36:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:37:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:37:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:38:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:38:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:40:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:40:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:41:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:41:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:43:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:43:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:44:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:44:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:45:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:45:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:47:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:47:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:48:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:48:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:50:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:50:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:51:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:51:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:52:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:52:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:54:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:54:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:55:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:55:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:57:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:57:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:58:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:58:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 15:59:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 15:59:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:01:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:01:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:02:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:02:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:04:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:04:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:05:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:05:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:06:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:06:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:08:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:08:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:09:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:09:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:11:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:11:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:12:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:12:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:13:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:13:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:15:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:15:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:16:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:16:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:18:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:18:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:19:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:19:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:20:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:20:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:22:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:22:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:23:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:23:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:25:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:25:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:26:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:26:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:27:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:27:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:29:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:29:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:30:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:30:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:32:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:32:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:33:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:33:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:34:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:34:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:36:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:36:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:37:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:37:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:39:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:39:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:40:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:40:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:41:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:41:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:43:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:43:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:44:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:44:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:46:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:46:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:47:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:47:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:48:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:48:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:50:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:50:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:51:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:51:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:53:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:53:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:54:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:54:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:55:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:55:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:57:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:57:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 16:58:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 16:58:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:00:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:00:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:01:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:01:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:02:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:02:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:04:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:04:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:05:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:05:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:07:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:07:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:08:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:08:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:09:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:09:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:11:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:11:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:12:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:12:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:14:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:14:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:15:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:15:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:16:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:16:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:17:31 WARNING (zeroconf-ServiceBrowser__googlecast._tcp.local.) [zeroconf] Exception occurred:
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.7/site-packages/zeroconf/__init__.py", line 2589, in send
-    bytes_sent = s.sendto(packet, 0, (real_addr, port))
-OSError: [Errno 101] Network unreachable
-2020-03-31 17:18:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:18:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:19:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:19:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:21:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:21:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:22:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:22:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:23:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:23:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:25:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:25:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:26:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:26:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:28:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:28:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:29:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:29:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:30:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:30:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:32:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:32:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:33:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:33:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:35:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:35:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:36:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:36:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:37:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:37:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:39:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:39:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:40:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:40:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:42:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:42:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:43:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:43:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:44:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:44:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:46:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:46:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:47:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:47:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:49:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:49:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:50:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:50:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:51:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:51:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:53:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:53:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:54:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:54:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:56:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:56:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:57:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:57:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 17:58:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 17:58:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:00:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:00:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:01:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:01:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:03:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:03:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:04:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:04:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:05:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:05:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:07:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:07:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:08:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:08:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:10:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:10:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:11:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:11:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:12:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:12:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:14:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:14:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:15:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:15:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:17:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:17:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:18:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:18:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:19:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:19:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:21:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:21:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:22:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:22:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:24:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:24:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:25:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:25:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:26:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:26:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:28:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:28:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:29:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:29:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:31:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:31:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:32:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:32:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:33:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:33:58 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:35:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:35:22 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:36:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:36:46 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:38:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:38:10 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
-2020-03-31 18:39:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
-2020-03-31 18:39:34 WARNING (MainThread) [homeassistant.config_entries] Config entry for hue not ready yet. Retrying in 80 seconds.
+2021-05-04 18:45:00 WARNING (Recorder) [homeassistant.components.recorder.util] The system could not validate that the sqlite3 database at //config/home-assistant_v2.db was shutdown cleanly
+2021-05-04 18:45:00 WARNING (Recorder) [homeassistant.components.recorder] Ended unfinished session (id=316 from 2021-05-05 01:17:25.757869)
+2021-05-04 18:45:05 WARNING (MainThread) [homeassistant.components.met] Skip setting up met.no integration; No Home location has been set
+2021-05-04 18:45:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:45:09 WARNING (MainThread) [homeassistant.config_entries] Config entry 'Philips hue' for hue integration not ready yet; Retrying in background
+2021-05-04 18:47:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:47:26 WARNING (Thread-7) [pychromecast.socket_client] [Office speaker(192.168.1.151):8009] Heartbeat timeout, resetting connection
+2021-05-04 18:47:26 WARNING (Thread-8) [pychromecast.socket_client] [Living Room Display(192.168.1.253):8009] Heartbeat timeout, resetting connection
+2021-05-04 18:47:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:48:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:48:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:50:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:51:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:52:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:54:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:55:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:57:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:58:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 18:59:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:01:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:02:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:03:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:05:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:06:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:08:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:09:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:10:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:12:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:13:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:15:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:16:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:17:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:19:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:20:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:21:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:23:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:24:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:26:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:27:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:28:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:30:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:31:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:33:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:34:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:35:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:37:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:38:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:39:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:41:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:42:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:44:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:45:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:46:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:48:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:49:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:51:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:52:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:53:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:55:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:56:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:58:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 19:59:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:00:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:02:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:03:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:04:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:06:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:07:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:09:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:10:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:11:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:13:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:14:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:16:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:17:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:18:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:20:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:21:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:22:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:24:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:25:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:27:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:28:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:29:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:31:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:32:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:34:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:35:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:36:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:38:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:39:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:40:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:42:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:43:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:45:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:46:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:47:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:49:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:50:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:52:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:53:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:54:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:56:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:57:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 20:58:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:00:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:01:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:03:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:04:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:05:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:07:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:08:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:10:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:11:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:12:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:14:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:15:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:16:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:18:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:19:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:21:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:22:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:23:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:25:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:26:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:28:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:29:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:30:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:32:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:33:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:34:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:36:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:37:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:39:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:40:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:41:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:43:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:44:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:46:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:47:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:48:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:50:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:51:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:52:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:54:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:55:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:57:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:58:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 21:59:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:01:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:02:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:04:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:05:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:06:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:08:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:09:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:10:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:12:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:13:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:15:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:16:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:17:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:19:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:20:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:22:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:23:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:24:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:26:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:27:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:29:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:30:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:31:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:33:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:34:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:35:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:37:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:38:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:40:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:41:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:42:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:44:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:45:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:47:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:48:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:49:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:51:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:52:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:53:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:55:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:56:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:58:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 22:59:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:00:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:02:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:03:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:05:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:06:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:07:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:09:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:10:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:11:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:13:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:14:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:16:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:17:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:18:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:20:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:21:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:23:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:24:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:25:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:27:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:28:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:29:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:31:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:32:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:34:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:35:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:36:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:38:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:39:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:41:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:42:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:43:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:45:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:46:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:47:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:49:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:50:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:52:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:53:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:54:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:56:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:57:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-04 23:59:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:00:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:01:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:03:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:04:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:05:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:07:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:08:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:10:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:11:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:12:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:14:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:15:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:17:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:18:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:19:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:21:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:22:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:23:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:25:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:26:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:28:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:29:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:30:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:32:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:33:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:35:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:36:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:37:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:39:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:40:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:42:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:43:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:44:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:46:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:47:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:48:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:50:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:51:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:53:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:54:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:55:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:57:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 00:58:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:00:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:01:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:02:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:04:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:05:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:06:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:08:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:09:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:11:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:12:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:13:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:15:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:16:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:18:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:19:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:20:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:22:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:23:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:24:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:26:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:27:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:29:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:30:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:31:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:33:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:34:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:36:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:37:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:38:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:40:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:41:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:42:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:44:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:45:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:47:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:48:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:49:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:51:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:52:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:54:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:55:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:56:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:58:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 01:59:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:00:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:02:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:03:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:05:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:06:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:07:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:09:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:10:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:12:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:13:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:14:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:16:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:17:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:18:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:20:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:21:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:23:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:24:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:25:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:27:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:28:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:30:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:31:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:32:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:34:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:35:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:36:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:38:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:39:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:41:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:42:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:43:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:45:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:46:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:48:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:49:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:50:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:52:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:53:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:54:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:56:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:57:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 02:59:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:00:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:01:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:03:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:04:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:06:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:07:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:08:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:10:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:11:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:13:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:14:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:15:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:17:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:18:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:19:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:21:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:22:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:23:33 WARNING (Thread-7) [pychromecast.socket_client] [Office speaker(192.168.1.151):8009] Heartbeat timeout, resetting connection
+2021-05-05 03:23:49 ERROR (Thread-7) [pychromecast.socket_client] [Office speaker(192.168.1.151):8009] Failed to connect to service ServiceInfo(type='host', data=('192.168.1.151', 8009)), retrying in 5.0s
+2021-05-05 03:24:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:24:34 WARNING (Thread-11) [pychromecast.socket_client] [(192.168.1.43):8009] Heartbeat timeout, resetting connection
+2021-05-05 03:24:50 ERROR (Thread-11) [pychromecast.socket_client] [(192.168.1.43):8009] Failed to connect to service ServiceInfo(type='host', data=('192.168.1.43', 8009)), retrying in 5.0s
+2021-05-05 03:25:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:26:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:28:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:29:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:31:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:32:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:33:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:35:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:36:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:37:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:38:24 WARNING (Thread-8) [pychromecast.socket_client] [Living Room Display(192.168.1.253):8009] Heartbeat timeout, resetting connection
+2021-05-05 03:38:31 ERROR (Thread-8) [pychromecast.socket_client] [Living Room Display(192.168.1.253):8009] Failed to connect to service ServiceInfo(type='host', data=('192.168.1.253', 8009)), retrying in 5.0s
+2021-05-05 03:39:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:40:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:42:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:43:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:44:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:46:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:47:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:49:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:50:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:51:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:53:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:54:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:55:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:57:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 03:58:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:00:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:01:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:02:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:04:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:05:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:07:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:08:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:09:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:11:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:12:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:13:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:15:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:16:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:18:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:19:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:20:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:22:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:23:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:25:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:26:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:27:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:29:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:30:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:31:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:33:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:34:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:36:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:37:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:38:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:40:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:41:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:43:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:44:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:45:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:47:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:48:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:49:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:51:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:52:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:54:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:55:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:56:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:58:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 04:59:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:01:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:02:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:03:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:05:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:06:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:07:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:09:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:10:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:12:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:13:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:14:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:16:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:17:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:19:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:20:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:21:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:23:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:24:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:25:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:27:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:28:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:30:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:31:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:32:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:34:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:35:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:37:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:38:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:39:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:41:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:42:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:44:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:45:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:46:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:48:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:49:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:50:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:52:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:53:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:55:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:56:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:57:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 05:59:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:00:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:02:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:03:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:04:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:06:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:07:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:08:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:10:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:11:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:13:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:14:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:15:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:17:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:18:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:20:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:21:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:22:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:24:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:25:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:26:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:28:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:29:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:31:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:32:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:33:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:35:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:36:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:38:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:39:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:40:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:42:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:43:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:44:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:46:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:47:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:49:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:50:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:51:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:53:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:54:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:56:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:57:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 06:58:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:00:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:01:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:02:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:04:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:05:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:07:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:08:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:09:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:11:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:12:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:14:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:15:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:16:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:18:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:19:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:20:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:22:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:23:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:25:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:26:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:27:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:29:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:30:40 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:32:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:33:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:34:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:36:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:37:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:38:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:40:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:41:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:43:08 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:44:31 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:45:54 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:47:17 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:48:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:50:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:51:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:52:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:54:13 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:55:36 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:56:59 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:58:22 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 07:59:45 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:01:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:02:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:03:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:05:18 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:06:41 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:08:04 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:09:27 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:10:50 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:12:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:13:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:15:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:16:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:17:46 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:19:09 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:20:32 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:21:55 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:23:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:24:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:26:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:27:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:28:51 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:30:14 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:31:37 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:33:00 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:34:23 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:35:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:37:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:38:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:39:56 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:41:19 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:42:42 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:44:05 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:45:28 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:46:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:48:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:49:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:51:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:52:24 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:53:47 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:55:10 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:56:33 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:57:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 08:59:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:00:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:02:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:03:29 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:04:52 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:06:15 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:07:38 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:09:01 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:10:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:11:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:13:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:14:34 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:15:57 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:17:20 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:18:43 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:20:06 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:21:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:22:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:24:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:25:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:27:02 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:28:25 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:29:48 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:31:11 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:32:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:33:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:35:21 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:36:44 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:38:07 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:39:30 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:40:53 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:42:16 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:43:39 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:45:03 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:46:26 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:47:49 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:49:12 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:50:35 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242
+2021-05-05 09:51:58 ERROR (MainThread) [homeassistant.components.hue] Error connecting to the Hue bridge at 192.168.1.242

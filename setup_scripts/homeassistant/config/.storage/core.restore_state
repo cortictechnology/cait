@@ -1,26 +1,26 @@
 {
+    "version": 1,
+    "key": "core.restore_state",
     "data": [
         {
-            "last_seen": "2020-04-01T01:32:04.002613+00:00",
             "state": {
+                "entity_id": "person.ai_learner",
+                "state": "unknown",
                 "attributes": {
-                    "editable": true,
-                    "friendly_name": "AI Learner",
+                    "editable": false,
                     "id": "ai_learner",
-                    "user_id": "12d8e02fe6f44d34bd20599f2e54756c"
+                    "user_id": "12d8e02fe6f44d34bd20599f2e54756c",
+                    "friendly_name": "AI Learner"
                 },
+                "last_changed": "2021-05-05T01:45:03.047708+00:00",
+                "last_updated": "2021-05-05T01:45:09.232009+00:00",
                 "context": {
-                    "id": "e1f7617e8391478c93931c6051274683",
+                    "id": "2b2aaedfe5f748a48a2c11d20feef0d0",
                     "parent_id": null,
                     "user_id": null
-                },
-                "entity_id": "person.ai_learner",
-                "last_changed": "2020-03-31T22:31:48.057963+00:00",
-                "last_updated": "2020-03-31T22:31:53.974611+00:00",
-                "state": "unknown"
-            }
+                }
+            },
+            "last_seen": "2021-05-05T16:47:22.095707+00:00"
         }
-    ],
-    "key": "core.restore_state",
-    "version": 1
+    ]
 }

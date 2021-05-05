@@ -44,6 +44,15 @@ def get_video_devices():
     """ 
     return core.get_video_devices()
 
+def get_oakd_devices():
+    """Get a list of connected oakd device
+
+    Returns:
+        video_device_list (list): List of camera device
+    """ 
+    return core.get_oakd_devices()
+
+
 def get_audio_devices():
     """Get a list of connected audio device
 
@@ -51,6 +60,24 @@ def get_audio_devices():
         (list): List of audio device
     """  
     return core.get_audio_devices()
+
+
+def get_voice_processing_services():
+    """Get a list of voice processing services
+
+    Returns:
+        (list): List of audio device
+    """  
+    return core.get_voice_processing_services()
+
+
+def get_voice_generation_services():
+    """Get a list of voice generation services
+
+    Returns:
+        (list): List of audio device
+    """  
+    return core.get_voice_generation_services()
 
 
 def get_control_devices():
@@ -73,7 +100,7 @@ def test_camera(index):
     """    
     return core.test_camera(index)
 
-def initialize_component(component_name, mode="online", account="default", processor="local", language="english"):
+def initialize_component(component_name, mode, account="default", processor="local", language="english"):
     """Initalization function for different components
     
     Parameters:
@@ -86,12 +113,8 @@ def initialize_component(component_name, mode="online", account="default", proce
         (bool): True if initialization is success, False otherwise
     """    
     if component_name == "vision":
-        success, msg = core.initialize_vision(processor, account)
+        success, msg = core.initialize_vision(processor, mode)
     elif component_name == "voice":
-        if mode == "online":
-            mode = True
-        else:
-            mode = False
         success, msg  = core.initialize_voice(mode, account, language)
     elif component_name == "nlp":
         success, msg  = core.initialize_nlp(mode)
@@ -149,13 +172,13 @@ def sleep(time_value):
     time.sleep(time_value)
     return True
 
-def get_camera_image():
+def get_camera_image(from_network_passthrough=False):
     """Development test function, retrieve one camera image
     
     Returns:
         (mat): cv2 image
     """
-    img = core.get_camera_image()
+    img = core.get_camera_image(from_network_passthrough)
     if img is not None:
         return img
     else:
@@ -184,9 +207,8 @@ def recognize_face():
         (dict): key: names, values: (coordinates, confidences)
     """    
 
-    name = core.recognize_face()
+    name, coordinate = core.recognize_face()
     #print("NAME*************", name)
-    coordinate = core.get_person_face_location(name)
 
     if name is not None and coordinate is not None:
         people = {"success": True, "name" : name, "coordinate" : coordinate}

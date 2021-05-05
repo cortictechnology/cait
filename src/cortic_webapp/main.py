@@ -28,6 +28,7 @@ import threading
 import sys
 import pyaudio
 import wave
+import ast
 from wifi import Cell
 from shutil import copyfile
 
@@ -226,9 +227,10 @@ def getvideodev():
 @application.route('/getaudiodev', methods=['GET'])
 def getaudiodev():
     devices = essentials.get_audio_devices()
+    print(devices)
     audio_devices = []
     for aud_dev in devices:
-        dev = {"index": aud_dev["index"], "device": aud_dev["device"], "type": aud_dev["type"]}
+        dev = {"index": -1, "device": aud_dev.name, "type": "input"}
         audio_devices.append(dev)
     return jsonify(audio_devices)
 
@@ -381,8 +383,8 @@ def reboot():
 @application.route('/')
 @application.route('/index')
 def index():
-    if not os.path.exists("/usr/share/done_setup"):
-        return redirect('/setup')
+    # if not os.path.exists("/usr/share/done_setup"):
+    #     return redirect('/setup')
     return render_template('index.html')
 
 @application.route('/signup_page')
@@ -476,8 +478,10 @@ def initialize_component():
 
     component_name = request.form.get('component_name')
     mode = request.form.get('mode')
+    
 
     if component_name == "vision":
+        mode = ast.literal_eval(mode)
         if current_vision_user == "" or current_vision_user == current_user.id:
             current_vision_user = current_user.id
             logging.warning("Vision User: " + current_vision_user)
@@ -511,6 +515,7 @@ def initialize_component():
         account = current_user.id
     processor = request.form.get('processor')
     language = request.form.get('language')
+
     success, msg = essentials.initialize_component(component_name, mode, account, processor, language)
     if success == False:
         result = {"success": success, "error": msg}

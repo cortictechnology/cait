@@ -4,6 +4,7 @@ Copyright (C) Cortic Technology Corp. - All Rights Reserved
 Written by Michael Ng <michaelng@cortic.ca>, March 2020
   
  */
+var hostname = window.location.hostname;
 
 (function ($) {
     "use strict";
@@ -80,7 +81,7 @@ function onFailure(message) {
 function onConnect() {
     // Once a connection has been made, make a subscription and send a message.
     console.log("Connected to cait");
-    client.subscribe("cait/system_status");
+    client.subscribe("cait/output/" + hostname.split(".")[0] + "/system_status");
   }
   
 // called when the client loses its connection
@@ -118,13 +119,13 @@ function login(){
                 alert(localizedStrings.wrongPass[locale]);
             }
             else {
-                if (!cait_system_up) {
-                    loader.style.display = "flex";
-                    loader.style.zIndex = 1;
-                } else {
-                    url = window.location.protocol + "//" + window.location.hostname + "/programming";
-                    window.location.href = url;
-                }
+                // if (!cait_system_up) {
+                //     loader.style.display = "flex";
+                //     loader.style.zIndex = 1;
+                // } else {
+                url = window.location.protocol + "//" + window.location.hostname + "/programming";
+                window.location.href = url;
+                // }
             }
         });
     }

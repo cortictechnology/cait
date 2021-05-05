@@ -21,7 +21,8 @@ function onConnect() {
   {},
   function(data, status){
     document.getElementById('loggedUser').innerHTML = localizedStrings.loggedInAs[locale] + data['username'];
-    client.subscribe("cait/displayFrame/" + data['username']);
+    client.subscribe("cait/output/" + hostname.split(".")[0] + "/displayFrame");
+    console.log("Subscribed to: " + "cait/output/" + hostname.split(".")[0] + "/displayFrame");
   });
 }
 
@@ -40,7 +41,6 @@ function onMessageArrived(message) {
     document.getElementById("cameraImage").setAttribute("src", '/static/img/video_placeholder.png');
   }
   else {
-    //console.log(message.payloadString)
     document.getElementById("cameraImage").setAttribute(
       'src', "data:image/png;base64," + message.payloadString
       );

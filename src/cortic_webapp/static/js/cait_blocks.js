@@ -92,10 +92,63 @@ Blockly.defineBlocksWithJsonArray([
     {
       "type": "init_vision",
       "message0": "%{BKY_INIT_VISION}",
+      "args0": [
+        {
+          "type": "input_dummy",
+          "align": "CENTRE"
+        },
+        {
+          "type": "input_statement",
+          "name": "oakd_statements",
+          "align": "CENTRE"
+        }
+      ],
       "previousStatement": null,
       "nextStatement": null,
       "colour": "#5D0095",
       "tooltip": "%{BKY_INIT_VISION_TOOLTIP}",
+      "helpUrl": ""
+    },
+    {
+      "type": "add_pipeline_node",
+      "lastDummyAlign0": "CENTRE",
+      "message0": "%{BKY_ADD_NODE}",
+      "args0": [
+        {
+          "type": "field_dropdown",
+          "name": "node",
+          "options": [
+            [
+              "RGB Camera",
+              "rgb"
+            ],
+            [
+              "Stereo",
+              "stereo"
+            ],
+            [
+              "Face Detection",
+              "face_detection"
+            ],
+            [
+              "Face Recognition",
+              "face_recognition"
+            ],
+            [
+              "Object Detection",
+              "object_detection"
+            ],
+            [
+              "Image Classification",
+              "image_classification"
+            ]
+          ]
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": "#5D0095",
+      "tooltip": "%{BKY_ADD_NODE_TOOLTIP}",
       "helpUrl": ""
     },
     {
@@ -969,12 +1022,75 @@ Blockly.Python['sleep'] = function(block) {
 };
 
 Blockly.JavaScript['init_vision'] = function(block) {
-  var code = "await init_vision();\n";
+  var statements_statements = Blockly.JavaScript.statementToCode(block, 'oakd_statements');
+  var code = "await init_vision('[";
+  node_name_idx = statements_statements.indexOf("<", 0);
+  var being_idx = node_name_idx + 1;
+  while (node_name_idx != -1) {
+    var end_idx = statements_statements.indexOf(">", being_idx);
+    var node_name = statements_statements.substring(being_idx, end_idx);
+    code = code +  node_name ;
+    node_name_idx = statements_statements.indexOf("<", being_idx);
+    being_idx = node_name_idx + 1;
+    if (node_name_idx != -1) {
+      code = code + ",";
+    }
+  }
+  code = code + "]', 'oakd');\n";
   return code;
 };
 
 Blockly.Python['init_vision'] = function(block) {
-  var code = "cait.essentials.initialize_component('vision', processor='local')\n";
+  var statements_statements = Blockly.Python.statementToCode(block, 'oakd_statements');
+  var code = "cait.essentials.initialize_component('vision', processor='oakd', mode=[";
+  hub_name_idx = statements_statements.indexOf("(", 0);
+  var being_idx = hub_name_idx + 1;
+  while (hub_name_idx != -1) {
+    var end_idx = statements_statements.indexOf(")", being_idx);
+    var hub_name = statements_statements.substring(being_idx, end_idx);
+    code = code + hub_name;
+    hub_name_idx = statements_statements.indexOf("(", being_idx);
+    being_idx = hub_name_idx + 1;
+    if (hub_name_idx != -1) {
+      code = code + ",";
+    }
+  }
+  code = code + "])\n";
+  return code;
+};
+
+Blockly.JavaScript['add_pipeline_node'] = function(block) {
+  var dropdown_node = block.getFieldValue('node');
+  if (dropdown_node == "rgb") {
+    var code = '<["add_rgb_cam_node", "cam_out", 256, 256, False]>';
+  }
+  else if (dropdown_node == "stereo") {
+    var code = '<["add_stereo_cam_node", "stereo"]>';
+  }
+  else if (dropdown_node == "face_detection") {
+    var code = '<["add_spatial_mobilenetSSD_node", "face_spatial", "face-detection-0200.blob", 0.5, "cam_out", "stereo", "Face Detection"], ["add_spatial_detection_output_node", "face_spatial"], ["add_spatial_detection_preview_node", "face_spatial"]>';
+  }
+  else if (dropdown_node == "face_recognition") {
+    var code = '<["add_nn_node", "face_landmarks", "landmarks-regression-retail-0009_openvino_2021.2_6shave.blob", 48, 48, "Face Landmarks"], ["add_nn_node", "face_features", "mobilefacenet.blob", 112, 112, "Face Features"]>';
+  }
+  
+  return code;
+};
+
+Blockly.Python['add_pipeline_node'] = function(block) {
+  var dropdown_node = block.getFieldValue('node');
+  if (dropdown_node == "rgb") {
+    var code = '(["add_rgb_cam_node", "cam_out", 256, 256, False])';
+  }
+  else if (dropdown_node == "stereo") {
+    var code = '(["add_stereo_cam_node", "stereo"])';
+  }
+  else if (dropdown_node == "face_detection") {
+    var code = '(["add_spatial_mobilenetSSD_node", "face_spatial", "face-detection-0200.blob", 0.5, "cam_out", "stereo", "Face Detection"], ["add_spatial_detection_output_node", "face_spatial"], ["add_spatial_detection_preview_node", "face_spatial"])';
+  }
+  else if (dropdown_node == "face_recognition") {
+    var code = '(["add_nn_node", "face_landmarks", "landmarks-regression-retail-0009_openvino_2021.2_6shave.blob", 48, 48], ["add_nn_node", "face_features", "mobilefacenet.blob", 112, 112])';
+  }
   return code;
 };
 

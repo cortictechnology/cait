@@ -6,7 +6,7 @@ Written by Michael Ng <michaelng@cortic.ca>, November 2019
 """
 
 import sys
-sys.path.insert(0, '/opt/cortic_modules')
+sys.path.insert(0, '/home/pi/CAIT_CURT/cait/src')
 
 from main import application 
 

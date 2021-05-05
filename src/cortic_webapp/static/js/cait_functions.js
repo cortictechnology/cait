@@ -241,8 +241,8 @@ async function cait_sleep(time) {
   }
 }
 
-async function init_vision() {
-  await init("vision", "offline", 'local');
+async function init_vision(mode, processor) {
+  await init("vision", mode, processor);
   stopStreaming = false;
 }
 

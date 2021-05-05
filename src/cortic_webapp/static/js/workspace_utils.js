@@ -407,6 +407,19 @@ function updateFunction(event) {
         }
       }
 
+      if (block.type == "add_pipeline_node") {
+        if (block.getSurroundParent() != null) {
+          if (block.getSurroundParent().type == "init_vision") {
+            block.setEnabled(true);
+            enableChildBlock(block);
+          }
+          else {
+            block.setEnabled(false);
+            disableChildBlock(block);
+          }
+        }
+      }
+
       if (block.type == "set_parameter" && block.parentBlock_ != null) {
         block.setEnabled(true);
       }
