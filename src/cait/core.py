@@ -5,148 +5,72 @@ Written by Michael Ng <michaelng@cortic.ca>, December 2019
 
 """
 import sys
-sys.path.insert(0, '/home/pi/CAIT_CURT/curt/src')
+import signal
+
+sys.path.insert(0, "/home/pi/CAIT_CURT/curt/src")
 from curt.command import CURTCommands
 import paho.mqtt.client as mqtt
 import logging
 import time
 import json
 import os
+import socket
 import sys
 import ast
 import requests
 import base64
 import threading
-import socket
-import random
 import numpy as np
 import cv2
 from .managers.device_manager import DeviceManager
+from .PID import PID
+from .core_data import *
+from .utils import (
+    connect_mqtt,
+    decode_image_byte,
+    draw_face_detection,
+    draw_face_recognition,
+    draw_object_detection,
+    draw_face_emotions,
+    draw_facemesh,
+    draw_hand_landmarks,
+)
+
+full_domain_name = socket.getfqdn()
 
 device_manager = DeviceManager()
 
-logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().setLevel(logging.WARNING)
 
 CURTCommands.connect_to("0.0.0.0")
 
-startedListen = False
-startedTimer = False
-startTime = None
-onceFunction = []
-initializedMotor = False
-
-not_needed_domains = ["homeassistant", "persistent_notification", 
-                      "system_log", "recorder", "cloud", "group", 
-                      "scene", "script", "automation", "tts", "notify", 
-                      "hue", "sonos", "logbook", "stream"]
-
-COLOR = [(0, 153, 0), (234, 187, 105), (175, 119, 212), (80, 190, 168), (0, 0, 255)]
-
-cloud_accounts = {}
-account_names = []
-current_nlp_model = ""
-
-vision_mode = ""
-voice_mode = "offline"
-
-oakd_nodes = {}
-
-vision_initialized = False
-voice_initialized = False
-nlp_initialized = False
-control_initialized = False
-smarthome_initialized = False
-
-token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjZGFhZGYwNTM5ZDM0NGUwYWNmNmMxNzk2MTMzMTQwOCIsImlhdCI6MTU4MjI2MjgyNywiZXhwIjoxODk3NjIyODI3fQ.8eixv03gAqgx-Mw3BZQmjuewDfStdDqzdHMzqt2JXbo'
-authorization = 'Bearer ' + token
-headers = {
-    'Authorization': authorization,
-    'content-type': 'application/json',
-    }
-
-acc_list = [line.rstrip() for line in open('/opt/accounts')]
-for line in acc_list:
-    try:
-        acc = ast.literal_eval(line)
-        account_names.append(acc[0])
-        cloud_accounts[acc[0]] = acc[1]
-    except:
-        pass
-
-ft = cv2.freetype.createFreeType2()
-ft.loadFontData(fontFileName='/home/pi/CAIT_CURT/HelveticaNeue.ttf', id=0)
-
-stream_thread = None
-
-def connect_mqtt(client, address):
-    try:
-        client.connect(address, 1883, 60)
-        logging.info("Connected to broker")
-        client.loop_start()
-        return True
-    except:
-        logging.info("Broker: (" + address + ") not up yet, retrying...")
-        return False
-
 streaming_channel = "cait/output/" + os.uname()[1].lower() + "/displayFrame"
 streaming_client = mqtt.Client()
-ret = connect_mqtt(streaming_client, '0.0.0.0')
+ret = connect_mqtt(streaming_client, "0.0.0.0")
 while ret != True:
     time.sleep(1)
-    ret = connect_mqtt(treaming_client, '0.0.0.0')
-
-
-def decode_image_byte(image_data):
-    jpg_original = base64.b64decode(image_data)
-    jpg_as_np = np.frombuffer(jpg_original, dtype=np.uint8)
-    image = cv2.imdecode(jpg_as_np, flags=1)
-    return image
-
-def load_responses(path):
-    global responses
-    for filename in os.listdir(path):
-        script = path + "/" + filename
-        with open(script, 'r') as f:
-            line = f.readline()
-            while line.find("##") == -1:
-                line = line.readline()
-            line = line.rstrip()
-            response_topic = line[line.find(":")+1:]
-            responses[response_topic] = []
-            line = f.readline()
-            while line:
-                if line.find("##") != -1:
-                    line = line.rstrip()
-                    response_topic = line[line.find(":")+1:]
-                    responses[response_topic] = []
-                    line = f.readline()
-                elif line.find("-") != -1:
-                    line = line.rstrip()
-                    responses[response_topic].append(line[line.find("-")+2:])
-                    line = f.readline()
-                else:
-                    line = f.readline()
+    ret = connect_mqtt(streaming_client, "0.0.0.0")
 
 
 def get_video_devices():
     all_vision_input = CURTCommands.get_vision_input_services()
     camera_workers = []
     for vision_input in all_vision_input:
-        if vision_input.name == "webcam":
-            camera_workers.append(vision_input)
-    return camera_workers
-
-
-def get_oakd_devices():
-    all_vision_input = CURTCommands.get_oakd_services()
-    camera_workers = []
-    for vision_input in all_vision_input:
-        if vision_input.name == "oakd_pipeline":
+        if vision_input.name == "webcam" or vision_input.name == "picam_input":
             camera_workers.append(vision_input)
     return camera_workers
 
 
 def get_audio_devices():
+    voice_inputs = []
+    all_voice_input_services = CURTCommands.get_voice_input_services()
+    for voice_input in all_voice_input_services:
+        if voice_input.name == "live_input":
+            voice_inputs.append(voice_input)
+    return voice_inputs
+
+
+def get_respeaker_services():
     voice_inputs = []
     all_voice_input_services = CURTCommands.get_voice_input_services()
     for voice_input in all_voice_input_services:
@@ -177,29 +101,47 @@ def get_voice_generation_services(online=True):
     return online_voice_generation
 
 
+def get_rasa_intent_services():
+    nlp_intents = []
+    all_nlp_intent_services = CURTCommands.get_nlp_intent_services()
+    for nlp_intent in all_nlp_intent_services:
+        if nlp_intent.name == "rasa_intent_classifier":
+            nlp_intents.append(nlp_intent)
+    return nlp_intents
+
+
 def get_control_devices():
     control_devices = device_manager.get_control_devices()
     connected_devices = []
     for device in control_devices:
-        if device['connected']:
+        if device["connected"]:
             if device["device"] == "EV3":
-                connected_devices.append(device["device"] + ": " + device['ip_addr'])
+                connected_devices.append(device["device"] + ": " + device["ip_addr"])
             else:
-                connected_devices.append(device["device"] + ": " + device['mac_addr'])
+                connected_devices.append(device["device"] + ": " + device["mac_addr"])
     return control_devices
 
 
+def get_control_services():
+    spike_control = []
+    all_control_services = CURTCommands.get_control_services()
+    for control in all_control_services:
+        if control.name == "spike_control":
+            spike_control.append(control)
+    return spike_control
+
+
 def test_camera(index):
-#     available_video_devices = caitCore.get_devices("video")
-#     current_video_device = None
-#     for dev in available_video_devices:
-#         logging.warning(str(dev))
-#         if int(dev['index']) == index:
-#             current_video_device = dev
-#     current_video_device["processor"] = "local"
-#     msg = json.dumps(current_video_device)
-#     result = caitCore.send_component_commond("vision", "VisionUp " + msg)
-#     return result
+    #     available_video_devices = caitCore.get_devices("video")
+    #     current_video_device = None
+    #     for dev in available_video_devices:
+    #         logging.warning(str(dev))
+    #         if int(dev['index']) == index:
+    #             current_video_device = dev
+    #     current_video_device["processor"] = "local"
+    #     msg = json.dumps(current_video_device)
+    #     result = caitCore.send_component_commond("vision", "VisionUp " + msg)
+    #     return result
     pass
 
 
@@ -207,51 +149,59 @@ def initialize_vision(processor="local", mode=[]):
     global oakd_nodes
     global vision_initialized
     global stream_thread
+    global drawing_modes
+    global preview_width
+    global preview_height
     if vision_initialized:
         vision_initialized = False
         if stream_thread is not None:
             stream_thread.join()
+    current_video_device = None
     if processor == "oakd":
-        available_video_devices = get_oakd_devices()
+        # available_video_devices = CURTCommands.get_oakd_services("oakd_pipeline")
+        current_video_device = CURTCommands.get_worker(
+            full_domain_name + "/vision/oakd_service/oakd_pipeline"
+        )
     else:
         available_video_devices = get_video_devices()
-    if len(available_video_devices) == 0:
-        return False, "No video device is detected, or connected device is not supported"
-    else:
-        current_video_device = available_video_devices[0]
+        if len(available_video_devices) != 0:
+            current_video_device = available_video_devices[0]
+    if current_video_device is None:
+        return (
+            False,
+            "No video device is detected, or connected device is not supported",
+        )
+
     if processor == "oakd":
         for node in mode:
             if node[0] == "add_rgb_cam_node":
-                oakd_nodes['rgb_frame'] = node[1]
-            elif node[0] == "add_rgb_cam_preview_node":
-                oakd_nodes['rgb_frame'] = node[1]
-            elif node[0] == "add_stereo_frame_node":
-                oakd_nodes['stereo_frame'] = node[1]
-            elif node[0] == "add_spatial_mobilenetSSD_node":
-                oakd_nodes['rgb_passthrough_frame'] = node[1] + "_preview"
-                if node[-1] == "Face Detection":
-                    oakd_nodes['face_detection'] = node[1] + "_detections"
-                else:
-                    oakd_nodes['object_detection'] = node[1] + "_detections"
-            elif node[0] == "add_nn_node":
-                if node[-1] == "Face Landmarks":
-                    oakd_nodes['face_landmarks'] = node[1]
-                elif node[-1] == "Face Features":
-                    oakd_nodes['face_features'] = node[1]
-                elif node[-1] == "Face Emotions":
-                    oakd_nodes['face_emotions'] = node[1]
-            
+                preview_width = node[1]
+                preview_height = node[2]
+
         CURTCommands.config_worker(current_video_device, mode)
     else:
-        CURTCommands.config_worker(current_video_device, {"camera_index": 0, 
-                                                          "capture_width": 640, 
-                                                          "capture_height": 480})
+        # Selecting a VGA resolution, future work should provide a list of selected resolution
+        CURTCommands.config_worker(
+            current_video_device,
+            {"camera_index": 0, "capture_width": 640, "capture_height": 480},
+        )
+    drawing_modes = {
+        "Depth Mode": False,
+        "Face Detection": False,
+        "Face Recognition": False,
+        "Face Emotions": False,
+        "Face Mesh": False,
+        "Object Detection": False,
+        "Hand Landmarks": False,
+        "Pose Landmarks": False,
+    }
     time.sleep(10)
     vision_initialized = True
     stream_thread = threading.Thread(target=streaming_func, daemon=True)
     stream_thread.start()
+    logging.info("***********Streaming preview thread started***********")
     return True, "OK"
-    
+
 
 def deactivate_vision():
     global vision_initialized
@@ -262,20 +212,20 @@ def deactivate_vision():
     #     logging.info("Deactivate Vision: Error occurred")
     # return result
     vision_initialized = False
-    vision_mode = ""
+    vision_mode = []
     return True
 
 
 def get_cloud_accounts():
-    #print("+++++++++++++++++++++", cloud_accounts)
+    # print("+++++++++++++++++++++", cloud_accounts)
     return account_names
 
 
 def get_nlp_models():
     model_list = []
-    # for model in os.listdir('/opt/cortic_modules/nlp_module/models'):
-    #     if os.path.isdir('/opt/cortic_modules/nlp_module/models/' + model):
-    #         model_list.append(model)
+    for model in os.listdir("/home/pi/CAIT_CURT/curt/src/models/modules/nlp"):
+        if os.path.isdir("/home/pi/CAIT_CURT/curt/src/models/modules/nlp/" + model):
+            model_list.append(model)
     return model_list
 
 
@@ -303,24 +253,40 @@ def initialize_voice(mode="online", account="default", language="english"):
         voice_mode = "offline"
         voice_generation_workers = get_voice_generation_services(online=False)
     if len(voice_input_workers) == 0:
-        return False, "No audio deveice is detected, or connected device is not supported"
+        return (
+            False,
+            "No audio deveice is detected, or connected device is not supported",
+        )
     if len(voice_processing_workers) == 0:
-        return False, "No voice processing service is detected, or connected device is not supported"
+        return (
+            False,
+            "No voice processing service is detected, or connected device is not supported",
+        )
     if len(voice_generation_workers) == 0:
-        return False, "No voice generation is detected, or connected device is not supported"
-    CURTCommands.config_worker(voice_input_workers[0], {'audio_in_index': 0})
+        return (
+            False,
+            "No voice generation is detected, or connected device is not supported",
+        )
+    CURTCommands.config_worker(voice_input_workers[0], {"audio_in_index": 0})
     time.sleep(0.5)
     CURTCommands.start_voice_recording(voice_input_workers[0])
     account_file = cloud_accounts[account]
     with open("/home/pi/CAIT_CURT/" + account_file) as f:
         account_info = json.load(f)
-    CURTCommands.config_worker(voice_processing_workers[0], {'account_crediential': account_info,
-                                                             'language': processing_language,
-                                                             'sample_rate': 16000,
-                                                             'channel_count': 4})
+    CURTCommands.config_worker(
+        voice_processing_workers[0],
+        {
+            "account_crediential": account_info,
+            "language": processing_language,
+            "sample_rate": 16000,
+            "channel_count": 4,
+        },
+    )
     if mode == "online":
-        CURTCommands.config_worker(voice_generation_workers[0], {'language': generation_language,
-                                                                'accents': generation_accents})
+        CURTCommands.config_worker(
+            voice_generation_workers[0],
+            {"language": generation_language, "accents": generation_accents},
+        )
     time.sleep(1)
     voice_initialized = True
     return True, "OK"
@@ -337,29 +303,21 @@ def deactivate_voice():
 
 
 def initialize_nlp(mode="english_default"):
-    # global current_nlp_model
-    # nlp_wait = 0
-    # if current_nlp_model != mode:
-    #     caitCore.set_component_state("nlp", False)
-    #     current_nlp_model = mode
-    # while not caitCore.get_component_state("nlp", "Up"):
-    #     if nlp_wait <= 200:
-    #         result = caitCore.send_component_commond("nlp", "NLP Up," + mode)
-    #         if result == False:
-    #             logging.info("Init NLP: Error occurred")
-    #             return result
-    #         logging.info("Init NLP: Waiting for NLP up")
-    #         nlp_wait = nlp_wait + 1
-    #         time.sleep(1)
-    #     else:
-    #         logging.info("Init NLP Error: NLP module not responding, please check the module status")
-    #         return False
-    
+    global nlp_initialized
+    global current_nlp_model
+    rasa_intent_workers = get_rasa_intent_services()
+    CURTCommands.config_worker(rasa_intent_workers[0], {"model": mode})
+    if current_nlp_model != mode:
+        current_nlp_model = mode
+        time.sleep(40)
+    else:
+        time.sleep(1)
+    nlp_initialized = True
     return True, "OK"
 
 
 def deactivate_nlp():
-    #caitCore.send_component_commond("nlp", "Down")
+    # caitCore.send_component_commond("nlp", "Down")
     return True
 
 
@@ -373,21 +331,35 @@ def initialize_control(hub_address):
             spike_control = control
     if spike_control is None:
         return False, "No control service available"
-    address = hub_address[hub_address.find(": ")+2:-2]
+    address = hub_address[hub_address.find(": ") + 2 : -2]
     CURTCommands.config_worker(spike_control, {"hub_address": address})
-    time.sleep(3)
+    time.sleep(5)
     control_initialized = True
+    CURTCommands.display_image(spike_control, "Happy")
     return True, "OK"
 
 
 def deactivate_control():
     global control_initialized
+    global pid_controller
     # result = caitCore.send_component_commond("control", "Control Down")
     # if result == False:
     #     logging.info("Deactivate Control: Error occurred")
     #     return result
     control_initialized = False
+    pid_controller = None
     return True
+
+
+def initialize_pid(kp, ki, kd):
+    global pid_controller
+    if pid_controller is None:
+        print("Initializing PID controller")
+        print(kp, ki, kd)
+        print("***********PID************")
+        pid_controller = PID(kP=kp, kI=ki, kD=kd)
+        pid_controller.initialize()
+    return True, "OK"
 
 
 def reset_modules():
@@ -398,6 +370,8 @@ def reset_modules():
     global smarthome_initialized
     global vision_mode
     global stream_thread
+    global pid_controller
+    global drawing_modes
     # result = caitCore.send_component_commond("module_states", "Reset")
     # if result == False:
     #     logging.info("Reset Modules: Error occurred")
@@ -407,9 +381,20 @@ def reset_modules():
     nlp_initialized = False
     control_initialized = False
     smarthome_initialized = False
-    vision_mode = ""
+    vision_mode = []
+    pid_controller = None
     if stream_thread is not None:
         stream_thread.join()
+    drawing_modes = {
+        "Depth Mode": False,
+        "Face Detection": False,
+        "Face Recognition": False,
+        "Face Emotions": False,
+        "Face Mesh": False,
+        "Object Detection": False,
+        "Hand Landmarks": False,
+        "Pose Landmarks": False,
+    }
     return True
 
 
@@ -434,28 +419,54 @@ def change_module_parameters(parameter_name, value):
     pass
 
 
-def get_camera_image(from_network_passthrough=False, for_streaming=False):
+def get_camera_image(for_streaming=False):
     global oakd_nodes
     global vision_initialized
     if not vision_initialized:
-        logging.info("Please call initialize_vision() function before using the vision module")
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
         return None
-    worker = get_oakd_devices()[0]
+    worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_rgb_camera_input"
+    )
     rgb_frame_handler = None
     frame = None
-    if from_network_passthrough:
-        if 'rgb_passthrough_frame' in oakd_nodes:
-            rgb_frame_handler = CURTCommands.oakd_get_rgb_frame(oakd_nodes['rgb_passthrough_frame'])
-        else:
-            logging.warning("No passthrough node in the pipeline")
+    if worker is not None:
+        rgb_frame_handler = CURTCommands.oakd_get_rgb_frame(worker)
     else:
-        if 'rgb_frame' in oakd_nodes:
-            rgb_frame_handler = CURTCommands.oakd_get_rgb_frame(oakd_nodes['rgb_frame'])
-        else:
-            logging.warning("No rgb camera preview node in the pipeline")
+        logging.warning("No rgb camera worker found.")
     if rgb_frame_handler is not None:
-        frame = CURTCommands.get_result(rgb_frame_handler, for_streaming)['dataValue']['data']
-        if not isinstance(frame ,str):
+        frame = CURTCommands.get_result(rgb_frame_handler, for_streaming)["dataValue"][
+            "data"
+        ]
+        if not isinstance(frame, str):
+            frame = None
+    return frame
+
+
+def get_stereo_image(for_streaming=False):
+    global oakd_nodes
+    global vision_initialized
+    if not vision_initialized:
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
+        return None
+    worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_stereo_camera_input"
+    )
+    stereo_frame_handler = None
+    frame = None
+    if worker is not None:
+        stereo_frame_handler = CURTCommands.request(worker, params=["get_stereo_frame"])
+    else:
+        logging.warning("No stereo camera worker fonund.")
+    if stereo_frame_handler is not None:
+        frame = CURTCommands.get_result(stereo_frame_handler, for_streaming)[
+            "dataValue"
+        ]["data"]
+        if not isinstance(frame, str):
             frame = None
     return frame
 
@@ -470,61 +481,104 @@ def change_vision_mode(mode):
     # if result == False:
     #     logging.info("Change Vision Mode: Error occurred")
     # caitCore.component_manager.receivedInferenceResult = False
-    vision_mode = mode
-    pass
+    vision_mode.append(mode)
+
+
+def enable_drawing_mode(mode):
+    global drawing_modes
+    # print("********************")
+    # print("Mode:", mode)
+    drawing_modes[mode] = True
 
 
 def detect_face(for_streaming=False):
     global oakd_nodes
     global vision_initialized
     if not vision_initialized:
-        logging.info("Please call initialize_vision() function before using the vision module")
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
         return None
     change_vision_mode("face_detection")
-    worker = get_oakd_devices()[0]
-    if 'rgb_passthrough_frame' in oakd_nodes and 'face_detection' in oakd_nodes:
-        spatial_face_detection_handler = CURTCommands.oakd_spatial_face_detection("face_spatial_detections")
-        faces = CURTCommands.get_result(spatial_face_detection_handler, for_streaming)['dataValue']['data']
+    worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_face_detection"
+    )
+    faces = []
+    if worker is not None:
+        spatial_face_detection_handler = CURTCommands.request(
+            worker, params=["get_spatial_face_detections"]
+        )
+        faces = CURTCommands.get_result(spatial_face_detection_handler, for_streaming)[
+            "dataValue"
+        ]["data"]
         if not isinstance(faces, list):
             faces = []
-        return faces
+    for face in faces:
+        face[0] = int(face[0] * preview_width)
+        face[1] = int(face[1] * preview_height)
+        face[2] = int(face[2] * preview_width)
+        face[3] = int(face[3] * preview_height)
+        if face[0] < 0:
+            face[0] = 0
+        if face[1] < 0:
+            face[1] = 0
+        if face[2] >= preview_width:
+            face[2] = preview_width - 1
+        if face[3] >= preview_height:
+            face[3] = preview_height - 1
+    return faces
 
 
-def recognize_face(from_network_passthrough=True, for_streaming=False):
+def recognize_face(for_streaming=False):
     global oakd_nodes
     global vision_initialized
     if not vision_initialized:
-        logging.info("Please call initialize_vision() function before using the vision module")
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
         return None, []
     change_vision_mode("face_recognition")
-    worker = get_oakd_devices()[0]
+    camera_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_rgb_camera_input"
+    )
+    face_detection_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_face_detection"
+    )
+    face_recognition_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_face_recognition"
+    )
     rgb_frame_handler = None
-    if from_network_passthrough:
-        if 'rgb_passthrough_frame' in oakd_nodes:
-            rgb_frame_handler = CURTCommands.oakd_get_rgb_frame(oakd_nodes['rgb_passthrough_frame'])
-        else:
-            logging.warning("No passthrough node in the pipeline")
+    if camera_worker is not None:
+        rgb_frame_handler = CURTCommands.request(
+            camera_worker, params=["get_rgb_frame"]
+        )
     else:
-        if 'rgb_frame' in oakd_nodes:
-            rgb_frame_handler = CURTCommands.oakd_get_rgb_frame(oakd_nodes['rgb_frame'])
-        else:
-            logging.warning("No rgb camera preview node in the pipeline")
+        logging.warning("No rgb camera preview node in the pipeline")
     spatial_face_detection_handler = None
-    if 'rgb_passthrough_frame' in oakd_nodes and 'face_detection' in oakd_nodes:
-        spatial_face_detection_handler = CURTCommands.oakd_spatial_face_detection("face_spatial_detections")
+    if face_detection_worker is not None:
+        spatial_face_detection_handler = CURTCommands.request(
+            face_detection_worker, params=["get_spatial_face_detections"]
+        )
+    people = "None"
+    coordinates = []
     if rgb_frame_handler is not None and spatial_face_detection_handler is not None:
-        if 'face_landmarks' in oakd_nodes and 'face_features' in oakd_nodes:
-
-            face_recognition_handler = CURTCommands.oakd_face_recognition(oakd_nodes["face_features"], 
-                                                                          oakd_nodes["face_landmarks"], 
-                                                                          rgb_frame_handler, 
-                                                                          spatial_face_detection_handler)
-            identities = CURTCommands.get_result(face_recognition_handler, for_streaming)['dataValue']['data']
+        face_recognition_handler = CURTCommands.request(
+            face_recognition_worker,
+            params=[
+                rgb_frame_handler,
+                spatial_face_detection_handler,
+                "recognize_face",
+            ],
+        )
+        identities = CURTCommands.get_result(face_recognition_handler, for_streaming)[
+            "dataValue"
+        ]["data"]
+        if identities is not None:
             person = ""
             largest_area = 0
             largest_bbox = None
             people = {}
-            rgb_frame = identities['frame']
+            # rgb_frame = identities["frame"]
             for name in identities:
                 if name != "frame":
                     detection = identities[name]
@@ -533,29 +587,28 @@ def recognize_face(from_network_passthrough=True, for_streaming=False):
                     y1 = int(detection[1])
                     x2 = int(detection[2])
                     y2 = int(detection[3])
-                    area = (x2-x1) * (y2-y1)
+                    area = (x2 - x1) * (y2 - y1)
                     if area > largest_area:
                         largest_area = area
                         person = name
                         largest_bbox = [x1, y1, x2, y2]
             if not for_streaming:
-                return person, largest_bbox
-            else:
-                return people, rgb_frame
-        else:
-            return "None", []
-    else:
-        return "None", []
+                people = person
+                coordinates = largest_bbox
+
+    return people, coordinates
 
 
 def add_person(name):
     if not caitCore.get_component_state("vision", "Up"):
-        logging.info("Please call initialize_vision() function before using the vision module")
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
         return None
     change_vision_mode("FaceRecognition")
     while not caitCore.component_manager.receivedInferenceResult:
         time.sleep(0.03)
-    result = caitCore.send_component_commond("vision", "Add Person:"+name)
+    result = caitCore.send_component_commond("vision", "Add Person:" + name)
     if result == False:
         logging.info("Add Person: Error occurred")
     while not caitCore.component_manager.receivedInferenceResult:
@@ -566,12 +619,14 @@ def add_person(name):
 
 def remove_person(name):
     if not caitCore.get_component_state("vision", "Up"):
-        logging.info("Please call initialize_vision() function before using the vision module")
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
         return None
     change_vision_mode("FaceRecognition")
     while not caitCore.component_manager.receivedInferenceResult:
         time.sleep(0.03)
-    result = caitCore.send_component_commond("vision", "Remove Person:"+name)
+    result = caitCore.send_component_commond("vision", "Remove Person:" + name)
     if result == False:
         logging.info("Remove Person: Error occurred")
     print("Removing:", name)
@@ -581,29 +636,196 @@ def remove_person(name):
     return True
 
 
-def detect_objects():
-    # if not caitCore.get_component_state("vision", "Up"):
-    #     logging.info("Please call initialize_vision() function before using the vision module")
-    #     return None
-    # change_vision_mode("ObjectDetection")
-    # while not caitCore.component_manager.receivedInferenceResult:
-    #     time.sleep(0.005)
-    # if caitCore.component_manager.currentNames[0] != "None":
-    #     caitCore.component_manager.receivedInferenceResult = False
-    #     coordinates = caitCore.component_manager.coordinates
-    #     names = caitCore.component_manager.currentNames
-    #     if caitCore.get_current_processor("vision") != "local":
-    #         width, height = caitCore.component_manager.currentImage.size
-    #         for i in range(len(coordinates)):
-    #             coordinate = coordinates[i]
-    #             coordinate[0] = int(coordinate[0] * width)
-    #             coordinate[1] = int(coordinate[1] * height)
-    #             coordinate[2] = int(coordinate[2] * width)
-    #             coordinate[3] = int(coordinate[3] * height)
-    #     return names, coordinates
-    # else:
-    #     return "", []
-    return "", []
+def detect_objects(for_streaming=False):
+    global oakd_nodes
+    global vision_initialized
+    if not vision_initialized:
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
+        return None
+    change_vision_mode("object_detection")
+    worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_object_detection"
+    )
+    coordinates = []
+    names = []
+    objects = []
+    if worker is not None:
+        spatial_object_detection_handler = CURTCommands.request(
+            worker, params=["get_spatial_object_detections"]
+        )
+        objects = CURTCommands.get_result(
+            spatial_object_detection_handler, for_streaming
+        )["dataValue"]["data"]
+        if not isinstance(objects, list):
+            objects = []
+    for object in objects:
+        object[0] = int(object[0] * preview_width)
+        object[1] = int(object[1] * preview_height)
+        object[2] = int(object[2] * preview_width)
+        object[3] = int(object[3] * preview_height)
+
+        if object[0] < 0:
+            object[0] = 0
+        if object[1] < 0:
+            object[1] = 0
+        if object[2] >= preview_width:
+            object[2] = preview_width - 1
+        if object[3] >= preview_height:
+            object[3] = preview_height - 1
+
+        coordinates.append(
+            [
+                object[0],
+                object[1],
+                object[2],
+                object[3],
+                object[4],
+                object[5],
+                object[6],
+            ]
+        )
+        if not for_streaming:
+            names.append(object_labels[object[-1]])
+        else:
+            names.append(object[-1])
+    return names, coordinates
+
+
+def face_emotions_estimation(for_streaming=False):
+    global oakd_nodes
+    global vision_initialized
+    if not vision_initialized:
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
+        return None
+    change_vision_mode("face_emotions")
+    camera_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_rgb_camera_input"
+    )
+    face_detection_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_face_detection"
+    )
+    face_emotions_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_face_emotions"
+    )
+    if camera_worker is not None:
+        rgb_frame_handler = CURTCommands.request(
+            camera_worker, params=["get_rgb_frame"]
+        )
+    else:
+        logging.warning("No rgb camera preview node in the pipeline")
+    spatial_face_detection_handler = None
+    if face_detection_worker is not None:
+        spatial_face_detection_handler = CURTCommands.request(
+            face_detection_worker, params=["get_spatial_face_detections"]
+        )
+    emotions = []
+    if rgb_frame_handler is not None and spatial_face_detection_handler is not None:
+        face_emotions_handler = CURTCommands.request(
+            face_emotions_worker,
+            params=[
+                rgb_frame_handler,
+                spatial_face_detection_handler,
+                "get_face_emotion_estimation",
+            ],
+        )
+        emotions = CURTCommands.get_result(face_emotions_handler, for_streaming)[
+            "dataValue"
+        ]["data"]
+        if not for_streaming:
+            for emotion in emotions:
+                raw_emtotions = emotion[0]
+                emo = {}
+                emo["neutral"] = raw_emtotions[0]
+                emo["happy"] = raw_emtotions[1]
+                emo["sad"] = raw_emtotions[2]
+                emo["surprise"] = raw_emtotions[3]
+                emo["anger"] = raw_emtotions[4]
+                emotion[0] = emo
+    return emotions
+
+
+def facemesh_estimation(for_streaming=False):
+    global oakd_nodes
+    global vision_initialized
+    if not vision_initialized:
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
+        return None
+    change_vision_mode("facemesh")
+    camera_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_rgb_camera_input"
+    )
+    face_detection_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_face_detection"
+    )
+    facemesh_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_facemesh"
+    )
+    if camera_worker is not None:
+        rgb_frame_handler = CURTCommands.request(
+            camera_worker, params=["get_rgb_frame"]
+        )
+    else:
+        logging.warning("No rgb camera preview node in the pipeline")
+    spatial_face_detection_handler = None
+    if face_detection_worker is not None:
+        spatial_face_detection_handler = CURTCommands.request(
+            face_detection_worker, params=["get_spatial_face_detections"]
+        )
+    facemeshes = []
+    if rgb_frame_handler is not None and spatial_face_detection_handler is not None:
+        facemesh_handler = CURTCommands.request(
+            facemesh_worker,
+            params=[rgb_frame_handler, spatial_face_detection_handler, "get_facemesh"]
+        )
+        facemeshes = CURTCommands.get_result(facemesh_handler, for_streaming)[
+            "dataValue"
+        ]["data"]
+    return facemeshes
+
+
+def get_hand_landmarks(for_streaming=False):
+    global oakd_nodes
+    global vision_initialized
+    if not vision_initialized:
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
+        return None
+    change_vision_mode("hand_landmarks")
+    camera_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_rgb_camera_input"
+    )
+    hand_landmarks_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_hand_landmarks"
+    )
+    if camera_worker is not None:
+        rgb_frame_handler = CURTCommands.request(
+            camera_worker, params=["get_rgb_frame"]
+        )
+    else:
+        logging.warning("No rgb camera worker found.")
+    hand_landmarks_coordinates = []
+    hand_bboxes = []
+    handnesses = []
+    if rgb_frame_handler is not None:
+        hand_landmarks_handler = CURTCommands.request(
+            hand_landmarks_worker,
+            params=[rgb_frame_handler],
+        )
+        hand_ladmarks = CURTCommands.get_result(hand_landmarks_handler, for_streaming)[
+            "dataValue"
+        ]["data"]
+        for landmarks in hand_ladmarks:
+            hand_landmarks_coordinates.append(landmarks[0])
+            hand_bboxes.append(landmarks[1])
+            handnesses.append(landmarks[2])
+    return hand_landmarks_coordinates, hand_bboxes, handnesses
 
 
 def classify_image():
@@ -624,7 +846,9 @@ def say(message_topic, entities=[]):
     global voice_mode
     message = message_topic
     if not voice_initialized:
-        logging.info("Please call initialize_voice() function before using the vision module")
+        logging.info(
+            "Please call initialize_voice() function before using the vision module"
+        )
         return False
     voice_input_worker = get_audio_devices()[0]
     if voice_mode == "online":
@@ -633,38 +857,67 @@ def say(message_topic, entities=[]):
         voice_generation_worker = get_voice_generation_services(online=False)[0]
     logging.info("say: " + message)
     CURTCommands.pause_recording(voice_input_worker)
-    online_voice_generation_handler = CURTCommands.send_task(voice_generation_worker, message)
-    generation_status = CURTCommands.get_result(online_voice_generation_handler)
+    voice_generation_handler = CURTCommands.send_task(voice_generation_worker, message)
+    generation_status = CURTCommands.get_result(voice_generation_handler)
     CURTCommands.resume_recording(voice_input_worker)
     return True
 
 
 def listen():
-    
-    return True, ""
+    global voice_mode
+    voice_input_worker = get_audio_devices()[0]
+    if voice_mode == "online":
+        voice_generation_worker = get_voice_generation_services(online=True)[0]
+    else:
+        voice_generation_worker = get_voice_generation_services(online=False)[0]
+    CURTCommands.pause_recording(voice_input_worker)
+    voice_generation_handler = CURTCommands.send_task(
+        voice_generation_worker, "notification_tone"
+    )
+    generation_status = CURTCommands.get_result(voice_generation_handler)
+    time.sleep(0.1)
+    CURTCommands.resume_recording(voice_input_worker)
+    time.sleep(0.05)
+    speech = ""
+    while speech == "":
+        voice_handler = CURTCommands.get_recorded_voice(voice_input_worker)
+        online_voice_processing_handler = CURTCommands.online_speech_to_text(
+            voice_handler
+        )
+        speech_result = CURTCommands.get_result(online_voice_processing_handler)
+        if speech_result is not None:
+            speech = speech_result["dataValue"]["data"]
+            if speech is None:
+                speech = ""
+    return True, speech
 
 
 def analyze(user_message):
-    if not caitCore.get_component_state("nlp", "Up"):
-        logging.info("Please call initialize_nlp() function before using NLP module")
-        return
-    print("User Msg:", user_message)
-    result = caitCore.send_component_commond("nlp", user_message)
-    if result == False:
-        logging.info("Analyze: Error occurred")
-    while not caitCore.component_manager.receivedNewNLPResponse:
-        time.sleep(0.03)
-    caitCore.component_manager.receivedNewNLPResponse = False
-    nlp_response = json.loads(caitCore.component_manager.currentNLPResponse)
-    topic = nlp_response['topic']
-    condifence = nlp_response['confidence']
-    extracted_entities = nlp_response['entities']
+    if not nlp_initialized:
+        logging.info(
+            "Please call initialize_nlp() function before using the vision module"
+        )
+        return "", "", ""
+    rasa_intent_worker = get_rasa_intent_services()[0]
+
+    nlp_intent_handler = CURTCommands.send_task(rasa_intent_worker, user_message)
+    nlp_intent = CURTCommands.get_result(nlp_intent_handler)["dataValue"]["data"]
+    nlp_response = json.loads(nlp_intent)
+    topic = nlp_response["topic"]
+    condifence = nlp_response["confidence"]
+    extracted_entities = nlp_response["entities"]
     entities = []
     for entity in extracted_entities:
-        entity_entry = {"entity_name" : entity["entity"], "entity_value" : entity["value"]}
+        entity_entry = {
+            "entity_name": entity["entity"],
+            "entity_value": entity["value"],
+        }
         entry_is_uniqued = True
         for e in entities:
-            if entity_entry["entity_name"] == e["entity_name"] and entity_entry["entity_value"] == e["entity_value"]:
+            if (
+                entity_entry["entity_name"] == e["entity_name"]
+                and entity_entry["entity_value"] == e["entity_value"]
+            ):
                 entry_is_uniqued = False
         if entry_is_uniqued:
             entities.append(entity_entry)
@@ -672,67 +925,80 @@ def analyze(user_message):
 
 
 def control_motor(hub_name, motor_name, speed, duration):
-    caitCore.component_manager.doneMoving = False
-    if not caitCore.get_component_state("control", "Up"):
-        logging.info("Please call initialize_control() function before using Control module")
+    global oakd_nodes
+    global control_initialized
+    if not control_initialized:
+        logging.info(
+            "Please call initialize_control() function before using the vision module"
+        )
         return False, "Not initialized"
-    command = "hub " + hub_name + " move " + motor_name + " " + str(speed) + " " + str(duration)
-    #logging.info("Robot command:"+ str(command))
-    result = caitCore.send_component_commond("control", command)
-    if result == False:
-        logging.info("Control Motor: Error occurred")
-    while not caitCore.component_manager.doneMoving:
-        if caitCore.component_manager.controlException:
-            caitCore.component_manager.controlException = False
-            logging.warning("Hub disconnected")
-            return False, caitCore.component_manager.controlExceptionMsg
-        time.sleep(0.03)
+    worker = get_control_services()[0]
+    motor = motor_name[-1]
+    CURTCommands.set_motor_speed(worker, motor, int(speed))
+    start_time = time.monotonic()
+    while (time.monotonic() - start_time) < float(duration):
+        time.sleep(0.01)
+    CURTCommands.brake_motor(worker, motor)
     return True, "OK"
+
 
 def set_motor_position(hub_name, motor_name, position):
-    caitCore.component_manager.doneMoving = False
-    if not caitCore.get_component_state("control", "Up"):
-        logging.info("Please call initialize_control() function before using Control module")
+    global oakd_nodes
+    global control_initialized
+    if not control_initialized:
+        logging.info(
+            "Please call initialize_control() function before using the vision module"
+        )
         return False, "Not initialized"
-    command = "hub " + hub_name + " position " + motor_name + " " + str(position)
-    #logging.info("Robot command:"+ str(command))
-    result = caitCore.send_component_commond("control", command)
-    if result == False:
-        logging.info("Control Motor: Error occurred")
-    while not caitCore.component_manager.doneMoving:
-        if caitCore.component_manager.controlException:
-            caitCore.component_manager.controlException = False
-            logging.warning("Hub disconnected")
-            return False, caitCore.component_manager.controlExceptionMsg
-        time.sleep(0.03)
+    worker = get_control_services()[0]
+    motor = motor_name[-1]
+    CURTCommands.rotate_motor_to_position(worker, motor, int(position), 70)
+    time.sleep(1)
     return True, "OK"
 
+
 def set_motor_power(hub_name, motor_name, power):
-    caitCore.component_manager.doneMoving = False
-    if not caitCore.get_component_state("control", "Up"):
-        logging.info("Please call initialize_control() function before using Control module")
+    global oakd_nodes
+    global control_initialized
+    if not control_initialized:
+        logging.info(
+            "Please call initialize_control() function before using the vision module"
+        )
         return False, "Not initialized"
-    command = "hub " + hub_name + " pwm " + motor_name + " " + str(power)
-    #logging.info("Robot command:"+ str(command))
-    result = caitCore.send_component_commond("control", command)
-    if result == False:
-        logging.info("Control Motor: Error occurred")
-    while not caitCore.component_manager.doneMoving:
-        if caitCore.component_manager.controlException:
-            caitCore.component_manager.controlException = False
-            logging.warning("Hub disconnected")
-            return False, caitCore.component_manager.controlExceptionMsg
-        time.sleep(0.03)
+    worker = get_control_services()[0]
+    motor = motor_name[-1]
+    CURTCommands.set_motor_speed(worker, motor, int(power))
+    time.sleep(0.1)
+    return True, "OK"
+
+
+def rotate_motor(hub_name, motor_name, angle):
+    global oakd_nodes
+    global control_initialized
+    if not control_initialized:
+        logging.info(
+            "Please call initialize_control() function before using the vision module"
+        )
+        return False, "Not initialized"
+    worker = get_control_services()[0]
+    motor = motor_name[-1]
+    speed = 70
+    if int(angle) < 0:
+        speed = -70
+    CURTCommands.rotate_motor_for_degrees(worker, motor, int(angle), speed)
+    time.sleep(0.1)
     return True, "OK"
 
 
 def set_motor_power_group(operation_list):
     caitCore.component_manager.doneMoving = False
     if not caitCore.get_component_state("control", "Up"):
-        logging.info("Please call initialize_control() function before using Control module")
+        logging.info(
+            "Please call initialize_control() function before using Control module"
+        )
         return False, "Not initialized"
     command = "power_group " + operation_list
-    #logging.info("Robot command:"+ str(command))
+    # logging.info("Robot command:"+ str(command))
     result = caitCore.send_component_commond("control", command)
     if result == False:
         logging.info("Control Motor Power Group: Error occurred")
@@ -746,56 +1012,97 @@ def set_motor_power_group(operation_list):
 
 
 def control_motor_group(operation_list):
-    caitCore.component_manager.doneMoving = False
-    if not caitCore.get_component_state("control", "Up"):
-        logging.info("Please call initialize_control() function before using Control module")
+    global oakd_nodes
+    global control_initialized
+    if not control_initialized:
+        logging.info(
+            "Please call initialize_control() function before using the vision module"
+        )
         return False, "Not initialized"
-    command = "motor_group " + operation_list
-    #logging.info("Robot command:"+ str(command))
-    result = caitCore.send_component_commond("control", command)
-    if result == False:
-        logging.info("Control Motor Speed Group: Error occurred")
-    while not caitCore.component_manager.doneMoving:
-        if caitCore.component_manager.controlException:
-            caitCore.component_manager.controlException = False
-            logging.warning("Hub disconnected")
-            return False, caitCore.component_manager.controlExceptionMsg
-        time.sleep(0.03)
+    worker = get_control_services()[0]
+    motor_list = []
+    duration_list = []
+    largest_duration = 0
+    largest_angle = 0
+    op_list = json.loads(operation_list)["operation_list"]
+    print(op_list)
+    for operation in op_list:
+        motor_name = operation["motor_name"]
+        motor = motor_name[-1]
+        if "speed" in operation:
+            motor_list.append(motor)
+            speed = int(operation["speed"])
+            duration = float(operation["duration"])
+            if duration > largest_duration:
+                largest_duration = duration
+            duration_list.append(duration)
+            CURTCommands.set_motor_speed(worker, motor, int(speed))
+        elif "angle" in operation:
+            motor_list.append(motor)
+            angle = int(operation["angle"])
+            if abs(angle) > largest_angle:
+                largest_angle = abs(angle)
+            speed = 70
+            if int(angle) < 0:
+                speed = -70
+            print(motor, angle, speed)
+            print("*****************")
+            CURTCommands.rotate_motor_for_degrees(worker, motor, int(angle), speed)
+        elif "position" in operation:
+            position = int(operation["position"])
+            if abs(position) > largest_angle:
+                largest_angle = abs(position)
+            CURTCommands.rotate_motor_to_position(worker, motor, int(position), 70)
+        elif "power" in operation:
+            power = int(operation["power"])
+            if power != 0:
+                CURTCommands.set_motor_speed(worker, motor, int(power))
+            else:
+                CURTCommands.brake_motor(worker, motor)
+    if largest_angle > 800:
+        if largest_duration < 2:
+            largest_duration = 2
+    else:
+        largest_duration = 1.2
+    start_time = time.monotonic()
+    while time.monotonic() - start_time < largest_duration:
+        remaining_duration_list = []
+        for i in range(0, len(duration_list)):
+            if time.monotonic() - start_time >= duration_list[i]:
+                CURTCommands.brake_motor(worker, motor_list[i])
+            else:
+                remaining_duration_list.append(duration_list[i])
+        duration_list = remaining_duration_list
+        time.sleep(0.1)
+    for m in range(0, len(motor_list)):
+        CURTCommands.brake_motor(worker, motor_list[m])
+    time.sleep(0.003)
     return True, "OK"
 
 
-def rotate_motor(hub_name, motor_name, angle):
-    caitCore.component_manager.doneMoving = False
-    if not caitCore.get_component_state("control", "Up"):
-        logging.info("Please call initialize_control() function before using Control module")
-        return False, "Not initialized"
-    command = "hub " + hub_name + " rotate " + motor_name + " " + str(angle)
-    #logging.info("Robot command:"+ str(command))
-    result = caitCore.send_component_commond("control", command)
-    if result == False:
-        logging.info("Rotate Motor: Error occurred")
-    while not caitCore.component_manager.doneMoving:
-        if caitCore.component_manager.controlException:
-            caitCore.component_manager.controlException = False
-            logging.warning("Hub disconnected")
-            return False, caitCore.component_manager.controlExceptionMsg
-        time.sleep(0.03)
-    return True, "OK"
+def update_pid(error):
+    global pid_controller
+    if pid_controller is not None:
+        return int(pid_controller.update(error))
+    else:
+        return 0
 
 
 def get_devices(device_type):
     url = "http://0.0.0.0:8123/api/states"
-    response = requests.request('GET', url, headers=headers)
+    response = requests.request("GET", url, headers=headers)
     response_data = response.json()
 
     device_names = []
 
     for state in response_data:
-        if state['entity_id'].find(device_type+".") != -1:
-            detail_url = "http://0.0.0.0:8123/api/states/" + state['entity_id']
-            detail_response = requests.request('GET', detail_url, headers=headers).json()
-            if (detail_response['state'] != "unavailable"):
-                name = state['entity_id'][state['entity_id'].find(".")+1:]
+        if state["entity_id"].find(device_type + ".") != -1:
+            detail_url = "http://0.0.0.0:8123/api/states/" + state["entity_id"]
+            detail_response = requests.request(
+                "GET", detail_url, headers=headers
+            ).json()
+            if detail_response["state"] != "unavailable":
+                name = state["entity_id"][state["entity_id"].find(".") + 1 :]
                 device_names.append(name)
     return device_names
 
@@ -811,28 +1118,15 @@ def control_light(device_name, operation, parameter=None):
         elif operation == "brightness_pct":
             url = "http://0.0.0.0:8123/api/services/light/turn_on"
             data = {"entity_id": device_name, "brightness_pct": int(parameter)}
-    response = requests.request('POST', url, headers=headers, data=json.dumps(data))
+    response = requests.request("POST", url, headers=headers, data=json.dumps(data))
     return response.json()
 
 
 def control_media_player(device_name, operation):
     url = "http://0.0.0.0:8123/api/services/media_player/" + operation
     data = {"entity_id": device_name}
-    response = requests.request('POST', url, headers=headers, data=json.dumps(data))
+    response = requests.request("POST", url, headers=headers, data=json.dumps(data))
     return response.json()
-
-
-def draw_disconnected_rect(img, pt1, pt2, color, thickness):
-        width = pt2[0] - pt1[0]
-        height = pt2[1] - pt1[1]
-        cv2.line(img, pt1, (pt1[0] + width // 4, pt1[1]), color, thickness)
-        cv2.line(img, pt1, (pt1[0], pt1[1] + height // 4), color, thickness)
-        cv2.line(img, (pt2[0] - width // 4, pt1[1]), (pt2[0], pt1[1]), color, thickness)
-        cv2.line(img, (pt2[0], pt1[1]), (pt2[0], pt1[1] + height // 4), color, thickness)
-        cv2.line(img, (pt1[0], pt2[1]), (pt1[0] + width // 4, pt2[1]), color, thickness)
-        cv2.line(img, (pt1[0], pt2[1] - height // 4), (pt1[0], pt2[1]), color, thickness)
-        cv2.line(img, pt2, (pt2[0] - width // 4, pt2[1]), color, thickness)
-        cv2.line(img, (pt2[0], pt2[1] - height // 4), pt2, color, thickness)
 
 
 def streaming_func():
@@ -840,62 +1134,48 @@ def streaming_func():
     global streaming_channel
     global vision_initialized
     global vision_mode
+    global drawing_modes
     while True:
         if vision_initialized:
             img = None
-            if vision_mode != 'face_recognition':
-                img = get_camera_image(from_network_passthrough=True, for_streaming=True)
-                if img is not None:
-                    img = decode_image_byte(img)
-                    img = cv2.resize(img, (455, 256))
-                    if vision_mode == "face_detection":
-                        faces = detect_face(for_streaming=True)
-                        for bbox in faces:
-                            x1 = int(bbox[0] * img.shape[1])
-                            y1 = int(bbox[1] * img.shape[0])
-                            x2 = int(bbox[2] * img.shape[1])
-                            y2 = int(bbox[3] * img.shape[0])
-                            x_center = int(x1 + (x2 - x1) / 2)
-                            if len(bbox) == 5:
-                                face_distance = bbox[4]
-                                z_text = f"Distance: {int(face_distance)} mm"
-                                textSize = ft.getTextSize(z_text, fontHeight=14, thickness=-1)[0]
-                                cv2.rectangle(img, (x_center - textSize[0] // 2 - 5, y1 - 5), (x_center - textSize[0] // 2 + textSize[0] + 10, y1 - 22), COLOR[0], -1)
-                                ft.putText(img=img, text=z_text, org=(x_center - textSize[0] // 2, y1 - 8), fontHeight=14, color=(255, 255, 255), thickness=-1, line_type=cv2.LINE_AA, bottomLeftOrigin=True)
-                            cv2.rectangle(img, (x1, y1), (x2, y2), COLOR[0], cv2.FONT_HERSHEY_SIMPLEX)
+            if drawing_modes["Depth Mode"]:
+                img = get_stereo_image(for_streaming=True)
             else:
-                people, rgb_frame = recognize_face(from_network_passthrough=True, for_streaming=True)
-                img = decode_image_byte(rgb_frame)
-                img = cv2.resize(img, (455, 256))
-                for name in people:
-                    detection = people[name]
-                    x1 = int(detection[0])
-                    y1 = int(detection[1])
-                    x2 = int(detection[2])
-                    y2 = int(detection[3])
-                    x_center = int(x1 + (x2 - x1) / 2)
-                    color = COLOR[2]
-                    if name != "Unknown":
-                        color = COLOR[1]
-                    name_text = "Name: " + name
-                    textSize = ft.getTextSize(name_text, fontHeight=14, thickness=-1)[0]
-                    if len(detection) == 5:
-                        face_distance = detection[4]
-                        z_text = f"Distance: {int(face_distance)} mm"
-                        textSize = ft.getTextSize(z_text, fontHeight=14, thickness=-1)[0]
-                        cv2.rectangle(img, (x_center - textSize[0] // 2 - 5, y1 - 5), (x_center - textSize[0] // 2 + textSize[0] + 10, y1 - 22), color, -1)
-                        ft.putText(img=img, text=z_text, org=(x_center - textSize[0] // 2, y1 - 8), fontHeight=14, color=(255, 255, 255), thickness=-1, line_type=cv2.LINE_AA, bottomLeftOrigin=True)
-                    if name != "Unknown":
-                        draw_disconnected_rect(img, (x1, y1), (x2, y2), color, 1)
-                        cv2.rectangle(img, (x_center - textSize[0] // 2 - 5, y1 - 22), (x_center - textSize[0] // 2 + textSize[0] + 10, y1 - 39), color, -1)
-                        ft.putText(img=img, text=name_text , org=(x_center - textSize[0] // 2, y1 - 25), fontHeight=14, color=(255, 255, 255), thickness=-1, line_type=cv2.LINE_AA, bottomLeftOrigin=True)
-                    else:
-                        cv2.rectangle(img, (x1, y1), (x2, y2), color, cv2.FONT_HERSHEY_SIMPLEX)
-
-            encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 80]
-            _, buffer = cv2.imencode('.jpg', img, encode_param)
-            imgByteArr = base64.b64encode(buffer)
-            streaming_client.publish(streaming_channel, imgByteArr)
+                img = get_camera_image(for_streaming=True)
+            if img is not None:
+                img = decode_image_byte(img)
+                if "face_detection" in vision_mode:
+                    if drawing_modes["Face Detection"]:
+                        faces = detect_face(for_streaming=True)
+                        img = draw_face_detection(img, faces)
+                if "face_recognition" in vision_mode:
+                    if drawing_modes["Face Recognition"]:
+                        people, _ = recognize_face(for_streaming=True)
+                        img = draw_face_recognition(img, people)
+                if "object_detection" in vision_mode:
+                    if drawing_modes["Object Detection"]:
+                        names, coordinates = detect_objects(for_streaming=True)
+                        img = draw_object_detection(img, names, coordinates)
+                if "face_emotions" in vision_mode:
+                    if drawing_modes["Face Emotions"]:
+                        emotions = face_emotions_estimation(for_streaming=True)
+                        img = draw_face_emotions(img, emotions)
+                if "facemesh" in vision_mode:
+                    if drawing_modes["Face Mesh"]:
+                        facemeshes = facemesh_estimation(for_streaming=True)
+                        img = draw_facemesh(img, facemeshes)
+                if "hand_landmarks" in vision_mode:
+                    if drawing_modes["Hand Landmarks"]:
+                        (
+                            hand_landmarks_coordinates,
+                            hand_bboxes,
+                            handnesses,
+                        ) = get_hand_landmarks(for_streaming=True)
+                        img = draw_hand_landmarks(img, hand_landmarks_coordinates)
+                encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 70]
+                _, buffer = cv2.imencode(".jpg", img, encode_param)
+                imgByteArr = base64.b64encode(buffer)
+                streaming_client.publish(streaming_channel, imgByteArr)
         else:
             print("Stream thread exiting")
             break

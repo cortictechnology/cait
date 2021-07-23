@@ -12,25 +12,25 @@ var client = new Paho.Client(hostname, 8083, clientID);
 
 client.onConnectionLost = onConnectionLost;
 client.onMessageArrived = onMessageArrived;
-client.connect({onSuccess:onConnect});
+client.connect({ onSuccess: onConnect });
 
 function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
   console.log("Connected to cait");
   $.post("/getusername",
-  {},
-  function(data, status){
-    document.getElementById('loggedUser').innerHTML = localizedStrings.loggedInAs[locale] + data['username'];
-    client.subscribe("cait/output/" + hostname.split(".")[0] + "/displayFrame");
-    console.log("Subscribed to: " + "cait/output/" + hostname.split(".")[0] + "/displayFrame");
-  });
+    {},
+    function (data, status) {
+      document.getElementById('loggedUser').innerHTML = localizedStrings.loggedInAs[locale] + data['username'];
+      client.subscribe("cait/output/" + hostname.split(".")[0] + "/displayFrame");
+      console.log("Subscribed to: " + "cait/output/" + hostname.split(".")[0] + "/displayFrame");
+    });
 }
 
 // called when the client loses its connection
 function onConnectionLost(responseObject) {
   if (responseObject.errorCode !== 0) {
-    console.log("onConnectionLost:"+responseObject.errorMessage);
-    client.connect({onSuccess:onConnect});
+    console.log("onConnectionLost:" + responseObject.errorMessage);
+    client.connect({ onSuccess: onConnect });
   }
 }
 
@@ -43,8 +43,8 @@ function onMessageArrived(message) {
   else {
     document.getElementById("cameraImage").setAttribute(
       'src', "data:image/png;base64," + message.payloadString
-      );
-  }  
+    );
+  }
 }
 
 
@@ -58,34 +58,34 @@ var media_players = [];
 var voice_mode = ["on device"]
 var cloud_accounts = [];
 var nlp_models = [];
-var virtual_processors = {"Vision": [], "STT": [], "TTS": [], "NLP": []}
+var virtual_processors = { "Vision": [], "STT": [], "TTS": [], "NLP": [] }
 var control_hubs = [];
 var added_hubs = [];
 
 function initDevices(interpreter, scope) {
-  var wrapper = function(device_type, callback) {
+  var wrapper = function (device_type, callback) {
     $.post("/get_states",
-    {
-      'device_type': device_type
-    },
-    function(data, status){
-      callback(data['devices']);
-    });
+      {
+        'device_type': device_type
+      },
+      function (data, status) {
+        callback(data['devices']);
+      });
   };
   interpreter.setProperty(scope, 'get_devices',
-      interpreter.createAsyncFunction(wrapper));
+    interpreter.createAsyncFunction(wrapper));
 }
 
 function cloudAccounts(interpreter, scope) {
-  var wrapper = function(callback) {
+  var wrapper = function (callback) {
     $.post("/get_cloud_accounts",
-    {},
-    function(data, status){
-      callback(data['accounts']);
-    });
+      {},
+      function (data, status) {
+        callback(data['accounts']);
+      });
   };
   interpreter.setProperty(scope, 'get_cloud_accounts',
-      interpreter.createAsyncFunction(wrapper));
+    interpreter.createAsyncFunction(wrapper));
 }
 
 var get_cloud_accounts_code = "get_cloud_accounts();";
@@ -111,7 +111,7 @@ function get_cloud_accounts() {
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   if (scan_for_devices) {
     myInterpreter_cloud = new Interpreter(get_cloud_accounts_code, cloudAccounts);
     get_cloud_accounts();
@@ -119,15 +119,15 @@ setInterval(function() {
 }, 5000);
 
 function NLPModels(interpreter, scope) {
-  var wrapper = function(callback) {
+  var wrapper = function (callback) {
     $.post("/get_nlp_models",
-    {},
-    function(data, status){
-      callback(data['models']);
-    });
+      {},
+      function (data, status) {
+        callback(data['models']);
+      });
   };
   interpreter.setProperty(scope, 'get_nlp_models',
-      interpreter.createAsyncFunction(wrapper));
+    interpreter.createAsyncFunction(wrapper));
 }
 
 var get_nlp_models_code = "get_nlp_models();";
@@ -143,7 +143,7 @@ function get_nlp_models() {
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   if (scan_for_devices) {
     myInterpreter_nlp = new Interpreter(get_nlp_models_code, NLPModels);
     get_nlp_models();
@@ -163,7 +163,7 @@ function get_light_devices() {
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   if (scan_for_devices) {
     myInterpreter_light = new Interpreter(get_light_device_code, initDevices);
     get_light_devices();
@@ -183,7 +183,7 @@ function get_media_players() {
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   if (scan_for_devices) {
     myInterpreter_mdeia = new Interpreter(get_media_player_code, initDevices);
     get_media_players();
@@ -191,14 +191,14 @@ setInterval(function() {
 }, 5000);
 
 function Cameras(interpreter, scope) {
-  var wrapper = function(callback) {
+  var wrapper = function (callback) {
     $.get("/getvideodev",
-    function(data, status){
-      callback(data);
-    });
+      function (data, status) {
+        callback(data);
+      });
   };
   interpreter.setProperty(scope, 'get_cameras',
-      interpreter.createAsyncFunction(wrapper));
+    interpreter.createAsyncFunction(wrapper));
 }
 
 var get_cameras_code = "get_cameras();";
@@ -211,13 +211,13 @@ function get_cameras() {
   }
   if (myInterpreter_cameras.value != null) {
     cameras = [];
-    for (var i = 0; i < myInterpreter_cameras.value.length; i++){
-        cameras.push(myInterpreter_cameras.value[i]);
+    for (var i = 0; i < myInterpreter_cameras.value.length; i++) {
+      cameras.push(myInterpreter_cameras.value[i]);
     }
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   if (scan_for_devices) {
     myInterpreter_cameras = new Interpreter(get_cameras_code, Cameras);
     get_cameras();
@@ -225,14 +225,14 @@ setInterval(function() {
 }, 5000);
 
 function Speakers(interpreter, scope) {
-  var wrapper = function(callback) {
+  var wrapper = function (callback) {
     $.get("/getaudiodev",
-    function(data, status){
-      callback(data);
-    });
+      function (data, status) {
+        callback(data);
+      });
   };
   interpreter.setProperty(scope, 'get_speakers',
-      interpreter.createAsyncFunction(wrapper));
+    interpreter.createAsyncFunction(wrapper));
 }
 
 var get_speakers_code = "get_speakers();";
@@ -241,34 +241,34 @@ var myInterpreter_speakers = new Interpreter(get_speakers_code, Speakers);
 function get_speakers() {
   var options = [];
   if (myInterpreter_speakers.run()) {
-      setTimeout(get_speakers, 100);
+    setTimeout(get_speakers, 100);
   }
   if (myInterpreter_speakers.value != null) {
-      speakers = [];
-      for (var i = 0; i < myInterpreter_speakers.value.length; i++){
-          if (myInterpreter_speakers.value[i]['type'] == "Output") {
-              speakers.push(myInterpreter_speakers.value[i]);
-          }   
+    speakers = [];
+    for (var i = 0; i < myInterpreter_speakers.value.length; i++) {
+      if (myInterpreter_speakers.value[i]['type'] == "Output") {
+        speakers.push(myInterpreter_speakers.value[i]);
       }
+    }
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   if (scan_for_devices) {
-      myInterpreter_speakers = new Interpreter(get_speakers_code, Speakers);
-      get_speakers();
+    myInterpreter_speakers = new Interpreter(get_speakers_code, Speakers);
+    get_speakers();
   }
 }, 5000);
 
 function Microphones(interpreter, scope) {
-  var wrapper = function(callback) {
+  var wrapper = function (callback) {
     $.get("/getaudiodev",
-    function(data, status){
-      callback(data);
-    });
+      function (data, status) {
+        callback(data);
+      });
   };
   interpreter.setProperty(scope, 'get_microphones',
-      interpreter.createAsyncFunction(wrapper));
+    interpreter.createAsyncFunction(wrapper));
 }
 
 var get_microphones_code = "get_microphones();";
@@ -277,35 +277,35 @@ var myInterpreter_microphones = new Interpreter(get_microphones_code, Microphone
 function get_microphones() {
   var options = [];
   if (myInterpreter_microphones.run()) {
-      setTimeout(get_microphones, 100);
+    setTimeout(get_microphones, 100);
   }
   if (myInterpreter_microphones.value != null) {
-      microphones = [];
-      for (var i = 0; i < myInterpreter_microphones.value.length; i++){
-          if (myInterpreter_microphones.value[i]['type'] == "Input") {
-              microphones.push(myInterpreter_microphones.value[i]);
-          }   
+    microphones = [];
+    for (var i = 0; i < myInterpreter_microphones.value.length; i++) {
+      if (myInterpreter_microphones.value[i]['type'] == "Input") {
+        microphones.push(myInterpreter_microphones.value[i]);
       }
+    }
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   if (scan_for_devices) {
-      myInterpreter_microphones = new Interpreter(get_microphones_code, Microphones);
-      get_microphones();
+    myInterpreter_microphones = new Interpreter(get_microphones_code, Microphones);
+    get_microphones();
   }
 }, 5000);
 
 function ControlHubs(interpreter, scope) {
-  var wrapper = function(callback) {
+  var wrapper = function (callback) {
     $.post("/get_control_devices",
-    {},
-    function(data, status){
-      callback(data['control_devices']);
-    });
+      {},
+      function (data, status) {
+        callback(data['control_devices']);
+      });
   };
   interpreter.setProperty(scope, 'get_control_devices',
-      interpreter.createAsyncFunction(wrapper));
+    interpreter.createAsyncFunction(wrapper));
 }
 
 var get_control_devices_code = "get_control_devices();";
@@ -318,7 +318,7 @@ function get_control_devices() {
   }
   if (myInterpreter_control_devices.value != null) {
     control_hubs = [];
-    for (var i = 0; i < myInterpreter_control_devices.value.length; i++){
+    for (var i = 0; i < myInterpreter_control_devices.value.length; i++) {
       if (myInterpreter_control_devices.value[i]['device'] == "EV3") {
         control_hubs.push(myInterpreter_control_devices.value[i]['device'] + ": " + myInterpreter_control_devices.value[i]['ip_addr']);
       } else {
@@ -328,7 +328,7 @@ function get_control_devices() {
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   if (scan_for_devices) {
     myInterpreter_control_devices = new Interpreter(get_control_devices_code, ControlHubs);
     get_control_devices();
@@ -338,7 +338,7 @@ setInterval(function() {
 
 function update_added_hub_list() {
   var allBlocks = workspace.getAllBlocks();
-  for (blk in allBlocks){
+  for (blk in allBlocks) {
     if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
       var hub_name = allBlocks[blk].inputList[0].fieldRow[1].value_;
       var index = added_hubs.indexOf(hub_name);

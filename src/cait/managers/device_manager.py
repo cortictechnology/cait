@@ -17,7 +17,7 @@ import spidev
 from ctypes import *
 import bluetooth
 
-logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().setLevel(logging.WARNING)
 
 EXCLUDED_DEVICES = ['bcm2835-codec-decode (platform:bcm2835-codec):', 'bcm2835-isp (platform:bcm2835-isp):']
 TESTED_CAMERAS = {'Webcam C170': [320,240], 'HD Webcam C615':[640,480], 'UVC': [320, 240], 'PiCamera':[640,480], 'C922': [640, 480], 'C310': [640, 480]}
@@ -97,28 +97,28 @@ class DeviceManager:
         control_devices = []
         try:
             nearby_devices = bluetooth.discover_devices(lookup_names=True)
-            logging.warning("Nearby devices: " + str(nearby_devices))
+            logging.info("Nearby devices: " + str(nearby_devices))
             for addr, name in nearby_devices:
                 if name.find("LEGO") != -1:
                     cinfo = {"device": "Robot Inventor", "mac_addr": addr, "time": time.time(), 'connected': False}
                     control_devices.append(cinfo)
             connected_devices = subprocess.check_output(["hcitool", "con"]).decode("utf-8").split("\n")
             mac_addr_re = re.compile("^.*([0-9,:,A-F]{17}).*$")
-            logging.warning("Connected device: " + str(connected_devices))
+            logging.info("Connected device: " + str(connected_devices))
             for device in connected_devices:
                 mac_addr = mac_addr_re.match(device)
                 if mac_addr != None:
                     addr = mac_addr.group(1)
                     device_name = ''
-                    logging.warning("Device mac address:" + str(addr))
+                    logging.info("Device mac address:" + str(addr))
                     try:
                         cmd = ["hcitool", "name", addr]
-                        logging.warning(str(cmd))
+                        logging.info(str(cmd))
                         out, err = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
                         device_name = out.decode("utf-8").split("\n")[0]
-                        logging.warning("Control device Out: " + str(out))
-                        logging.warning("Control device Err: " + str(err))
-                        logging.warning("***************************")
+                        logging.info("Control device Out: " + str(out))
+                        logging.info("Control device Err: " + str(err))
+                        logging.info("***************************")
                     except:
                         pass                
                     if device_name.find("ev3") != -1:

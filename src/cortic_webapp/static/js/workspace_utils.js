@@ -10,9 +10,9 @@ var current_workspace = "";
 var start_new_workspace = false;
 
 function replaceAll(str, find, replace) {
-    return str.replace(new RegExp(find, 'g'), replace);
-  }
-  
+  return str.replace(new RegExp(find, 'g'), replace);
+}
+
 function stopVideoFeed() {
   topicMessage = new Paho.Message("VisionDown");
   topicMessage.topic = "cait/vision_control";
@@ -46,7 +46,7 @@ function enableChildBlock(block) {
     for (i in childBlks) {
       childBlks[i].setEnabled(true);
       if (childBlks[i].type == "add_control_hub") {
-        if (childBlks[i].inputList[0].fieldRow[1].value_ != 'none'){
+        if (childBlks[i].inputList[0].fieldRow[1].value_ != 'none') {
           var index = added_hubs.indexOf(childBlks[i].inputList[0].fieldRow[1].value_);
           if (index == -1) {
             added_hubs.push(childBlks[i].inputList[0].fieldRow[1].value_);
@@ -59,14 +59,14 @@ function enableChildBlock(block) {
           childBlks[i].setEnabled(true);
         }
       }
-      if (childBlks[i].type == "init_vision" || 
-          childBlks[i].type == "init_voice" || 
-          childBlks[i].type == "init_nlp" || 
-          childBlks[i].type == "init_control" ||  
-          childBlks[i].type == "init_smarthome") {
-            if (childBlks[i].getSurroundParent().type != "setup_block") {
-              childBlks[i].setEnabled(false);
-            }
+      if (childBlks[i].type == "init_vision" ||
+        childBlks[i].type == "init_voice" ||
+        childBlks[i].type == "init_nlp" ||
+        childBlks[i].type == "init_control" ||
+        childBlks[i].type == "init_smarthome") {
+        if (childBlks[i].getSurroundParent().type != "setup_block") {
+          childBlks[i].setEnabled(false);
+        }
       }
       else {
         if (childBlks[i].getSurroundParent().type == "setup_block") {
@@ -91,7 +91,7 @@ function disableChildBlock(block) {
         var index = added_hubs.indexOf(childBlks[i].inputList[0].fieldRow[1].value_);
         if (index != -1) {
           var hub_still_exists = false;
-          for (blk in allBlocks){
+          for (blk in allBlocks) {
             if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
               if (allBlocks[blk].inputList[0].fieldRow[1].value_ == childBlks[i].inputList[0].fieldRow[1].value_) {
                 hub_still_exists = true;
@@ -103,17 +103,17 @@ function disableChildBlock(block) {
           }
         }
       }
-      if (childBlks[i].type == "init_vision" || 
-          childBlks[i].type == "init_voice" || 
-          childBlks[i].type == "init_nlp" || 
-          childBlks[i].type == "init_control" ||  
-          childBlks[i].type == "add_control_hub" ||
-          childBlks[i].type == "init_smarthome") {
-            if (childBlks[i].getSurroundParent() != null) {
-              if (childBlks[i].getSurroundParent().type == "setup_block") {
-                childBlks[i].setEnabled(true);
-              }
-            }
+      if (childBlks[i].type == "init_vision" ||
+        childBlks[i].type == "init_voice" ||
+        childBlks[i].type == "init_nlp" ||
+        childBlks[i].type == "init_control" ||
+        childBlks[i].type == "add_control_hub" ||
+        childBlks[i].type == "init_smarthome") {
+        if (childBlks[i].getSurroundParent() != null) {
+          if (childBlks[i].getSurroundParent().type == "setup_block") {
+            childBlks[i].setEnabled(true);
+          }
+        }
       }
       else {
         if (childBlks[i].getSurroundParent() != null) {
@@ -136,16 +136,16 @@ function updateFunction(event) {
   if (event.type == Blockly.Events.BLOCK_CREATE) {
     block.contextMenu = false;
   }
-  if (event.type == Blockly.Events.UI) { 
-    if (event.newValue != null){
+  if (event.type == Blockly.Events.UI) {
+    if (event.newValue != null) {
       if (event.newValue.indexOf("Robot Inventor") != -1) {
         topicMessage = new Paho.Message('Control Up,["' + event.newValue + '"]');
         topicMessage.topic = "cait/motor_control";
         client.publish(topicMessage)
       }
-    } 
-  }  
-  if (event.type == Blockly.Events.BLOCK_CHANGE) {    
+    }
+  }
+  if (event.type == Blockly.Events.BLOCK_CHANGE) {
     if (event.element == "field") {
       if (block.type == "add_control_hub") {
         if (event.oldValue == "none") {
@@ -168,7 +168,7 @@ function updateFunction(event) {
           index = added_hubs.indexOf(event.oldValue);
           if (index != -1) {
             var hub_still_exists = false;
-            for (blk in allBlocks){
+            for (blk in allBlocks) {
               if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
                 if (allBlocks[blk].inputList[0].fieldRow[1].value_ == event.oldValue) {
                   hub_still_exists = true;
@@ -215,7 +215,7 @@ function updateFunction(event) {
       if (event.newValue == "virtual") {
         block.getInput("proc_param").appendField(
           new Blockly.FieldLabel("on"), "on");
-          block.getInput("proc_param").appendField(new Blockly.FieldDropdown(function() {
+        block.getInput("proc_param").appendField(new Blockly.FieldDropdown(function () {
           var options = [];
           var vision_processors = virtual_processors['Vision'];
           if (vision_processors.length > 0) {
@@ -233,7 +233,7 @@ function updateFunction(event) {
   }
 
   if (event.type == Blockly.Events.BLOCK_CREATE) {
-    if (block.type == "setup_block"){
+    if (block.type == "setup_block") {
       for (blk in allBlocks) {
         if (allBlocks[blk].type == "setup_block" && allBlocks[blk] != block) {
           block.setEnabled(false);
@@ -246,38 +246,40 @@ function updateFunction(event) {
     }
     else if (block.type == "main_block") {
       var setuBlockExist = false;
-        for (blk in allBlocks) {
-          if (allBlocks[blk].type == "main_block" && allBlocks[blk] != block) {
-            block.setEnabled(false);
-            break;
-          }
-          else {
-            block.setEnabled(true);
-          }
-          if (allBlocks[blk].type == "setup_block") {
-            setuBlockExist = true;
-          }
-        }
-        if (!setuBlockExist) {
+      for (blk in allBlocks) {
+        if (allBlocks[blk].type == "main_block" && allBlocks[blk] != block) {
           block.setEnabled(false);
+          break;
         }
+        else {
+          block.setEnabled(true);
+        }
+        if (allBlocks[blk].type == "setup_block") {
+          setuBlockExist = true;
+        }
+      }
+      if (!setuBlockExist) {
+        block.setEnabled(false);
+      }
     }
-  }  
-  
+  }
+
   if (event.type == Blockly.Events.BLOCK_MOVE) {
     var parentBlock = workspace.getBlockById(event.newParentId);
-    if (block != null){
-      if (block.type == "init_vision" || 
-          block.type == "init_voice" || 
-          block.type == "init_nlp" || 
-          block.type == "init_control" ||  
-          block.type == "add_control_hub" ||
-          block.type == "init_smarthome") {
+    if (block != null) {
+      if (block.type == "init_vision" ||
+        block.type == "init_vision_pi" ||
+        block.type == "init_voice" ||
+        block.type == "init_nlp" ||
+        block.type == "init_control" ||
+        block.type == "add_control_hub" ||
+        block.type == "init_pid" ||
+        block.type == "init_smarthome") {
         if (block.getSurroundParent() != null) {
           if (block.getSurroundParent().type == "setup_block") {
             block.setEnabled(true);
             if (block.type == "add_control_hub") {
-              if (block.inputList[0].fieldRow[1].value_ != 'none'){
+              if (block.inputList[0].fieldRow[1].value_ != 'none') {
                 var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
                 if (index == -1) {
                   added_hubs.push(block.inputList[0].fieldRow[1].value_);
@@ -293,7 +295,7 @@ function updateFunction(event) {
               var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
               if (index != -1) {
                 var hub_still_exists = false;
-                for (blk in allBlocks){
+                for (blk in allBlocks) {
                   if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
                     if (allBlocks[blk].inputList[0].fieldRow[1].value_ == block.inputList[0].fieldRow[1].value_) {
                       hub_still_exists = true;
@@ -310,24 +312,24 @@ function updateFunction(event) {
         }
         else {
           block.setEnabled(false);
-            allBlocks = workspace.getAllBlocks();
-            if (block.type == "add_control_hub") {
-              var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
-              if (index != -1) {
-                var hub_still_exists = false;
-                for (blk in allBlocks){
-                  if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
-                    if (allBlocks[blk].inputList[0].fieldRow[1].value_ == block.inputList[0].fieldRow[1].value_) {
-                      hub_still_exists = true;
-                    }
+          allBlocks = workspace.getAllBlocks();
+          if (block.type == "add_control_hub") {
+            var index = added_hubs.indexOf(block.inputList[0].fieldRow[1].value_);
+            if (index != -1) {
+              var hub_still_exists = false;
+              for (blk in allBlocks) {
+                if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
+                  if (allBlocks[blk].inputList[0].fieldRow[1].value_ == block.inputList[0].fieldRow[1].value_) {
+                    hub_still_exists = true;
                   }
                 }
-                if (!hub_still_exists) {
-                  added_hubs.splice(index, 1);
-                }
+              }
+              if (!hub_still_exists) {
+                added_hubs.splice(index, 1);
               }
             }
-            disableChildBlock(block);
+          }
+          disableChildBlock(block);
         }
       }
 
@@ -335,7 +337,7 @@ function updateFunction(event) {
         var needsDisable = false;
         for (blk in allBlocks) {
           if (allBlocks[blk].type == "setup_block" && allBlocks[blk] != block) {
-            if (allBlocks[blk].isEnabled()){
+            if (allBlocks[blk].isEnabled()) {
               needsDisable = true;
             }
           }
@@ -343,10 +345,10 @@ function updateFunction(event) {
         if (needsDisable) {
           block.setEnabled(false);
         }
-        for (blk in allBlocks){
-          if (allBlocks[blk].type == "main_block"){
+        for (blk in allBlocks) {
+          if (allBlocks[blk].type == "main_block") {
             allBlocks[blk].setEnabled(true);
-            break; 
+            break;
           }
         }
       }
@@ -355,7 +357,7 @@ function updateFunction(event) {
         var needsDisable = false;
         for (blk in allBlocks) {
           if (allBlocks[blk].type == "main_block" && allBlocks[blk] != block) {
-            if (allBlocks[blk].isEnabled()){
+            if (allBlocks[blk].isEnabled()) {
               needsDisable = true;
             }
           }
@@ -393,7 +395,7 @@ function updateFunction(event) {
           }
         }
       }
-      
+
       if (block.type == "add_control_hub") {
         if (block.getSurroundParent() != null) {
           if (block.getSurroundParent().type == "init_control") {
@@ -420,11 +422,17 @@ function updateFunction(event) {
         }
       }
 
+      if (block.getSurroundParent() != null) {
+        if (block.getSurroundParent().type == "init_pid") {
+          block.setEnabled(true);
+        }
+      }
+
       if (block.type == "set_parameter" && block.parentBlock_ != null) {
         block.setEnabled(true);
       }
       if (block.parentBlock_ != null) {
-        if (block.parentBlock_.type == "set_parameter" && !block.parentBlock_.isDisabled){
+        if (block.parentBlock_.type == "set_parameter" && !block.parentBlock_.isDisabled) {
           block.setEnabled(true);
         }
       }
@@ -432,7 +440,7 @@ function updateFunction(event) {
         block.setEnabled(true);
       }
       if (block.parentBlock_ != null) {
-        if (block.parentBlock_.type == "sleep" && !block.parentBlock_.isDisabled){
+        if (block.parentBlock_.type == "sleep" && !block.parentBlock_.isDisabled) {
           block.setEnabled(true);
         }
       }
@@ -441,17 +449,17 @@ function updateFunction(event) {
           block.setEnabled(true);
           enableChildBlock(block);
         }
-      } 
+      }
     }
   }
 
   if (event.type == Blockly.Events.BLOCK_DELETE) {
-    if (event.oldXml.getAttribute("type") == "add_control_hub"){
+    if (event.oldXml.getAttribute("type") == "add_control_hub") {
       var index = added_hubs.indexOf(event.oldXml.getRootNode().firstElementChild.textContent);
       allBlocks = workspace.getAllBlocks();
       if (index != -1) {
         var hub_still_exists = false;
-        for (blk in allBlocks){
+        for (blk in allBlocks) {
           if (allBlocks[blk].type == "add_control_hub" && allBlocks[blk].isEnabled()) {
             if (allBlocks[blk].inputList[0].fieldRow[1].value_ == event.oldXml.getRootNode().firstElementChild.textContent) {
               hub_still_exists = true;
@@ -460,7 +468,7 @@ function updateFunction(event) {
         }
         if (!hub_still_exists) {
           added_hubs.splice(index, 1);
-        }        
+        }
       }
     }
 
@@ -470,7 +478,7 @@ function updateFunction(event) {
         setupBlockRemains = true;
       }
     }
-    if (event.oldXml.getAttribute("type") == "setup_block"){
+    if (event.oldXml.getAttribute("type") == "setup_block") {
       for (blk in allBlocks) {
         if (allBlocks[blk].type == "setup_block") {
           allBlocks[blk].setEnabled(true);
@@ -492,14 +500,14 @@ function updateFunction(event) {
     else if (event.oldXml.getAttribute("type") == "main_block") {
       for (blk in allBlocks) {
         if (allBlocks[blk].type == "main_block") {
-          if (setupBlockRemains){
+          if (setupBlockRemains) {
             allBlocks[blk].setEnabled(true);
             break;
           }
         }
       }
     }
-  }  
+  }
   current_workspace = workspace;
 }
 
@@ -525,15 +533,15 @@ function run_code() {
   try {
     var code = Blockly.JavaScript.workspaceToCode(workspace);
     save_workspace(true);
-    if (code.indexOf("await") != -1){
+    if (code.indexOf("await") != -1) {
       if (code.indexOf("function") != -1) {
-        if (code[code.indexOf("function")-1] != '_' || code[code.indexOf("function")+8] != '_'){
+        if (code[code.indexOf("function") - 1] != '_' || code[code.indexOf("function") + 8] != '_') {
           code = replaceAll(code, 'function', 'async function');
         }
       }
       async_function = [];
       index = 0;
-      while(code.indexOf("async function", index) != -1) {
+      while (code.indexOf("async function", index) != -1) {
         begin_idx = code.indexOf("async function", index) + 15;
         end_idx = code.indexOf("(", begin_idx);
         func_name = code.substring(begin_idx, end_idx);
@@ -556,8 +564,8 @@ function run_code() {
       code = "(async () => {" + code + "})().catch(error => alert(error.message));";
     }
     var ready_to_execute_code = true;
-    for (i in vision_func){
-      if (code.indexOf(vision_func[i]) != -1){
+    for (i in vision_func) {
+      if (code.indexOf(vision_func[i]) != -1) {
         if (code.indexOf('init_vision') == -1) {
           alert(localizedStrings.visNotInit[locale]);
           ready_to_execute_code = false;
@@ -565,8 +573,8 @@ function run_code() {
         }
       }
     }
-    for (i in speech_func){
-      if (code.indexOf(speech_func[i]) != -1){
+    for (i in speech_func) {
+      if (code.indexOf(speech_func[i]) != -1) {
         if (code.indexOf('init_voice') == -1) {
           alert(localizedStrings.voiceNotInit[locale]);
           ready_to_execute_code = false;
@@ -574,8 +582,8 @@ function run_code() {
         }
       }
     }
-    for (i in nlp_func){
-      if (code.indexOf(nlp_func[i]) != -1){
+    for (i in nlp_func) {
+      if (code.indexOf(nlp_func[i]) != -1) {
         if (code.indexOf('init_nlp') == -1) {
           alert(localizedStrings.nlpNotInit[locale]);
           ready_to_execute_code = false;
@@ -583,8 +591,8 @@ function run_code() {
         }
       }
     }
-    for (i in control_func){
-      if (code.indexOf(control_func[i]) != -1){
+    for (i in control_func) {
+      if (code.indexOf(control_func[i]) != -1) {
         if (code.indexOf('init_control') == -1) {
           alert(localizedStrings.controlNotInit[locale]);
           ready_to_execute_code = false;
@@ -592,8 +600,8 @@ function run_code() {
         }
       }
     }
-    for (i in smart_home_func){
-      if (code.indexOf(smart_home_func[i]) != -1){
+    for (i in smart_home_func) {
+      if (code.indexOf(smart_home_func[i]) != -1) {
         if (code.indexOf('init_smarthome') == -1) {
           alert(localizedStrings.sHomeNotInit[locale]);
           ready_to_execute_code = false;
@@ -602,7 +610,7 @@ function run_code() {
       }
     }
     console.log(code);
-    if (ready_to_execute_code){
+    if (ready_to_execute_code) {
       eval(code);
     }
   } catch (e) {
@@ -624,7 +632,7 @@ $(document).ready(function () {
   }
 });
 
-function onReload () {
+function onReload() {
   window.location.hash = '';
   load_workspace(true);
 }
@@ -641,12 +649,14 @@ async function gen_py_code() {
   console.log(code);
   var filename;
   filename = prompt(localizedStrings.genPyName[locale]);
-  if(filename != ''){
+  if (filename != '') {
     const res = await $.ajax({
       url: "/savepythoncode",
       type: 'POST',
-      data: {"filename" : filename, 
-              "code" : code}
+      data: {
+        "filename": filename,
+        "code": code
+      }
     });
   }
 }
@@ -656,36 +666,40 @@ async function gen_py_notebook() {
   var code = Blockly.Python.workspaceToCode(workspace);
   var filename;
   filename = prompt(localizedStrings.genPyNBName[locale]);
-  if(filename != ''){
+  if (filename != '') {
     const res = await $.ajax({
       url: "/savenotebook",
       type: 'POST',
-      data: {"filename" : filename, 
-              "code" : code}
+      data: {
+        "filename": filename,
+        "code": code
+      }
     });
   }
 }
 
-async function save_workspace(autosave=false) {
+async function save_workspace(autosave = false) {
   var xml = Blockly.Xml.workspaceToDom(workspace);
   var xml_text = Blockly.Xml.domToText(xml);
   var filename;
   var path;
   if (autosave) {
     save_type = "autosave";
-    filename="workspace_autosave.xml";
+    filename = "workspace_autosave.xml";
   }
   else {
     save_type = "save";
     filename = prompt(localizedStrings.saveName[locale]);
   }
-  if(filename != ''){
+  if (filename != '') {
     const res = await $.ajax({
       url: "/saveworkspace",
       type: 'POST',
-      data: {"filename" : filename, 
-              "xml_text" : xml_text,
-              "save_type": save_type}
+      data: {
+        "filename": filename,
+        "xml_text": xml_text,
+        "save_type": save_type
+      }
     });
   }
 }
@@ -704,13 +718,13 @@ async function new_workspace_save() {
   await save_workspace();
 }
 
-async function load_workspace(from_autosave=false) {
+async function load_workspace(from_autosave = false) {
   var filename;
   var path;
   var autosave;
-  if(from_autosave) {
+  if (from_autosave) {
     save_type = "autosave";
-    filename="workspace_autosave.xml";
+    filename = "workspace_autosave.xml";
   }
   else {
     save_type = "save";
@@ -719,11 +733,11 @@ async function load_workspace(from_autosave=false) {
   const res = await $.ajax({
     url: "/loadworkspace",
     type: 'POST',
-    data: {"filename" : filename, "save_type": save_type }
+    data: { "filename": filename, "save_type": save_type }
   });
   // console.log(res);
   xml_text = res['xml_text'];
-  if (xml_text != ''){
+  if (xml_text != '') {
     var xml = Blockly.Xml.textToDom(xml_text);
     Blockly.Xml.domToWorkspace(xml, workspace);
   }

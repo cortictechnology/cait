@@ -91,9 +91,9 @@ var localizedStrings={
         'chs/CN':"注册成功！"
     },
     vpTitle:{
-        'en/CA':"CAIT Visual Programming Interface",
-        'fr/CA':"Interface de programmation visuelle CAIT",
-        'chs/CN':"CAIT可视化编程界面"
+        'en/CA':"Cortic A.I. Toolkit",
+        'fr/CA':"Cortic A.I. Boîte à outils",
+        'chs/CN':"Cortic A.I. 工具包"
     },
     loggedInAs:{
         'en/CA':"Logged in as: ",

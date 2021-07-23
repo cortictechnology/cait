@@ -9,7 +9,7 @@ import cait.core as core
 import time
 import logging
 
-logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().setLevel(logging.WARNING)
 
 """
 Assumptions:
@@ -22,14 +22,16 @@ Assumptions:
     7. return None if error occurred, otherwise empty return is normal if nothing detected
 """
 
+
 def get_cloud_accounts():
     """Get a list of google cloud servie account
 
     Returns:
         account_list (list): List of google cloud servie account
-    """ 
+    """
     account_list = core.get_cloud_accounts()
     return {"accounts": account_list}
+
 
 def get_nlp_models():
     model_list = core.get_nlp_models()
@@ -41,15 +43,34 @@ def get_video_devices():
 
     Returns:
         video_device_list (list): List of camera device
-    """ 
+    """
     return core.get_video_devices()
+
+
+def get_video_services():
+    """Get a list of connected camera device
+
+    Returns:
+        video_device_list (list): List of camera device
+    """
+    return core.get_video_devices()
+
 
 def get_oakd_devices():
     """Get a list of connected oakd device
 
     Returns:
         video_device_list (list): List of camera device
-    """ 
+    """
+    return core.get_oakd_devices()
+
+
+def get_oakd_services():
+    """Get a list of connected oakd device
+
+    Returns:
+        video_device_list (list): List of camera device
+    """
     return core.get_oakd_devices()
 
 
@@ -58,8 +79,12 @@ def get_audio_devices():
 
     Returns:
         (list): List of audio device
-    """  
+    """
     return core.get_audio_devices()
+
+
+def get_respeaker_services():
+    return core.get_respeaker_services()
 
 
 def get_voice_processing_services():
@@ -67,17 +92,17 @@ def get_voice_processing_services():
 
     Returns:
         (list): List of audio device
-    """  
+    """
     return core.get_voice_processing_services()
 
 
-def get_voice_generation_services():
+def get_voice_generation_services(online=True):
     """Get a list of voice generation services
 
     Returns:
         (list): List of audio device
-    """  
-    return core.get_voice_generation_services()
+    """
+    return core.get_voice_generation_services(online)
 
 
 def get_control_devices():
@@ -85,8 +110,17 @@ def get_control_devices():
 
     Returns:
         (list): List of control device
-    """  
+    """
     return core.get_control_devices()
+
+
+def get_control_services():
+    """Get a list of control services
+
+    Returns:
+        (list): List of control service
+    """
+    return core.get_control_services()
 
 
 def test_camera(index):
@@ -94,35 +128,43 @@ def test_camera(index):
 
     Parameters:
         index (int): index of the camera device
-    
+
     Returns:
         (bool): True if success, False otherwise
-    """    
+    """
     return core.test_camera(index)
 
-def initialize_component(component_name, mode, account="default", processor="local", language="english"):
+
+def initialize_component(
+    component_name, mode, account="default", processor="local", language="english"
+):
     """Initalization function for different components
-    
+
     Parameters:
         component_name (string): name of the component to be initialized
-    
+
     Keyword Parameters:
         useOnline {bool}: use online service or not (default: {True})
-    
+
     Returns:
         (bool): True if initialization is success, False otherwise
-    """    
+    """
     if component_name == "vision":
         success, msg = core.initialize_vision(processor, mode)
     elif component_name == "voice":
-        success, msg  = core.initialize_voice(mode, account, language)
+        success, msg = core.initialize_voice(mode, account, language)
     elif component_name == "nlp":
-        success, msg  = core.initialize_nlp(mode)
+        success, msg = core.initialize_nlp(mode)
     elif component_name == "control":
-        success, msg  = core.initialize_control(mode)
+        success, msg = core.initialize_control(mode)
     elif component_name == "smart_home":
         success = True
         msg = "OK"
+    return success, msg
+
+
+def initialize_pid(kp, ki, kd):
+    success, msg = core.initialize_pid(float(kp), float(ki), float(kd))
     return success, msg
 
 
@@ -131,7 +173,7 @@ def deactivate_vision():
 
     Returns:
         (Bool): True if deactivate successfullt, False otherwise
-    """  
+    """
     return core.deactivate_vision()
 
 
@@ -140,7 +182,7 @@ def deactivate_voice():
 
     Returns:
         (Bool): True if deactivate successfullt, False otherwise
-    """  
+    """
     return core.deactivate_voice()
 
 
@@ -149,7 +191,7 @@ def reset_modules():
 
     Returns:
         (Bool): True if reset successfullt, False otherwise
-    """  
+    """
     return core.reset_modules()
 
 
@@ -158,8 +200,8 @@ def change_module_parameters(parameter_name, value):
     Parameters:
         parameter_name (string): name of prarmeter
         value {float}: value of parameter
-    
-    """    
+
+    """
     core.change_module_parameters(parameter_name, value)
 
 
@@ -167,18 +209,41 @@ def sleep(time_value):
     """Wrapper function for the time.sleep() function
     Parameters:
         time_value {int}: sleep time in second
-    
-    """  
+
+    """
     time.sleep(time_value)
     return True
 
-def get_camera_image(from_network_passthrough=False):
-    """Development test function, retrieve one camera image
-    
+
+def enable_drawing_mode(mode):
+    """Wrapper function to enable drawing modes
+    Parameters:
+        mode {String}: mode to enable
+
+    """
+    core.enable_drawing_mode(mode)
+
+
+def get_camera_image():
+    """Retrieve one rgb camera image
+
     Returns:
         (mat): cv2 image
     """
-    img = core.get_camera_image(from_network_passthrough)
+    img = core.get_camera_image()
+    if img is not None:
+        return img
+    else:
+        return None
+
+
+def get_stereo_image():
+    """Retrieve one stereo camera image
+
+    Returns:
+        (mat): cv2 image
+    """
+    img = core.get_stereo_image()
     if img is not None:
         return img
     else:
@@ -187,44 +252,46 @@ def get_camera_image(from_network_passthrough=False):
 
 def detect_face():
     """Detects all person faces from camera feed. No need to pass in camera feed explicitly at this level.
-    
+
     Returns:
         (list): coordinates
-    """    
+    """
     faces = core.detect_face()
 
     if faces is not None:
         coordinates = faces
-        faces = {"success": True, "coordinates" : coordinates}
+        faces = {"success": True, "coordinates": coordinates}
         return faces
     else:
         return None
 
+
 def recognize_face():
     """Recognize the name of person from camera feed. No need to pass in camera feed explicitly at this level.
-    
+
     Returns:
         (dict): key: names, values: (coordinates, confidences)
-    """    
+    """
 
     name, coordinate = core.recognize_face()
-    #print("NAME*************", name)
+    # print("NAME*************", name)
 
     if name is not None and coordinate is not None:
-        people = {"success": True, "name" : name, "coordinate" : coordinate}
+        people = {"success": True, "name": name, "coordinate": coordinate}
         return people
     else:
         return None
 
+
 def add_person(name=None):
     """Add a new person into face database, associate the name with the person's face image captured from camera feed.
-    
+
     Parameters:
         name (string): name of the person.
-    
+
     Returns:
         (bool): return True if adding face is success, False otherwise.
-    """    
+    """
     if name == None:
         return -1
 
@@ -232,12 +299,13 @@ def add_person(name=None):
 
     return success
 
+
 def remove_person(name):
     """Remove a specific person from database
 
     Parameters:
         name (string): name of the person to remove
-    """    
+    """
     if name == None:
         return -1
 
@@ -245,39 +313,86 @@ def remove_person(name):
 
     return success
 
+
 def detect_objects():
     """detect the object appearing in camera feed
-    
+
     Returns:
         (list): names of the objects
         (list): coordinates of objects
-    """    
+    """
     objects = core.detect_objects()
 
     if objects is not None:
         names, coordinates = objects
-        objects = {"success": True, "names" : names, "coordinates" : coordinates}
+        objects = {"success": True, "names": names, "coordinates": coordinates}
         return objects
     else:
         return None
 
+
+def facemesh_estimation():
+    """Estimate the meshes of faces
+
+    Returns:
+        (list): meshes of faces
+    """
+    facemeshes = core.facemesh_estimation()
+    if facemeshes is not None:
+        result = {"success": True, "facemeshes": facemeshes}
+        return result
+    else:
+        return None
+
+
+def face_emotions_estimation():
+    """Estimate the emotions of faces
+
+    Returns:
+        (list): enmotions of faces
+    """
+    emotions = core.face_emotions_estimation()
+    if emotions is not None:
+        result = {"success": True, "emotions": emotions}
+        return result
+    else:
+        return None
+
+
+def get_hand_landmarks():
+    """Estimate the landmarks of hands
+
+    Returns:
+        (list): landmark coordinates of the hands
+    """
+    hand_landmarks_coordinates, hand_bboxes, handnesses = core.get_hand_landmarks()
+    result = {
+        "success": True,
+        "hand_landmarks_coordinates": hand_landmarks_coordinates,
+        "hand_bboxes": hand_bboxes,
+        "handnesses": handnesses,
+    }
+    return result
+
+
 def classify_image():
     """Classify the current camera feed into an image label
-    
+
     Returns:
         (list): top 5 possible image types
-    """    
+    """
     names = core.classify_image()
 
     if names is not None:
-        names = {"success": True, "names" : names}
+        names = {"success": True, "names": names}
         return names
     else:
         return None
 
+
 def listen():
     """Listen to user speech from audio feed captured by microphone.
-    
+
     Returns:
         (string): the user speech generated from speech-to-text module.
     """
@@ -286,9 +401,10 @@ def listen():
 
     return success, text
 
+
 def listen_for_wakeword():
     """Continuously detecting the appeareance of wakeword from the audio stream. Higher priority than the listen() function.
-    
+
     Returns:
         (bool): return True if detected wakeword, False otherwise.
     """
@@ -297,16 +413,17 @@ def listen_for_wakeword():
 
     return gotWakeWord
 
+
 def say(text):
     """Speak the text through speaker at the specific volume.
-    
+
     Parameters:
         text (string): text to be spoken.
         volume (int): 0-100.
-    
+
     Returns:
         (bool): True if successfully spoken. False otherwise.
-    """    
+    """
     if text == None:
         return -1
 
@@ -314,12 +431,13 @@ def say(text):
 
     return success
 
+
 def analyse_text(text):
     """Analyse the user speech generated from the listen() function.
-    
+
     Parameters:
         text (string): user speech.
-    
+
     Returns:
         (dict): Contains the intention and entities from the analytics of the user speech.
     """
@@ -328,9 +446,10 @@ def analyse_text(text):
 
     topic, condifence, entities = core.analyze(text)
 
-    intention = {"topic" : topic, "confidence" : condifence, "entities" : entities}
+    intention = {"topic": topic, "confidence": condifence, "entities": entities}
 
     return intention
+
 
 def set_motor_position(hub_name, motor_name, position):
     """Set the absolute position of a motor
@@ -341,11 +460,12 @@ def set_motor_position(hub_name, motor_name, position):
 
     Returns:
         (bool): True if successfully moved. False otherwise.
-    """    
+    """
 
     success, msg = core.set_motor_position(hub_name, motor_name, position)
 
     return success, msg
+
 
 def set_motor_power(hub_name, motor_name, power):
     """Set the power level of a motor
@@ -356,11 +476,12 @@ def set_motor_power(hub_name, motor_name, power):
 
     Returns:
         (bool): True if successfully moved. False otherwise.
-    """    
+    """
 
     success, msg = core.set_motor_power(hub_name, motor_name, power)
 
     return success, msg
+
 
 def set_motor_power_group(operation_list):
     """Set the power level of a motor group
@@ -370,11 +491,12 @@ def set_motor_power_group(operation_list):
 
     Returns:
         (bool): True if successfully moved. False otherwise.
-    """    
+    """
 
     success, msg = core.set_motor_power_group(operation_list)
 
     return success, msg
+
 
 def control_motor(hub_name, motor_name, speed, duration):
     """Move robot forward or backward, with specific speed and for specific duration
@@ -386,11 +508,12 @@ def control_motor(hub_name, motor_name, speed, duration):
 
     Returns:
         (bool): True if successfully moved. False otherwise.
-    """    
+    """
 
     success, msg = core.control_motor(hub_name, motor_name, speed, duration)
 
     return success, msg
+
 
 def control_motor_group(operation_list):
     """Move a group of motors together
@@ -400,11 +523,12 @@ def control_motor_group(operation_list):
 
     Returns:
         (bool): True if successfully moved. False otherwise.
-    """ 
+    """
 
     success, msg = core.control_motor_group(operation_list)
 
     return success, msg
+
 
 def rotate_motor(hub_name, motor_name, angle):
     """Rotate robot to a certain angle
@@ -415,11 +539,16 @@ def rotate_motor(hub_name, motor_name, angle):
 
     Returns:
         (bool): True if successfully moved. False otherwise.
-    """    
+    """
 
     success, msg = core.rotate_motor(hub_name, motor_name, angle)
 
     return success, msg
+
+
+def update_pid(error):
+    value = core.update_pid(float(error))
+    return {"value": value}
 
 
 def get_devices(device_type):
@@ -427,11 +556,12 @@ def get_devices(device_type):
 
     Returns:
         (list): List of smart devices in the local network
-    """ 
+    """
     devices = core.get_devices(device_type)
     result = {"devices": devices}
 
     return result
+
 
 def control_light(device_name, operation, parameter=None):
     """Control the operation of a smart light device.
@@ -440,12 +570,13 @@ def control_light(device_name, operation, parameter=None):
         device_name (string): name of smart light device.
         operation (string): operation, currently supporting "turn_on",  "turn_off", "toggle", "color_name", "brightness_pct".
         parameter {}: any parameter for the operation.
- 
+
     Returns:
         (bool): True if successfully sent command to homeassistant. False otherwise.
-    """ 
+    """
     result = core.control_light(device_name, operation, parameter)
     return result
+
 
 def control_media_player(device_name, operation):
     """Control the operation of a smart media player.
@@ -453,12 +584,13 @@ def control_media_player(device_name, operation):
     Parameters:
         device_name (string): name of smart media player.
         operation (string): operation, currently supporting "media_play",  "media_pause", "volume_up", "volume_down".
- 
+
     Returns:
         (bool): True if successfully sent command to homeassistant. False otherwise.
-    """ 
+    """
     result = core.control_media_player(device_name, operation)
     return result
+
 
 def turn_to_person(name):
     """Rotate the robot to face a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
@@ -468,21 +600,23 @@ def turn_to_person(name):
 
     Returns:
         (bool): True if successfully turned. False otherwise.
-    """    
+    """
     success = True
     return success
+
 
 def follow_person(name):
     """Move the robot so that it constantly follows a person, this is a combined usage of recognizeFace() and move() function. Not implemented.
 
     Parameters:
         name (string): name of the person that the robot should be following.
-    
+
     Returns:
         (bool): True if successfully moved. False otherwise.
-    """ 
+    """
     success = True
     return success
+
 
 def greet_person(name, speech):
     """Greet a specific person in a specific way, this is combined usage of recognizeFace() and say() function. Not implemented.
@@ -493,40 +627,43 @@ def greet_person(name, speech):
 
     Returns:
         (bool): True if successfully greeted. False otherwise.
-    """    
+    """
     success = True
     return success
 
+
 def ask_for_person_name():
     """Ask for the name of a person appearing in the camera feed, this is a combined usage of say(), listen() and analyseSpeech() function. Not implemented.
-    
+
     Returns:
         (string): name of the person.
-    """    
+    """
     name = ""
     return name
 
+
 def get_response(text):
     """Generate robot response based on user speech input. Not implemented.
-    
+
     Parameters:
         text (string): Result from listen() function
-    
+
     Returns:
         (string): robot response
-    """    
+    """
     respone = ""
     return respone
 
+
 def control_smart_device(device_name, action):
     """Control the smart devices's state through action. Not implemented.
-    
+
     Parameters:
         device_name (string): Name of the device recorded in Home assistant
         action (string): valid action state for the device, as recorded in home assistant.
-    
+
     Returns:
         (bool): True if device is successfully controlled. False otherwise.
-    """    
+    """
     success = True
     return success

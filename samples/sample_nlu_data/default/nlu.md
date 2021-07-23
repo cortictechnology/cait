@@ -7,17 +7,9 @@
 - i'm [Kristin](person)
 - you can call me [Jack](person)
 - you can call me [Peter](person)
-- [Philip](person) is the name 
-- [Victor](person) is the name 
-- [Morgan](person) is the name 
-- hey dude, I'm [Sam](person)
-- hey dude, I'm [Mario](person)
-- [Alex](person) is my name 
-- [Molly](person) is my name 
-- [Regina](person) is my name 
 
 ## lookup:person
-/nlp_module/lookup_tables/names.txt
+/development/lookup_tables/names.txt
 
 ## intent:user_answer_affirmative
 - yes
@@ -78,3 +70,9 @@
 - move right
 - rotate to right
 - turn to right
+
+## intent:user_say_follow_face
+- follow my face
+- follow me
+- track my face
+- track me

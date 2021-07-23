@@ -16,7 +16,7 @@ import base64
 import json
 import ast
 
-logging.getLogger().setLevel(logging.INFO)
+logging.getLogger().setLevel(logging.WARNING)
 
 class ComponentManager:
     def on_connect_module_states(self, client, userdata, flags, rc):
