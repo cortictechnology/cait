@@ -36,11 +36,10 @@ async function enable_drawing_mode(mode) {
 async function detect_face() {
   try {
     const res = await ajax_post("/detectface", {});
-    //console.log(res);
     if (res['success'] == false) {
       throw new Error(res["error"] + ". Please fix the problem and click Run again.");
     }
-    console.log(res);
+    // console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -65,7 +64,7 @@ async function recognize_face() {
 async function add_person(name) {
   try {
     const res = await ajax_post("/addperson", { 'name': name });
-    console.log(res);
+    // console.log(res);
     if (res['success'] == false) {
       throw new Error(res["error"] + ". Please fix the problem and click Run again.");
     }
@@ -78,7 +77,7 @@ async function add_person(name) {
 async function delete_person(name) {
   try {
     const res = await ajax_post("/removeperson", { 'name': name });
-    console.log(res);
+    // console.log(res);
     if (res['success'] == false) {
       throw new Error(res["error"] + ". Please fix the problem and click Run again.");
     }
@@ -95,7 +94,7 @@ async function detect_objects() {
     if (res['success'] == false) {
       throw new Error(res["error"] + ". Please fix the problem and click Run again.");
     }
-    console.log(res);
+    // console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -120,11 +119,10 @@ async function classify_image() {
 async function facemesh_estimation() {
   try {
     const res = await ajax_post("/facemesh_estimation", {});
-    console.log(res);
     if (res['success'] == false) {
       throw new Error(res["error"] + ". Please fix the problem and click Run again.");
     }
-    console.log(res);
+    // console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -135,11 +133,10 @@ async function facemesh_estimation() {
 async function face_emotions_estimation() {
   try {
     const res = await ajax_post("/face_emotions_estimation", {});
-    console.log(res);
     if (res['success'] == false) {
       throw new Error(res["error"] + ". Please fix the problem and click Run again.");
     }
-    console.log(res);
+    // console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -150,11 +147,10 @@ async function face_emotions_estimation() {
 async function get_hand_landmarks() {
   try {
     const res = await ajax_post("/get_hand_landmarks", {});
-    console.log(res);
     if (res['success'] == false) {
       throw new Error(res["error"] + ". Please fix the problem and click Run again.");
     }
-    console.log(res);
+    // console.log(res);
     return res;
   } catch (err) {
     console.log(err);

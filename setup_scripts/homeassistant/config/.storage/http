@@ -3,11 +3,11 @@
     "key": "http",
     "data": {
         "server_port": 8123,
-        "ip_ban_enabled": true,
-        "ssl_profile": "modern",
-        "login_attempts_threshold": -1,
         "cors_allowed_origins": [
             "https://cast.home-assistant.io"
-        ]
+        ],
+        "ssl_profile": "modern",
+        "ip_ban_enabled": true,
+        "login_attempts_threshold": -1
     }
 }

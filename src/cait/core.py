@@ -42,14 +42,14 @@ device_manager = DeviceManager()
 
 logging.getLogger().setLevel(logging.WARNING)
 
-CURTCommands.connect_to("0.0.0.0")
+broker_address = CURTCommands.initialize()
 
 streaming_channel = "cait/output/" + os.uname()[1].lower() + "/displayFrame"
 streaming_client = mqtt.Client()
-ret = connect_mqtt(streaming_client, "0.0.0.0")
+ret = connect_mqtt(streaming_client, broker_address)
 while ret != True:
     time.sleep(1)
-    ret = connect_mqtt(streaming_client, "0.0.0.0")
+    ret = connect_mqtt(streaming_client, broker_address)
 
 
 def get_video_devices():
@@ -206,18 +206,12 @@ def initialize_vision(processor="local", mode=[]):
 def deactivate_vision():
     global vision_initialized
     global vision_mode
-    # result = caitCore.send_component_commond("vision", "VisionDown")
-    # result = caitCore.send_component_commond("vision", "ResetMode")
-    # if result == False:
-    #     logging.info("Deactivate Vision: Error occurred")
-    # return result
     vision_initialized = False
     vision_mode = []
     return True
 
 
 def get_cloud_accounts():
-    # print("+++++++++++++++++++++", cloud_accounts)
     return account_names
 
 
@@ -244,47 +238,62 @@ def initialize_voice(mode="online", account="default", language="english"):
         processing_language = "zh-CN"
         generation_language = "zh"
         generation_accents = ""
-    voice_input_workers = get_audio_devices()
-    voice_processing_workers = get_voice_processing_services()
+    voice_generation_worker = None
+    voice_processing_worker = None
+    voice_input_worker = CURTCommands.get_worker(
+        full_domain_name + "/voice/voice_input_service/respeaker_input"
+    )
+    voice_processing_worker = get_voice_processing_services()
     if mode == "online":
         voice_mode = "online"
-        voice_generation_workers = get_voice_generation_services(online=True)
+        voice_processing_worker = CURTCommands.get_worker(
+            full_domain_name + "/voice/speech_to_text_service/online_voice_processing"
+        )
+        voice_generation_worker = CURTCommands.get_worker(
+            full_domain_name + "/voice/text_to_speech_service/online_voice_generation"
+        )
     else:
         voice_mode = "offline"
-        voice_generation_workers = get_voice_generation_services(online=False)
-    if len(voice_input_workers) == 0:
+        voice_processing_worker = CURTCommands.get_worker(
+            full_domain_name + "/voice/speech_to_text_service/offline_voice_processing"
+        )
+        voice_generation_worker = CURTCommands.get_worker(
+            full_domain_name + "/voice/text_to_speech_service/offline_voice_generation"
+        )
+    if voice_input_worker is None:
         return (
             False,
             "No audio deveice is detected, or connected device is not supported",
         )
-    if len(voice_processing_workers) == 0:
+    if voice_processing_worker is None:
         return (
             False,
             "No voice processing service is detected, or connected device is not supported",
         )
-    if len(voice_generation_workers) == 0:
+    if voice_generation_worker is None:
         return (
             False,
             "No voice generation is detected, or connected device is not supported",
         )
-    CURTCommands.config_worker(voice_input_workers[0], {"audio_in_index": 0})
+    CURTCommands.config_worker(voice_input_worker, {"audio_in_index": 0})
     time.sleep(0.5)
-    CURTCommands.start_voice_recording(voice_input_workers[0])
-    account_file = cloud_accounts[account]
-    with open("/home/pi/CAIT_CURT/" + account_file) as f:
-        account_info = json.load(f)
-    CURTCommands.config_worker(
-        voice_processing_workers[0],
-        {
-            "account_crediential": account_info,
-            "language": processing_language,
-            "sample_rate": 16000,
-            "channel_count": 4,
-        },
-    )
+    CURTCommands.request(voice_input_worker, params=["start"])
+    # CURTCommands.start_voice_recording(voice_input_worker)
     if mode == "online":
+        account_file = cloud_accounts[account]
+        with open("/home/pi/CAIT_CURT/" + account_file) as f:
+            account_info = json.load(f)
         CURTCommands.config_worker(
-            voice_generation_workers[0],
+            voice_processing_worker,
+            {
+                "account_crediential": account_info,
+                "language": processing_language,
+                "sample_rate": 16000,
+                "channel_count": 4,
+            },
+        )
+        CURTCommands.config_worker(
+            voice_generation_worker,
             {"language": generation_language, "accents": generation_accents},
         )
     time.sleep(1)
@@ -362,42 +371,6 @@ def initialize_pid(kp, ki, kd):
     return True, "OK"
 
 
-def reset_modules():
-    global vision_initialized
-    global voice_initialized
-    global nlp_initialized
-    global control_initialized
-    global smarthome_initialized
-    global vision_mode
-    global stream_thread
-    global pid_controller
-    global drawing_modes
-    # result = caitCore.send_component_commond("module_states", "Reset")
-    # if result == False:
-    #     logging.info("Reset Modules: Error occurred")
-    #     return result
-    vision_initialized = False
-    voice_initialized = False
-    nlp_initialized = False
-    control_initialized = False
-    smarthome_initialized = False
-    vision_mode = []
-    pid_controller = None
-    if stream_thread is not None:
-        stream_thread.join()
-    drawing_modes = {
-        "Depth Mode": False,
-        "Face Detection": False,
-        "Face Recognition": False,
-        "Face Emotions": False,
-        "Face Mesh": False,
-        "Object Detection": False,
-        "Hand Landmarks": False,
-        "Pose Landmarks": False,
-    }
-    return True
-
-
 def change_module_parameters(parameter_name, value):
     # global audio_output_device
     # #print("name: ", parameter_name, ", value: ", value)
@@ -433,7 +406,7 @@ def get_camera_image(for_streaming=False):
     rgb_frame_handler = None
     frame = None
     if worker is not None:
-        rgb_frame_handler = CURTCommands.oakd_get_rgb_frame(worker)
+        rgb_frame_handler = CURTCommands.request(worker, params=["get_rgb_frame"])
     else:
         logging.warning("No rgb camera worker found.")
     if rgb_frame_handler is not None:
@@ -726,11 +699,7 @@ def face_emotions_estimation(for_streaming=False):
     if rgb_frame_handler is not None and spatial_face_detection_handler is not None:
         face_emotions_handler = CURTCommands.request(
             face_emotions_worker,
-            params=[
-                rgb_frame_handler,
-                spatial_face_detection_handler,
-                "get_face_emotion_estimation",
-            ],
+            params=[rgb_frame_handler, spatial_face_detection_handler],
         )
         emotions = CURTCommands.get_result(face_emotions_handler, for_streaming)[
             "dataValue"
@@ -780,8 +749,7 @@ def facemesh_estimation(for_streaming=False):
     facemeshes = []
     if rgb_frame_handler is not None and spatial_face_detection_handler is not None:
         facemesh_handler = CURTCommands.request(
-            facemesh_worker,
-            params=[rgb_frame_handler, spatial_face_detection_handler, "get_facemesh"]
+            facemesh_worker, params=[rgb_frame_handler, spatial_face_detection_handler]
         )
         facemeshes = CURTCommands.get_result(facemesh_handler, for_streaming)[
             "dataValue"
@@ -1025,7 +993,6 @@ def control_motor_group(operation_list):
     largest_duration = 0
     largest_angle = 0
     op_list = json.loads(operation_list)["operation_list"]
-    print(op_list)
     for operation in op_list:
         motor_name = operation["motor_name"]
         motor = motor_name[-1]
@@ -1045,8 +1012,6 @@ def control_motor_group(operation_list):
             speed = 70
             if int(angle) < 0:
                 speed = -70
-            print(motor, angle, speed)
-            print("*****************")
             CURTCommands.rotate_motor_for_degrees(worker, motor, int(angle), speed)
         elif "position" in operation:
             position = int(operation["position"])
@@ -1056,9 +1021,27 @@ def control_motor_group(operation_list):
         elif "power" in operation:
             power = int(operation["power"])
             if power != 0:
-                CURTCommands.set_motor_speed(worker, motor, int(power))
+                control_params = {
+                    "control_type": "motor",
+                    "operation": {
+                        "motor_arrangement": "individual",
+                        "motor": motor,
+                        "motion": "speed",
+                        "speed": int(power),
+                    },
+                }
+                CURTCommands.request(worker, params=[control_params])
             else:
-                CURTCommands.brake_motor(worker, motor)
+                control_params = {
+                    "control_type": "motor",
+                    "operation": {
+                        "motor_arrangement": "individual",
+                        "motor": motor,
+                        "motion": "brake",
+                    },
+                }
+                CURTCommands.request(worker, params=[control_params])
+            # CURTCommands.brake_motor(worker, motor)
     if largest_angle > 800:
         if largest_duration < 2:
             largest_duration = 2
@@ -1078,6 +1061,28 @@ def control_motor_group(operation_list):
         CURTCommands.brake_motor(worker, motor_list[m])
     time.sleep(0.003)
     return True, "OK"
+
+
+def stop_all_motors():
+    global oakd_nodes
+    global control_initialized
+    if not control_initialized:
+        logging.info(
+            "Please call initialize_control() function before using the vision module"
+        )
+        return False, "Not initialized"
+    worker = get_control_services()[0]
+    motors = ["A", "B", "C", "D", "E", "F"]
+    for motor in motors:
+        control_params = {
+            "control_type": "motor",
+            "operation": {
+                "motor_arrangement": "individual",
+                "motor": motor,
+                "motion": "brake",
+            },
+        }
+        CURTCommands.request(worker, params=[control_params])
 
 
 def update_pid(error):
@@ -1179,6 +1184,44 @@ def streaming_func():
         else:
             print("Stream thread exiting")
             break
+
+
+def reset_modules():
+    global vision_initialized
+    global voice_initialized
+    global nlp_initialized
+    global control_initialized
+    global smarthome_initialized
+    global vision_mode
+    global stream_thread
+    global pid_controller
+    global drawing_modes
+    # result = caitCore.send_component_commond("module_states", "Reset")
+    # if result == False:
+    #     logging.info("Reset Modules: Error occurred")
+    #     return result
+    vision_initialized = False
+    voice_initialized = False
+    nlp_initialized = False
+    if control_initialized:
+        stop_all_motors()
+    control_initialized = False
+    smarthome_initialized = False
+    vision_mode = []
+    pid_controller = None
+    if stream_thread is not None:
+        stream_thread.join()
+    drawing_modes = {
+        "Depth Mode": False,
+        "Face Detection": False,
+        "Face Recognition": False,
+        "Face Emotions": False,
+        "Face Mesh": False,
+        "Object Detection": False,
+        "Hand Landmarks": False,
+        "Pose Landmarks": False,
+    }
+    return True
 
 
 if __name__ == "__main__":
