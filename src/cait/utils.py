@@ -239,6 +239,30 @@ def draw_facemesh(img, facemeshes):
     return img
 
 
+def draw_body_landmarks(img, landmark_coordinates):
+    if landmark_coordinates is not None:
+        for i in range(len(LINES_BODY)):
+            line = LINES_BODY[i]
+            start_x = int(landmark_coordinates[line[0]][0])
+            start_y = int(landmark_coordinates[line[0]][1])
+            end_x = int(landmark_coordinates[line[1]][0])
+            end_y = int(landmark_coordinates[line[1]][1])
+            cv2.line(
+                img,
+                (start_x, start_y),
+                (end_x, end_y),
+                POSE_LINE_COLORS[i],
+                2,
+            )
+        for i in range(len(landmark_coordinates) - 2):
+            landmark = landmark_coordinates[i]
+            cv2.circle(img, (int(landmark[0]), int(landmark[1])), 4, (255, 255, 255), 1)
+            cv2.circle(
+                img, (int(landmark[0]), int(landmark[1])), 3, POSE_JOINT_COLOR[i], -1
+            )
+    return img
+
+
 def draw_hand_landmarks(img, landmark_coordinates):
     list_connections = [
         [0, 1, 2, 3, 4],

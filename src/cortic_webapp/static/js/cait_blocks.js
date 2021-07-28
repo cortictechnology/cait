@@ -489,6 +489,15 @@ Blockly.defineBlocksWithJsonArray([
     "helpUrl": ""
   },
   {
+    "type": "vision_draw_human_pose",
+    "message0": "%{BKY_DRAW_HUMAN_POSE}",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": "#5D0095",
+    "tooltip": "%{BKY_DRAW_HUMAN_POSE_TOOLTIP}",
+    "helpUrl": ""
+  },
+  {
     "type": "vision_hand_landmarks",
     "lastDummyAlign0": "CENTRE",
     "message0": "%{BKY_HAND_LANDMARKS}",
@@ -1306,6 +1315,9 @@ Blockly.JavaScript['add_pipeline_node'] = function (block) {
   else if (dropdown_node == "face_mesh") {
     var code = '<["add_nn_node", "facemesh", "facemesh_sh6.blob", 192, 192]>';
   }
+  else if (dropdown_node == "pose_estimation") {
+    var code = '<["add_nn_node", "body_detection", "pose_detection_sh6.blob", 224, 224], ["add_nn_node", "body_landmarks", "pose_landmark_lite_sh6.blob", 256, 256]>';
+  }
   else if (dropdown_node == "hand_landmarks") {
     var code = '<["add_nn_node", "palm_detection", "palm_detection_6_shaves.blob", 128, 128], ["add_nn_node", "hand_landmarks", "hand_landmark_6_shaves.blob", 224, 224]>';
   }
@@ -1335,6 +1347,9 @@ Blockly.Python['add_pipeline_node'] = function (block) {
   }
   else if (dropdown_node == "face_mesh") {
     var code = '(["add_nn_node", "facemesh", "facemesh_sh6.blob", 192, 192])';
+  }
+  else if (dropdown_node == "pose_estimation") {
+    var code = '(["add_nn_node", "body_detection", "pose_detection_sh6.blob", 224, 224], ["add_nn_node", "body_landmarks", "pose_landmark_lite_sh6.blob", 256, 256])';
   }
   else if (dropdown_node == "hand_landmarks") {
     var code = '(["add_nn_node", "palm_detection", "palm_detection_6_shaves.blob", 128, 128], ["add_nn_node", "hand_landmarks", "hand_landmark_6_shaves.blob", 224, 224])';
@@ -1680,6 +1695,29 @@ Blockly.Python['vision_draw_facemesh'] = function (block) {
   var code = "cait.essentials.enable_drawing_mode('Face Mesh')\n";
   return code;
 };
+
+
+Blockly.JavaScript['vision_human_pose'] = function (block) {
+  var code = "await get_body_landmarks()";
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+
+Blockly.Python['vision_human_pose'] = function (block) {
+  var code = "cait.essentials.get_body_landmarks()";
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.JavaScript['vision_draw_human_pose'] = function (block) {
+  var code = "await enable_drawing_mode('Pose Landmarks');\n";
+  return code;
+};
+
+Blockly.Python['vision_draw_human_pose'] = function (block) {
+  var code = "cait.essentials.enable_drawing_mode('Pose Landmarks')\n";
+  return code;
+};
+
+
 
 Blockly.JavaScript['vision_hand_landmarks'] = function (block) {
   var code = "await get_hand_landmarks()";

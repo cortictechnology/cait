@@ -374,6 +374,18 @@ def get_hand_landmarks():
     }
     return result
 
+def get_body_landmarks():
+    """Estimate the landmarks of a human body
+
+    Returns:
+        (list): landmark coordinates of the body
+    """
+    body_landmarks_coordinates = core.get_body_landmarks()
+    result = {
+        "success": True,
+        "body_landmarks_coordinates": body_landmarks_coordinates
+    }
+    return result
 
 def classify_image():
     """Classify the current camera feed into an image label

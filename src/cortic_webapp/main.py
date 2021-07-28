@@ -790,6 +790,7 @@ def classifyimage():
     names = essentials.classify_image()
     return jsonify(names)
 
+
 @application.route("/facemesh_estimation", methods=["POST"])
 @login_required
 def facemesh_estimation():
@@ -802,6 +803,7 @@ def facemesh_estimation():
     facemeshes = essentials.facemesh_estimation()
     return jsonify(facemeshes)
 
+
 @application.route("/face_emotions_estimation", methods=["POST"])
 @login_required
 def face_emotions_estimation():
@@ -813,6 +815,20 @@ def face_emotions_estimation():
         return jsonify(result)
     emotions = essentials.face_emotions_estimation()
     return jsonify(emotions)
+
+
+@application.route("/get_body_landmarks", methods=["POST"])
+@login_required
+def get_body_landmarks():
+    if current_vision_user != current_user.id:
+        result = {
+            "success": False,
+            "error": "Vision compoent is being used by another user, please try again later.",
+        }
+        return jsonify(result)
+    body_landmarks = essentials.get_body_landmarks()
+    return jsonify(body_landmarks)
+
 
 @application.route("/get_hand_landmarks", methods=["POST"])
 @login_required

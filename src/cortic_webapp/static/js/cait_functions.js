@@ -158,6 +158,20 @@ async function get_hand_landmarks() {
   }
 }
 
+async function get_body_landmarks() {
+  try {
+    const res = await ajax_post("/get_body_landmarks", {});
+    if (res['success'] == false) {
+      throw new Error(res["error"] + ". Please fix the problem and click Run again.");
+    }
+    // console.log(res);
+    return res;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
+
 async function listen() {
   try {
     const res = await ajax_post("/listen", {});

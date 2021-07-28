@@ -33,6 +33,7 @@ from .utils import (
     draw_object_detection,
     draw_face_emotions,
     draw_facemesh,
+    draw_body_landmarks,
     draw_hand_landmarks,
 )
 
@@ -796,6 +797,39 @@ def get_hand_landmarks(for_streaming=False):
     return hand_landmarks_coordinates, hand_bboxes, handnesses
 
 
+def get_body_landmarks(for_streaming=False):
+    global oakd_nodes
+    global vision_initialized
+    if not vision_initialized:
+        logging.info(
+            "Please call initialize_vision() function before using the vision module"
+        )
+        return None
+    change_vision_mode("body_landmarks")
+    camera_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_rgb_camera_input"
+    )
+    body_landmarks_worker = CURTCommands.get_worker(
+        full_domain_name + "/vision/oakd_service/oakd_pose_estimation"
+    )
+    if camera_worker is not None:
+        rgb_frame_handler = CURTCommands.request(
+            camera_worker, params=["get_rgb_frame"]
+        )
+    else:
+        logging.warning("No rgb camera worker found.")
+    body_ladmarks = []
+    if rgb_frame_handler is not None:
+        body_landmarks_handler = CURTCommands.request(
+            body_landmarks_worker,
+            params=[rgb_frame_handler],
+        )
+        body_ladmarks = CURTCommands.get_result(body_landmarks_handler, for_streaming)[
+            "dataValue"
+        ]["data"]
+    return body_ladmarks
+
+
 def classify_image():
     # if not caitCore.get_component_state("vision", "Up"):
     #     logging.info("Please call initialize_vision() function before using the vision module")
@@ -818,41 +852,66 @@ def say(message_topic, entities=[]):
             "Please call initialize_voice() function before using the vision module"
         )
         return False
-    voice_input_worker = get_audio_devices()[0]
+    voice_input_worker = CURTCommands.get_worker(
+        full_domain_name + "/voice/voice_input_service/respeaker_input"
+    )
     if voice_mode == "online":
-        voice_generation_worker = get_voice_generation_services(online=True)[0]
+        voice_generation_worker = CURTCommands.get_worker(
+            full_domain_name + "/voice/text_to_speech_service/online_voice_generation"
+        )
     else:
-        voice_generation_worker = get_voice_generation_services(online=False)[0]
+        voice_generation_worker = CURTCommands.get_worker(
+            full_domain_name + "/voice/text_to_speech_service/offline_voice_generation"
+        )
     logging.info("say: " + message)
-    CURTCommands.pause_recording(voice_input_worker)
-    voice_generation_handler = CURTCommands.send_task(voice_generation_worker, message)
+    CURTCommands.request(voice_input_worker, params=["pause"])
+    voice_generation_handler = CURTCommands.request(
+        voice_generation_worker, params=[message]
+    )
     generation_status = CURTCommands.get_result(voice_generation_handler)
-    CURTCommands.resume_recording(voice_input_worker)
+    CURTCommands.request(voice_input_worker, params=["resume"])
     return True
 
 
 def listen():
     global voice_mode
-    voice_input_worker = get_audio_devices()[0]
+    voice_input_worker = CURTCommands.get_worker(
+        full_domain_name + "/voice/voice_input_service/respeaker_input"
+    )
     if voice_mode == "online":
-        voice_generation_worker = get_voice_generation_services(online=True)[0]
+        voice_generation_worker = CURTCommands.get_worker(
+            full_domain_name + "/voice/text_to_speech_service/online_voice_generation"
+        )
     else:
-        voice_generation_worker = get_voice_generation_services(online=False)[0]
-    CURTCommands.pause_recording(voice_input_worker)
-    voice_generation_handler = CURTCommands.send_task(
-        voice_generation_worker, "notification_tone"
+        voice_generation_worker = CURTCommands.get_worker(
+            full_domain_name + "/voice/text_to_speech_service/offline_voice_generation"
+        )
+    CURTCommands.request(voice_input_worker, params=["pause"])
+    voice_generation_handler = CURTCommands.request(
+        voice_generation_worker, params=["notification_tone"]
     )
     generation_status = CURTCommands.get_result(voice_generation_handler)
     time.sleep(0.1)
-    CURTCommands.resume_recording(voice_input_worker)
+    CURTCommands.request(voice_input_worker, params=["resume"])
     time.sleep(0.05)
     speech = ""
     while speech == "":
-        voice_handler = CURTCommands.get_recorded_voice(voice_input_worker)
-        online_voice_processing_handler = CURTCommands.online_speech_to_text(
-            voice_handler
+        voice_handler = CURTCommands.request(voice_input_worker, params=["get"])
+        voice_processing_worker = None
+        if voice_mode == "online":
+            voice_processing_worker = CURTCommands.get_worker(
+                full_domain_name
+                + "/voice/speech_to_text_service/online_voice_processing"
+            )
+        else:
+            voice_processing_worker = CURTCommands.get_worker(
+                full_domain_name
+                + "/voice/speech_to_text_service/offline_voice_processing"
+            )
+        voice_processing_handler = CURTCommands.request(
+            voice_processing_worker, params=[voice_handler]
         )
-        speech_result = CURTCommands.get_result(online_voice_processing_handler)
+        speech_result = CURTCommands.get_result(voice_processing_handler)
         if speech_result is not None:
             speech = speech_result["dataValue"]["data"]
             if speech is None:
@@ -1169,6 +1228,12 @@ def streaming_func():
                     if drawing_modes["Face Mesh"]:
                         facemeshes = facemesh_estimation(for_streaming=True)
                         img = draw_facemesh(img, facemeshes)
+                if "body_landmarks" in vision_mode:
+                    if drawing_modes["Pose Landmarks"]:
+                        body_landmarks_coordinates = get_body_landmarks(
+                            for_streaming=True
+                        )
+                        img = draw_body_landmarks(img, body_landmarks_coordinates)
                 if "hand_landmarks" in vision_mode:
                     if drawing_modes["Hand Landmarks"]:
                         (
