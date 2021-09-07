@@ -1,3 +1,9 @@
+## This project is deprecated.  Please check out the new and improved CEP project
+
+https://github.com/cortictechnology/cep
+
+<br> <br>
+
 <div align="center">
     <img src="images/cait.png" width="50%">
 </div>
